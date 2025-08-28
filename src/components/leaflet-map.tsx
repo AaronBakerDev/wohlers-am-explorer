@@ -236,6 +236,11 @@ export default function LeafletMap({
   const clusterLayerRef = useRef<any>(null);
   const choroplethLayerRef = useRef<L.GeoJSON | null>(null);
   const onViewportChangeRef = useRef<((bbox: [number, number, number, number]) => void) | undefined>(undefined);
+  // Suppress viewport emits during programmatic map movements (e.g., fitBounds in effects)
+  const isProgrammaticMoveRef = useRef(false);
+  // Stable refs for function props to avoid effect reruns due to identity changes
+  const getMarkerColorRef = useRef(getMarkerColor);
+  const onCompanySelectRef = useRef(onCompanySelect);
   const [geoJsonData, setGeoJsonData] = useState<any>(null);
   const [isLoadingGeoData, setIsLoadingGeoData] = useState(false);
   const [clusterReady, setClusterReady] = useState(false);
@@ -336,6 +341,14 @@ export default function LeafletMap({
     onViewportChangeRef.current = onViewportChange;
   }, [onViewportChange]);
 
+  // Keep latest function props in refs to avoid rebuilding layers when only identities change
+  useEffect(() => {
+    getMarkerColorRef.current = getMarkerColor;
+  }, [getMarkerColor]);
+  useEffect(() => {
+    onCompanySelectRef.current = onCompanySelect;
+  }, [onCompanySelect]);
+
   // Initialize map (once)
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -372,6 +385,8 @@ export default function LeafletMap({
 
     // Emit bbox after move/zoom end (read latest callback from ref)
     const emit = () => {
+      // Skip emitting viewport changes when we're moving the map programmatically
+      if (isProgrammaticMoveRef.current) return;
       const cb = onViewportChangeRef.current;
       if (!cb) return;
       const bounds = map.getBounds();
@@ -613,10 +628,16 @@ export default function LeafletMap({
           onEachFeature: onEachFeature,
         }).addTo(mapRef.current!);
 
-        // Fit map to choropleth bounds
-        mapRef.current.fitBounds(choroplethLayerRef.current.getBounds(), {
-          padding: [20, 20],
-        });
+        // Fit map to choropleth bounds without triggering viewport emit
+        if (mapRef.current) {
+          isProgrammaticMoveRef.current = true;
+          mapRef.current.once("moveend", () => {
+            isProgrammaticMoveRef.current = false;
+          });
+          mapRef.current.fitBounds(choroplethLayerRef.current.getBounds(), {
+            padding: [20, 20],
+          });
+        }
       }
     } else {
       // Pin mode - show individual company markers (with clustering if available)
@@ -636,7 +657,7 @@ export default function LeafletMap({
       }
 
       validCompanies.forEach((company) => {
-        const color = getMarkerColor(company.type);
+        const color = getMarkerColorRef.current(company.type);
         const isSelected = selectedCompany?.id === company.id;
         const size = isSelected ? 25 : 20;
 
@@ -657,9 +678,8 @@ export default function LeafletMap({
           iconAnchor: [size / 2, size / 2],
         });
 
-        const marker = L.marker([company.lat!, company.lng!], { icon }).on(
-          "click",
-          () => onCompanySelect(company),
+        const marker = L.marker([company.lat!, company.lng!], { icon }).on("click", () =>
+          onCompanySelectRef.current(company),
         );
 
         if (clusterGroup) {
@@ -742,20 +762,24 @@ export default function LeafletMap({
 
       markersRef.current = markers;
 
-      // Fit bounds to show all markers
+      // Fit bounds to show all markers (suppress viewport emit to avoid loops)
       if (validCompanies.length > 0) {
         const group = new L.FeatureGroup(markers);
-        mapRef.current.fitBounds(group.getBounds(), {
-          padding: [20, 20],
-          maxZoom: 10,
-        });
+        if (mapRef.current) {
+          isProgrammaticMoveRef.current = true;
+          mapRef.current.once("moveend", () => {
+            isProgrammaticMoveRef.current = false;
+          });
+          mapRef.current.fitBounds(group.getBounds(), {
+            padding: [20, 20],
+            maxZoom: 10,
+          });
+        }
       }
     }
   }, [
     memoizedCompanies,
     selectedCompany,
-    getMarkerColor,
-    onCompanySelect,
     isHeatmapMode,
     memoizedStateData,
     geoJsonData,

@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { DATASET_CONFIGS } from '@/lib/config/datasets'
+import { LEGACY_DATASET_CONFIGS } from '@/lib/config/datasets'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { dataset: string } }
+  { params }: { params: Promise<{ dataset: string }> }
 ) {
   try {
-    const { dataset } = params
+    const { dataset } = await params
     const { searchParams } = new URL(request.url)
     
     // Get query parameters
@@ -18,14 +18,14 @@ export async function GET(
     const sortOrder = searchParams.get('sortOrder') || 'asc'
     
     // Validate dataset
-    if (!dataset || !(dataset in DATASET_CONFIGS)) {
+    if (!dataset || !(dataset in LEGACY_DATASET_CONFIGS)) {
       return NextResponse.json(
         { error: 'Invalid dataset specified' },
         { status: 400 }
       )
     }
 
-    const config = DATASET_CONFIGS[dataset as keyof typeof DATASET_CONFIGS]
+    const config = LEGACY_DATASET_CONFIGS[dataset as keyof typeof LEGACY_DATASET_CONFIGS]
     const supabase = await createClient()
 
     // Build query
@@ -90,23 +90,46 @@ export async function GET(
     const { count: totalCount } = await totalQuery
 
     // Transform data to CSV-like format for compatibility with existing UI
+    // Only return display columns to hide internal fields like id and created_at
+    const displayColumnIndices = config.displayColumns.map(displayCol => {
+      // Map display column back to actual column name
+      const columnIndex = config.columns.findIndex((col, idx) => {
+        // Skip id and created_at columns for display
+        if (col === 'id' || col === 'created_at') return false
+        return true
+      })
+      return columnIndex
+    }).filter(idx => idx !== -1)
+    
     const csvData = data ? [
       config.displayColumns, // Header row
-      ...data.map(row => 
-        config.columns.map(col => {
+      ...data.map(row => {
+        // Only include non-internal columns (skip id and created_at)
+        const displayData = []
+        let displayIndex = 0
+        
+        for (let i = 0; i < config.columns.length; i++) {
+          const col = config.columns[i]
+          if (col === 'id' || col === 'created_at') continue
+          
           const value = row[col]
           // Format numbers and dates appropriately
-          if (value === null || value === undefined) return ''
-          if (typeof value === 'number') {
+          if (value === null || value === undefined) {
+            displayData.push('')
+          } else if (typeof value === 'number') {
             // Format large numbers with commas
             if (col.includes('_usd') || col.includes('revenue')) {
-              return value.toLocaleString()
+              displayData.push(value.toLocaleString())
+            } else {
+              displayData.push(value.toString())
             }
-            return value.toString()
+          } else {
+            displayData.push(value.toString())
           }
-          return value.toString()
-        })
-      )
+          displayIndex++
+        }
+        return displayData
+      })
     ] : []
 
     return NextResponse.json({

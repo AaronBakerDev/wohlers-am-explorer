@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input'
 import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
-import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
+import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis } from 'recharts'
 import { MarketTotalsChart } from '@/components/market-data/MarketTotalsChart'
 import { MarketCountriesChart } from '@/components/market-data/MarketCountriesChart'
 
@@ -45,12 +45,12 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
   const { revenueIdx, nameIdx, segmentIdx } = useMemo(() => {
     switch (dataset) {
       case 'revenue-by-industry-2024':
-        // columns: ['industry', 'share_of_revenue_percent', 'revenue_usd', 'region', 'material']
+        // display columns: ['industry', 'share_of_revenue_percent', 'revenue_usd', 'region', 'material'] (id and created_at excluded)
         // Use industry as the display name, region as a segment-like grouping for filtering
-        return { revenueIdx: 2, nameIdx: 0, segmentIdx: 3 }
+        return { revenueIdx: 1, nameIdx: 0, segmentIdx: 3 }
       case 'am-market-revenue-2024':
       default:
-        // columns: ['revenue_usd', 'country', 'segment']
+        // display columns: ['revenue_usd', 'country', 'segment'] (id and created_at excluded)
         return { revenueIdx: 0, nameIdx: 1, segmentIdx: 2 }
     }
   }, [dataset])
@@ -209,8 +209,8 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Countries</SelectItem>
-                {uniqueCountries.map(country => (
-                  <SelectItem key={country} value={country}>{country}</SelectItem>
+                {uniqueCountries.filter(country => country && country.toString().trim()).map(country => (
+                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -221,8 +221,8 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Segments</SelectItem>
-                {uniqueSegments.map(segment => (
-                  <SelectItem key={segment} value={segment}>{segment}</SelectItem>
+                {uniqueSegments.filter(segment => segment && segment.toString().trim()).map(segment => (
+                  <SelectItem key={segment} value={segment.toString()}>{segment}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -468,8 +468,8 @@ export function InvestmentAnalysisLayout({ data, dataset }: MarketDataLayoutProp
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Years</SelectItem>
-                {Array.from(new Set(rows.map(row => row[0]))).map(year => (
-                  <SelectItem key={year} value={year}>{year}</SelectItem>
+                {Array.from(new Set(rows.map(row => row[0]).filter(year => year && year.toString().trim()))).map(year => (
+                  <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -480,8 +480,8 @@ export function InvestmentAnalysisLayout({ data, dataset }: MarketDataLayoutProp
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Countries</SelectItem>
-                {Array.from(new Set(rows.map(row => row[3]))).map(country => (
-                  <SelectItem key={country} value={country}>{country}</SelectItem>
+                {Array.from(new Set(rows.map(row => row[3]).filter(country => country && country.toString().trim()))).map(country => (
+                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -492,8 +492,8 @@ export function InvestmentAnalysisLayout({ data, dataset }: MarketDataLayoutProp
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Types</SelectItem>
-                {Array.from(new Set(rows.map(row => row[5]))).map(type => (
-                  <SelectItem key={type} value={type}>{type}</SelectItem>
+                {Array.from(new Set(rows.map(row => row[5]).filter(type => type && type.toString().trim()))).map(type => (
+                  <SelectItem key={type} value={type.toString()}>{type}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -626,8 +626,8 @@ export function MergerAcquisitionLayout({ data, dataset }: MarketDataLayoutProps
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Countries</SelectItem>
-                {Array.from(new Set(rows.map(row => row[4]))).map(country => (
-                  <SelectItem key={country} value={country}>{country}</SelectItem>
+                {Array.from(new Set(rows.map(row => row[4]).filter(country => country && country.toString().trim()))).map(country => (
+                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -704,6 +704,76 @@ export function PricingAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
   const headers = data[0] || []
   const rows = data.slice(1)
   
+  // State for filters
+  const [selectedProcess, setSelectedProcess] = useState<string>('all')
+  const [selectedMaterial, setSelectedMaterial] = useState<string>('all') 
+  const [selectedCountry, setSelectedCountry] = useState<string>('all')
+  const [selectedQuantity, setSelectedQuantity] = useState<string>('all')
+  const [searchTerm, setSearchTerm] = useState('')
+  
+  // Column indices based on display data (id and created_at are excluded):
+  // ['company_name', 'material_type', 'material', 'process', 'quantity', 'manufacturing_cost', 'day_ordered', 'delivery_date', 'lead_time', 'country', 'scattered_plot_info']
+  const companyIdx = 0
+  const materialTypeIdx = 1  
+  const materialIdx = 2
+  const processIdx = 3
+  const quantityIdx = 4
+  const costIdx = 5
+  const leadTimeIdx = 8
+  const countryIdx = 9
+  
+  // Filter data
+  const filteredRows = useMemo(() => {
+    return rows.filter(row => {
+      const matchesProcess = selectedProcess === 'all' || row[processIdx] === selectedProcess
+      const matchesMaterial = selectedMaterial === 'all' || row[materialIdx] === selectedMaterial
+      const matchesCountry = selectedCountry === 'all' || row[countryIdx] === selectedCountry
+      const matchesQuantity = selectedQuantity === 'all' || 
+        (selectedQuantity === '1' && parseInt(row[quantityIdx]) === 1) ||
+        (selectedQuantity === '1000' && parseInt(row[quantityIdx]) >= 1000)
+      const matchesSearch = searchTerm === '' || 
+        row[companyIdx]?.toLowerCase().includes(searchTerm.toLowerCase())
+      
+      return matchesProcess && matchesMaterial && matchesCountry && matchesQuantity && matchesSearch
+    })
+  }, [rows, selectedProcess, selectedMaterial, selectedCountry, selectedQuantity, searchTerm])
+  
+  // Prepare scatter plot data
+  const scatterData = filteredRows.map((row, index) => ({
+    x: parseInt(row[leadTimeIdx]) || 0, // Lead time (days)
+    y: parseFloat(row[costIdx]) || 0,   // Manufacturing cost ($USD)
+    country: row[countryIdx] || 'Unknown',
+    company: row[companyIdx] || 'Unknown',
+    process: row[processIdx] || 'Unknown',
+    material: row[materialIdx] || 'Unknown',
+    quantity: parseInt(row[quantityIdx]) || 0,
+    z: parseInt(row[quantityIdx]) || 1 // Size of dots
+  }))
+  
+  // Country colors
+  const countryColors = {
+    'U.S.': '#2563eb',      // Blue  
+    'China': '#dc2626',      // Red
+    'Germany': '#f59e0b',    // Orange/Yellow
+    'Japan': '#16a34a',      // Green
+    'UK': '#9333ea',         // Purple
+    'France': '#06b6d4',     // Cyan
+    'Italy': '#e11d48',      // Rose
+    'Canada': '#0891b2',     // Sky
+    'Netherlands': '#84cc16', // Lime
+    'Unknown': '#6b7280'     // Gray
+  }
+  
+  const getCountryColor = (country: string) => countryColors[country as keyof typeof countryColors] || '#6b7280'
+  
+  // Calculate averages for filtered data
+  const avgLeadTime = filteredRows.length > 0 
+    ? Math.round(filteredRows.reduce((sum, row) => sum + (parseInt(row[leadTimeIdx]) || 0), 0) / filteredRows.length)
+    : 0
+  const avgCost = filteredRows.length > 0
+    ? Math.round(filteredRows.reduce((sum, row) => sum + (parseFloat(row[costIdx]) || 0), 0) / filteredRows.length)
+    : 0
+  
   return (
     <div className="space-y-6">
       {/* Pricing Summary */}
@@ -714,107 +784,196 @@ export function PricingAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{rows.length}</div>
-            <p className="text-xs text-muted-foreground">Price quotes</p>
+            <div className="text-2xl font-bold">{filteredRows.length}</div>
+            <p className="text-xs text-muted-foreground">
+              {filteredRows.length !== rows.length ? `${rows.length} total, ${filteredRows.length} filtered` : 'Price quotes'}
+            </p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Processes</CardTitle>
-            <Building2 className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Avg Cost</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {new Set(rows.map(row => row[3] || '')).size}
-            </div>
-            <p className="text-xs text-muted-foreground">AM processes</p>
+            <div className="text-2xl font-bold">${avgCost.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground">Manufacturing cost</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Materials</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {new Set(rows.map(row => row[2] || '')).size}
-            </div>
-            <p className="text-xs text-muted-foreground">Material types</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Lead Time</CardTitle>
+            <CardTitle className="text-sm font-medium">Avg Lead Time</CardTitle>
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">5 days</div>
-            <p className="text-xs text-muted-foreground">Average lead time</p>
+            <div className="text-2xl font-bold">{avgLeadTime}</div>
+            <p className="text-xs text-muted-foreground">Days</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Countries</CardTitle>
+            <MapPin className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {new Set(filteredRows.map(row => row[countryIdx] || '')).size}
+            </div>
+            <p className="text-xs text-muted-foreground">Active markets</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Pricing Analysis Tools */}
+      {/* Filters */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <BarChart3 className="h-5 w-5" />
-            Pricing Analysis & Benchmarking
+            <Filter className="h-5 w-5" />
+            Filters & Analysis
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Process" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Processes</SelectItem>
-                {Array.from(new Set(rows.map(row => row[3]))).map(process => (
-                  <SelectItem key={process} value={process}>{process}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Material" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Materials</SelectItem>
-                {Array.from(new Set(rows.map(row => row[2]))).map(material => (
-                  <SelectItem key={material} value={material}>{material}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Select>
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
               <SelectTrigger>
                 <SelectValue placeholder="Country" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Countries</SelectItem>
-                {Array.from(new Set(rows.map(row => row[10]))).map(country => (
-                  <SelectItem key={country} value={country}>{country}</SelectItem>
+                {Array.from(new Set(rows.map(row => row[countryIdx]).filter(country => country && country.toString().trim()))).map(country => (
+                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
             
-            <Input placeholder="Search companies..." />
+            <Select value={selectedProcess} onValueChange={setSelectedProcess}>
+              <SelectTrigger>
+                <SelectValue placeholder="Process" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Processes</SelectItem>
+                {Array.from(new Set(rows.map(row => row[processIdx]).filter(process => process && process.toString().trim()))).map(process => (
+                  <SelectItem key={process} value={process.toString()}>{process}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             
-            <Button>
-              <TrendingUp className="h-4 w-4 mr-2" />
-              Cost vs Lead Time
+            <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
+              <SelectTrigger>
+                <SelectValue placeholder="Material" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Materials</SelectItem>
+                {Array.from(new Set(rows.map(row => row[materialIdx]).filter(material => material && material.toString().trim()))).map(material => (
+                  <SelectItem key={material} value={material.toString()}>{material}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            
+            <Select value={selectedQuantity} onValueChange={setSelectedQuantity}>
+              <SelectTrigger>
+                <SelectValue placeholder="Production Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Quantities</SelectItem>
+                <SelectItem value="1">1 Unit (Prototype)</SelectItem>
+                <SelectItem value="1000">1K+ Units (Production)</SelectItem>
+              </SelectContent>
+            </Select>
+            
+            <Input 
+              placeholder="Search companies..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            
+            <Button 
+              onClick={() => {
+                setSelectedCountry('all')
+                setSelectedProcess('all')
+                setSelectedMaterial('all') 
+                setSelectedQuantity('all')
+                setSearchTerm('')
+              }}
+              variant="outline"
+            >
+              Reset Filters
             </Button>
           </div>
-          
-          <Separator className="my-4" />
-          
-          <div className="text-sm text-muted-foreground">
-            <strong>Suggested Analysis:</strong> Scatter plot showing manufacturing cost vs delivery time with filters by Country, Process, Material, and Production type (1 unit vs 1K units)
+        </CardContent>
+      </Card>
+      
+      {/* Scatter Plot */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <TrendingUp className="h-5 w-5" />
+            Manufacturing Cost vs Lead Time
+          </CardTitle>
+          <p className="text-sm text-muted-foreground">
+            Scatter plot showing cost vs delivery time, colored by country. Larger dots indicate higher quantities.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="h-96 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ScatterChart>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis 
+                  dataKey="x" 
+                  type="number" 
+                  name="Lead Time"
+                  unit=" days"
+                  label={{ value: 'Lead Time (days)', position: 'insideBottom', offset: -5 }}
+                />
+                <YAxis 
+                  dataKey="y" 
+                  type="number" 
+                  name="Cost"
+                  unit=" USD"
+                  label={{ value: 'Manufacturing Cost ($USD)', angle: -90, position: 'insideLeft' }}
+                  tickFormatter={(value) => `$${value.toLocaleString()}`}
+                />
+                <Tooltip 
+                  formatter={(value, name) => [
+                    name === 'Cost' ? `$${value.toLocaleString()}` : value,
+                    name === 'Cost' ? 'Manufacturing Cost' : 'Lead Time'
+                  ]}
+                  labelFormatter={(label, payload) => {
+                    if (payload && payload[0]) {
+                      const data = payload[0].payload
+                      return `${data.company} (${data.country})`
+                    }
+                    return label
+                  }}
+                  contentStyle={{ 
+                    backgroundColor: 'white', 
+                    border: '1px solid #ccc',
+                    borderRadius: '6px'
+                  }}
+                />
+                {/* Group data points by country for different colors */}
+                {Object.entries(
+                  scatterData.reduce((acc, point) => {
+                    if (!acc[point.country]) acc[point.country] = []
+                    acc[point.country].push(point)
+                    return acc
+                  }, {} as Record<string, typeof scatterData>)
+                ).map(([country, points]) => (
+                  <Scatter
+                    key={country}
+                    name={country}
+                    data={points}
+                    fill={getCountryColor(country)}
+                    fillOpacity={0.7}
+                  />
+                ))}
+                <Legend />
+              </ScatterChart>
+            </ResponsiveContainer>
           </div>
         </CardContent>
       </Card>
@@ -939,8 +1098,8 @@ export function CompanyDirectoryLayout({ data, dataset }: MarketDataLayoutProps)
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Countries</SelectItem>
-                {Array.from(new Set(rows.map(row => row[2]))).map(country => (
-                  <SelectItem key={country} value={country}>{country}</SelectItem>
+                {Array.from(new Set(rows.map(row => row[2]).filter(country => country && country.toString().trim()))).map(country => (
+                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

@@ -116,7 +116,7 @@ export async function getCompany(
 }
 
 // New filtering queries for map functionality
-export async function getCompaniesWithFilters(options: {
+export async function getCompaniesWithMapFilters(options: {
   technologyIds?: string[];
   materialIds?: string[];
 }) {

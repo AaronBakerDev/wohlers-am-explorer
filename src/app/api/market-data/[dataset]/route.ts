@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { dataset: string } }
+  { params }: { params: Promise<{ dataset: string }> }
 ) {
   try {
-    const { dataset } = params
+    const { dataset } = await params
     const vendorUrl = new URL(request.url)
     vendorUrl.pathname = `/api/vendor-data/${dataset}`
 

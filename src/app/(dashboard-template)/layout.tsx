@@ -21,7 +21,8 @@ import {
   Shield,
   X,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  BarChart3
 } from "lucide-react"
 import Link from "next/link"
 
@@ -87,33 +88,7 @@ const marketData = [
     lastUpdated: '2024-12-08',
     hasVendorData: true
   },
-  {
-    id: 'company-information',
-    name: 'Company Information',
-    description: 'Detailed company profiles',
-    status: 'active',
-    dataPoints: '4,688 companies',
-    lastUpdated: '2024-12-05',
-    hasVendorData: true
-  },
-  {
-    id: 'company-roles',
-    name: 'Company Roles',
-    description: 'Company role categorization',
-    status: 'active',
-    dataPoints: '4,664 roles',
-    lastUpdated: '2024-12-03',
-    hasVendorData: true
-  },
-  {
-    id: 'directory',
-    name: 'Directory',
-    description: 'Figure and sheet directory',
-    status: 'active',
-    dataPoints: '92 entries',
-    lastUpdated: '2024-12-01',
-    hasVendorData: true
-  }
+  
 ]
 
 const focusReports = [
@@ -407,10 +382,11 @@ export default function DashboardLayout({
                       <h3 className="text-sm font-medium text-foreground">Market Data</h3>
                     </div>
                     <div className="space-y-2">
+
                       {/* Active Market Data */}
                       {marketData.filter(item => item.status === 'active').map((item) => {
                         const isAccessible = item.status === 'active'
-                        const href = `/market-data?dataset=${item.id}`
+                        const href = `/market-data/${item.id}`
 
                         return (
                           <Link
@@ -674,10 +650,11 @@ export default function DashboardLayout({
                   <h3 className="text-sm font-medium text-foreground">Market Data</h3>
                 </div>
                 <div className="space-y-2">
+
                   {/* Active Market Data */}
                   {marketData.filter(item => item.status === 'active').map((item) => {
                     const isAccessible = item.status === 'active'
-                    const href = `/market-data?dataset=${item.id}`
+                    const href = `/market-data/${item.id}`
 
                     return (
                       <div
