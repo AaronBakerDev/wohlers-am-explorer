@@ -14,6 +14,7 @@
     "data:migrate-vendor": "node scripts/run-vendor-migration.js",
     "data:system-matrix": "node scripts/normalize-system-mfrs.js",
     "migrate:unified": "node scripts/complete-unified-migration.js",
+    "import:companies": "node scripts/import-companies-unified.js",
     "setup:unified": "node scripts/setup-unified-schema.js", 
     "verify:unified": "node scripts/verify-unified-migration.js"
   },
