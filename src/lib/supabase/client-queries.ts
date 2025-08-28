@@ -284,61 +284,11 @@ export async function getCompaniesWithFilters(options: {
   const supabase = createClient()
   
   // Base query - get company summaries with filtering
-  let query = supabase
-    .from('company_summaries')
-    .select('*')
-  // Resolve technology IDs for process categories, if provided
-  let techIdsToFilter: string[] | undefined = options.technologyIds
-
-  if (options.processCategories?.length) {
-    const { data: techRows, error: techErr } = await supabase
-      .from('technologies')
-      .select('id, category')
-      .in('category', options.processCategories)
-    if (techErr) throw new Error(`Failed to resolve process categories: ${techErr.message}`)
-    const categoryIds = techRows?.map(r => r.id) ?? []
-    techIdsToFilter = [...new Set([...(techIdsToFilter ?? []), ...categoryIds])]
-  }
-
-  // If equipment-related filters are provided, filter companies by matching equipment rows first
-  if ((techIdsToFilter?.length) || (options.materialIds?.length)) {
-    // Get filtered company IDs first
-    let equipmentQuery = supabase
-      .from('equipment')
-      .select('company_id')
-    
-    if (techIdsToFilter?.length) {
-      equipmentQuery = equipmentQuery.in('technology_id', techIdsToFilter)
-    }
-    
-    if (options.materialIds?.length) {
-      equipmentQuery = equipmentQuery.in('material_id', options.materialIds)
-    }
-    
-    const { data: filteredCompanyIds, error: filterError } = await equipmentQuery
-    
-    if (filterError) {
-      throw new Error(`Failed to filter companies: ${filterError.message}`)
-    }
-    
-    const uniqueCompanyIds = [...new Set(filteredCompanyIds.map(item => item.company_id).filter(Boolean))]
-    
-    if (uniqueCompanyIds.length === 0) {
-      return []
-    }
-    
-    query = query.in('id', uniqueCompanyIds)
-  }
+  let query = supabase.from('company_summaries').select('*')
   // Apply company-level filters
-  if (options.sizeRanges?.length) {
-    query = query.in('employee_count_range', options.sizeRanges)
-  }
-  if (options.states?.length) {
-    query = query.in('state', options.states)
-  }
-  if (options.countries?.length) {
-    query = query.in('country', options.countries)
-  }
+  if (options.sizeRanges?.length) query = query.in('employee_count_range', options.sizeRanges)
+  if (options.states?.length) query = query.in('state', options.states)
+  if (options.countries?.length) query = query.in('country', options.countries)
   
   const { data, error } = await query.order('name', { ascending: true })
 
@@ -358,105 +308,30 @@ export async function getStateStatistics(options: {
   countries?: string[]
 }) {
   const supabase = createClient()
-  
-  // If no filters, get all companies
-  if (!options.technologyIds?.length && !options.materialIds?.length && !options.processCategories?.length) {
-    let base = supabase
-      .from('company_summaries')
-      .select('state, country, total_machines, id, employee_count_range')
-      .not('state', 'is', null)
-
-    if (options.sizeRanges?.length) base = base.in('employee_count_range', options.sizeRanges)
-    if (options.states?.length) base = base.in('state', options.states)
-    if (options.countries?.length) base = base.in('country', options.countries)
-
-    const { data: companies, error } = await base
-    
-    if (error) {
-      throw new Error(`Failed to fetch state statistics: ${error.message}`)
-    }
-    
-    // Aggregate by state
-    const stateStats = companies.reduce((acc, company) => {
-      const key = `${company.state}-${company.country}`
-      if (!acc[key]) {
-        acc[key] = {
-          state: company.state,
-          country: company.country,
-          company_count: 0,
-          total_machines: 0
-        }
-      }
-      acc[key].company_count += 1
-      acc[key].total_machines += company.total_machines || 0
-      return acc
-    }, {} as Record<string, { state: string; country: string; company_count: number; total_machines: number }>)
-    
-    return Object.values(stateStats)
-  }
-  
-  // Apply filters - get filtered company IDs first
-  let equipmentQuery = supabase
-    .from('equipment')
-    .select('company_id')
-  
-  let techIdsToFilter: string[] | undefined = options.technologyIds
-  if (options.processCategories?.length) {
-    const { data: techRows, error: techErr } = await supabase
-      .from('technologies')
-      .select('id, category')
-      .in('category', options.processCategories)
-    if (techErr) throw new Error(`Failed to resolve process categories: ${techErr.message}`)
-    const categoryIds = techRows?.map(r => r.id) ?? []
-    techIdsToFilter = [...new Set([...(techIdsToFilter ?? []), ...categoryIds])]
-  }
-
-  if (techIdsToFilter?.length) {
-    equipmentQuery = equipmentQuery.in('technology_id', techIdsToFilter)
-  }
-  
-  if (options.materialIds?.length) {
-    equipmentQuery = equipmentQuery.in('material_id', options.materialIds)
-  }
-  
-  const { data: filteredCompanyIds, error: filterError } = await equipmentQuery
-  
-  if (filterError) {
-    throw new Error(`Failed to filter for state statistics: ${filterError.message}`)
-  }
-  
-  const uniqueCompanyIds = [...new Set(filteredCompanyIds.map(item => item.company_id).filter(Boolean))]
-  
-  if (uniqueCompanyIds.length === 0) {
-    return []
-  }
-  
-  // Get company summaries for filtered companies only
-  let filteredQuery = supabase
+  // Use simplified flow against company_summaries; equipment FKs removed in new schema
+  let base = supabase
     .from('company_summaries')
     .select('state, country, total_machines, id, employee_count_range')
-    .in('id', uniqueCompanyIds)
     .not('state', 'is', null)
 
-  if (options.sizeRanges?.length) filteredQuery = filteredQuery.in('employee_count_range', options.sizeRanges)
-  if (options.states?.length) filteredQuery = filteredQuery.in('state', options.states)
-  if (options.countries?.length) filteredQuery = filteredQuery.in('country', options.countries)
+  if (options.sizeRanges?.length) base = base.in('employee_count_range', options.sizeRanges)
+  if (options.states?.length) base = base.in('state', options.states)
+  if (options.countries?.length) base = base.in('country', options.countries)
 
-  const { data: filteredCompanies, error: companiesError } = await filteredQuery
+  const { data: companies, error } = await base
   
-  if (companiesError) {
-    throw new Error(`Failed to fetch filtered companies for state statistics: ${companiesError.message}`)
+  if (error) {
+    throw new Error(`Failed to fetch state statistics: ${error.message}`)
   }
   
-  // Aggregate by state
-  const stateStats = filteredCompanies.reduce((acc, company) => {
+  const stateStats = (companies || []).reduce((acc, company) => {
     const key = `${company.state}-${company.country}`
     if (!acc[key]) {
       acc[key] = {
         state: company.state,
         country: company.country,
         company_count: 0,
-        total_machines: 0
+        total_machines: 0,
       }
     }
     acc[key].company_count += 1
@@ -668,26 +543,9 @@ export async function getDashboardAnalytics(filters?: {
       return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
     }
 
-    // Resolve tech/material driven company set if those filters are present
-    let filteredCompanyIdsForEquipFilters: string[] | null = null
-    if ((filters?.technologyIds?.length || filters?.materialIds?.length || filters?.processCategories?.length)) {
-      // Map process categories to technology IDs if provided
-      let techIdsToFilter = filters?.technologyIds ?? []
-      if (filters?.processCategories?.length) {
-        const { data: techRows, error: techErr } = await supabase
-          .from('technologies')
-          .select('id, category')
-          .in('category', filters.processCategories)
-        if (techErr) throw new Error(`Failed to resolve process categories: ${techErr.message}`)
-        techIdsToFilter = [...new Set([...(techIdsToFilter ?? []), ...((techRows ?? []).map(r => r.id))])]
-      }
-      let equipQ = supabase.from('equipment').select('company_id')
-      if (techIdsToFilter.length) equipQ = equipQ.in('technology_id', techIdsToFilter)
-      if (filters?.materialIds?.length) equipQ = equipQ.in('material_id', filters.materialIds)
-      const { data: equipCompanyRows, error: equipErr } = await equipQ
-      if (equipErr) throw new Error(`Failed to resolve equipment-driven companies: ${equipErr.message}`)
-      filteredCompanyIdsForEquipFilters = [...new Set((equipCompanyRows ?? []).map(r => r.company_id).filter(Boolean) as string[])]
-    }
+    // With the updated schema, equipment no longer references technologies/materials by ID.
+    // Skip narrowing analytics by those FK-based filters for now.
+    const filteredCompanyIdsForEquipFilters: string[] | null = null
 
     // Run all analytics queries in parallel
     const [
@@ -836,18 +694,13 @@ export async function getDashboardAnalytics(filters?: {
     }
 
     // Competitive landscape: Technology x Material Category segments (machines count)
-    let segQ = supabase
+    const { data: segRows } = await supabase
       .from('equipment')
-      .select('count, company_id, technologies ( name ), materials ( category )')
-    if (filteredCompanyIdsForEquipFilters && filteredCompanyIdsForEquipFilters.length > 0) segQ = segQ.in('company_id', filteredCompanyIdsForEquipFilters)
-    if (filters?.technologyIds?.length) segQ = segQ.in('technology_id', filters.technologyIds)
-    if (filters?.materialIds?.length) segQ = segQ.in('material_id', filters.materialIds)
-    const { data: segRows } = await segQ
+      .select('count, process, material')
     const segMap: Record<string, Record<string, number>> = {}
     ;(segRows ?? []).forEach((r: any) => {
-      const techName = Array.isArray(r.technologies) ? r.technologies[0]?.name : r.technologies?.name
-      const matCat = Array.isArray(r.materials) ? r.materials[0]?.category : r.materials?.category
-      if (!techName || !matCat) return
+      const techName = r.process || 'Unknown'
+      const matCat = r.material || 'Unknown'
       if (!segMap[techName]) segMap[techName] = {}
       segMap[techName][matCat] = (segMap[techName][matCat] || 0) + (r.count ?? 1)
     })
@@ -922,27 +775,10 @@ export async function getCompanyEquipmentBreakdown(companyId: string) {
   const supabase = createClient()
   
   try {
-    // Get equipment with technology and material details
+    // Get equipment using the updated schema (process/material as text fields)
     const { data: equipment, error } = await supabase
       .from('equipment')
-      .select(`
-        id,
-        count,
-        manufacturer,
-        model,
-        technology_id,
-        material_id,
-        technologies (
-          id,
-          name,
-          category
-        ),
-        materials (
-          id,
-          name,
-          category
-        )
-      `)
+      .select('id, count, manufacturer, model, process, material')
       .eq('company_id', companyId)
 
     if (error) {
@@ -956,39 +792,17 @@ export async function getCompanyEquipmentBreakdown(companyId: string) {
     equipment.forEach(item => {
       const count = item.count || 1
 
-      // Technology breakdown - check if technology_id exists and the join returned data
-      if (item.technology_id && item.technologies) {
-        // Handle both array and single object responses from Supabase joins
-        const tech = Array.isArray(item.technologies) ? item.technologies[0] : item.technologies
-        if (tech) {
-          const techId = tech.id
-          if (!technologyBreakdown[techId]) {
-            technologyBreakdown[techId] = {
-              name: tech.name,
-              count: 0,
-              category: tech.category || 'Other'
-            }
-          }
-          technologyBreakdown[techId].count += count
-        }
+      const proc = (item as any).process || 'Unknown'
+      if (!technologyBreakdown[proc]) {
+        technologyBreakdown[proc] = { name: proc, count: 0, category: 'Process' }
       }
+      technologyBreakdown[proc].count += count
 
-      // Material breakdown - check if material_id exists and the join returned data
-      if (item.material_id && item.materials) {
-        // Handle both array and single object responses from Supabase joins
-        const material = Array.isArray(item.materials) ? item.materials[0] : item.materials
-        if (material) {
-          const materialId = material.id
-          if (!materialBreakdown[materialId]) {
-            materialBreakdown[materialId] = {
-              name: material.name,
-              count: 0,
-              category: material.category || 'Other'
-            }
-          }
-          materialBreakdown[materialId].count += count
-        }
+      const mat = (item as any).material || 'Unknown'
+      if (!materialBreakdown[mat]) {
+        materialBreakdown[mat] = { name: mat, count: 0, category: 'Material' }
       }
+      materialBreakdown[mat].count += count
     })
 
     // Convert to arrays and sort

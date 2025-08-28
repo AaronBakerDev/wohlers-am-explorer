@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { isCsvMode } from '@/lib/datasource/config'
-import { getMarketTotalsCsv } from '@/lib/datasource/csv'
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,27 +11,6 @@ export async function GET(request: NextRequest) {
     const segment = searchParams.get('segment');
     const startYear = searchParams.get('startYear');
     const endYear = searchParams.get('endYear');
-
-    // CSV mode
-    if (isCsvMode()) {
-      const s = startYear ? parseInt(startYear) : undefined
-      const e = endYear ? parseInt(endYear) : undefined
-      const { data: chartData, segments } = getMarketTotalsCsv({ startYear: s, endYear: e, segment })
-      return NextResponse.json({
-        data: chartData,
-        segments,
-        raw: [],
-        metadata: {
-          totalRecords: chartData.length,
-          yearRange: {
-            min: Math.min(...(chartData.map((d: { year: number }) => d.year) || [2024])),
-            max: Math.max(...(chartData.map((d: { year: number }) => d.year) || [2024])),
-          },
-        },
-      }, {
-        headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' },
-      })
-    }
 
     // Supabase mode
     interface MarketDataItem {
@@ -61,6 +38,34 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to fetch market data' }, { status: 500 })
     }
     data = (rows || []) as any
+
+    // Fallback: if no rows in market_totals, try vendor_total_am_market_size
+    if (!data || data.length === 0) {
+      try {
+        let vq = supabase
+          .from('vendor_total_am_market_size')
+          .select('year, segment, revenue_usd')
+        if (year) {
+          vq = vq.eq('year', parseInt(year))
+        } else if (startYear && endYear) {
+          const s = parseInt(startYear)
+          const e = parseInt(endYear)
+          if (!Number.isNaN(s)) vq = vq.gte('year', s)
+          if (!Number.isNaN(e)) vq = vq.lte('year', e)
+        }
+        if (segment && segment !== 'all') vq = vq.eq('segment', segment)
+        const { data: vrows, error: verr } = await vq.order('year', { ascending: true })
+        if (!verr && vrows) {
+          data = (vrows as any[]).map((r) => ({
+            year: r.year,
+            segment: r.segment,
+            total_value: Number(r.revenue_usd) || 0,
+          }))
+        }
+      } catch (e) {
+        // ignore and continue with empty data
+      }
+    }
 
     // Group data by year for stacked chart
     // Note: mock data uses `value`; DB view uses `total_value`.

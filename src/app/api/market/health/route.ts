@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { isCsvMode, getDataRoot } from '@/lib/datasource/config'
-import fs from 'fs'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,44 +15,6 @@ export async function GET() {
       result.ok = false
       result.checks[name] = { ok: false, error: e instanceof Error ? e.message : String(e) }
     }
-  }
-
-  // CSV mode checks
-  if (isCsvMode()) {
-    await safe('files', async () => {
-      const root = getDataRoot()
-      const files = [
-        'Total_AM_market_size.json',
-        'AM_market_revenue_2024.json',
-        'Print_services_Pricing_data.json',
-      ]
-      const present = files.map((f) => ({ file: f, exists: fs.existsSync(`${root}/${f}`) }))
-      return { root, present }
-    })
-
-    await safe('market_totals', async () => {
-      const root = getDataRoot()
-      const raw = JSON.parse(fs.readFileSync(`${root}/Total_AM_market_size.json`, 'utf8'))
-      const years = Array.from(new Set(raw.map((r: { Year: number }) => r.Year))).sort()
-      const segments = Array.from(new Set(raw.map((r: { Segment: string }) => r.Segment))).sort()
-      return { rows: raw.length, yearRange: { min: years[0], max: years[years.length - 1] }, segments }
-    })
-
-    await safe('market_by_country_segment', async () => {
-      const root = getDataRoot()
-      const raw = JSON.parse(fs.readFileSync(`${root}/AM_market_revenue_2024.json`, 'utf8'))
-      const countries = Array.from(new Set(raw.map((r: { Country: string }) => r.Country))).sort()
-      const segments = Array.from(new Set(raw.map((r: { Segment: string }) => r.Segment))).sort()
-      return { rows: raw.length, latestYear: 2024, countries, segments }
-    })
-
-    await safe('pricing', async () => {
-      const root = getDataRoot()
-      const raw = JSON.parse(fs.readFileSync(`${root}/Print_services_Pricing_data.json`, 'utf8'))
-      return { quotes: raw.length, benchmarks: null }
-    })
-
-    return NextResponse.json(result, { headers: { 'Cache-Control': 'no-store' } })
   }
 
   // Supabase mode checks (defer client creation to avoid CSV-mode env requirements)

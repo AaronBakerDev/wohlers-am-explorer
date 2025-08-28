@@ -26,10 +26,10 @@ function normalizeCountType(v?: string | null): 'Exact' | 'Estimated' | 'Range' 
 
 export async function GET() {
   try {
-    // Read from local extracted vendor data JSON
+    // Read from local company data JSON
     const filePath = path.join(
       process.cwd(),
-      'docs/project-documents/04-data/extracted-vendor-data/COMPANY___Print_services_global.json'
+      'docs/project-documents/04-data/company-data/COMPANY___Print_services_global.json'
     )
     if (!fs.existsSync(filePath)) {
       return NextResponse.json(
@@ -45,15 +45,15 @@ export async function GET() {
         id: String(idx + 1),
         company_name: String(r['Company name'] || '').trim(),
         segment: String(r['Segment'] || '').trim(),
-        printer_manufacturer: String(r['Printer manufacturer'] || '').trim(),
-        printer_model: String(r['Printer model'] || '').trim(),
-        number_of_printers: Number(r['Number of printers'] || 0),
+        printer_manufacturer: String(r['Printer manufacturer'] || 'Unknown').trim(),
+        printer_model: String(r['Printer model'] || 'Unknown Model').trim(),
+        number_of_printers: Number(r['Number of printers'] || 1),
         count_type: normalizeCountType(r['Count type']),
-        process: String(r['Process'] || '').trim(),
+        process: String(r['Process'] || 'Unknown Process').trim(),
         material_type: String(r['Material type'] || '').trim(),
-        material_format: String(r['Material format'] || '').trim(),
+        material_format: String(r['Material format'] || 'Unknown Format').trim(),
         country: normCountry(r['Country']),
-        update_year: r['Update year'] ? Number(r['Update year']) : undefined,
+        update_year: r['Update year'] ? Number(r['Update year']) : new Date().getFullYear(),
         website: r['Website'] || undefined,
         headquarters_city: r['Headquarters'] || r['City'] || undefined,
         founded_year: r['Founded'] ? Number(r['Founded']) : undefined,

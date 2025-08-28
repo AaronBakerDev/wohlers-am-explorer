@@ -172,7 +172,7 @@ async function fetchCompaniesChunked(
   }
 
   // With specific IDs, chunk the .in() calls to avoid URL length limits
-  const CHUNK = 800
+  const CHUNK = 200 // reduced from 800 for better response times
   const items: Marker[] = []
   for (let i = 0; i < ids.length && items.length < limit; i += CHUNK) {
     const slice = ids.slice(i, i + CHUNK)

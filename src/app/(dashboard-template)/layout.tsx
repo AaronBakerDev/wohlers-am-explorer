@@ -26,6 +26,7 @@ import {
 import Link from "next/link"
 
 const generalReports = [
+  { id: 'wohlers-2026', name: 'Wohlers Report 2026', year: '2026', status: 'upcoming' },
   { id: 'wohlers-2025', name: 'Wohlers Report 2025', year: '2025', status: 'upcoming' },
   { id: 'wohlers-2024', name: 'Wohlers Report 2024', year: '2024', status: 'available' },
   { id: 'wohlers-2023', name: 'Wohlers Report 2023', year: '2023', status: 'available' }
@@ -33,20 +34,85 @@ const generalReports = [
 
 const marketData = [
   {
-    id: 'investment-trends',
-    name: 'Investment Trends',
-    description: 'Funding and investment analysis',
-    status: 'coming-soon',
-    dataPoints: '45 investments',
-    lastUpdated: '2024-12-15'
+    id: 'am-market-revenue-2024',
+    name: 'AM Market Revenue 2024',
+    description: 'Revenue data by country and segment',
+    status: 'active',
+    dataPoints: '193 records',
+    lastUpdated: '2024-12-20',
+    hasVendorData: true
   },
   {
-    id: 'market-revenue',
-    name: 'Revenue Analysis',
-    description: 'Market revenue by segment and region',
-    status: 'coming-soon',
-    dataPoints: '12 segments',
-    lastUpdated: '2024-12-10'
+    id: 'fundings-investments',
+    name: 'Fundings & Investments',
+    description: 'Investment rounds and funding data',
+    status: 'active',
+    dataPoints: '413 investments',
+    lastUpdated: '2024-12-18',
+    hasVendorData: true
+  },
+  {
+    id: 'mergers-acquisitions',
+    name: 'Mergers & Acquisitions',
+    description: 'M&A transactions in AM industry',
+    status: 'active',
+    dataPoints: '0+ deals',
+    lastUpdated: '2024-12-15',
+    hasVendorData: true
+  },
+  {
+    id: 'print-services-pricing',
+    name: 'Print Services Pricing',
+    description: 'Pricing data for AM services',
+    status: 'active',
+    dataPoints: '1,724 quotes',
+    lastUpdated: '2024-12-12',
+    hasVendorData: true
+  },
+  {
+    id: 'revenue-by-industry-2024',
+    name: 'Revenue by Industry 2024',
+    description: 'Industry segment revenue breakdown',
+    status: 'active',
+    dataPoints: '48 industries',
+    lastUpdated: '2024-12-10',
+    hasVendorData: true
+  },
+  {
+    id: 'total-am-market-size',
+    name: 'Total AM Market Size',
+    description: 'Market size forecasts and analysis',
+    status: 'active',
+    dataPoints: '205 metrics',
+    lastUpdated: '2024-12-08',
+    hasVendorData: true
+  },
+  {
+    id: 'company-information',
+    name: 'Company Information',
+    description: 'Detailed company profiles',
+    status: 'active',
+    dataPoints: '4,688 companies',
+    lastUpdated: '2024-12-05',
+    hasVendorData: true
+  },
+  {
+    id: 'company-roles',
+    name: 'Company Roles',
+    description: 'Company role categorization',
+    status: 'active',
+    dataPoints: '4,664 roles',
+    lastUpdated: '2024-12-03',
+    hasVendorData: true
+  },
+  {
+    id: 'directory',
+    name: 'Directory',
+    description: 'Figure and sheet directory',
+    status: 'active',
+    dataPoints: '92 entries',
+    lastUpdated: '2024-12-01',
+    hasVendorData: true
   }
 ]
 
@@ -54,17 +120,17 @@ const focusReports = [
   {
     id: 'am-systems-manufacturers',
     name: 'AM Systems Manufacturers',
-    description: 'Companies producing AM materials (metal vs non-metal)',
+    description: '89 manufacturers',
     status: 'active',
-    dataPoints: 'Distribution and listings',
+    dataPoints: '89 manufacturers',
     lastUpdated: '2024-12-15'
   },
   {
     id: 'print-services-global',
-    name: 'Print Services Global',
-    description: 'Global additive manufacturing print service providers',
+    name: 'prinitng services',
+    description: '312 service providers',
     status: 'active',
-    dataPoints: 'Service providers',
+    dataPoints: '312 service providers',
     lastUpdated: '2024-12-20'
   },
   { 
@@ -204,9 +270,9 @@ export default function DashboardLayout({
                 <div className="p-4 space-y-6">
                   {/* General Reports */}
                   <div>
-                    <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-2 mb-3">
                       <FileText className="h-4 w-4 text-muted-foreground" />
-                      <h3 className="text-sm font-medium text-foreground">General Reports</h3>
+                      <h3 className="text-sm font-medium text-foreground">Wohlers Report</h3>
                     </div>
                     <div className="space-y-2">
                       {/* Available Reports */}
@@ -291,16 +357,9 @@ export default function DashboardLayout({
                           >
                             <div className="flex items-center justify-between mb-1">
                               <span className="text-sm font-medium">{report.name}</span>
-                              {report.status === 'active' && (
-                                <Badge variant="default" className="text-xs">
-                                  <Database className="h-3 w-3 mr-1" />
-                                  Active
-                                </Badge>
-                              )}
                             </div>
                             <div className="flex items-center justify-between text-xs text-muted-foreground">
                               <span>{report.dataPoints}</span>
-                              <span>Updated {report.lastUpdated}</span>
                             </div>
                           </Link>
                         )
@@ -332,7 +391,6 @@ export default function DashboardLayout({
                                 </div>
                                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                                   <span>{report.dataPoints}</span>
-                                  <span>Updated {report.lastUpdated}</span>
                                 </div>
                               </div>
                             ))}
@@ -352,11 +410,7 @@ export default function DashboardLayout({
                       {/* Active Market Data */}
                       {marketData.filter(item => item.status === 'active').map((item) => {
                         const isAccessible = item.status === 'active'
-                        const href = item.id === 'market-insights'
-                          ? "/market-insights"
-                          : item.id === 'pricing-benchmarks'
-                          ? "/quotes-benchmark"
-                          : "#"
+                        const href = `/market-data?dataset=${item.id}`
 
                         return (
                           <Link
@@ -371,16 +425,15 @@ export default function DashboardLayout({
                           >
                             <div className="flex items-center justify-between mb-1">
                               <span className="text-sm font-medium">{item.name}</span>
-                              {item.status === 'active' && (
-                                <Badge variant="default" className="text-xs">
-                                  <Database className="h-3 w-3 mr-1" />
-                                  Active
+                              {item.hasVendorData && (
+                                <Badge variant="outline" className="text-xs">
+                                  <Database className="h-2 w-2 mr-1" />
+                                  Live
                                 </Badge>
                               )}
                             </div>
                             <div className="flex items-center justify-between text-xs text-muted-foreground">
                               <span>{item.dataPoints}</span>
-                              <span>Updated {item.lastUpdated}</span>
                             </div>
                           </Link>
                         )
@@ -482,7 +535,7 @@ export default function DashboardLayout({
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <FileText className="h-4 w-4 text-muted-foreground" />
-                  <h3 className="text-sm font-medium text-foreground">General Reports</h3>
+                  <h3 className="text-sm font-medium text-foreground">Wohlers Report</h3>
                 </div>
                 <div className="space-y-2">
                   {/* Available Reports */}
@@ -570,12 +623,6 @@ export default function DashboardLayout({
                           >
                             {report.name}
                           </Link>
-                          {report.status === 'active' && (
-                            <Badge variant="default" className="text-xs">
-                              <Database className="h-3 w-3 mr-1" />
-                              Active
-                            </Badge>
-                          )}
                         </div>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                           <span>{report.dataPoints}</span>
@@ -611,7 +658,6 @@ export default function DashboardLayout({
                             </div>
                             <div className="flex items-center justify-between text-xs text-muted-foreground">
                               <span>{report.dataPoints}</span>
-                              <span>Updated {report.lastUpdated}</span>
                             </div>
                           </div>
                         ))}
@@ -631,11 +677,7 @@ export default function DashboardLayout({
                   {/* Active Market Data */}
                   {marketData.filter(item => item.status === 'active').map((item) => {
                     const isAccessible = item.status === 'active'
-                    const href = item.id === 'market-insights'
-                      ? '/market-insights'
-                      : item.id === 'pricing-benchmarks'
-                      ? '/quotes-benchmark'
-                      : '#'
+                    const href = `/market-data?dataset=${item.id}`
 
                     return (
                       <div
@@ -653,10 +695,10 @@ export default function DashboardLayout({
                           >
                             {item.name}
                           </Link>
-                          {item.status === 'active' && (
-                            <Badge variant="default" className="text-xs">
-                              <Database className="h-3 w-3 mr-1" />
-                              Active
+                          {item.hasVendorData && (
+                            <Badge variant="outline" className="text-xs">
+                              <Database className="h-2 w-2 mr-1" />
+                              Live
                             </Badge>
                           )}
                         </div>

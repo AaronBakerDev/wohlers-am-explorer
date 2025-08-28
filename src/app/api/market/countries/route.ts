@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { isCsvMode } from '@/lib/datasource/config'
-import { getMarketCountriesCsv } from '@/lib/datasource/csv'
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,11 +11,6 @@ export async function GET(request: NextRequest) {
     const segment = searchParams.get('segment');
     const country = searchParams.get('country');
     const limit = searchParams.get('limit');
-
-    if (isCsvMode()) {
-      const payload = getMarketCountriesCsv({ year: parseInt(year), segment, country, limit: limit ? parseInt(limit) : undefined })
-      return NextResponse.json(payload, { headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' } })
-    }
 
     // Supabase mode
     let data: Array<{ country: string; segment: string; value: number; year: number }> = []
@@ -35,6 +28,45 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to fetch country data' }, { status: 500 })
     }
     data = rows || []
+
+    // Fallback: if no rows in market_by_country_segment, use vendor_am_market_revenue_2024
+    if (!data || data.length === 0) {
+      try {
+        let vq = supabase
+          .from('vendor_am_market_revenue_2024')
+          .select('country,segment,revenue_usd')
+        // vendor table is only for 2024; enforce that year
+        const parsedYear = parseInt(year)
+        if (parsedYear !== 2024) {
+          // return empty summary but valid shape if no matching year
+          return NextResponse.json({
+            data: [],
+            summary: {
+              year: parsedYear,
+              totalValue: 0,
+              totalCountries: 0,
+              totalSegments: 0,
+              topCountries: [],
+              bySegment: []
+            },
+            filters: { availableCountries: [], availableSegments: [] }
+          })
+        }
+        if (segment && segment !== 'all') vq = vq.eq('segment', segment)
+        if (country && country !== 'all') vq = vq.eq('country', country)
+        const { data: vrows, error: verr } = await vq
+        if (!verr && vrows) {
+          data = (vrows as any[]).map((r) => ({
+            year: 2024,
+            country: r.country,
+            segment: r.segment,
+            value: Number(r.revenue_usd) || 0,
+          }))
+        }
+      } catch (e) {
+        // ignore and continue with empty
+      }
+    }
 
     // Get summary statistics
     const totalValue = data?.reduce((sum, item) => sum + (item.value || 0), 0) || 0;

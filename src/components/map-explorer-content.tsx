@@ -82,7 +82,8 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
   const [materials, setMaterials] = useState<Material[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isHeatmapMode, setIsHeatmapMode] = useState(isCSVMode);
+  // Disable heatmap mode for global data (equipment, service, or global AM companies)
+  const [isHeatmapMode, setIsHeatmapMode] = useState(false);
   const [viewportBbox, setViewportBbox] = useState<
     [number, number, number, number] | null
   >(null);
@@ -142,8 +143,15 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
   useEffect(() => {
     async function loadHeatmap() {
       try {
-        // In CSV mode, use server endpoint; in Supabase mode, keep existing behavior
-        if (isCSVMode) {
+        // For equipment and service company types, use country-level data
+        if (companyType === 'equipment' || companyType === 'service') {
+          const res = await fetch(`/api/companies/country-heatmap?type=${companyType}`);
+          if (!res.ok)
+            throw new Error(`Failed to fetch country heatmap (${res.status})`);
+          const json = await res.json();
+          setStateData(json.data || []);
+        } else if (isCSVMode) {
+          // In CSV mode (now global), use server endpoint with global data
           const res = await fetch('/api/companies/heatmap');
           if (!res.ok)
             throw new Error(`Failed to fetch heatmap (${res.status})`);
@@ -168,10 +176,11 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
         }
       } catch (err) {
         console.error('Error loading heatmap data:', err);
+        setError(`Failed to load heatmap data: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     }
     loadHeatmap();
-  }, [memoizedFilters, isCSVMode]);
+  }, [memoizedFilters, isCSVMode, companyType]);
 
   // Compute heatmap legend buckets (quantiles) from current stateData
   useEffect(() => {
@@ -225,45 +234,36 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
   // Fetch map-visible companies from server when viewport or filters change (supabase mode only)
   useEffect(() => {
     if (isCSVMode) return; // disable pins in CSV mode
-    if (!viewportBbox || isHeatmapMode) return; // Only fetch in pin mode with known bbox
+    // All data is now global, so we don't need viewport restrictions
 
     const controller = new AbortController();
     async function fetchMapCompanies() {
       try {
-        // Resolve technology IDs from selected categories using loaded technologies
-        const categoryTechIds = memoizedFilters.processCategories.length
-          ? technologies
-              .filter((t) =>
-                memoizedFilters.processCategories.includes(t.category || '')
-              )
-              .map((t) => t.id)
-          : [];
-        const allTechIds = Array.from(
-          new Set([
-            ...(memoizedFilters.technologyIds || []),
-            ...categoryTechIds,
-          ])
-        );
-
+        let apiUrl = '';
         const params = new URLSearchParams();
-        params.set(
-          'bbox',
-          `${viewportBbox[0]},${viewportBbox[1]},${viewportBbox[2]},${viewportBbox[3]}`
-        );
-        if (searchQuery.trim()) params.set('q', searchQuery.trim());
-        if (companyType) params.set('type', companyType);
-        if (allTechIds.length) params.set('processIds', allTechIds.join(','));
-        if (memoizedFilters.materialIds.length)
-          params.set('materialIds', memoizedFilters.materialIds.join(','));
-        if (memoizedFilters.states.length)
-          params.set('states', memoizedFilters.states.join(','));
-        if (memoizedFilters.countries.length)
-          params.set('countries', memoizedFilters.countries.join(','));
-        if (memoizedFilters.sizeRanges.length)
-          params.set('sizeRanges', memoizedFilters.sizeRanges.join(','));
-        params.set('limit', '2000');
+        
+        if (companyType === 'equipment') {
+          // Use systems manufacturers API
+          apiUrl = '/api/companies/systems-manufacturers-map';
+          params.set('limit', '2000');
+        } else if (companyType === 'service') {
+          // Use print services API
+          apiUrl = '/api/companies/print-services-map';
+          params.set('limit', '2000');
+        } else {
+          // Default behavior: use global companies API (no viewport restriction needed)
+          apiUrl = '/api/companies/global-map';
+          params.set('limit', '2000');
+          
+          // Add search and filter parameters
+          if (searchQuery.trim()) params.set('q', searchQuery.trim());
+          if (memoizedFilters.states.length)
+            params.set('states', memoizedFilters.states.join(','));
+          if (memoizedFilters.countries.length)
+            params.set('countries', memoizedFilters.countries.join(','));
+        }
 
-        const res = await fetch(`/api/companies/map?${params.toString()}`, {
+        const res = await fetch(`${apiUrl}?${params.toString()}`, {
           signal: controller.signal,
         });
         if (!res.ok)
@@ -301,7 +301,7 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
     isHeatmapMode,
     technologies,
     isCSVMode,
-  , companyType]);
+    companyType]);
 
   // Apply search filter on top of technology/material filters
   const searchFilteredCompanies = useMemo(
@@ -411,19 +411,11 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
               <Label htmlFor='heatmap-toggle' className='text-sm'>
                 Pins
               </Label>
-              {isCSVMode ? (
-                <Badge variant='outline' className='text-[10px]'>CSV</Badge>
-              ) : (
-                <Switch
-                  id='heatmap-toggle'
-                  checked={isHeatmapMode}
-                  onCheckedChange={(v) => {
-                    setIsHeatmapMode((prev) => (prev === v ? prev : v));
-                  }}
-                />
-              )}
+              <Badge variant='outline' className='text-[10px]'>
+                Global
+              </Badge>
               <Label htmlFor='heatmap-toggle' className='text-sm'>
-                Heatmap
+                View
               </Label>
               <BarChart3 className='h-4 w-4 text-muted-foreground' />
             </div>

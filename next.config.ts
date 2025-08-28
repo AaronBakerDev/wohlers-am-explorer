@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
   
   // Force dynamic rendering to avoid prerendering issues
   output: 'standalone',
+  
+  // Performance optimizations
+  compress: true,
+  swcMinify: true,
 };
 
 export default nextConfig;

@@ -82,8 +82,8 @@ export default function AMSystemsManufacturersAnalytics() {
 
         const supabase = createClient()
         const { data, error } = await supabase
-          .from('am_systems_manufacturers' as any)
-          .select('id, company_name, segment, process, material_format, material_type, country, headquarters_city, founded_year, primary_market')
+          .from('vendor_am_systems_manufacturers' as any)
+          .select('id, company_name, segment, process, material_format, material_type, country')
           .limit(5000)
         if (error) throw new Error(error.message)
         setRows((data || []) as Row[])

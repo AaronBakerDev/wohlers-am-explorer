@@ -32,3 +32,14 @@
 ## Security Notes
 - Never commit `.env.local`. Rotate keys if accidentally exposed.
 - Auth is disabled in development; follow `AUTH.md` to re-enable before production.
+
+## Database Schema & Migrations
+- Vendor schema: the new vendor data schema mapping is implemented via the following migrations in `sql-migrations/`:
+  - [sql-migrations/010_vendor_data_schema_mapping.sql](sql-migrations/010_vendor_data_schema_mapping.sql)
+  - [sql-migrations/010_vendor_data_schema_mapping_part1.sql](sql-migrations/010_vendor_data_schema_mapping_part1.sql)
+  - [sql-migrations/010_vendor_data_schema_mapping_part2.sql](sql-migrations/010_vendor_data_schema_mapping_part2.sql)
+  - [sql-migrations/010_vendor_data_schema_mapping_part3.sql](sql-migrations/010_vendor_data_schema_mapping_part3.sql)
+  - [sql-migrations/010_vendor_data_schema_mapping_part4.sql](sql-migrations/010_vendor_data_schema_mapping_part4.sql)
+  - [sql-migrations/010_vendor_data_schema_mapping_part5.sql](sql-migrations/010_vendor_data_schema_mapping_part5.sql)
+- Folder: see all migrations under [sql-migrations/](sql-migrations/).
+- Status: for a summary of applied migrations and schema overview, see [sql-migrations/AGENTS.md](sql-migrations/AGENTS.md).

@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { isCsvMode } from '@/lib/datasource/config'
-import { getPricingCsv } from '@/lib/datasource/csv'
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,12 +11,6 @@ export async function GET(request: NextRequest) {
     const material = searchParams.get('material');
     const quantity = searchParams.get('quantity');
     const country = searchParams.get('country');
-
-    if (isCsvMode()) {
-      const qty = quantity ? parseInt(quantity) : undefined
-      const payload = getPricingCsv({ process, material, quantity: qty, country })
-      return NextResponse.json(payload, { headers: { 'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=86400' } })
-    }
 
     // Supabase mode
     let pricingQuery = supabase

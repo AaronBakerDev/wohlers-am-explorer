@@ -33,17 +33,6 @@ import {
   ArrowUp,
   ArrowDown
 } from "lucide-react"
-import { ChartExportButton } from '@/components/ChartExportButton'
-import {
-  BarChart as ReBarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts'
 
 // Type definitions
 type PrintServiceProvider = {
@@ -88,7 +77,6 @@ export default function PrintServicesGlobalContent() {
   const [filteredData, setFilteredData] = useState<PrintServiceProvider[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const chartRef = useRef<HTMLDivElement | null>(null)
   const [filters, setFilters] = useState<FilterState>({
     company_name: '',
     segment: '',
@@ -108,11 +96,6 @@ export default function PrintServicesGlobalContent() {
   type SortState = { key: SortKey, direction: 'asc' | 'desc' }
   const [sort, setSort] = useState<SortState>({ key: 'company_name', direction: 'asc' })
 
-  // Chart controls
-  type GroupBy = 'printer_manufacturer' | 'country' | 'process' | 'material_type'
-  type Metric = 'printers' | 'providers'
-  const [groupBy, setGroupBy] = useState<GroupBy>('printer_manufacturer')
-  const [metric, setMetric] = useState<Metric>('printers')
 
   // Sample data for development (fallback only)
   const sampleData: PrintServiceProvider[] = [
@@ -263,13 +246,11 @@ export default function PrintServicesGlobalContent() {
           }
         }
 
-        // Supabase mode
+        // Supabase mode - use the vendor_print_services_global table
         const supabase = createClient()
         const { data: rows, error } = await supabase
-          .from('print_services_global' as any)
-          .select(
-            'id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year, website, headquarters_city, founded_year, employee_count_range, services_offered, industries_served, certifications'
-          )
+          .from('vendor_print_services_global')
+          .select('*')
           .limit(5000)
         if (error) throw new Error(error.message)
         if (rows && rows.length) {
@@ -387,32 +368,6 @@ export default function PrintServicesGlobalContent() {
     updateYears: [...new Set(data.map(item => item.update_year))].filter(Boolean as any).sort((a, b) => b - a)
   }
 
-  // Chart data derived from current filteredData
-  const chartData = useMemo(() => {
-    const map: Record<string, { label: string; value: number }> = {}
-    for (const row of filteredData) {
-      const key = (row as any)[groupBy] as string
-      if (!key) continue
-      if (!map[key]) map[key] = { label: key, value: 0 }
-      if (metric === 'printers') map[key].value += Number(row.number_of_printers) || 0
-      else map[key].value += 1
-    }
-    return Object.values(map)
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 10)
-  }, [filteredData, groupBy, metric])
-
-  const handleBarClick = (label: string) => {
-    setFilters(prev => {
-      const next = { ...prev }
-      if (groupBy === 'printer_manufacturer') next.printer_manufacturer = prev.printer_manufacturer === label ? '' : label
-      if (groupBy === 'country') next.country = prev.country === label ? '' : label
-      if (groupBy === 'process') next.process = prev.process === label ? '' : label
-      if (groupBy === 'material_type') next.material_type = prev.material_type === label ? '' : label
-      return next
-    })
-  }
-
   // Calculate summary statistics
   const totalPrinters = filteredData.reduce((sum, item) => sum + item.number_of_printers, 0)
   const avgPrintersPerProvider = filteredData.length > 0 ? (totalPrinters / filteredData.length).toFixed(1) : '0'
@@ -507,53 +462,6 @@ export default function PrintServicesGlobalContent() {
           </Button>
         </div>
 
-        {/* Chart controls and visualization driven by current filters */}
-        <div className="mb-3 grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="text-xs text-muted-foreground flex items-center">Chart reflects filters. Click a bar to filter.</div>
-          <Select value={groupBy} onValueChange={(v) => setGroupBy(v as GroupBy)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Group By" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="printer_manufacturer">Group: Manufacturer</SelectItem>
-              <SelectItem value="country">Group: Country</SelectItem>
-              <SelectItem value="process">Group: Process</SelectItem>
-              <SelectItem value="material_type">Group: Material Type</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select value={metric} onValueChange={(v) => setMetric(v as Metric)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Metric" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="printers">Metric: Total Printers</SelectItem>
-              <SelectItem value="providers">Metric: Provider Count</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <Card className="mb-4">
-          <CardHeader className="pb-2 flex items-center justify-between">
-            <CardTitle className="text-sm">Top {chartData.length} by {groupBy.replace('_',' ')} ({metric === 'printers' ? 'total printers' : 'providers'})</CardTitle>
-            <ChartExportButton targetRef={chartRef} filenameBase={`print-services_${groupBy}_${metric}`} />
-          </CardHeader>
-          <CardContent>
-            <div ref={chartRef} className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <ReBarChart data={chartData} layout="vertical" margin={{ top: 8, right: 20, left: 22, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--muted)" />
-                  <XAxis type="number" tick={{ fill: 'var(--muted-foreground)', fontSize: 11 }} axisLine={{ stroke: 'var(--border)' }} />
-                  <YAxis type="category" dataKey="label" width={150} tick={{ fill: 'var(--muted-foreground)', fontSize: 11 }} axisLine={{ stroke: 'var(--border)' }} />
-                  <Tooltip formatter={(v: number) => [v, metric === 'printers' ? 'Printers' : 'Providers']} contentStyle={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8 }} />
-                  <Bar dataKey="value" radius={[0,4,4,0]}>
-                    {chartData.map((row, i) => (
-                      <Cell key={i} fill={metric === 'printers' ? 'var(--chart-4)' : 'var(--chart-2)'} cursor="pointer" onClick={() => handleBarClick(row.label)} />
-                    ))}
-                  </Bar>
-                </ReBarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 xl:grid-cols-8 gap-3">

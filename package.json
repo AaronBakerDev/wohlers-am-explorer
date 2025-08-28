@@ -10,6 +10,8 @@
     "test:e2e": "playwright test",
     "data:extract": "node scripts/extract-excel-sheets.js",
     "data:import": "node scripts/import-csv-data.js",
+    "data:import-vendor": "node scripts/import-vendor-csv-data.js",
+    "data:migrate-vendor": "node scripts/run-vendor-migration.js",
     "data:system-matrix": "node scripts/normalize-system-mfrs.js"
   },
   "dependencies": {

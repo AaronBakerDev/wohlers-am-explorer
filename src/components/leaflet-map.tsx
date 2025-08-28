@@ -112,7 +112,7 @@ interface CompanyMarker {
 }
 
 interface StateHeatmapData {
-  state: string;
+  state?: string;
   country: string;
   company_count: number;
   total_machines: number;

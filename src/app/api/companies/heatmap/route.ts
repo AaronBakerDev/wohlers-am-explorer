@@ -1,17 +1,10 @@
 import { NextResponse } from 'next/server'
-import { getHeatmapCsv } from '@/lib/datasource/csv'
-import { isCsvMode } from '@/lib/datasource/config'
 import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    if (isCsvMode()) {
-      const data = getHeatmapCsv()
-      return NextResponse.json({ data })
-    }
-
     // Supabase mode: aggregate company_summaries by state/country
     const supabase = await createClient()
     const { data: rows, error } = await supabase
@@ -34,4 +27,3 @@ export async function GET() {
     return NextResponse.json({ error: e instanceof Error ? e.message : 'Unexpected error' }, { status: 500 })
   }
 }
-

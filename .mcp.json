@@ -1,0 +1,28 @@
+{
+	"mcpServers": {
+		"supabase": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@supabase/mcp-server-supabase@latest",
+				"--project-ref=trxudkgkbhylmcnqaqmm"
+			],
+			"env": {
+				"SUPABASE_ACCESS_TOKEN": "sbp_d3ad6a0614a3be2ed4731343dec5d21dfd546e46"
+			}
+		},
+		"clickup-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@taazkareem/clickup-mcp-server@latest",
+				"--env",
+				"CLICKUP_API_KEY=pk_54523521_TYZNGS90M160YH7E3HD204SWF3VDWGCT",
+				"--env",
+				"CLICKUP_TEAM_ID=2637092"
+			]
+		}
+	}
+}

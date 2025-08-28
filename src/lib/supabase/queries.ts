@@ -44,20 +44,8 @@ export async function getCompaniesWithDetails(): Promise<CompanyWithDetails[]> {
         model,
         count,
         count_type,
-        technology_id,
-        material_id,
-        technologies (
-          id,
-          name,
-          category,
-          description
-        ),
-        materials (
-          id,
-          name,
-          category,
-          description
-        )
+        process,
+        material
       )
     `,
     )
@@ -102,20 +90,8 @@ export async function getCompany(
         model,
         count,
         count_type,
-        technology_id,
-        material_id,
-        technologies (
-          id,
-          name,
-          category,
-          description
-        ),
-        materials (
-          id,
-          name,
-          category,
-          description
-        )
+        process,
+        material
       )
     `,
     )

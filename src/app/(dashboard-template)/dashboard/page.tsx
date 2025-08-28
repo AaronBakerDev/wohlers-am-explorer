@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import NextDynamic from 'next/dynamic'
 import { Button } from "@/components/ui/button"
@@ -15,27 +15,42 @@ import {
   Database,
   Users,
   Globe,
-  RefreshCw
+  RefreshCw,
+  BarChart3
 } from "lucide-react"
 
-// Lazily load heavy tab content to reduce initial JS bundle
+// Lazily load heavy tab content to reduce initial JS bundle - with loading states
 const MapExplorerContent = NextDynamic(() => import('@/components/map-explorer-content'), {
   ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
 const DataTableContent = NextDynamic(() => import('@/components/data-table-content'), {
   ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
 const DirectoryContent = NextDynamic(() => import('@/components/directory-content'), {
   ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
 const SystemManufacturersMatrix = NextDynamic(() => import('@/components/system-manufacturers-matrix'), {
   ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
 const AMSystemsManufacturersContent = NextDynamic(() => import('@/components/am-systems-manufacturers-content'), {
   ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
+})
+const AMSystemsManufacturersAnalytics = NextDynamic(() => import('@/components/am-systems-manufacturers-analytics'), {
+  ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
 const PrintServicesGlobalContent = NextDynamic(() => import('@/components/print-services-global-content'), {
   ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
+})
+const PrintServicesGlobalAnalytics = NextDynamic(() => import('@/components/print-services-global-analytics'), {
+  ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
 // Feature flag: hide Saved Searches unless explicitly enabled
 import { ENABLE_SAVED_SEARCHES } from '@/lib/flags'
@@ -43,7 +58,7 @@ const SavedSearches = NextDynamic(() => import('@/components/SavedSearches'), {
   ssr: false,
 })
 
-type TabType = 'overview' | 'map' | 'table' | 'matrix' | 'directory'
+type TabType = 'overview' | 'map' | 'table' | 'matrix' | 'directory' | 'analytics'
 
 function DashboardContent() {
   const searchParams = useSearchParams()
@@ -52,12 +67,12 @@ function DashboardContent() {
   // Support deep-linking via ?tab=map|table|overview|directory|am-systems-manufacturers|print-services-global
   useEffect(() => {
     const tabParam = (searchParams.get('tab') || '').toLowerCase()
-    const allowed: TabType[] = ['overview', 'map', 'table', 'visualizations', 'matrix', 'directory']
+    const allowed: TabType[] = ['overview', 'map', 'table', 'visualizations', 'matrix', 'directory', 'analytics']
     if (allowed.includes(tabParam as TabType)) {
       setActiveTab(tabParam as TabType)
     } else if (tabParam === 'am-systems-manufacturers' || tabParam === 'print-services-global') {
-      // Company data cards deep-link to dataset; default to Table view
-      setActiveTab('table')
+      // Company data cards deep-link to dataset; default to Overview
+      setActiveTab('overview')
     }
   }, [searchParams])
 
@@ -75,16 +90,16 @@ function DashboardContent() {
   }
 
   const DATASETS: Record<string, ReportMetadata> = {
-    'am-companies-na': {
-      title: 'AM Companies in North America',
+    'am-companies-global': {
+      title: 'AM Companies Global',
       description:
-        'Comprehensive database and analysis of additive manufacturing companies across the United States and Canada. This report provides detailed insights into the geographic distribution, technology adoption, and market characteristics of the North American AM industry.',
+        'Comprehensive global database and analysis of additive manufacturing companies worldwide. This report provides detailed insights into the geographic distribution, technology adoption, and market characteristics of the global AM industry across all sectors including equipment manufacturers, service providers, software companies, and material suppliers.',
       dataSource: 'Wohlers Associates Research Database',
       lastUpdated: 'December 15, 2024',
-      totalCompanies: 156,
-      geographicCoverage: '35 states, 3 provinces',
+      totalCompanies: 450,
+      geographicCoverage: '65 countries worldwide',
       dataPoints: '1,200+ data points per company',
-      version: 'v2.1.0',
+      version: 'v3.0.0',
     },
     'am-systems-manufacturers': {
       title: 'AM Systems Manufacturers',
@@ -122,44 +137,46 @@ function DashboardContent() {
     } else if (tabParam === 'print-services-global') {
       return 'print-services-global'
     }
-    return 'am-companies-na'
+    return 'am-companies-global'
   }
   
   const datasetId = getDatasetId()
-  const reportMetadata = DATASETS[datasetId] ?? DATASETS['am-companies-na']
+  const reportMetadata = DATASETS[datasetId] ?? DATASETS['am-companies-global']
 
-  const tabs = [
-    {
-      id: 'overview' as TabType,
-      label: 'Overview',
-      icon: <Info className="h-4 w-4" />,
-      description: 'Report details and metadata'
-    },
-    {
-      id: 'map' as TabType,
-      label: 'Map View',
-      icon: <MapPin className="h-4 w-4" />,
-      description: 'Interactive geographic visualization'
-    },
-    {
-      id: 'table' as TabType,
-      label: 'Data Table',
-      icon: <Table className="h-4 w-4" />,
-      description: 'Detailed company listings and export'
-    },
-    {
-      id: 'matrix' as TabType,
-      label: 'System Matrix',
-      icon: <Database className="h-4 w-4" />,
-      description: 'AM system manufacturers by process and material'
-    },
-    {
-      id: 'directory' as TabType,
-      label: 'Directory',
-      icon: <Users className="h-4 w-4" />,
-      description: 'Company directory view'
+  const tabs = useMemo(() => {
+    const baseTabs = [
+      {
+        id: 'overview' as TabType,
+        label: 'Overview',
+        icon: <Info className="h-4 w-4" />,
+        description: 'Report details and metadata'
+      },
+      {
+        id: 'map' as TabType,
+        label: 'Map View',
+        icon: <MapPin className="h-4 w-4" />,
+        description: 'Interactive geographic visualization'
+      },
+      {
+        id: 'table' as TabType,
+        label: 'Data Table',
+        icon: <Table className="h-4 w-4" />,
+        description: 'Detailed company listings and export'
+      }
+    ]
+
+    // Add analytics tab for AM Systems Manufacturers and Print Services Global
+    if (datasetId === 'am-systems-manufacturers' || datasetId === 'print-services-global') {
+      baseTabs.push({
+        id: 'analytics' as TabType,
+        label: 'Analytics',
+        icon: <BarChart3 className="h-4 w-4" />,
+        description: 'Data visualization and insights'
+      })
     }
-  ]
+
+    return baseTabs
+  }, [datasetId])
 
   const renderTabContent = () => {
     // Special handling for AM Systems Manufacturers dataset
@@ -171,7 +188,8 @@ function DashboardContent() {
           return <MapExplorerContent companyType="equipment" />
         case 'table':
           return <AMSystemsManufacturersContent />
-        // charts/analytics are disabled in this dataset view
+        case 'analytics':
+          return <AMSystemsManufacturersAnalytics />
         case 'matrix':
           return <SystemManufacturersMatrix />
         default:
@@ -183,13 +201,13 @@ function DashboardContent() {
     if (datasetId === 'print-services-global') {
       switch (activeTab) {
         case 'overview':
-          // Analytics component removed per request; show standard overview only
           return <OverviewContent reportMetadata={reportMetadata} />
         case 'map':
           return <MapExplorerContent companyType="service" />
         case 'table':
           return <PrintServicesGlobalContent />
-        // charts/analytics are disabled in this dataset view
+        case 'analytics':
+          return <PrintServicesGlobalAnalytics />
         default:
           return <PrintServicesGlobalContent />
       }

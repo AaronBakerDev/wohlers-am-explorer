@@ -67,11 +67,11 @@ export default async function CompanyProfilePage(props: CompanyProfilePageProps)
   const uniqueMaterials = new Set<string>();
   const uniqueManufacturers = new Set<string>();
   for (const e of company.equipment || []) {
-    if ((e as { technologies?: { name: string } }).technologies?.name)
-      uniqueProcesses.add((e as { technologies: { name: string } }).technologies.name);
-    if ((e as { materials?: { name: string } }).materials?.name)
-      uniqueMaterials.add((e as { materials: { name: string } }).materials.name);
-    if (e.manufacturer) uniqueManufacturers.add(e.manufacturer);
+    const proc = (e as any)?.process as string | undefined
+    const mat = (e as any)?.material as string | undefined
+    if (proc) uniqueProcesses.add(proc)
+    if (mat) uniqueMaterials.add(mat)
+    if ((e as any).manufacturer) uniqueManufacturers.add((e as any).manufacturer as string)
   }
 
   // Funding aggregates

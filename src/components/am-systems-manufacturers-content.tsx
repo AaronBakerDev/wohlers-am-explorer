@@ -177,9 +177,9 @@ export default function AMSystemsManufacturersContent() {
         // Supabase mode
         const supabase = createClient()
         const { data: rows, error } = await supabase
-          .from('am_systems_manufacturers' as any)
+          .from('vendor_am_systems_manufacturers' as any)
           .select(
-            'id, company_name, segment, process, material_format, material_type, country, website, headquarters_city, founded_year, employee_count_range, annual_revenue_range, primary_market'
+            'id, company_name, segment, process, material_format, material_type, country'
           )
           .limit(5000)
         if (error) throw new Error(error.message)
@@ -215,7 +215,6 @@ export default function AMSystemsManufacturersContent() {
       filtered = filtered.filter(item => 
         item.company_name.toLowerCase().includes(searchLower) ||
         item.country.toLowerCase().includes(searchLower) ||
-        item.headquarters_city?.toLowerCase().includes(searchLower) ||
         item.primary_market?.toLowerCase().includes(searchLower)
       )
     }
@@ -279,7 +278,7 @@ export default function AMSystemsManufacturersContent() {
 
   const handleExport = () => {
     // Convert to CSV
-    const headers = ['Company Name', 'Segment', 'Process', 'Material Format', 'Material Type', 'Country', 'City', 'Founded', 'Primary Market']
+    const headers = ['Company Name', 'Segment', 'Process', 'Material Format', 'Material Type', 'Country']
     const csvData = [
       headers,
       ...filteredData.map(item => [
@@ -288,10 +287,7 @@ export default function AMSystemsManufacturersContent() {
         item.process,
         item.material_format,
         item.material_type,
-        item.country,
-        item.headquarters_city || '',
-        item.founded_year?.toString() || '',
-        item.primary_market || ''
+        item.country
       ])
     ]
     
@@ -448,9 +444,6 @@ export default function AMSystemsManufacturersContent() {
               <TableHead onClick={() => toggleSort('country')} className="cursor-pointer select-none">
                 <div className="inline-flex items-center">Country<SortIndicator column="country" /></div>
               </TableHead>
-              <TableHead>City</TableHead>
-              <TableHead>Founded</TableHead>
-              <TableHead>Primary Market</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -498,13 +491,6 @@ export default function AMSystemsManufacturersContent() {
                   <Globe className="h-3 w-3 text-muted-foreground" />
                   {manufacturer.country}
                 </TableCell>
-                <TableCell className="text-muted-foreground">
-                  {manufacturer.headquarters_city}
-                </TableCell>
-                <TableCell className="text-muted-foreground">
-                  {manufacturer.founded_year}
-                </TableCell>
-                <TableCell className="text-sm">{manufacturer.primary_market}</TableCell>
               </TableRow>
             ))}
           </TableBody>

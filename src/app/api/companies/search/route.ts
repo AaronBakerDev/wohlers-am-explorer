@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { isCsvMode } from "@/lib/datasource/config";
-import { getDirectoryCompaniesCsv } from "@/lib/datasource/csv";
 
 // very small, in-memory cache (per process) — TTL based
 type CacheEntry = { ts: number; payload: unknown };
@@ -70,7 +68,7 @@ function cacheKeyFromRequest(req: NextRequest) {
  * }
  */
 
-const MAX_SCAN = 5000; // cap to avoid scanning too many rows server-side
+const MAX_SCAN = 1000; // reduced from 5000 to improve performance
 const MAX_PER_PAGE = 100;
 
 function parseBool(v: string | null): boolean | null {
@@ -82,62 +80,6 @@ function parseBool(v: string | null): boolean | null {
 }
 
 export async function GET(req: NextRequest) {
-  // CSV mode: serve from normalized CSV adapter
-  if (isCsvMode()) {
-    const url = new URL(req.url);
-    const q = (url.searchParams.get("q") || "").trim().toLowerCase();
-    const type = (url.searchParams.get("type") || "").trim().toLowerCase();
-    const country = (url.searchParams.get("country") || "").trim();
-    const hasFundingParam = url.searchParams.get("hasFunding");
-    const minFundingRaw = url.searchParams.get("minFunding") ?? url.searchParams.get("minRevenue");
-    const hasFunding = hasFundingParam != null ? hasFundingParam.trim().toLowerCase() === 'true' : null;
-    const minFunding = minFundingRaw != null && minFundingRaw.trim() !== '' ? Number(minFundingRaw) : null;
-
-    const page = Math.max(1, Number(url.searchParams.get("page") || 1));
-    const perPage = Math.min(100, Math.max(1, Number(url.searchParams.get("perPage") || 20)));
-
-    const all = getDirectoryCompaniesCsv();
-
-    let filtered = all;
-    if (q) {
-      filtered = filtered.filter((c) =>
-        c.name.toLowerCase().includes(q) ||
-        (c.city || '').toLowerCase().includes(q) ||
-        (c.state || '').toLowerCase().includes(q) ||
-        (c.country || '').toLowerCase().includes(q) ||
-        (c.company_type || '').toLowerCase().includes(q)
-      );
-    }
-    if (type) {
-      filtered = filtered.filter((c) => (c.company_type || '').toLowerCase() === type);
-    }
-    if (country) {
-      filtered = filtered.filter((c) => (c.country || '') === country);
-    }
-    if (hasFunding != null) {
-      filtered = filtered.filter((c) => {
-        const has = (c.funding?.rounds || 0) > 0;
-        return hasFunding ? has : !has;
-      });
-    }
-    if (minFunding != null && !Number.isNaN(minFunding)) {
-      filtered = filtered.filter((c) => (c.funding?.totalMillions || 0) >= (minFunding as number));
-    }
-
-    const total = filtered.length;
-    const start = (page - 1) * perPage;
-    const items = filtered.slice(start, start + perPage);
-
-    return NextResponse.json({
-      data: {
-        items,
-        page,
-        perPage,
-        total,
-      },
-    });
-  }
-
   // serve from cache if fresh
   const key = cacheKeyFromRequest(req);
   const hit = SEARCH_CACHE.get(key);
@@ -217,17 +159,19 @@ export async function GET(req: NextRequest) {
     }
 
     // Step 2: Funding aggregation (client-side), only if funding filters or aggregates needed.
-    // We always compute aggregates because the UI expects them in the response.
-    // Fetch investments for candidate IDs and aggregate rounds, total, lastYear.
+    // Skip expensive funding queries when no funding filters are applied
+    const needsFunding = hasFunding !== null || (minFunding !== null && !Number.isNaN(minFunding));
     const fundingAgg = new Map<
       string,
       { rounds: number; totalMillions: number; lastYear: number | null }
     >();
 
-    // Fetch in chunks to avoid URL length/response size issues
-    // Reduced chunk size to avoid 414 Request-URI Too Large errors
-    const CHUNK = 100;
-    for (let i = 0; i < baseIds.length; i += CHUNK) {
+    // Only fetch funding data if needed for filtering or if requested
+    if (needsFunding) {
+      // Fetch in chunks to avoid URL length/response size issues
+      // Reduced chunk size to avoid 414 Request-URI Too Large errors
+      const CHUNK = 100;
+      for (let i = 0; i < baseIds.length; i += CHUNK) {
       const chunkIds = baseIds.slice(i, i + CHUNK);
 
       const { data: invRows, error: invErr } = await supabase
@@ -262,6 +206,7 @@ export async function GET(req: NextRequest) {
           agg.lastYear = year;
         }
         fundingAgg.set(cid, agg);
+      }
       }
     }
 
