@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useRef } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -21,6 +22,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem
+} from "@/components/ui/dropdown-menu"
 import { 
   Search,
   PrinterIcon,
@@ -31,8 +39,12 @@ import {
   Calendar,
   ArrowUpDown,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  Info,
+  ChevronDown
 } from "lucide-react"
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 // Type definitions
 type PrintServiceProvider = {
@@ -77,20 +89,25 @@ export default function PrintServicesGlobalContent() {
   const [filteredData, setFilteredData] = useState<PrintServiceProvider[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [filters, setFilters] = useState<FilterState>({
-    company_name: '',
-    segment: '',
-    printer_manufacturer: '',
-    printer_model: '',
-    number_of_printers_min: '',
-    number_of_printers_max: '',
-    count_type: '',
-    process: '',
-    material_type: '',
-    material_format: '',
-    country: '',
-    update_year: ''
-  })
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+  const initialFilters: FilterState = useMemo(() => ({
+    company_name: (searchParams?.get('company_name') || '').toString(),
+    segment: (searchParams?.get('segment') || 'all').toString(),
+    printer_manufacturer: (searchParams?.get('manufacturer') || 'all').toString(),
+    printer_model: (searchParams?.get('model') || 'all').toString(),
+    number_of_printers_min: (searchParams?.get('min_printers') || '').toString(),
+    number_of_printers_max: (searchParams?.get('max_printers') || '').toString(),
+    count_type: (searchParams?.get('count_type') || 'all').toString(),
+    process: (searchParams?.get('process') || 'all').toString(),
+    material_type: (searchParams?.get('material_type') || 'all').toString(),
+    material_format: (searchParams?.get('material_format') || 'all').toString(),
+    country: (searchParams?.get('country') || 'all').toString(),
+    update_year: (searchParams?.get('update_year') || 'all').toString(),
+  }), [searchParams])
+  const [filters, setFilters] = useState<FilterState>(initialFilters)
+  const debouncedCompany = useDebouncedValue(filters.company_name, 300)
 
   type SortKey = 'company_name' | 'segment' | 'printer_manufacturer' | 'printer_model' | 'number_of_printers' | 'count_type' | 'process' | 'material_type' | 'material_format' | 'country' | 'update_year'
   type SortState = { key: SortKey, direction: 'asc' | 'desc' }
@@ -284,13 +301,41 @@ export default function PrintServicesGlobalContent() {
     load()
   }, [])
 
+  // Sync filters to URL (omit defaults/empties for cleanliness) with change guard
+  const lastQueryRef = useRef<string | null>(null)
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    const setOrDelete = (key: string, val: string) => {
+      const v = (val || '').trim()
+      if (!v || v === 'all') url.searchParams.delete(key)
+      else url.searchParams.set(key, v)
+    }
+    setOrDelete('company_name', filters.company_name)
+    setOrDelete('segment', filters.segment)
+    setOrDelete('manufacturer', filters.printer_manufacturer)
+    setOrDelete('model', filters.printer_model)
+    setOrDelete('min_printers', filters.number_of_printers_min)
+    setOrDelete('max_printers', filters.number_of_printers_max)
+    setOrDelete('count_type', filters.count_type)
+    setOrDelete('process', filters.process)
+    setOrDelete('material_type', filters.material_type)
+    setOrDelete('material_format', filters.material_format)
+    setOrDelete('country', filters.country)
+    setOrDelete('update_year', filters.update_year)
+    const next = `${pathname}?${url.searchParams.toString()}`
+    if (lastQueryRef.current !== next) {
+      lastQueryRef.current = next
+      router.replace(next)
+    }
+  }, [filters, router, pathname])
+
   // Apply filters
   useEffect(() => {
     let filtered = data
 
     // Company name filter
-    if (filters.company_name) {
-      const nameLower = filters.company_name.toLowerCase()
+    if (debouncedCompany) {
+      const nameLower = debouncedCompany.toLowerCase()
       filtered = filtered.filter(item => item.company_name.toLowerCase().includes(nameLower))
     }
 
@@ -350,7 +395,7 @@ export default function PrintServicesGlobalContent() {
       return 0
     })
     setFilteredData(sorted)
-  }, [filters, data, sort])
+  }, [filters, data, sort, debouncedCompany])
 
   // Get unique values for filter dropdowns
   const uniq = (arr: (string | null | undefined)[]) =>
@@ -366,6 +411,91 @@ export default function PrintServicesGlobalContent() {
     materialFormats: uniq(data.map(item => item.material_format)),
     countries: uniq(data.map(item => item.country)),
     updateYears: [...new Set(data.map(item => item.update_year))].filter(Boolean as any).sort((a, b) => b - a)
+  }
+
+  // Dependent: models for currently selected manufacturer (if any)
+  const modelsForManufacturer = useMemo(() => {
+    if (!filters.printer_manufacturer || filters.printer_manufacturer === 'all') return uniqueValues.models
+    return uniq(
+      data
+        .filter(d => d.printer_manufacturer === filters.printer_manufacturer)
+        .map(d => d.printer_model)
+    )
+  }, [filters.printer_manufacturer, data])
+
+  const activeFilterCount = useMemo(() => {
+    const entries: Array<[keyof FilterState, string]> = Object.entries(filters) as any
+    return entries.reduce((acc, [, v]) => acc + ((v && v !== 'all') ? 1 : 0), 0)
+  }, [filters])
+
+  const clearFilters = () => {
+    setFilters({
+      company_name: '',
+      segment: 'all',
+      printer_manufacturer: 'all',
+      printer_model: 'all',
+      number_of_printers_min: '',
+      number_of_printers_max: '',
+      count_type: 'all',
+      process: 'all',
+      material_type: 'all',
+      material_format: 'all',
+      country: 'all',
+      update_year: 'all'
+    })
+  }
+
+  // Lightweight searchable dropdown using DropdownMenu + Input
+  function SearchableDropdown({
+    label,
+    options,
+    value,
+    onChange,
+    disabled = false,
+    className = '',
+  }: {
+    label: string
+    options: string[]
+    value: string
+    onChange: (v: string) => void
+    disabled?: boolean
+    className?: string
+  }) {
+    const [open, setOpen] = useState(false)
+    const [query, setQuery] = useState('')
+    const filtered = useMemo(() => {
+      const q = query.trim().toLowerCase()
+      const opts = ['all', ...options]
+      if (!q) return opts
+      return opts.filter(o => (o === 'all' ? 'all' : o).toLowerCase().includes(q))
+    }, [options, query])
+    const display = value === 'all' ? `All ${label}` : value
+    return (
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" className={`justify-between ${className}`} disabled={disabled}>
+            <span className="truncate max-w-[180px] text-left">{display || label}</span>
+            <ChevronDown className="ml-2 h-4 w-4 opacity-60" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56 p-0">
+          <div className="p-2 border-b border-border">
+            <Input
+              placeholder={`Search ${label.toLowerCase()}...`}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="h-8"
+            />
+          </div>
+          <DropdownMenuRadioGroup value={value} onValueChange={(v) => { onChange(v); setOpen(false) }}>
+            <DropdownMenuRadioItem value="all">All {label}</DropdownMenuRadioItem>
+            {filtered.filter(v => v !== 'all').map((opt) => (
+              <DropdownMenuRadioItem key={opt} value={opt}>{opt}</DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
   }
 
   // Calculate summary statistics
@@ -427,7 +557,7 @@ export default function PrintServicesGlobalContent() {
       <div className="h-full flex items-center justify-center">
         <div className="flex items-center gap-2 text-muted-foreground">
           <RefreshCw className="h-4 w-4 animate-spin" />
-          Loading Print Services Global data...
+          Loading Global Printing Services data...
         </div>
       </div>
     )
@@ -451,7 +581,7 @@ export default function PrintServicesGlobalContent() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <PrinterIcon className="h-5 w-5 text-primary" />
-            <h2 className="text-lg font-semibold">Print Services Global</h2>
+            <h2 className="text-lg font-semibold">Global Printing Services</h2>
             <Badge variant="secondary">{filteredData.length} providers</Badge>
             <Badge variant="outline">{totalPrinters} printers</Badge>
             <Badge variant="outline">Avg: {avgPrintersPerProvider} per provider</Badge>
@@ -461,10 +591,8 @@ export default function PrintServicesGlobalContent() {
             Export CSV
           </Button>
         </div>
-
-
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 xl:grid-cols-8 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 xl:grid-cols-8 gap-3 items-center">
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
@@ -477,7 +605,7 @@ export default function PrintServicesGlobalContent() {
 
           <Select value={filters.segment} onValueChange={(value) => setFilters(prev => ({ ...prev, segment: value }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Segment" />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Segments</SelectItem>
@@ -487,62 +615,70 @@ export default function PrintServicesGlobalContent() {
             </SelectContent>
           </Select>
 
-          <Select value={filters.printer_manufacturer} onValueChange={(value) => setFilters(prev => ({ ...prev, printer_manufacturer: value }))}>
-            <SelectTrigger>
-              <SelectValue placeholder="Manufacturer" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Manufacturers</SelectItem>
-              {uniqueValues.manufacturers.map(manufacturer => (
-                <SelectItem key={manufacturer} value={manufacturer}>{manufacturer}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <SearchableDropdown
+            label="Manufacturers"
+            options={uniqueValues.manufacturers}
+            value={filters.printer_manufacturer}
+            onChange={(value) => setFilters(prev => ({ ...prev, printer_manufacturer: value, printer_model: 'all' }))}
+            className="h-10"
+          />
 
-          <Select value={filters.printer_model} onValueChange={(value) => setFilters(prev => ({ ...prev, printer_model: value }))}>
-            <SelectTrigger>
-              <SelectValue placeholder="Printer Model" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Models</SelectItem>
-              {uniqueValues.models.map(model => (
-                <SelectItem key={model} value={model}>{model}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <SearchableDropdown
+            label="Models"
+            options={modelsForManufacturer}
+            value={filters.printer_model}
+            onChange={(value) => setFilters(prev => ({ ...prev, printer_model: value }))}
+            disabled={filters.printer_manufacturer === 'all'}
+            className="h-10"
+          />
 
-          <div className="grid grid-cols-2 gap-2">
+          {/* Printers range (single grouped control) */}
+          <div className="flex items-center gap-2 rounded-md border border-border px-2 h-10">
+            <span className="text-xs text-muted-foreground">Printers</span>
             <Input
               type="number"
               inputMode="numeric"
-              placeholder="Min Printers"
+              placeholder="Min"
               value={filters.number_of_printers_min}
               onChange={(e) => setFilters(prev => ({ ...prev, number_of_printers_min: e.target.value }))}
+              className="h-8 w-20"
             />
+            <span className="text-muted-foreground">–</span>
             <Input
               type="number"
               inputMode="numeric"
-              placeholder="Max Printers"
+              placeholder="Max"
               value={filters.number_of_printers_max}
               onChange={(e) => setFilters(prev => ({ ...prev, number_of_printers_max: e.target.value }))}
+              className="h-8 w-20"
             />
           </div>
 
-          <Select value={filters.count_type} onValueChange={(value) => setFilters(prev => ({ ...prev, count_type: value }))}>
-            <SelectTrigger>
-              <SelectValue placeholder="Count Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Count Types</SelectItem>
-              {['Exact','Estimated','Range','Minimum'].map(ct => (
-                <SelectItem key={ct} value={ct}>{ct}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="flex items-center gap-2">
+            <Select value={filters.count_type} onValueChange={(value) => setFilters(prev => ({ ...prev, count_type: value }))}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Count Types</SelectItem>
+                {['Exact','Estimated','Range','Minimum'].map(ct => (
+                  <SelectItem key={ct} value={ct}>{ct}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                Exact: reported counts. Minimum: lower bound. Range: range reported. Estimated: inferred/approximate.
+              </TooltipContent>
+            </Tooltip>
+          </div>
 
           <Select value={filters.process} onValueChange={(value) => setFilters(prev => ({ ...prev, process: value }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Process" />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Processes</SelectItem>
@@ -554,7 +690,7 @@ export default function PrintServicesGlobalContent() {
 
           <Select value={filters.material_type} onValueChange={(value) => setFilters(prev => ({ ...prev, material_type: value }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Material Type" />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Materials</SelectItem>
@@ -566,7 +702,7 @@ export default function PrintServicesGlobalContent() {
 
           <Select value={filters.material_format} onValueChange={(value) => setFilters(prev => ({ ...prev, material_format: value }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Material Format" />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Formats</SelectItem>
@@ -576,21 +712,17 @@ export default function PrintServicesGlobalContent() {
             </SelectContent>
           </Select>
 
-          <Select value={filters.country} onValueChange={(value) => setFilters(prev => ({ ...prev, country: value }))}>
-            <SelectTrigger>
-              <SelectValue placeholder="Country" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Countries</SelectItem>
-              {uniqueValues.countries.map(country => (
-                <SelectItem key={country} value={country}>{country}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <SearchableDropdown
+            label="Countries"
+            options={uniqueValues.countries}
+            value={filters.country}
+            onChange={(value) => setFilters(prev => ({ ...prev, country: value }))}
+            className="h-10"
+          />
 
           <Select value={filters.update_year} onValueChange={(value) => setFilters(prev => ({ ...prev, update_year: value }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Update Year" />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Years</SelectItem>
@@ -602,24 +734,82 @@ export default function PrintServicesGlobalContent() {
 
           <Button 
             variant="outline" 
-            onClick={() => setFilters({ 
-              company_name: '',
-              segment: '',
-              printer_manufacturer: '',
-              printer_model: '',
-              number_of_printers_min: '',
-              number_of_printers_max: '',
-              count_type: '',
-              process: '',
-              material_type: '',
-              material_format: '',
-              country: '',
-              update_year: ''
-            })}
+            onClick={clearFilters}
             className="text-muted-foreground"
+            disabled={activeFilterCount === 0}
           >
-            Clear Filters
+            Reset ({activeFilterCount})
           </Button>
+        </div>
+
+        {/* Active filter chips */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {filters.company_name && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Company: {filters.company_name}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, company_name: '' }))}>×</button>
+            </Badge>
+          )}
+          {filters.segment !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Segment: {filters.segment}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, segment: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.printer_manufacturer !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Mfr: {filters.printer_manufacturer}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, printer_manufacturer: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.printer_model !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Model: {filters.printer_model}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, printer_model: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {(filters.number_of_printers_min || filters.number_of_printers_max) && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Printers: {filters.number_of_printers_min || '0'}–{filters.number_of_printers_max || '∞'}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, number_of_printers_min: '', number_of_printers_max: '' }))}>×</button>
+            </Badge>
+          )}
+          {filters.count_type !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Count: {filters.count_type}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, count_type: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.process !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Process: {filters.process}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, process: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.material_type !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Material: {filters.material_type}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, material_type: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.material_format !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Format: {filters.material_format}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, material_format: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.country !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Country: {filters.country}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, country: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.update_year !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Year: {filters.update_year}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, update_year: 'all' }))}>×</button>
+            </Badge>
+          )}
         </div>
       </div>
 
@@ -705,7 +895,9 @@ export default function PrintServicesGlobalContent() {
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline" className="font-mono text-xs">
-                    {provider.process}
+                    <button onClick={() => setFilters(prev => ({ ...prev, process: provider.process || 'all' }))}>
+                      {provider.process}
+                    </button>
                   </Badge>
                 </TableCell>
                 <TableCell>
@@ -713,13 +905,17 @@ export default function PrintServicesGlobalContent() {
                     variant={provider.material_type === 'Metal' ? 'default' : 'secondary'}
                     className={provider.material_type === 'Metal' ? 'bg-blue-100 text-blue-800' : ''}
                   >
-                    {provider.material_type}
+                    <button onClick={() => setFilters(prev => ({ ...prev, material_type: provider.material_type || 'all' }))}>
+                      {provider.material_type}
+                    </button>
                   </Badge>
                 </TableCell>
                 <TableCell className="text-sm">{provider.material_format}</TableCell>
                 <TableCell className="flex items-center gap-2">
                   <Globe className="h-3 w-3 text-muted-foreground" />
-                  {provider.country}
+                  <button className="hover:underline" onClick={() => setFilters(prev => ({ ...prev, country: provider.country || 'all' }))}>
+                    {provider.country}
+                  </button>
                 </TableCell>
                 <TableCell className="text-center">
                   <div className="flex items-center justify-center gap-1">

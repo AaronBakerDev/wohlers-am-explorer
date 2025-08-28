@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('Print Services Global Analytics', () => {
+test.describe('Global Printing Services Analytics', () => {
   test('renders printers by country chart on overview for dataset', async ({ page }) => {
     // Navigate directly to dataset overview (analytics embedded)
     await page.goto('/dashboard?dataset=print-services-global&tab=overview')
 
     // Wait for header text
-    await expect(page.getByText('Print Services Global Analytics')).toBeVisible()
+    await expect(page.getByText('Global Printing Services Analytics').first()).toBeVisible()
 
     // Chart containers should exist
     const printersByCountry = page.locator('[data-testid="psg-chart-printers-by-country"]')
@@ -42,7 +42,7 @@ test.describe('Print Services Global Analytics', () => {
   test('filters update charts and click-to-filter works', async ({ page }) => {
     await page.goto('/dashboard?dataset=print-services-global&tab=overview')
 
-    const printersBadge = page.getByText(/printers\b/)
+    const printersBadge = page.locator('[data-testid="psg-analytics-header"]').getByText(/printers\b/).first()
     const beforeText = await printersBadge.innerText()
 
     // Open Process filter and choose first non-all option

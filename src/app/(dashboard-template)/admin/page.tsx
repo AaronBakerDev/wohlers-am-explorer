@@ -29,7 +29,7 @@ export default function AdminHomePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PrinterIcon className="h-4 w-4 text-primary" />
-                Print Services Global
+                Global Printing Services
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">

@@ -39,6 +39,13 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // CSV file mappings
+// These mappings convert vendor CSV column names to our database column names.
+// For the canonical list of dataset tables and UI columns, see:
+//   - src/lib/config/datasets.ts (DATASET_CONFIGS)
+// Data ingested here is read by the API route:
+//   - src/app/api/vendor-data/[dataset]/route.ts
+// and proxied by:
+//   - src/app/api/market-data/[dataset]/route.ts
 const csvMappings = [
   {
     file: 'docs/project-documents/04-data/market-data/Company_information.csv',
@@ -84,6 +91,8 @@ const csvMappings = [
     file: 'docs/project-documents/04-data/market-data/AM_market_revenue_2024.csv',
     table: 'vendor_am_market_revenue_2024',
     fieldMap: {
+      // Note: header contains surrounding spaces in source file
+      // Values are currency strings like "$2,719,878,841.63"; cleanValue below normalizes these.
       ' Revenue (USD) ': 'revenue_usd',
       'Country': 'country',
       'Segment': 'segment',
@@ -175,27 +184,54 @@ const csvMappings = [
 ]
 
 // Helper function to clean and convert values
+/**
+ * Normalize incoming CSV field values into database-ready values.
+ *
+ * - Trims strings
+ * - Parses integers for year/quantity-like fields
+ * - Parses decimals for amount/cost/revenue/size/percent fields
+ *   - Strips currency symbols and thousands separators
+ *   - Supports parentheses to denote negatives (e.g., "(1,234.56)")
+ *
+ * Related:
+ * - src/lib/config/datasets.ts defines which columns are numeric in the UI
+ */
 function cleanValue(value, field) {
   if (value === null || value === undefined || value === '') {
     return null
   }
-  
+
   // Convert string values
   const stringValue = String(value).trim()
-  
-  // Handle numeric fields
+
+  // Handle integer-like fields
   if (field.includes('year') || field.includes('quantity') || field.includes('day_') || field.includes('lead_time')) {
-    const num = parseInt(stringValue)
-    return isNaN(num) ? null : num
+    const num = parseInt(stringValue, 10)
+    return Number.isFinite(num) ? num : null
   }
-  
-  // Handle decimal fields
-  if (field.includes('amount') || field.includes('cost') || field.includes('revenue') || 
-      field.includes('size') || field.includes('percent')) {
-    const num = parseFloat(stringValue)
-    return isNaN(num) ? null : num
+
+  // Handle decimal/currency/percentage fields
+  if (
+    field.includes('amount') ||
+    field.includes('cost') ||
+    field.includes('revenue') ||
+    field.includes('size') ||
+    field.includes('percent')
+  ) {
+    // Normalize currency/percentage strings like "$1,234.56", "1,234.56%", "(1,234.56)"
+    // 1) Detect negative via parentheses
+    const isNegative = /\(.*\)/.test(stringValue)
+    // 2) Strip everything except digits, decimal, and minus
+    let normalized = stringValue.replace(/[^0-9.\-]/g, '')
+    // 3) Re-apply negativity if it was denoted by parentheses
+    if (isNegative && normalized && !normalized.startsWith('-')) {
+      normalized = `-${normalized}`
+    }
+
+    const num = parseFloat(normalized)
+    return Number.isFinite(num) ? num : null
   }
-  
+
   // Return cleaned string
   return stringValue === '' ? null : stringValue
 }
@@ -239,7 +275,7 @@ async function importCSV(mapping) {
       console.log(`⚠️ Warning clearing ${mapping.table}:`, deleteError.message)
     }
     
-    // Transform records
+    // Transform records using fieldMap and cleanValue to normalize types
     const transformedRecords = records.map(record => {
       const transformed = {}
       

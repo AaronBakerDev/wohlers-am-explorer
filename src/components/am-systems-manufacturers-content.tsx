@@ -162,18 +162,6 @@ export default function AMSystemsManufacturersContent() {
         setLoading(true)
         setError(null)
 
-        if (process.env.NEXT_PUBLIC_DATA_SOURCE === 'csv') {
-          const res = await fetch('/api/datasets/am-systems-manufacturers')
-          if (!res.ok) throw new Error(`Failed to fetch CSV data (${res.status})`)
-          const json = await res.json()
-          const rows = (json?.data || []) as AMSystemsManufacturer[]
-          if (rows.length) {
-            setData(rows)
-            setFilteredData(rows)
-            return
-          }
-        }
-
         // Supabase mode
         const supabase = createClient()
         const { data: rows, error } = await supabase

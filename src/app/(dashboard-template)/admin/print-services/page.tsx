@@ -229,7 +229,7 @@ export default function PrintServicesAdminPage() {
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <PrinterIcon className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-semibold">Admin · Print Services Global</h2>
+              <h2 className="text-lg font-semibold">Admin · Global Printing Services</h2>
               <Badge variant="secondary">{rows.length}</Badge>
             </div>
             <div className="flex items-center gap-2">

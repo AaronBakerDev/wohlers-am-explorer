@@ -1,0 +1,185 @@
+# Page snapshot
+
+```yaml
+- img "Wohlers ASTM Logo"
+- button
+- paragraph: Your Gateway to the AM Industry's Most Trusted Market Intelligence
+- heading "Wohlers Report" [level=3]
+- text: Wohlers Report 2024 Available
+- paragraph: Annual industry analysis
+- text: Wohlers Report 2023 Available
+- paragraph: Annual industry analysis
+- button "Upcoming (2)"
+- heading "Company Data" [level=3]
+- link "AM Systems Manufacturers":
+  - /url: /dashboard?tab=am-systems-manufacturers
+- text: 89 manufacturers Updated 2024-12-15
+- link "Global Printing Services":
+  - /url: /dashboard?tab=print-services-global
+- text: 312 service providers Updated 2024-12-20
+- button "Coming Soon (7)"
+- heading "Market Data" [level=3]
+- link "AM Market Revenue 2024":
+  - /url: /market-data?dataset=am-market-revenue-2024
+- text: Live 193 records Updated 2024-12-20
+- link "Fundings & Investments":
+  - /url: /market-data?dataset=fundings-investments
+- text: Live 413 investments Updated 2024-12-18
+- link "Mergers & Acquisitions":
+  - /url: /market-data?dataset=mergers-acquisitions
+- text: Live 0+ deals Updated 2024-12-15
+- link "Print Services Pricing":
+  - /url: /market-data?dataset=print-services-pricing
+- text: Live 1,724 quotes Updated 2024-12-12
+- link "Revenue by Industry 2024":
+  - /url: /market-data?dataset=revenue-by-industry-2024
+- text: Live 48 industries Updated 2024-12-10
+- link "Total AM Market Size":
+  - /url: /market-data?dataset=total-am-market-size
+- text: Live 205 metrics Updated 2024-12-08
+- link "Company Information":
+  - /url: /market-data?dataset=company-information
+- text: Live 4,688 companies Updated 2024-12-05
+- link "Company Roles":
+  - /url: /market-data?dataset=company-roles
+- text: Live 4,664 roles Updated 2024-12-03
+- link "Directory":
+  - /url: /market-data?dataset=directory
+- text: Live 92 entries Updated 2024-12-01
+- button "Dark mode"
+- link "Admin":
+  - /url: /admin
+  - button "Admin"
+- button "Settings"
+- link "Profile":
+  - /url: /account/profile
+  - button "Profile"
+- heading "Global Printing Services" [level=1]
+- paragraph: Comprehensive database and analysis
+- text: v1.3.0 SUPABASE
+- button "Refresh Data"
+- button "Overview"
+- button "Map View"
+- button "Data Table"
+- button "Analytics"
+- heading "Report Description" [level=2]
+- paragraph: Global directory of additive manufacturing print service providers and bureaus. This comprehensive database covers service capabilities, materials offered, geographic reach, and pricing models across the worldwide AM services market.
+- heading "Dataset Information" [level=2]
+- text: COMPANIES 312 Total entries COVERAGE 45 countries worldwide Geographic reach DATA POINTS 600+ data points per service provider Per company LAST UPDATED December 20, 2024 Data freshness
+- heading "About This Report" [level=3]
+- paragraph: Data sourced from Wohlers Associates Services Database. This report includes verified company information, technology classifications, and geographic coordinates.
+- paragraph: The dataset covers 312 companies across 45 countries worldwide, with over 600+ data points per service provider collected for each entry.
+- paragraph: "Use the navigation tabs above to explore different views of the data: interactive maps and detailed tables, plus the system matrix for AM systems."
+- heading "Data Source & Methodology" [level=2]
+- heading "Data Collection" [level=3]
+- list:
+  - listitem: • Direct company surveys and interviews
+  - listitem: • Public filings and regulatory documents
+  - listitem: • Industry publications and trade shows
+  - listitem: • Third-party research and validation
+- heading "Data Validation" [level=3]
+- list:
+  - listitem: • Multi-source verification process
+  - listitem: • Regular updates and fact-checking
+  - listitem: • Geographic coordinate validation
+  - listitem: • Technology classification review
+- heading "Global Printing Services Analytics" [level=2]
+- heading "Analytics" [level=2]
+- text: 210 providers 0 printers
+- button "Export PNG"
+- textbox "Company name"
+- combobox: All Segments
+- combobox: All Countries
+- combobox: All Processes
+- combobox: All Materials
+- combobox: All Formats
+- combobox: All Manufacturers
+- combobox: All Models
+- combobox: All Count Types
+- spinbutton
+- spinbutton
+- combobox: All Years
+- button "Clear Filters"
+- text: Installed Printers by Country (Top 10)
+- button "Export PNG"
+- img: The United Kingdom United States United states Canada South Africa Belgium 0 0 1 2 3 4
+- text: Providers by Country (Top 10)
+- button "Export PNG"
+- img: United States Canada United states The United Kingdom Belgium 0 South Africa 0 50 100 150 200
+- text: Printers by Process (Stacked by Material)
+- button "Export PNG"
+- img: Unknown 0 1 2 3 4
+- text: Printers by Manufacturer (Top 10)
+- button "Export PNG"
+- img: Unknown 0 1 2 3 4
+- list:
+  - listitem:
+    - img
+    - text: printers
+- text: Top Printer Models (Top 10)
+- button "Export PNG"
+- img: Unknown 0 1 2 3 4
+- list:
+  - listitem:
+    - img
+    - text: printers
+- text: Count Type Distribution
+- button "Export PNG"
+- img
+- list:
+  - listitem:
+    - img
+- text: Process × Material Type
+- button "Export PNG"
+- table:
+  - rowgroup:
+    - row "Process Ceramic Electronics Polymer Metal Unknown Wax":
+      - cell "Process"
+      - cell "Ceramic"
+      - cell "Electronics"
+      - cell "Polymer"
+      - cell "Metal"
+      - cell "Unknown"
+      - cell "Wax"
+  - rowgroup:
+    - row "Unknown 0 0 0 0 0 0":
+      - cell "Unknown"
+      - cell "0"
+      - cell "0"
+      - cell "0"
+      - cell "0"
+      - cell "0"
+      - cell "0"
+- text: Country × Process (Top Countries)
+- button "Export PNG"
+- table:
+  - rowgroup:
+    - row "Country Unknown":
+      - cell "Country"
+      - cell "Unknown"
+  - rowgroup:
+    - row "The United Kingdom 0":
+      - cell "The United Kingdom"
+      - cell "0"
+    - row "United States 0":
+      - cell "United States"
+      - cell "0"
+    - row "United states 0":
+      - cell "United states"
+      - cell "0"
+    - row "Canada 0":
+      - cell "Canada"
+      - cell "0"
+    - row "South Africa 0":
+      - cell "South Africa"
+      - cell "0"
+    - row "Belgium 0":
+      - cell "Belgium"
+      - cell "0"
+    - row "0 0":
+      - cell "0"
+      - cell "0"
+- alert
+- button "Open Next.js Dev Tools":
+  - img
+```

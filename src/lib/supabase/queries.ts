@@ -9,6 +9,13 @@ import {
   MaterialInsert,
   CompanyWithDetails,
 } from "./types";
+import {
+  CompanyFilters,
+  CompanyFilterRequest,
+  CompanyFilterResult,
+  CompanyFilterResponse,
+  GeographicBounds
+} from "@/lib/filters/company-filters";
 
 // ========================================
 // AM COMPANIES QUERIES (Updated for Equipment-based Schema)
@@ -531,4 +538,448 @@ export async function getServicePricingByCompany(companyId: string) {
   }
 
   return data || [];
+}
+
+// ========================================
+// UNIFIED COMPANIES QUERIES (New Architecture)
+// ========================================
+
+/**
+ * Main query function for the unified company filtering system
+ * Supports all CompanyFilters options and returns paginated results
+ * 
+ * @param filters - CompanyFilterRequest with all filter criteria
+ * @returns Promise<CompanyFilterResponse> - Filtered companies with pagination
+ */
+export async function getCompaniesWithFilters(filters: CompanyFilterRequest): Promise<CompanyFilterResponse> {
+  const startTime = Date.now()
+  const supabase = await createServerClient()
+  
+  // Set defaults
+  const page = Math.max(1, filters.page || 1)
+  const limit = Math.min(1000, Math.max(1, filters.limit || 100))
+  
+  try {
+    // Build base query from the unified summary view
+    let query = supabase
+      .from('company_summaries_unified')
+      .select(`
+        id,
+        name,
+        country,
+        state,
+        city,  
+        lat,
+        lng,
+        company_type,
+        company_role,
+        segment,
+        primary_market,
+        website,
+        is_active,
+        technology_count,
+        material_count,
+        equipment_count,
+        service_count,
+        technologies,
+        materials,
+        service_types
+      `, { count: 'exact' })
+    
+    // Apply all filters
+    query = applyUnifiedFilters(query, filters)
+    
+    // Apply sorting
+    if (filters.sortBy && filters.sortOrder) {
+      query = query.order(filters.sortBy, { ascending: filters.sortOrder === 'asc' })
+    } else {
+      // Default sort by name
+      query = query.order('name', { ascending: true })
+    }
+    
+    // Apply pagination
+    const offset = (page - 1) * limit
+    query = query.range(offset, offset + limit - 1)
+    
+    // Execute query
+    const { data, error, count } = await query
+    
+    if (error) {
+      throw new Error(`Failed to fetch companies: ${error.message}`)
+    }
+    
+    // Transform data to expected format
+    const transformedData: CompanyFilterResult[] = (data || []).map(row => ({
+      id: row.id,
+      name: row.name,
+      country: row.country,
+      state: row.state,
+      city: row.city,
+      lat: row.lat,
+      lng: row.lng,
+      companyType: row.company_type as any,
+      companyRole: row.company_role as any,
+      segment: row.segment,
+      website: row.website,
+      description: null, // Not available in summary view
+      employeeCountRange: null,
+      annualRevenueRange: null,
+      foundedYear: null,
+      primaryMarket: row.primary_market,
+      secondaryMarkets: null,
+      technologyCount: row.technology_count || 0,
+      materialCount: row.material_count || 0,
+      equipmentCount: row.equipment_count || 0,
+      serviceCount: row.service_count || 0,
+      technologies: row.technologies,
+      materials: row.materials,
+      serviceTypes: row.service_types,
+      isActive: row.is_active,
+      dataSource: null,
+      lastVerified: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }))
+    
+    // Get additional data if requested
+    if (filters.includeEquipment || filters.includeServices) {
+      await enrichWithCapabilityData(supabase, transformedData, filters)
+    }
+    
+    // Calculate pagination
+    const total = count || 0
+    const pages = Math.ceil(total / limit)
+    
+    // Get filter options for UI
+    const filterOptions = await getFilterOptions(supabase)
+    
+    const response: CompanyFilterResponse = {
+      data: transformedData,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages,
+        hasNext: page < pages,
+        hasPrev: page > 1
+      },
+      filters: {
+        applied: filters,
+        available: filterOptions
+      },
+      metadata: {
+        query: 'company_summaries_unified',
+        executionTime: Date.now() - startTime,
+        dataSource: 'supabase',
+        timestamp: new Date().toISOString()
+      }
+    }
+    
+    return response
+    
+  } catch (error) {
+    console.error('getCompaniesWithFilters error:', error)
+    throw error
+  }
+}
+
+/**
+ * Applies all CompanyFilters to a Supabase query
+ */
+function applyUnifiedFilters(query: any, filters: CompanyFilters) {
+  // Company classification filters
+  if (filters.companyType?.length) {
+    query = query.in('company_type', filters.companyType)
+  }
+  
+  if (filters.companyRole?.length) {
+    query = query.in('company_role', filters.companyRole)  
+  }
+  
+  if (filters.segment?.length) {
+    query = query.in('segment', filters.segment)
+  }
+  
+  // Geographic filters
+  if (filters.country?.length) {
+    query = query.in('country', filters.country)
+  }
+  
+  if (filters.state?.length) {
+    query = query.in('state', filters.state)
+  }
+  
+  if (filters.city?.length) {
+    query = query.in('city', filters.city)
+  }
+  
+  // Geographic bounds (for map filtering)
+  if (filters.bounds) {
+    const { north, south, east, west } = filters.bounds
+    query = query
+      .gte('lat', south)
+      .lte('lat', north)
+      .gte('lng', west)
+      .lte('lng', east)
+      .not('lat', 'is', null)
+      .not('lng', 'is', null)
+  }
+  
+  // Market filters
+  if (filters.primaryMarket?.length) {
+    query = query.in('primary_market', filters.primaryMarket)
+  }
+  
+  // Technology/capability filters (using array overlap)
+  if (filters.technologies?.length) {
+    query = query.overlaps('technologies', filters.technologies)
+  }
+  
+  if (filters.materials?.length) {
+    query = query.overlaps('materials', filters.materials)
+  }
+  
+  if (filters.serviceTypes?.length) {
+    query = query.overlaps('service_types', filters.serviceTypes)
+  }
+  
+  // Text search
+  if (filters.search) {
+    query = query.ilike('name', `%${filters.search}%`)
+  }
+  
+  // Status filters  
+  if (typeof filters.isActive === 'boolean') {
+    query = query.eq('is_active', filters.isActive)
+  }
+  
+  // Existence filters
+  if (filters.hasWebsite) {
+    query = query.not('website', 'is', null)
+  }
+  
+  if (filters.hasCoordinates) {
+    query = query.not('lat', 'is', null).not('lng', 'is', null)
+  }
+  
+  if (filters.hasEquipment) {
+    query = query.gt('equipment_count', 0)
+  }
+  
+  if (filters.hasServices) {
+    query = query.gt('service_count', 0)
+  }
+  
+  return query
+}
+
+/**
+ * Enriches company data with detailed equipment/service information
+ */
+async function enrichWithCapabilityData(
+  supabase: any, 
+  companies: CompanyFilterResult[], 
+  filters: CompanyFilterRequest
+) {
+  const companyIds = companies.map(c => c.id)
+  
+  if (filters.includeEquipment) {
+    // Fetch equipment data
+    const { data: equipment } = await supabase
+      .from('equipment_systems')
+      .select(`
+        id,
+        company_id,
+        system_name,
+        model_number,
+        system_type,
+        build_volume,
+        resolution,
+        materials_supported,
+        processes_supported,
+        price_range,
+        target_market,
+        availability_status
+      `)
+      .in('company_id', companyIds)
+    
+    // Group by company
+    const equipmentByCompany = new Map()
+    equipment?.forEach(eq => {
+      if (!equipmentByCompany.has(eq.company_id)) {
+        equipmentByCompany.set(eq.company_id, [])
+      }
+      equipmentByCompany.get(eq.company_id).push({
+        id: eq.id,
+        systemName: eq.system_name,
+        modelNumber: eq.model_number,
+        systemType: eq.system_type,
+        buildVolume: eq.build_volume,
+        resolution: eq.resolution,
+        materialsSupported: eq.materials_supported,
+        processesSupported: eq.processes_supported,
+        priceRange: eq.price_range,
+        targetMarket: eq.target_market,
+        availabilityStatus: eq.availability_status
+      })
+    })
+    
+    // Add to companies
+    companies.forEach(company => {
+      company.equipment = equipmentByCompany.get(company.id) || []
+    })
+  }
+  
+  if (filters.includeServices) {
+    // Fetch service data
+    const { data: services } = await supabase
+      .from('company_services')
+      .select(`
+        id,
+        company_id,
+        service_type,
+        service_name,
+        description,
+        processes_offered,
+        materials_offered,
+        industries_served,
+        lead_time_days_min,
+        lead_time_days_max,
+        quality_certifications,
+        pricing_model,
+        price_range,
+        is_active
+      `)
+      .in('company_id', companyIds)
+      .eq('is_active', true)
+    
+    // Group by company
+    const servicesByCompany = new Map()
+    services?.forEach(svc => {
+      if (!servicesByCompany.has(svc.company_id)) {
+        servicesByCompany.set(svc.company_id, [])
+      }
+      servicesByCompany.get(svc.company_id).push({
+        id: svc.id,
+        serviceType: svc.service_type,
+        serviceName: svc.service_name,
+        description: svc.description,
+        processesOffered: svc.processes_offered,
+        materialsOffered: svc.materials_offered,
+        industriesServed: svc.industries_served,
+        leadTimeDaysMin: svc.lead_time_days_min,
+        leadTimeDaysMax: svc.lead_time_days_max,
+        qualityCertifications: svc.quality_certifications,
+        pricingModel: svc.pricing_model,
+        priceRange: svc.price_range,
+        isActive: svc.is_active
+      })
+    })
+    
+    // Add to companies
+    companies.forEach(company => {
+      company.services = servicesByCompany.get(company.id) || []
+    })
+  }
+}
+
+/**
+ * Gets available filter options for building dynamic UIs
+ */
+async function getFilterOptions(supabase: any) {
+  try {
+    // Get unique values from the database
+    const [
+      countriesResult,
+      statesResult, 
+      typesResult,
+      segmentsResult,
+      marketsResult,
+      technologiesResult,
+      materialsResult
+    ] = await Promise.all([
+      supabase.from('company_summaries_unified').select('country').not('country', 'is', null),
+      supabase.from('company_summaries_unified').select('state').not('state', 'is', null),
+      supabase.from('company_summaries_unified').select('company_type').not('company_type', 'is', null),
+      supabase.from('company_summaries_unified').select('segment').not('segment', 'is', null),
+      supabase.from('company_summaries_unified').select('primary_market').not('primary_market', 'is', null),
+      supabase.from('technologies_unified').select('id, name, category'),
+      supabase.from('materials_unified').select('id, name, material_type, material_format')
+    ])
+    
+    return {
+      countries: [...new Set((countriesResult.data || []).map((r: any) => r.country))].sort(),
+      states: [...new Set((statesResult.data || []).map((r: any) => r.state).filter(Boolean))].sort(),
+      companyTypes: [...new Set((typesResult.data || []).map((r: any) => r.company_type))].sort(),
+      companyRoles: ['manufacturer', 'provider', 'supplier', 'developer', 'researcher'],
+      segments: [...new Set((segmentsResult.data || []).map((r: any) => r.segment).filter(Boolean))].sort(),
+      technologies: technologiesResult.data || [],
+      materials: materialsResult.data || [],
+      primaryMarkets: [...new Set((marketsResult.data || []).map((r: any) => r.primary_market).filter(Boolean))].sort(),
+      employeeCountRanges: ['1-10', '11-50', '51-200', '201-500', '500+'],
+      revenueRanges: ['<$1M', '$1M-$10M', '$10M-$50M', '$50M-$100M', '$100M+'],
+      serviceTypes: [], // Would need additional query
+      systemTypes: []   // Would need additional query
+    }
+  } catch (error) {
+    console.error('Error fetching filter options:', error)
+    return {
+      countries: [],
+      states: [],
+      companyTypes: [],
+      companyRoles: [],
+      segments: [],
+      technologies: [],
+      materials: [],
+      primaryMarkets: [],
+      employeeCountRanges: [],
+      revenueRanges: [],
+      serviceTypes: [],
+      systemTypes: []
+    }
+  }
+}
+
+/**
+ * Gets companies for a specific dataset (backward compatibility)
+ */
+export async function getCompaniesByDataset(
+  datasetId: string, 
+  additionalFilters: Partial<CompanyFilters> = {}
+): Promise<CompanyFilterResult[]> {
+  // Import dataset filters
+  const { DATASET_FILTERS } = await import('@/lib/filters/company-filters')
+  
+  const datasetFilters = DATASET_FILTERS[datasetId]
+  if (!datasetFilters) {
+    throw new Error(`Unknown dataset: ${datasetId}`)
+  }
+  
+  // Merge dataset filters with additional filters
+  const combinedFilters: CompanyFilterRequest = {
+    ...datasetFilters,
+    ...additionalFilters,
+    limit: additionalFilters.limit || 1000 // Default high limit for dataset queries
+  }
+  
+  const result = await getCompaniesWithFilters(combinedFilters)
+  return result.data
+}
+
+/**
+ * Gets companies for map display with geographic optimization
+ */
+export async function getCompaniesForMap(
+  filters: CompanyFilters & { bounds?: GeographicBounds } = {}
+): Promise<CompanyFilterResult[]> {
+  const mapFilters: CompanyFilterRequest = {
+    ...filters,
+    hasCoordinates: true, // Only companies with valid coordinates
+    limit: 2000, // Higher limit for map markers
+    sortBy: 'name',
+    sortOrder: 'asc'
+  }
+  
+  const result = await getCompaniesWithFilters(mapFilters)
+  return result.data
 }

@@ -1,7 +1,30 @@
-// Unified dataset configuration for market/vendor data
-// Used by API routes and UI for names, descriptions, and table mappings
+/**
+ * Dataset Configuration System for Unified Architecture
+ * 
+ * This module provides centralized configuration for all "datasets" in the unified architecture.
+ * Instead of hard-coding dataset information in components, this system defines datasets as 
+ * filtered views of the unified company data with associated display and behavior configurations.
+ * 
+ * Key Features:
+ * - Configuration-driven datasets (no code changes for new datasets)
+ * - Comprehensive display and behavior settings
+ * - Type-safe dataset definitions  
+ * - Backward compatibility with existing URLs
+ * - Performance optimizations for common queries
+ * - Extensible for future dataset types
+ * 
+ * @see /sql-migrations/020_unified_companies_schema.sql for database schema
+ * @see /lib/filters/company-filters.ts for filtering interfaces
+ */
 
-export type DatasetKey =
+import { 
+  CompanyFilters, 
+  DatasetConfig,
+  FILTER_PRESETS 
+} from '@/lib/filters/company-filters'
+
+// Legacy support for existing vendor data types
+export type LegacyDatasetKey =
   | 'company-information'
   | 'fundings-investments'
   | 'print-services-pricing'
@@ -14,7 +37,7 @@ export type DatasetKey =
   | 'am-systems-manufacturers'
   | 'print-services-global'
 
-export type DatasetConfig = {
+export type LegacyDatasetConfig = {
   table: string
   name: string
   description: string
@@ -22,7 +45,198 @@ export type DatasetConfig = {
   displayColumns: string[]
 }
 
-export const DATASET_CONFIGS: Record<DatasetKey, DatasetConfig> = {
+// ========================================
+// UNIFIED DATASET CONFIGURATIONS
+// ========================================
+
+/**
+ * Complete dataset configurations for the unified architecture
+ * These define how each "dataset" appears and behaves in the application
+ */
+export const UNIFIED_DATASET_CONFIGS: Record<string, DatasetConfig> = {
+  // Equipment Manufacturers Dataset
+  'am-systems-manufacturers': {
+    id: 'am-systems-manufacturers',
+    name: 'AM Systems Manufacturers',
+    description: 'Comprehensive directory of additive manufacturing systems and equipment manufacturers worldwide. This dataset includes detailed information about production systems, technology capabilities, and manufacturing specifications.',
+    
+    // Base filtering criteria
+    filters: FILTER_PRESETS.AM_SYSTEMS_MANUFACTURERS,
+    
+    // Display configuration
+    displayColumns: [
+      'name',
+      'country', 
+      'segment',
+      'technologies',
+      'materials',
+      'website'
+    ],
+    mapType: 'equipment',
+    
+    // UI customization
+    icon: 'Building2',
+    color: '#3B82F6', // Blue
+    defaultSort: {
+      field: 'name',
+      order: 'asc'
+    },
+    
+    // Feature availability
+    enableMap: true,
+    enableAnalytics: true,
+    enableExport: true,
+    
+    // Metadata
+    version: 'v1.5.0',
+    isActive: true,
+    createdAt: '2024-08-28T00:00:00Z',
+    updatedAt: '2024-08-28T00:00:00Z'
+  },
+  
+  // Service Providers Dataset  
+  'print-services-global': {
+    id: 'print-services-global',
+    name: 'Global Printing Services',
+    description: 'Global directory of additive manufacturing print service providers and bureaus. This comprehensive database covers service capabilities, materials offered, geographic reach, and pricing models across the worldwide AM services market.',
+    
+    filters: FILTER_PRESETS.PRINT_SERVICES_GLOBAL,
+    
+    displayColumns: [
+      'name',
+      'country',
+      'segment', 
+      'serviceTypes',
+      'materials',
+      'website'
+    ],
+    mapType: 'service',
+    
+    icon: 'Globe',
+    color: '#10B981', // Green
+    defaultSort: {
+      field: 'name',
+      order: 'asc'
+    },
+    
+    enableMap: true,
+    enableAnalytics: true,
+    enableExport: true,
+    
+    version: 'v1.3.0',
+    isActive: true,
+    createdAt: '2024-08-28T00:00:00Z',
+    updatedAt: '2024-08-28T00:00:00Z'
+  },
+  
+  // Material Suppliers Dataset
+  'material-suppliers': {
+    id: 'material-suppliers',
+    name: 'Material Suppliers',
+    description: 'Comprehensive directory of additive manufacturing material suppliers and distributors. Includes polymer, metal, ceramic, and composite material providers with detailed material specifications and availability.',
+    
+    filters: FILTER_PRESETS.MATERIAL_SUPPLIERS,
+    
+    displayColumns: [
+      'name',
+      'country',
+      'materials',
+      'segment',
+      'website'
+    ],
+    mapType: 'material',
+    
+    icon: 'Package',
+    color: '#F59E0B', // Amber
+    defaultSort: {
+      field: 'name',
+      order: 'asc'
+    },
+    
+    enableMap: true,
+    enableAnalytics: true,
+    enableExport: true,
+    
+    version: 'v1.0.0',
+    isActive: true,
+    createdAt: '2024-08-28T00:00:00Z',
+    updatedAt: '2024-08-28T00:00:00Z'
+  },
+  
+  // Software Developers Dataset
+  'software-developers': {
+    id: 'software-developers',
+    name: 'Software Developers',
+    description: 'Directory of additive manufacturing software and platform developers. Includes CAD software, slicing software, workflow management platforms, and specialized AM applications.',
+    
+    filters: FILTER_PRESETS.SOFTWARE_DEVELOPERS,
+    
+    displayColumns: [
+      'name',
+      'country',
+      'segment',
+      'technologies',
+      'website'
+    ],
+    mapType: 'software',
+    
+    icon: 'Code',
+    color: '#8B5CF6', // Purple  
+    defaultSort: {
+      field: 'name',
+      order: 'asc'
+    },
+    
+    enableMap: true,
+    enableAnalytics: false, // Limited analytics for software
+    enableExport: true,
+    
+    version: 'v1.0.0',
+    isActive: true,
+    createdAt: '2024-08-28T00:00:00Z',
+    updatedAt: '2024-08-28T00:00:00Z'
+  }
+}
+
+// ========================================
+// DATASET UTILITIES
+// ========================================
+
+/**
+ * Gets all active datasets
+ */
+export function getActiveDatasets(): DatasetConfig[] {
+  return Object.values(UNIFIED_DATASET_CONFIGS).filter(dataset => dataset.isActive)
+}
+
+/**
+ * Gets dataset by ID with validation
+ */
+export function getDatasetById(id: string): DatasetConfig | null {
+  return UNIFIED_DATASET_CONFIGS[id] || null
+}
+
+/**
+ * Validates if a dataset ID exists and is active
+ */
+export function isValidDatasetId(id: string): boolean {
+  const dataset = UNIFIED_DATASET_CONFIGS[id]
+  return !!dataset && dataset.isActive
+}
+
+/**
+ * Gets dataset filters for API usage
+ */
+export function getDatasetFilters(id: string): CompanyFilters | null {
+  const dataset = UNIFIED_DATASET_CONFIGS[id]
+  return dataset ? dataset.filters : null
+}
+
+// ========================================
+// LEGACY VENDOR DATA CONFIGS (for backward compatibility)
+// ========================================
+
+export const LEGACY_DATASET_CONFIGS: Record<LegacyDatasetKey, LegacyDatasetConfig> = {
   'company-information': {
     table: 'vendor_company_information',
     name: 'Company Information',
@@ -147,10 +361,9 @@ export const DATASET_CONFIGS: Record<DatasetKey, DatasetConfig> = {
   },
   'print-services-global': {
     table: 'vendor_print_services_global',
-    name: 'Print Services Global',
+    name: 'Global Printing Services',
     description: 'Global print service providers',
     columns: ['company_name', 'segment', 'material_type', 'material_format', 'country'],
     displayColumns: ['Company Name', 'Segment', 'Material Type', 'Material Format', 'Country'],
   },
 }
-

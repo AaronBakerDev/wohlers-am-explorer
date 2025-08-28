@@ -19,6 +19,19 @@ interface AMSystemsManufacturerMapItem {
   process: string
   material_format: string
   material_type: string
+  totalMachines?: number
+  uniqueProcesses?: number
+  uniqueMaterials?: number
+  uniqueManufacturers?: number
+  companies?: Array<{
+    id: string
+    name: string
+    segment: string
+    process: string
+    material_format: string
+    material_type: string
+    country: string
+  }>
 }
 
 // Approximate coordinates for major countries (for manufacturers without specific coordinates)
@@ -163,9 +176,7 @@ export async function GET(request: Request) {
       .select(`
         id,
         company_name,
-        headquarters_city,
         country,
-        website,
         segment,
         process,
         material_format,
@@ -183,29 +194,51 @@ export async function GET(request: Request) {
       rows = data || []
     }
 
-    // Transform data into map marker format
-    const items: AMSystemsManufacturerMapItem[] = (rows || []).map((row) => {
-      const countryCoords = COUNTRY_COORDINATES[row.country] || [0, 0]
-      // Add some random offset to avoid all markers being in exactly the same spot
-      const latOffset = (Math.random() - 0.5) * 2 // +/- 1 degree
-      const lngOffset = (Math.random() - 0.5) * 4 // +/- 2 degrees
-      
-      return {
+    // Group companies by country to create cluster markers
+    const countryClusters = new Map<string, any[]>()
+    
+    rows?.forEach((row) => {
+      if (!countryClusters.has(row.country)) {
+        countryClusters.set(row.country, [])
+      }
+      countryClusters.get(row.country)!.push({
         id: row.id,
         name: row.company_name,
-        city: row.headquarters_city,
-        state: null, // Systems manufacturers typically don't have state data
-        country: row.country,
-        lat: countryCoords[0] + latOffset,
-        lng: countryCoords[1] + lngOffset,
-        technologies: [row.process], // Process is the main technology
-        materials: [row.material_type], // Material type as material
-        website: row.website,
-        type: 'equipment', // All are equipment manufacturers
         segment: row.segment,
         process: row.process,
         material_format: row.material_format,
         material_type: row.material_type,
+        country: row.country
+      })
+    })
+
+    // Create one marker per country with company count
+    const items: AMSystemsManufacturerMapItem[] = Array.from(countryClusters.entries()).map(([country, companies]) => {
+      const countryCoords = COUNTRY_COORDINATES[country] || [0, 0]
+      const uniqueProcesses = new Set(companies.map(c => c.process)).size
+      const uniqueMaterials = new Set(companies.map(c => c.material_type)).size
+      
+      return {
+        id: `country-${country}`,
+        name: `${country} (${companies.length} manufacturers)`,
+        city: country,
+        state: null,
+        country: country,
+        lat: countryCoords[0],
+        lng: countryCoords[1],
+        technologies: Array.from(new Set(companies.map(c => c.process))),
+        materials: Array.from(new Set(companies.map(c => c.material_type))),
+        website: null,
+        type: 'equipment',
+        segment: 'Multiple',
+        process: 'Multiple',
+        material_format: 'Multiple',
+        material_type: 'Multiple',
+        totalMachines: companies.length,
+        uniqueProcesses: uniqueProcesses,
+        uniqueMaterials: uniqueMaterials,
+        uniqueManufacturers: companies.length,
+        companies: companies // Include all companies for the sidebar
       }
     })
 

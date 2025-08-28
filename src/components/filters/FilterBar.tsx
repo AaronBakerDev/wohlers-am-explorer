@@ -18,7 +18,6 @@ import {
   getTechnologyCategories,
   getEmployeeSizeRanges,
   getCountries,
-  getStates,
 } from "@/lib/supabase/client-queries"
 import { FilterState, emptyFilters } from "@/lib/filters/types"
 
@@ -38,7 +37,6 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
   const [processCategories, setProcessCategories] = useState<string[]>([])
   const [sizeRanges, setSizeRanges] = useState<string[]>([])
   const [countries, setCountries] = useState<string[]>([])
-  const [states, setStates] = useState<string[]>([])
 
   // Load filter option lists
   useEffect(() => {
@@ -46,13 +44,12 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
     ;(async () => {
       try {
         setLoading(true)
-        const [techs, mats, categories, sizes, cntrs, sts] = await Promise.all([
+        const [techs, mats, categories, sizes, cntrs] = await Promise.all([
           getTechnologies(),
           getMaterials(),
           getTechnologyCategories(),
           getEmployeeSizeRanges(),
           getCountries(),
-          getStates(),
         ])
         if (!active) return
         setTechOptions(techs.map(t => ({ id: t.id, name: t.name })))
@@ -60,7 +57,6 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
         setProcessCategories(categories)
         setSizeRanges(sizes)
         setCountries(cntrs)
-        setStates(sts)
       } finally {
         if (active) setLoading(false)
       }
@@ -74,8 +70,7 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
       value.materialIds.length +
       value.processCategories.length +
       value.sizeRanges.length +
-      value.countries.length +
-      value.states.length
+      value.countries.length
     )
   }, [value])
 
@@ -385,63 +380,6 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Geography: States */}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button 
-            variant={value.states.length > 0 ? "default" : "outline"} 
-            size="sm" 
-            className="h-8 text-xs" 
-            data-testid="filter-state"
-          >
-            <FilterIcon className="h-3 w-3 mr-1" />
-            States/Regions
-            {value.states.length > 0 && (
-              <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
-                {value.states.length}
-              </Badge>
-            )}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
-          <DropdownMenuLabel>Filter by State/Region</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {loading ? (
-            <div className="px-2 py-4 text-center text-sm text-muted-foreground">
-              <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
-              Loading...
-            </div>
-          ) : (
-            <>
-              {value.states.length > 0 && (
-                <>
-                  <DropdownMenuCheckboxItem
-                    onClick={() => onChange({ ...value, states: [] })}
-                    className="font-medium"
-                  >
-                    Clear All
-                  </DropdownMenuCheckboxItem>
-                  <DropdownMenuSeparator />
-                </>
-              )}
-              {states.map((state) => (
-                <DropdownMenuCheckboxItem
-                  key={state}
-                  checked={value.states.includes(state)}
-                  onCheckedChange={(checked) => {
-                    const next = checked
-                      ? [...value.states, state]
-                      : value.states.filter(s => s !== state)
-                    onChange({ ...value, states: next })
-                  }}
-                >
-                  {state}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
 
       {/* Clear all filters */}
       {activeCount > 0 && (

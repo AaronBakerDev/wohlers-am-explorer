@@ -2,18 +2,19 @@
 
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Database, RefreshCw } from 'lucide-react'
-import Link from 'next/link'
 import { 
   RevenueAnalysisLayout,
   InvestmentAnalysisLayout, 
   MergerAcquisitionLayout,
   PricingAnalysisLayout,
   CompanyDirectoryLayout,
-  GenericTableLayout
+  GenericTableLayout,
+  TotalMarketSizeLayout
 } from '@/components/market-data/MarketDataLayouts'
 import { DATASET_CONFIGS } from '@/lib/config/datasets'
 
@@ -22,6 +23,7 @@ import { DATASET_CONFIGS } from '@/lib/config/datasets'
 export default function MarketDataPage() {
   const searchParams = useSearchParams()
   const dataset = searchParams.get('dataset')
+  const view = (searchParams.get('view') || 'analysis').toLowerCase() as 'analysis' | 'table'
   
   const [csvData, setCsvData] = useState<string[][]>([])
   const [loading, setLoading] = useState(false)
@@ -56,6 +58,7 @@ export default function MarketDataPage() {
         return <CompanyDirectoryLayout data={csvData} dataset={dataset} />
       
       case 'total-am-market-size':
+        return <TotalMarketSizeLayout />
       default:
         return <GenericTableLayout data={csvData} dataset={dataset} />
     }
@@ -134,6 +137,29 @@ export default function MarketDataPage() {
           <div>
             <h1 className="text-2xl font-bold mb-2">{config.name}</h1>
             <p className="text-muted-foreground mb-4">{config.description}</p>
+            {/* Sub-tabs: URL-driven view selector */}
+            <div className="flex items-center gap-2">
+              {(['analysis','table'] as const).map(v => {
+                const params = new URLSearchParams()
+                params.set('dataset', dataset)
+                params.set('view', v)
+                const href = `/market-data?${params.toString()}`
+                const isActive = view === v
+                return (
+                  <Link
+                    key={v}
+                    href={href}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-md border transition-colors ${
+                      isActive
+                        ? 'border-primary text-primary bg-primary/5'
+                        : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
+                    }`}
+                  >
+                    {v === 'analysis' ? 'Overview' : 'Table'}
+                  </Link>
+                )
+              })}
+            </div>
             <div className="flex items-center gap-4 mb-4">
               <Badge variant="secondary">
                 {loading ? 'Loading...' : 
@@ -184,7 +210,11 @@ export default function MarketDataPage() {
 
         {!loading && !error && csvData.length > 0 && (
           <div>
-            {renderSchemaBasedLayout()}
+            {view === 'table' ? (
+              <GenericTableLayout data={csvData} dataset={dataset} />
+            ) : (
+              renderSchemaBasedLayout()
+            )}
           </div>
         )}
 

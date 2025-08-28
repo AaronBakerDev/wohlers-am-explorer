@@ -56,6 +56,30 @@ interface CompanyMarker {
   uniqueProcesses: number;
   uniqueMaterials: number;
   uniqueManufacturers: number;
+  companies?: Array<{
+    id: string;
+    name: string;
+    segment: string;
+    process: string;
+    material_format: string;
+    material_type: string;
+    country: string;
+  }>;
+  companyData?: {
+    id: string;
+    company_name: string;
+    segment: string;
+    printer_manufacturer: string;
+    printer_model: string;
+    number_of_printers: number;
+    count_type: string;
+    process: string;
+    material_type: string;
+    material_format: string;
+    country: string;
+    update_year: number;
+    additional_info: string;
+  };
 }
 
 interface StateHeatmapData {
@@ -74,6 +98,9 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
   const [selectedCompany, setSelectedCompany] = useState<CompanyMarker | null>(
     null
   );
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedCountryCompanies, setSelectedCountryCompanies] = useState<CompanyMarker['companies']>([]);
+  const [expandedCompany, setExpandedCompany] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>(emptyFilters);
   const [mapCompanies, setMapCompanies] = useState<CompanyMarker[]>([]);
@@ -95,12 +122,11 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
   const memoizedFilters = useMemo(
     () => filters,
     [
-      filters.technologyIds,
-      filters.materialIds,
-      filters.processCategories,
-      filters.sizeRanges,
-      filters.states,
-      filters.countries,
+      filters.technologyIds.join(','),
+      filters.materialIds.join(','),
+      filters.processCategories.join(','),
+      filters.sizeRanges.join(','),
+      filters.countries.join(','),
     ]
   );
 
@@ -169,7 +195,6 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
             materialIds,
             processCategories: memoizedFilters.processCategories,
             sizeRanges: memoizedFilters.sizeRanges,
-            states: memoizedFilters.states,
             countries: memoizedFilters.countries,
           });
           setStateData(stateStats);
@@ -257,8 +282,6 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
           
           // Add search and filter parameters
           if (searchQuery.trim()) params.set('q', searchQuery.trim());
-          if (memoizedFilters.states.length)
-            params.set('states', memoizedFilters.states.join(','));
           if (memoizedFilters.countries.length)
             params.set('countries', memoizedFilters.countries.join(','));
         }
@@ -285,6 +308,8 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
           uniqueProcesses: c.uniqueProcesses || 0,
           uniqueMaterials: c.uniqueMaterials || 0,
           uniqueManufacturers: c.uniqueManufacturers || 0,
+          companies: c.companies || [], // Include nested companies array
+          companyData: c.companyData || null, // Include company data for detailed view
         }));
         setMapCompanies(transformed);
       } catch (err) {
@@ -295,11 +320,9 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
     fetchMapCompanies();
     return () => controller.abort();
   }, [
-    viewportBbox,
     memoizedFilters,
     searchQuery,
     isHeatmapMode,
-    technologies,
     isCSVMode,
     companyType]);
 
@@ -554,12 +577,99 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
           <LeafletMap
             companies={searchFilteredCompanies}
             selectedCompany={selectedCompany}
-            onCompanySelect={setSelectedCompany}
+            onCompanySelect={(company) => {
+              // If this is a country cluster (has companies array), show sidebar
+              if (company.companies && company.companies.length > 0) {
+                setSelectedCountryCompanies(company.companies);
+                setSidebarOpen(true);
+                setSelectedCompany(null); // Don't show bottom drawer
+              } else {
+                // Individual company - show bottom drawer
+                setSelectedCompany(company);
+                setSidebarOpen(false);
+              }
+            }}
             getMarkerColor={getMarkerColor}
             isHeatmapMode={isHeatmapMode}
             stateData={stateData}
             onViewportChange={setViewportBbox}
           />
+
+          {/* Sidebar for Country Company Listings */}
+          {sidebarOpen && (
+            <div className='absolute right-0 top-0 h-full w-96 bg-card border-l border-border shadow-lg z-30 overflow-hidden'>
+              <div className='h-full flex flex-col'>
+                {/* Sidebar Header */}
+                <div className='p-4 border-b border-border flex items-center justify-between'>
+                  <h3 className='font-semibold text-lg'>
+                    Companies ({selectedCountryCompanies.length})
+                  </h3>
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    onClick={() => setSidebarOpen(false)}
+                    className='h-8 w-8'>
+                    <X className='h-4 w-4' />
+                  </Button>
+                </div>
+                
+                {/* Company List */}
+                <div className='flex-1 overflow-auto p-4 space-y-3'>
+                  {selectedCountryCompanies.map((company) => (
+                    <div key={company.id} className='border border-border rounded-lg bg-muted/30'>
+                      {/* Company Header */}
+                      <div 
+                        className='p-3 cursor-pointer hover:bg-muted/50 transition-colors'
+                        onClick={() => setExpandedCompany(expandedCompany === company.id ? null : company.id)}>
+                        <div className='flex items-center justify-between'>
+                          <div className='flex-1'>
+                            <h4 className='font-medium text-sm'>{company.name}</h4>
+                            <p className='text-xs text-muted-foreground'>{company.country}</p>
+                          </div>
+                          <div className='flex items-center gap-2'>
+                            <Badge variant='outline' className='text-xs'>
+                              {company.segment}
+                            </Badge>
+                            <ChevronRight className={`h-4 w-4 transition-transform ${
+                              expandedCompany === company.id ? 'rotate-90' : ''
+                            }`} />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Expanded Details */}
+                      {expandedCompany === company.id && (
+                        <div className='px-3 pb-3 border-t border-border/50'>
+                          <div className='pt-3 space-y-3'>
+                            <div>
+                              <h5 className='text-xs font-medium mb-2 text-muted-foreground'>Manufacturing Process</h5>
+                              <Badge variant='secondary' className='font-mono text-xs'>
+                                {company.process}
+                              </Badge>
+                            </div>
+                            
+                            <div>
+                              <h5 className='text-xs font-medium mb-2 text-muted-foreground'>Material Type</h5>
+                              <Badge 
+                                variant={company.material_type === 'Metal' ? 'default' : 'secondary'}
+                                className={company.material_type === 'Metal' ? 'bg-blue-100 text-blue-800' : ''}>
+                                {company.material_type}
+                              </Badge>
+                            </div>
+                            
+                            <div>
+                              <h5 className='text-xs font-medium mb-2 text-muted-foreground'>Material Format</h5>
+                              <span className='text-sm'>{company.material_format}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Bottom Drawer for Company Details */}
           {selectedCompany && (
@@ -571,7 +681,7 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
                       {selectedCompany.name}
                     </h3>
                     <p className='text-sm text-muted-foreground'>
-                      {selectedCompany.city}, {selectedCompany.state}
+                      {selectedCompany.city}{selectedCompany.state ? `, ${selectedCompany.state}` : ''}
                     </p>
                   </div>
                   <Button
@@ -582,40 +692,120 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
                   </Button>
                 </div>
                 <div className='p-4 space-y-4 max-h-[40vh] overflow-y-auto pb-[env(safe-area-inset-bottom)]'>
-                  <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-                    <div className='bg-muted/50 rounded-lg p-3'>
-                      <div className='text-xl font-bold text-chart-4'>
-                        {selectedCompany.totalMachines}
+                  {/* Show Print Services specific data if available */}
+                  {selectedCompany.companyData ? (
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                      <div className='space-y-3'>
+                        <div className='bg-muted/50 rounded-lg p-3'>
+                          <div className='text-2xl font-bold text-primary'>
+                            {selectedCompany.companyData.number_of_printers}
+                          </div>
+                          <div className='text-xs text-muted-foreground'>
+                            Number of Printers ({selectedCompany.companyData.count_type})
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h4 className='text-sm font-medium mb-2'>Company Details</h4>
+                          <div className='space-y-2 text-sm'>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Segment:</span>
+                              <Badge variant='secondary'>{selectedCompany.companyData.segment}</Badge>
+                            </div>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Country:</span>
+                              <span>{selectedCompany.companyData.country}</span>
+                            </div>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Last Updated:</span>
+                              <span>{selectedCompany.companyData.update_year}</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className='text-xs text-muted-foreground'>
-                        Total Machines
+                      
+                      <div className='space-y-3'>
+                        <div>
+                          <h4 className='text-sm font-medium mb-2'>Equipment Details</h4>
+                          <div className='space-y-2 text-sm'>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Manufacturer:</span>
+                              <span className='font-medium'>{selectedCompany.companyData.printer_manufacturer}</span>
+                            </div>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Model:</span>
+                              <span>{selectedCompany.companyData.printer_model}</span>
+                            </div>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Process:</span>
+                              <Badge variant='outline' className='font-mono'>{selectedCompany.companyData.process}</Badge>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h4 className='text-sm font-medium mb-2'>Material Information</h4>
+                          <div className='space-y-2 text-sm'>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Type:</span>
+                              <Badge variant={selectedCompany.companyData.material_type === 'Metal' ? 'default' : 'secondary'}>
+                                {selectedCompany.companyData.material_type}
+                              </Badge>
+                            </div>
+                            <div className='flex justify-between'>
+                              <span className='text-muted-foreground'>Format:</span>
+                              <span>{selectedCompany.companyData.material_format}</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {selectedCompany.companyData?.additional_info && (
+                          <div>
+                            <h4 className='text-sm font-medium mb-2'>Additional Information</h4>
+                            <p className='text-sm text-muted-foreground'>
+                              {selectedCompany.companyData?.additional_info}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
-                    <div className='bg-muted/50 rounded-lg p-3'>
-                      <div className='text-xl font-bold text-chart-2'>
-                        {selectedCompany.uniqueProcesses}
+                  ) : (
+                    // Default view for other company types
+                    <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+                      <div className='bg-muted/50 rounded-lg p-3'>
+                        <div className='text-xl font-bold text-chart-4'>
+                          {selectedCompany.totalMachines}
+                        </div>
+                        <div className='text-xs text-muted-foreground'>
+                          Total Machines
+                        </div>
                       </div>
-                      <div className='text-xs text-muted-foreground'>
-                        Processes
+                      <div className='bg-muted/50 rounded-lg p-3'>
+                        <div className='text-xl font-bold text-chart-2'>
+                          {selectedCompany.uniqueProcesses}
+                        </div>
+                        <div className='text-xs text-muted-foreground'>
+                          Processes
+                        </div>
+                      </div>
+                      <div className='bg-muted/50 rounded-lg p-3'>
+                        <div className='text-xl font-bold text-chart-5'>
+                          {selectedCompany.uniqueMaterials}
+                        </div>
+                        <div className='text-xs text-muted-foreground'>
+                          Materials
+                        </div>
+                      </div>
+                      <div className='bg-muted/50 rounded-lg p-3'>
+                        <div className='text-xl font-bold text-chart-3'>
+                          {selectedCompany.uniqueManufacturers}
+                        </div>
+                        <div className='text-xs text-muted-foreground'>
+                          Manufacturers
+                        </div>
                       </div>
                     </div>
-                    <div className='bg-muted/50 rounded-lg p-3'>
-                      <div className='text-xl font-bold text-chart-5'>
-                        {selectedCompany.uniqueMaterials}
-                      </div>
-                      <div className='text-xs text-muted-foreground'>
-                        Materials
-                      </div>
-                    </div>
-                    <div className='bg-muted/50 rounded-lg p-3'>
-                      <div className='text-xl font-bold text-chart-3'>
-                        {selectedCompany.uniqueManufacturers}
-                      </div>
-                      <div className='text-xs text-muted-foreground'>
-                        Manufacturers
-                      </div>
-                    </div>
-                  </div>
+                  )}
                   {selectedCompany.type && (
                     <div>
                       <h4 className='text-sm font-medium mb-2'>Company Type</h4>

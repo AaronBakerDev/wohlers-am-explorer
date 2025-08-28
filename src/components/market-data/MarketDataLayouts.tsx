@@ -1,28 +1,147 @@
 'use client'
 
+import { useState, useMemo } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download } from 'lucide-react'
+import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
+import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
+import { MarketTotalsChart } from '@/components/market-data/MarketTotalsChart'
+import { MarketCountriesChart } from '@/components/market-data/MarketCountriesChart'
 
 interface MarketDataLayoutProps {
   data: string[][]
   dataset: string
 }
 
-// Revenue Analysis Layout - for AM Market Revenue 2024 & Revenue by Industry 2024
+/**
+ * RevenueAnalysisLayout
+ *
+ * Displays revenue distributions as two pie charts (by segment and by country/label)
+ * and a data table. This layout is used for:
+ * - am-market-revenue-2024 (columns: ['revenue_usd', 'country', 'segment'])
+ * - revenue-by-industry-2024 (columns: ['industry', 'share_of_revenue_percent', 'revenue_usd', 'region', 'material'])
+ *
+ * Data shape: string[][] where row[0] is the header row. This shape is produced by
+ * the vendor data API: src/app/api/vendor-data/[dataset]/route.ts, which in turn is
+ * referenced by the market-data proxy: src/app/api/market-data/[dataset]/route.ts.
+ * Column definitions come from src/lib/config/datasets.ts (DATASET_CONFIGS).
+ *
+ * Note on indices:
+ *  - We compute indices for revenue, name (country/industry), and segment dynamically
+ *    based on the dataset, so this component can render both datasets correctly.
+ */
 export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) {
   if (!data || data.length === 0) return <div>No data available</div>
   
   const headers = data[0] || []
   const rows = data.slice(1)
   
+  // Map column indices by dataset (some datasets have different column orders)
+  const { revenueIdx, nameIdx, segmentIdx } = useMemo(() => {
+    switch (dataset) {
+      case 'revenue-by-industry-2024':
+        // columns: ['industry', 'share_of_revenue_percent', 'revenue_usd', 'region', 'material']
+        // Use industry as the display name, region as a segment-like grouping for filtering
+        return { revenueIdx: 2, nameIdx: 0, segmentIdx: 3 }
+      case 'am-market-revenue-2024':
+      default:
+        // columns: ['revenue_usd', 'country', 'segment']
+        return { revenueIdx: 0, nameIdx: 1, segmentIdx: 2 }
+    }
+  }, [dataset])
+  
+  // State for filters
+  const [selectedSegment, setSelectedSegment] = useState<string>('all')
+  const [selectedCountry, setSelectedCountry] = useState<string>('all')
+  const [searchTerm, setSearchTerm] = useState('')
+  
+  // Process data for pie charts
+  // Apply filters (segment, country/label, free-text search)
+  const processedData = useMemo(() => {
+    // Filter rows based on selections
+    let filteredRows = rows
+    
+    if (selectedSegment !== 'all') {
+      filteredRows = filteredRows.filter(row => row[segmentIdx] === selectedSegment)
+    }
+    
+    if (selectedCountry !== 'all') {
+      // For am-market-revenue-2024 this is a country filter; for revenue-by-industry-2024 it's the industry name
+      filteredRows = filteredRows.filter(row => row[nameIdx] === selectedCountry)
+    }
+    
+    if (searchTerm) {
+      filteredRows = filteredRows.filter(row => 
+        row.some(cell => cell?.toString().toLowerCase().includes(searchTerm.toLowerCase()))
+      )
+    }
+    
+    return filteredRows
+  }, [rows, selectedSegment, selectedCountry, searchTerm])
+  
+  // Prepare data for pie charts
+  const segmentData = useMemo(() => {
+    const segmentRevenue = new Map<string, number>()
+    
+    processedData.forEach(row => {
+      const segment = row[segmentIdx] || 'Unknown'
+      // Revenue values are currency-formatted strings in the CSV-like array; strip non-numeric characters before parse
+      const revenue = parseFloat(row[revenueIdx]?.toString().replace(/[^\d.-]/g, '') || '0')
+      
+      segmentRevenue.set(segment, (segmentRevenue.get(segment) || 0) + revenue)
+    })
+    
+    return Array.from(segmentRevenue.entries())
+      .map(([segment, revenue]) => ({ name: segment, value: revenue }))
+      .sort((a, b) => b.value - a.value)
+  }, [processedData])
+  
+  const countryData = useMemo(() => {
+    const countryRevenue = new Map<string, number>()
+    
+    processedData.forEach(row => {
+      const country = row[nameIdx] || 'Unknown'
+      // Same parsing as segmentData
+      const revenue = parseFloat(row[revenueIdx]?.toString().replace(/[^\d.-]/g, '') || '0')
+      
+      countryRevenue.set(country, (countryRevenue.get(country) || 0) + revenue)
+    })
+    
+    return Array.from(countryRevenue.entries())
+      .map(([country, revenue]) => ({ name: country, value: revenue }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10) // Top 10 countries
+  }, [processedData])
+  
+  // Color palette for pie charts
+  const COLORS = [
+    '#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8',
+    '#82CA9D', '#FFC658', '#FF7C7C', '#8DD1E1', '#D084A7'
+  ]
+  
+  // Custom tooltip formatter
+  const formatTooltip = (value: number, name: string) => {
+    return [`$${(value / 1000000).toFixed(1)}M`, name]
+  }
+  
+  // Get unique segments and countries for filters
+  // Populate filter dropdowns from data
+  const uniqueSegments = Array.from(new Set(rows.map(row => row[segmentIdx]).filter(Boolean)))
+  const uniqueCountries = Array.from(new Set(rows.map(row => row[nameIdx]).filter(Boolean)))
+
+  const segmentTotal = useMemo(() => segmentData.reduce((s, d) => s + (d.value || 0), 0), [segmentData])
+  const countryTotal = useMemo(() => countryData.reduce((s, d) => s + (d.value || 0), 0), [countryData])
+  
   return (
     <div className="space-y-6">
+      {dataset === 'am-market-revenue-2024' ? (
+        <MarketCountriesChart defaultYear={2024} />
+      ) : null}
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
@@ -84,44 +203,141 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Select>
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
               <SelectTrigger>
-                <SelectValue placeholder="Country/Industry" />
+                <SelectValue placeholder="Country" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                {Array.from(new Set(rows.map(row => row[1]))).map(item => (
-                  <SelectItem key={item} value={item}>{item}</SelectItem>
+                <SelectItem value="all">All Countries</SelectItem>
+                {uniqueCountries.map(country => (
+                  <SelectItem key={country} value={country}>{country}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
             
-            <Select>
+            <Select value={selectedSegment} onValueChange={setSelectedSegment}>
               <SelectTrigger>
                 <SelectValue placeholder="Segment" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Segments</SelectItem>
-                {Array.from(new Set(rows.map(row => row[2]))).map(segment => (
+                {uniqueSegments.map(segment => (
                   <SelectItem key={segment} value={segment}>{segment}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
             
-            <Input placeholder="Search revenue data..." className="w-full" />
+            <Input 
+              placeholder="Search revenue data..." 
+              className="w-full"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             
-            <Button className="w-full">
+            <Button className="w-full" onClick={() => {
+              setSelectedSegment('all')
+              setSelectedCountry('all')
+              setSearchTerm('')
+            }}>
               <TrendingUp className="h-4 w-4 mr-2" />
-              Generate Chart
+              Reset Filters
             </Button>
           </div>
         </CardContent>
       </Card>
 
+      {/* Pie Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Segment Revenue Pie Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <PieChart className="h-5 w-5" />
+              Revenue by Segment
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              {segmentData.length === 0 || segmentTotal === 0 ? (
+                <div className="h-full w-full flex items-center justify-center text-sm text-muted-foreground">
+                  No segment distribution available.
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <RechartsPieChart>
+                    <Pie
+                      data={segmentData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {segmentData.map((entry, index) => (
+                        <Cell key={`segment-cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={formatTooltip} />
+                    <Legend />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Country Revenue Pie Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <MapPin className="h-5 w-5" />
+              Revenue by Country (Top 10)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              {countryData.length === 0 || countryTotal === 0 ? (
+                <div className="h-full w-full flex items-center justify-center text-sm text-muted-foreground">
+                  No country distribution available.
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <RechartsPieChart>
+                    <Pie
+                      data={countryData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {countryData.map((entry, index) => (
+                        <Cell key={`country-cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={formatTooltip} />
+                    <Legend />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Data Table */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Revenue Data</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg">Revenue Data</CardTitle>
+            <Badge variant="secondary">
+              {processedData.length} of {rows.length} records shown
+            </Badge>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border overflow-auto max-h-96">
@@ -136,12 +352,21 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {rows.slice(0, 50).map((row, rowIndex) => (
+                {processedData.slice(0, 50).map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
-                        {cellIndex === 0 && cell?.includes('$') ? (
-                          <Badge variant="secondary">{cell}</Badge>
+                        {cellIndex === 0 ? (
+                          <Badge variant="secondary">
+                            ${(parseFloat(cell?.toString().replace(/[^\d.-]/g, '') || '0') / 1000000).toFixed(1)}M
+                          </Badge>
+                        ) : cellIndex === 1 ? (
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-3 w-3 text-muted-foreground" />
+                            {cell}
+                          </div>
+                        ) : cellIndex === 2 ? (
+                          <Badge variant="outline">{cell}</Badge>
                         ) : (
                           cell
                         )}
@@ -154,6 +379,15 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
           </div>
         </CardContent>
       </Card>
+    </div>
+  )
+}
+
+// Total AM Market Size Layout - uses unified totals endpoint
+export function TotalMarketSizeLayout() {
+  return (
+    <div className="space-y-6">
+      <MarketTotalsChart />
     </div>
   )
 }

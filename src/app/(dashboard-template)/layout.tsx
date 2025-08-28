@@ -127,7 +127,7 @@ const focusReports = [
   },
   {
     id: 'print-services-global',
-    name: 'prinitng services',
+    name: 'Global Printing Services',
     description: '312 service providers',
     status: 'active',
     dataPoints: '312 service providers',
@@ -336,11 +336,11 @@ export default function DashboardLayout({
                       {focusReports.filter(report => report.status === 'active').map((report) => {
                         const isAccessible = report.status === 'active'
                         const href = report.id === 'am-systems-manufacturers'
-                          ? "/dashboard?tab=am-systems-manufacturers"
+                          ? "/dashboard?dataset=am-systems-manufacturers&view=overview"
                           : report.id === 'print-services-global'
-                          ? "/dashboard?tab=print-services-global"
+                          ? "/dashboard?dataset=print-services-global&view=overview"
                           : "#"
-                        const isActive = currentTab === report.id || currentDataset === report.id
+                        const isActive = currentDataset === report.id || currentTab === report.id
 
                         return (
                           <Link
@@ -598,12 +598,12 @@ export default function DashboardLayout({
                   {/* Active Reports */}
                   {focusReports.filter(report => report.status === 'active').map((report) => {
                     const isAccessible = report.status === 'active'
-                    const href = report.id === 'am-systems-manufacturers'
-                      ? '/dashboard?tab=am-systems-manufacturers'
+                        const href = report.id === 'am-systems-manufacturers'
+                      ? '/dashboard?dataset=am-systems-manufacturers&view=overview'
                       : report.id === 'print-services-global'
-                      ? '/dashboard?tab=print-services-global'
+                      ? '/dashboard?dataset=print-services-global&view=overview'
                       : '#'
-                    const isActive = currentTab === report.id || currentDataset === report.id
+                    const isActive = currentDataset === report.id || currentTab === report.id
 
                     return (
                       <div

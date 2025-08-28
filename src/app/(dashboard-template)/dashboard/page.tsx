@@ -1,9 +1,10 @@
-'use client'
+"use client"
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect, Suspense, useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import NextDynamic from 'next/dynamic'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -36,15 +37,15 @@ const SystemManufacturersMatrix = NextDynamic(() => import('@/components/system-
   ssr: false,
   loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
-const AMSystemsManufacturersContent = NextDynamic(() => import('@/components/am-systems-manufacturers-content'), {
+
+// NEW: Unified Dataset View Component - replaces individual dataset components
+const UnifiedDatasetView = NextDynamic(() => import('@/components/UnifiedDatasetView'), {
   ssr: false,
   loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
+
+// Legacy components - kept for backward compatibility during migration
 const AMSystemsManufacturersAnalytics = NextDynamic(() => import('@/components/am-systems-manufacturers-analytics'), {
-  ssr: false,
-  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
-})
-const PrintServicesGlobalContent = NextDynamic(() => import('@/components/print-services-global-content'), {
   ssr: false,
   loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
@@ -58,23 +59,23 @@ const SavedSearches = NextDynamic(() => import('@/components/SavedSearches'), {
   ssr: false,
 })
 
+// Import dataset configuration system
+import { getActiveDatasets, getDatasetById } from '@/lib/config/datasets'
+
 type TabType = 'overview' | 'map' | 'table' | 'matrix' | 'directory' | 'analytics'
 
 function DashboardContent() {
   const searchParams = useSearchParams()
-  const [activeTab, setActiveTab] = useState<TabType>('overview')
 
-  // Support deep-linking via ?tab=map|table|overview|directory|am-systems-manufacturers|print-services-global
-  useEffect(() => {
-    const tabParam = (searchParams.get('tab') || '').toLowerCase()
-    const allowed: TabType[] = ['overview', 'map', 'table', 'visualizations', 'matrix', 'directory', 'analytics']
-    if (allowed.includes(tabParam as TabType)) {
-      setActiveTab(tabParam as TabType)
-    } else if (tabParam === 'am-systems-manufacturers' || tabParam === 'print-services-global') {
-      // Company data cards deep-link to dataset; default to Overview
-      setActiveTab('overview')
-    }
-  }, [searchParams])
+  // Active view is driven by URL: prefer `view`, fallback to legacy `tab`
+  const computeActiveTab = (): TabType => {
+    const raw = (searchParams.get('view') || searchParams.get('tab') || 'overview').toLowerCase()
+    const allowed: TabType[] = ['overview', 'map', 'table', 'matrix', 'directory', 'analytics']
+    if (allowed.includes(raw as TabType)) return raw as TabType
+    // If legacy `tab` carried dataset id, default to overview
+    return 'overview'
+  }
+  const activeTab = computeActiveTab()
 
   // Dataset selection via sidebar: ?dataset=<id>
   type ReportMetadata = {
@@ -89,59 +90,40 @@ function DashboardContent() {
     [key: string]: unknown
   }
 
-  const DATASETS: Record<string, ReportMetadata> = {
-    'am-companies-global': {
-      title: 'AM Companies Global',
-      description:
-        'Comprehensive global database and analysis of additive manufacturing companies worldwide. This report provides detailed insights into the geographic distribution, technology adoption, and market characteristics of the global AM industry across all sectors including equipment manufacturers, service providers, software companies, and material suppliers.',
-      dataSource: 'Wohlers Associates Research Database',
-      lastUpdated: 'December 15, 2024',
-      totalCompanies: 450,
-      geographicCoverage: '65 countries worldwide',
-      dataPoints: '1,200+ data points per company',
-      version: 'v3.0.0',
-    },
-    'am-systems-manufacturers': {
-      title: 'AM Systems Manufacturers',
-      description:
-        'Comprehensive directory of additive manufacturing systems and equipment manufacturers worldwide. This dataset includes detailed information about production systems, technology capabilities, and manufacturing specifications.',
-      dataSource: 'Wohlers Associates Systems Database',
-      lastUpdated: 'December 15, 2024',
-      totalCompanies: 89,
-      geographicCoverage: '25 countries worldwide',
-      dataPoints: '800+ data points per manufacturer',
-      version: 'v1.5.0',
-    },
-    'print-services-global': {
-      title: 'Print Services Global',
-      description:
-        'Global directory of additive manufacturing print service providers and bureaus. This comprehensive database covers service capabilities, materials offered, geographic reach, and pricing models across the worldwide AM services market.',
-      dataSource: 'Wohlers Associates Services Database',
-      lastUpdated: 'December 20, 2024',
-      totalCompanies: 312,
-      geographicCoverage: '45 countries worldwide',
-      dataPoints: '600+ data points per service provider',
-      version: 'v1.3.0',
-    },
-  }
-
   // Determine dataset from either 'dataset' or 'tab' parameter
   const getDatasetId = () => {
+    // Prefer explicit dataset param; support legacy paths where ?tab held dataset id
     const datasetParam = searchParams.get('dataset')
-    const tabParam = searchParams.get('tab')
-    
-    if (datasetParam) {
-      return datasetParam.toLowerCase()
-    } else if (tabParam === 'am-systems-manufacturers') {
-      return 'am-systems-manufacturers'
-    } else if (tabParam === 'print-services-global') {
-      return 'print-services-global'
-    }
-    return 'am-companies-global'
+    const legacyTab = searchParams.get('tab')
+    if (datasetParam) return datasetParam.toLowerCase()
+    if (legacyTab === 'am-systems-manufacturers') return 'am-systems-manufacturers'
+    if (legacyTab === 'print-services-global') return 'print-services-global'
+    return 'am-systems-manufacturers'
   }
   
   const datasetId = getDatasetId()
-  const reportMetadata = DATASETS[datasetId] ?? DATASETS['am-companies-global']
+  const dataset = getDatasetById(datasetId)
+  
+  // Convert dataset config to legacy ReportMetadata format for backward compatibility
+  const reportMetadata: ReportMetadata = dataset ? {
+    title: dataset.name,
+    description: dataset.description,
+    dataSource: 'Wohlers Associates Research Database',
+    lastUpdated: dataset.updatedAt ? new Date(dataset.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'December 15, 2024',
+    totalCompanies: 0, // Will be populated from API response
+    geographicCoverage: 'Global coverage',
+    dataPoints: '800+ data points per company',
+    version: dataset.version,
+  } : {
+    title: 'Dataset Not Found',
+    description: 'The requested dataset is not available or has been removed.',
+    dataSource: 'Unknown',
+    lastUpdated: 'Unknown',
+    totalCompanies: 0,
+    geographicCoverage: 'Unknown',
+    dataPoints: 'Unknown',
+    version: 'Unknown',
+  }
 
   const tabs = useMemo(() => {
     const baseTabs = [
@@ -165,8 +147,8 @@ function DashboardContent() {
       }
     ]
 
-    // Add analytics tab for AM Systems Manufacturers and Print Services Global
-    if (datasetId === 'am-systems-manufacturers' || datasetId === 'print-services-global') {
+    // Add analytics tab if dataset supports it
+    if (dataset && dataset.enableAnalytics) {
       baseTabs.push({
         id: 'analytics' as TabType,
         label: 'Analytics',
@@ -176,57 +158,68 @@ function DashboardContent() {
     }
 
     return baseTabs
-  }, [datasetId])
+  }, [dataset])
 
   const renderTabContent = () => {
-    // Special handling for AM Systems Manufacturers dataset
-    if (datasetId === 'am-systems-manufacturers') {
-      switch (activeTab) {
-        case 'overview':
-          return <OverviewContent reportMetadata={reportMetadata} />
-        case 'map':
-          return <MapExplorerContent companyType="equipment" />
-        case 'table':
-          return <AMSystemsManufacturersContent />
-        case 'analytics':
-          return <AMSystemsManufacturersAnalytics />
-        case 'matrix':
-          return <SystemManufacturersMatrix />
-        default:
-          return <AMSystemsManufacturersContent />
-      }
+    if (!dataset) {
+      return (
+        <div className="h-full flex items-center justify-center">
+          <div className="text-center text-red-500">
+            <h2 className="text-lg font-semibold mb-2">Dataset Not Found</h2>
+            <p className="text-sm">Dataset "{datasetId}" is not configured or available.</p>
+          </div>
+        </div>
+      )
     }
 
-    // Special handling for Print Services Global dataset
-    if (datasetId === 'print-services-global') {
-      switch (activeTab) {
-        case 'overview':
-          return <OverviewContent reportMetadata={reportMetadata} />
-        case 'map':
-          return <MapExplorerContent companyType="service" />
-        case 'table':
-          return <PrintServicesGlobalContent />
-        case 'analytics':
-          return <PrintServicesGlobalAnalytics />
-        default:
-          return <PrintServicesGlobalContent />
-      }
-    }
-
-    // Default rendering for other datasets
+    // Unified rendering based on activeTab
     switch (activeTab) {
       case 'overview':
         return <OverviewContent reportMetadata={reportMetadata} />
+        
       case 'map':
-        return <MapExplorerContent />
+        // Use dataset mapType to determine the appropriate map view
+        return <MapExplorerContent companyType={dataset.mapType} />
+        
       case 'table':
-        return <DataTableContent />
+        // Use new unified dataset view for all datasets
+        return <UnifiedDatasetView datasetId={datasetId} />
+        
+      case 'analytics':
+        // Legacy analytics components for backward compatibility
+        if (datasetId === 'am-systems-manufacturers') {
+          return <AMSystemsManufacturersAnalytics />
+        }
+        if (datasetId === 'print-services-global') {
+          return (
+            <div className="space-y-2">
+              <div className="px-4 md:px-6">
+                <div className="p-4 border-b border-border bg-card" data-testid="psg-analytics-header">
+                  <div className="flex items-center gap-2">
+                    <Globe className="h-4 w-4 text-primary" />
+                    <h2 className="text-lg font-medium">Global Printing Services Analytics</h2>
+                  </div>
+                </div>
+              </div>
+              <PrintServicesGlobalAnalytics />
+            </div>
+          )
+        }
+        // Fallback to unified view for other datasets
+        return <UnifiedDatasetView datasetId={datasetId} />
+        
       case 'matrix':
-        return <SystemManufacturersMatrix />
+        // Matrix view currently only for AM Systems Manufacturers
+        if (datasetId === 'am-systems-manufacturers') {
+          return <SystemManufacturersMatrix />
+        }
+        return <UnifiedDatasetView datasetId={datasetId} />
+        
       case 'directory':
         return <DirectoryContent />
+        
       default:
-        return <OverviewContent reportMetadata={reportMetadata} />
+        return <UnifiedDatasetView datasetId={datasetId} />
     }
   }
 
@@ -378,20 +371,27 @@ function DashboardContent() {
         {/* Tab Navigation */}
         <div className="px-4 md:px-6">
           <div className="flex items-center overflow-x-auto scrollbar-none">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1 md:gap-2 px-3 md:px-4 py-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
-                }`}
-              >
-                {tab.icon}
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
+            {tabs.map((tab) => {
+              const params = new URLSearchParams()
+              params.set('dataset', datasetId)
+              params.set('view', tab.id)
+              const href = `/dashboard?${params.toString()}`
+              const isActive = activeTab === tab.id
+              return (
+                <Link
+                  key={tab.id}
+                  href={href}
+                  className={`flex items-center gap-1 md:gap-2 px-3 md:px-4 py-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                    isActive
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
+                  }`}
+                >
+                  {tab.icon}
+                  <span className="hidden sm:inline">{tab.label}</span>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </div>
