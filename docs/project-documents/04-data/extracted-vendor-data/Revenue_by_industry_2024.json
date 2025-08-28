@@ -1,0 +1,316 @@
+[
+  {
+    "Industry": "Medical",
+    "Share of revenue (%)": 11.1,
+    "Revenue (USD)": 2430900000,
+    "Region": "Global",
+    "Material": "All",
+    "__EMPTY_1": "Data viz"
+  },
+  {
+    "Industry": "Space",
+    "Share of revenue (%)": 10.6,
+    "Revenue (USD)": 2321400000,
+    "Region": "Global",
+    "Material": "All",
+    "__EMPTY_1": "Filters",
+    "__EMPTY_2": "by region",
+    "__EMPTY_3": "by Material",
+    "__EMPTY_4": "by industry"
+  },
+  {
+    "Industry": "Automotive",
+    "Share of revenue (%)": 10.3,
+    "Revenue (USD)": 2255700000.0000005,
+    "Region": "Global",
+    "Material": "All",
+    "__EMPTY_2": "Americas",
+    "__EMPTY_3": "Metal"
+  },
+  {
+    "Industry": "Energy",
+    "Share of revenue (%)": 8.4,
+    "Revenue (USD)": 1839600000,
+    "Region": "Global",
+    "Material": "All",
+    "__EMPTY_2": "APAC",
+    "__EMPTY_3": "Polymer"
+  },
+  {
+    "Industry": "Heavy transportation",
+    "Share of revenue (%)": 8.3,
+    "Revenue (USD)": 1817700000.0000002,
+    "Region": "Global",
+    "Material": "All",
+    "__EMPTY_2": "EMEA"
+  },
+  {
+    "Industry": "AM service provider",
+    "Share of revenue (%)": 7.9,
+    "Revenue (USD)": 1730100000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Electronics",
+    "Share of revenue (%)": 7.2,
+    "Revenue (USD)": 1576800000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Aviation",
+    "Share of revenue (%)": 7.1,
+    "Revenue (USD)": 1554900000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Defense",
+    "Share of revenue (%)": 6.8,
+    "Revenue (USD)": 1489200000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Dental",
+    "Share of revenue (%)": 6.5,
+    "Revenue (USD)": 1423500000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Consumer Products",
+    "Share of revenue (%)": 6.4,
+    "Revenue (USD)": 1401600000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Others",
+    "Share of revenue (%)": 2.4,
+    "Revenue (USD)": 525600000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Oil and gas",
+    "Share of revenue (%)": 2.2,
+    "Revenue (USD)": 481800000.00000006,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Chemical processing",
+    "Share of revenue (%)": 1.8,
+    "Revenue (USD)": 394200000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Architectural/construction",
+    "Share of revenue (%)": 1.7,
+    "Revenue (USD)": 372300000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Academic / research institutions",
+    "Share of revenue (%)": 1.3,
+    "Revenue (USD)": 284700000,
+    "Region": "Global",
+    "Material": "All"
+  },
+  {
+    "Industry": "Automotive",
+    "Share of revenue (%)": 14.5062488,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Heavy transportation",
+    "Share of revenue (%)": 11.9390492,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Medical",
+    "Share of revenue (%)": 9.9484436,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Space",
+    "Share of revenue (%)": 9.6315112,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Energy",
+    "Share of revenue (%)": 9.5831326,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "AM service provider",
+    "Share of revenue (%)": 8.5722327,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Electronics",
+    "Share of revenue (%)": 8.2976395,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Consumer products",
+    "Share of revenue (%)": 7.6428742,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Aviation",
+    "Share of revenue (%)": 5.9249176,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Defense",
+    "Share of revenue (%)": 3.4815438,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Others",
+    "Share of revenue (%)": 2.7812288,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Architectural / construction",
+    "Share of revenue (%)": 2.0179929,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Chemical processing",
+    "Share of revenue (%)": 1.9245394,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Academic / research institutions",
+    "Share of revenue (%)": 1.4560647,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Dental",
+    "Share of revenue (%)": 1.3127429,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Oil and gas",
+    "Share of revenue (%)": 0.9798381,
+    "Region": "Global",
+    "Material": "Polymer"
+  },
+  {
+    "Industry": "Space",
+    "Share of revenue (%)": 11.895514,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Energy",
+    "Share of revenue (%)": 10.694418,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Medical",
+    "Share of revenue (%)": 10.433484,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Heavy transportation",
+    "Share of revenue (%)": 9.642088,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Aviation",
+    "Share of revenue (%)": 8.786033,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Dental",
+    "Share of revenue (%)": 8.152423,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "AM service provider",
+    "Share of revenue (%)": 7.097246,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Automotive",
+    "Share of revenue (%)": 6.981344,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Electronics",
+    "Share of revenue (%)": 6.754745,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Defense",
+    "Share of revenue (%)": 6.177678,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Consumer products",
+    "Share of revenue (%)": 5.737916,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Others",
+    "Share of revenue (%)": 1.951976,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Oil and gas",
+    "Share of revenue (%)": 1.710826,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Chemical processing",
+    "Share of revenue (%)": 1.384393,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Architectural / construction",
+    "Share of revenue (%)": 1.322601,
+    "Region": "Global",
+    "Material": "Metal"
+  },
+  {
+    "Industry": "Academic / research institutions",
+    "Share of revenue (%)": 1.277315,
+    "Region": "Global",
+    "Material": "Metal"
+  }
+]

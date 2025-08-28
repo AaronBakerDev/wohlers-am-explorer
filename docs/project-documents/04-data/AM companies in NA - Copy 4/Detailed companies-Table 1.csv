@@ -1,0 +1,721 @@
+;Company;Printer manufacturer;Printer model;Process;Material;Number of printers;Count type;Country;State / province;Website
+;(UPM) United Performance Metals, LLC;Fabrisonic;SonicLayer 1200;SHL;Metal;1;Minimum;United States;OH;https://upmet.com
+;3 DPX;EOS;;PBF-LB;Polymer;1;Minimum;United States;IL;https://3dpx.com
+;3 DPX;;;BJT;Metal;1;Minimum;United States;IL;https://3dpx.com
+;3 Space;Stratasys;Fortus;MEX;Polymer;1;Minimum;United States;KY;https://3space.com
+;3 Space;Stratasys;Polyjet;MJT;Polymer;1;Minimum;United States;KY;https://3space.com
+;3 Space;3D Systems;MultiJet;MJT;Polymer;1;Minimum;United States;KY;https://3space.com
+;3 Space;3D Systems;SLA;VPP;Polymer;1;Minimum;United States;KY;https://3space.com
+;3D Accuracy;Stratasys;FDM;MEX;Polymer;4;Actual;United States;VA;https://3d-accuracy.com
+;3D Accuracy;Stratasys;Objet;MJT;Polymer;2;Actual;United States;VA;https://3d-accuracy.com
+;3D Accuracy;Stratasys;Fortus;MEX;Polymer;1;Actual;United States;VA;https://3d-accuracy.com
+;3D Brooklyn;;;MEX;Polymer;1;Minimum;United States;NY;https://3dbrooklyn.com
+;3D Central;;;MEX;Polymer;1;Minimum;United States;VA;https://3dcentralva.com
+;3D Chimera;;;PBF-LB;Polymer;1;Minimum;United States;FL;https://3dchimera.com
+;3D Chimera;;;MEX;Polymer;1;Minimum;United States;FL;https://3dchimera.com
+;3D Chimera;;;VPP;Polymer;1;Minimum;United States;FL;https://3dchimera.com
+;3D Herndon;;;VPP;Polymer;1;Minimum;United States;VA;https://3dherndon.com
+;3D Herndon;;;MEX;Polymer;1;Minimum;United States;VA;https://3dherndon.com
+;3D Herndon;;;PBF-LB;Polymer;1;Minimum;United States;VA;https://3dherndon.com
+;3D in Metal;SPEE3D;;Cold spray;Metal;1;Minimum;United States;TX;https://3dinmetal.com
+;3D in Metal;MELD;;Friction stir welding;Metal;1;Minimum;United States;TX;https://3dinmetal.com
+;3D in Metal;;;wDED-Arc;Metal;1;Minimum;United States;TX;https://3dinmetal.com
+;3D Innovations;;;MEX;Polymer;1;Minimum;United States;HI;https://3d-innovations.com
+;3D Logics;EOS;M290;PBF-LB;Metal;1;Minimum;United States;OR;https://3dlogics.com
+;3D Logics;EOS;P110;PBF-LB;Polymer;1;Minimum;United States;OR;https://3dlogics.com
+;3D Parts Manufacturing;Raise 3D;;VPP;Polymer;6;Minimum;United States;IN;https://3dpartsmfg.com
+;3D Parts Manufacturing;HP;;MJT;Polymer;1;Minimum;United States;IN;https://3dpartsmfg.com
+;3D Parts Manufacturing;;;MEX;Polymer;1;Minimum;United States;IN;https://3dpartsmfg.com
+;3D Print Everything;;;MEX;Polymer;1;Minimum;United States;TX;https://go.thryv.com/site/3DPrintEverything
+;3D printed microTEC;;;VPP;Polymer;1;Minimum;United states;MD;https://3dprintedmicrotec.com
+;3D PRINTER TECHNOLOGY;;;VPP;Polymer;1;Minimum;United States;GA;https://3DCADPRINTER.COM
+;3D PRINTER TECHNOLOGY;;;PBF-LB;Polymer;1;Minimum;United States;GA;https://3DCADPRINTER.COM
+;3D PRINTER TECHNOLOGY;;;PBF-EB;Metal;1;Minimum;United States;GA;https://3DCADPRINTER.COM
+;3D PRINTER TECHNOLOGY;;Polyjet;MJT;Polymer;1;Minimum;United States;GA;https://3DCADPRINTER.COM
+;3D PRINTER TECHNOLOGY;;;PBF-LB;Metal;1;Minimum;United States;GA;https://3DCADPRINTER.COM
+;3D PRINTER TECHNOLOGY;;;MEX;Polymer;1;Minimum;United States;GA;https://3DCADPRINTER.COM
+;3D Printing Canada;;;MEX;Polymer;1;Minimum;Canada;ON;https://3dprintingcanada.com
+;3D Printing Chicago;;;MEX;Polymer;10;Actual;United States;IL;https://3d-printing-chicago.com
+;3D Printing Tech;Massivit;5000;MEX;Polymer;1;Minimum;United states;GA;https://3dprintingtech.com
+;3D Printing Tech;;;MEX;Polymer;1;Minimum;United states;GA;https://3dprintingtech.com
+;3D Printing Tech;XYZPrinting;MfgPro230;PBF-LB;Polymer;1;Minimum;United states;GA;https://3dprintingtech.com
+;3D Printsmith LLC;;;MJT;Polymer;1;Minimum;United States;MA;https://3dprintsmith.com
+;3D Printsmith LLC;;;MEX;Polymer;1;Minimum;United States;MA;https://3dprintsmith.com
+;3D Printsmith LLC;;;PBF-LB;Polymer;1;Minimum;United States;MA;https://3dprintsmith.com
+;3D Printsmith LLC;;;BJT;Polymer;1;Minimum;United States;MA;https://3dprintsmith.com
+;3D Printsmith LLC;;;PBF-LB;Metal;1;Minimum;United States;MA;https://3dprintsmith.com
+;3D Printsmith LLC;;;VPP;Polymer;1;Minimum;United States;MA;https://3dprintsmith.com
+;3D Rapid Parts;;;VPP;Polymer;1;Minimum;United States;AZ;https://phxrapid.com
+;3D Rapid Parts;;;MEX;Polymer;1;Minimum;United States;AZ;https://phxrapid.com
+;3D Simulations;;;MEX;Polymer;1;Minimum;United States;FL;https://3dsimulationsinc.com
+;3D Solutions, Inc;;;MJT;Polymer;1;Minimum;United States;GA;https://3dsolutionsinc.com
+;3D Solutions, Inc;;;VPP;Polymer;1;Minimum;United States;GA;https://3dsolutionsinc.com
+;3D Solutions, Inc;;;PBF-LB;Polymer;1;Minimum;United States;GA;https://3dsolutionsinc.com
+;3D Solutions, Inc;;;MEX;Polymer;1;Minimum;United States;GA;https://3dsolutionsinc.com
+;3D-CAM;;;VPP;Polymer;1;Minimum;United States;CA;https://3d-cam.com
+;3D-CAM;;;MEX;Polymer;1;Minimum;United States;CA;https://3d-cam.com
+;3D-CAM;;;PBF-LB;Polymer;1;Minimum;United States;CA;https://3d-cam.com
+;3DChimera;Bambu Lab;;MEX;Polymer;3;Minimum;United States;FL;https://shop3dchimera.com
+;3DChimera;Sintratec;;PBF-LB;Polymer;2;Minimum;United States;FL;https://shop3dchimera.com
+;3DEO;Proprietary;;BJT;Metal;1;Minimum;United States;CA;https://3deo.co
+;3DMakerWorld Services;HP;MJF;PBF-IR;Polymer;1;Minimum;United States;KS;https://3dmakerworld.com
+;3DX Industries;;;MEX;Polymer;2;Minimum;United States;WA;https://3dxindustries.com
+;3DX Industries;;;BJT;Metal;2;Minimum;United States;WA;https://3dxindustries.com
+;3DX Industries;;;VPP;Polymer;3;Minimum;United States;WA;https://3dxindustries.com
+;A3D;HP;;PBF-IR;Polymer;1;Minimum;United States;AZ;https://a3dmfg.com
+;A3D;Markforged;;MEX;Polymer;1;Minimum;United States;AZ;https://a3dmfg.com
+;A3D;Stratasys;;MEX;Polymer;1;Minimum;United States;AZ;https://a3dmfg.com
+;A3D;;;PBF-LB;Polymer;1;Minimum;United States;AZ;https://a3dmfg.com
+;A3D;Formlabs;;VPP;Polymer;1;Minimum;United States;AZ;https://a3dmfg.com
+;A3D;Stratasys;;VPP;Polymer;1;Minimum;United States;AZ;https://a3dmfg.com
+;A3D;Markforged;;MEX;Metal;1;Minimum;United States;AZ;https://a3dmfg.com
+;ABC Imaging;;;MEX;Polymer;1;Minimum;United States;VA;https://abcimaging.com
+;ABCorp3D;HP;;PBF-IR;Polymer;1;Minimum;United states;MA;https://abcorp.com
+;ABCorp3D;Desktop Metal;;BJT;Metal;1;Minimum;United states;MA;https://abcorp.com
+;Accel Digital Solutions;HP;;PBF-IR;Polymer;1;Minimum;United States;MI;https://acceldigitalsolutions.com
+;Accel Digital Solutions;Bambu Lab;;MEX;Polymer;1;Minimum;United States;MI;https://acceldigitalsolutions.com
+;Additive America;;;VPP;Polymer;1;Minimum;United States;OH;https://AdditiveAmerica.com
+;Additive America;;;MEX;Polymer;1;Minimum;United States;OH;https://AdditiveAmerica.com
+;Additive America;;;MJT;Polymer;1;Minimum;United States;OH;https://AdditiveAmerica.com
+;Additive America;;;PBF-IR;Polymer;1;Minimum;United States;OH;https://AdditiveAmerica.com
+;Additive America;;;PBF-LB;Polymer;1;Minimum;United States;OH;https://AdditiveAmerica.com
+;Additive at Scale;;;MEX;Polymer;14;Minimum;United States;TX;https://www.additiveatscale.com
+;Additive at Scale;;;VPP;Polymer;1;Minimum;United States;TX;https://www.additiveatscale.com
+;Additive Man;Juggerbot;Tradesman P3-44;MEX;Polymer;1;Minimum;United States;CA;https://additiveman.com
+;Additive Manufacturing LLC;Stratasys;Fortus;MEX;Polymer;1;Minimum;United States;NV;https://additivemanufacturingllc.com
+;Additive Manufacturing LLC;EOS;;PBF-LB;Metal;1;Minimum;United States;NV;https://additivemanufacturingllc.com
+;Additive Manufacturing LLC;HP;;PBF-IR;Metal;1;Minimum;United States;NV;https://additivemanufacturingllc.com
+;Additive Manufacturing LLC;3D Systems;;VPP;Polymer;1;Minimum;United States;NV;https://additivemanufacturingllc.com
+;Additive Manufacturing LLC;EOS;;PBF-LB;Polymer;1;Minimum;United States;NV;https://additivemanufacturingllc.com
+;Additive Plus;;;MEX;Polymer;1;Minimum;United States;CA;https://additiveplus.com
+;Additive Plus;;;PBF-LB;Polymer;1;Minimum;United States;CA;https://additiveplus.com
+;Additive Plus;;;VPP;Polymer;1;Minimum;United States;CA;https://additiveplus.com
+;Additive Plus;;;PBF-LB;Metal;1;Minimum;United States;CA;https://additiveplus.com
+;ADDMAN;EOS;M100;PBF-LB;Metal;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;EOS;M270;PBF-LB;Metal;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;EOS;M290;PBF-LB;Metal;5;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;EOS;M400-1;PBF-LB;Metal;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;EOS;M400-4;PBF-LB;Metal;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;GE Additive;Concept Laser M2;PBF-LB;Metal;3;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Velo3D;Sapphire;PBF-LB;Metal;2;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Velo3D;Sapphire XC;PBF-LB;Metal;2;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Additive Industries;Metal Fab1;PBF-LB;Metal;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3D Systems;Prox 320;PBF-LB;Metal;2;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Titan;Atlas 2.5;MEX;Polymer;2;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;BCN3D;W27;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Creatbot;F430;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Anet;A8;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Creality;Ender 5 Plus;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Fusion3;F410;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Aon3D;M2+;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Formlabs;Fuse1;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Formlabs;Form 3;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Formlabs;Form 3L;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Formlabs;Form 2;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Phrozen;Transform;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;NEO 800;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Axtra3d;Lumia X1;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;NEO 450;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3D Systems;Prox 800;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3D Systems;SLA-5000;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3D Systems;SLA-7000;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3D Systems;Viper;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;F370;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;360;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;400;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;F900;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3ntr;A2;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3ntr;A4;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;J850DAP;MJT;Polymer;2;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Carbon 3D;M2;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Carbon 3D;M3;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Carbon 3D;L1;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Formlabs;3BL;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Origin;One;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;HP;4210;PBF-IR;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;HP;5210;PBF-IR;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;400mc;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;450mc;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Markforged;Mark Two;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Roboze;Argo 500;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Formlabs;Form 2;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Nexa3D;XiP;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;3D Systems;Projet 6000HD;MJT;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Stratasys;Objet 260 Connex 2;MJT;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Markforged;Mark Two;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Anycubic;Mega X;MEX;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;ADDMAN;Anycubic;Photon Mono x;VPP;Polymer;1;Minimum;United States;FL;https://addmangroup.com
+;Advanced 3D;HP;Jet Fusion 4210;PBF-IR;Polymer;1;Minimum;United states;NC;https://advanc3dinc.com/
+;Advanced 3D;HP;Jet Fusion 580;PBF-IR;Polymer;1;Minimum;United states;NC;https://advanc3dinc.com/
+;Advanced Additive Innovations Inc.;;;VPP;Polymer;10;Minimum;United States;NC;https://advancedadditiveinnovations.com
+;Advanced Additive Innovations Inc.;;;MEX;Polymer;3;Minimum;United States;NC;https://advancedadditiveinnovations.com
+;AdvancedTek;;;MEX;;9;Minimum;United States;MN;https://advancedtek.com
+;AdvancedTek;;;MJT;;2;Minimum;United States;MN;https://advancedtek.com
+;AdvancedTek;;;PBF-IR;;1;Minimum;United States;MN;https://advancedtek.com
+;AdvancedTek;;;VPP;;2;Minimum;United States;MN;https://advancedtek.com
+;Advantage Prototype Systems;;;VPP;Polymer;5;Minimum;United States;WI;https://www.aps3d.com/
+;Advantage Prototype Systems;;;MEX;Polymer;4;Minimum;United States;WI;https://www.aps3d.com/
+;Advantage Prototype Systems;;;MEX;Polymer;2;Minimum;United States;WI;https://www.aps3d.com/
+;Aerodine Composites Group;Stratasys;Fortus 400mc;MEX;Polymer;1;Minimum;United States;IN;https://aerodinecomposites.com
+;AES – Additive Engineering Solutions;Cincinnati;;MEX;Polymer;1;Minimum;United States;OH;https://additiveeng.com
+;AES – Additive Engineering Solutions;CEAD;;MEX;Polymer;1;Minimum;United States;OH;https://additiveeng.com
+;Agile Manufacturing;;;VPP;Polymer;9;Minimum;Canada;ON;https://agile-manufacturing.com
+;Agile Space Industries – Agile Additive;Trumpf;TruPrint 1000;PBF-LB;Metal;2;Actual;United States;CO;https://agilespaceindustries.com
+;Agile Space Industries – Agile Additive;Trumpf;TruPrint 2000;PBF-LB;Metal;2;Actual;United States;CO;https://agilespaceindustries.com
+;Agile Space Industries – Agile Additive;Trumpf;TruPrint 5000;PBF-LB;Metal;1;Actual;United States;CO;https://agilespaceindustries.com
+;Alaska 3D Printing;;;MEX;Polymer;1;Minimum;United States;AK;https://alaska3dprint.com
+;Alpha Additive Manufacturing Technologies;Intamsys;;MEX;Polymer;1;Minimum;United States;MA;https://alphaamt.com
+;American Additive Manufacturing;;;MEX;;6;Minimum;United States;PA;https://americanadditive.com
+;American Cladding;;;pDED-LB;Metal;1;Minimum;United States;CT;https://americancladding.com
+;AMfg Labs;;;BJT;Metal;9;Actual;United States;OH;https://amfglabs.com/
+;AmPd Labs;;;BJT;Metal;1;Minimum;United States;TX;https://ampdlabs.llc
+;AmPd Labs;;;PBF-LB;Polymer;1;Minimum;United States;TX;https://ampdlabs.llc
+;AmPd Labs;;;VPP;Polymer;1;Minimum;United States;TX;https://ampdlabs.llc
+;Applied Rapid Technologies;;;VPP;Polymer;13;Minimum;United States;VA;https://artcorp.com/
+;ARCH Additive;;;PBF-EB;Metal;3;Minimum;United States;MI;https://arch-medical.com
+;Archematerial;;;PBF-EB;Metal;1;Minimum;United States;VA;https://arch-medical.com
+;Archematerial;;;PBF-LB;Metal;1;Minimum;United States;VA;https://arch-medical.com
+;Areion3D;;;VPP;Polymer;1;Minimum;United States;PA;https://areion3d.com
+;Aristo Cast;3D Systems;Pro Jet 2500 IC;MJT;Polymer;4;Actual;United States;MI;https://aristo-cast.com/
+;Aristo Cast;Voxeljet;VX1000;BJT;Sand;1;Actual;United States;MI;https://aristo-cast.com/
+;Aristo Cast;Admatec;ADMAFLEX 300;VPP;Ceramic;2;Actual;United States;MI;https://aristo-cast.com/
+;Aristo Cast;3D Systems;Thermojet;MJT;Wax;2;Actual;United States;MI;https://aristo-cast.com/
+;Aristo Cast;Stratasys;F370;MEX;Polymer;1;Actual;United States;MI;https://aristo-cast.com/
+;Aristo Cast;3D Systems;FabPro 1000;VPP;Wax;1;Actual;United States;MI;https://aristo-cast.com/
+;Armadillo Additive;;;;;1;Minimum;United States;TX;https://armadilloadditive.com
+;Armstrong RM;;;;;1;Minimum;United States;NY;https://armstrongmold.com
+;ARRK North America;;;PBF-LB;Polymer;8;Minimum;United States;CA;https://www.arrk.com/
+;ARRK North America;;;VPP;Polymer;9;Minimum;United States;CA;https://www.arrk.com/
+;ARRK North America;;;MEX;;1;Minimum;United States;CA;https://www.arrk.com/
+;ART – Applied Rapid Technologies;;;VPP;Polymer;1;Minimum;United States;VA;https://artcorp.com
+;ART – Applied Rapid Technologies;;;MEX;Polymer;1;Minimum;United States;VA;https://artcorp.com
+;ART – Applied Rapid Technologies;;;PBF-LB;Metal;1;Minimum;United States;VA;https://artcorp.com
+;ART – Applied Rapid Technologies;;;PBF-LB;Polymer;1;Minimum;United States;VA;https://artcorp.com
+;ART – Applied Rapid Technologies;HP;;PBF-IR;Polymer;1;Minimum;United States;VA;https://artcorp.com
+;Ashland Foundry and Machine Works, LLC;;;BJT;Sand;1;Minimum;United States;PA;https://ashlandfoundrymachineworks.com
+;ATI Specialty Materials (Allegheny Technologies Incorporated);Nikon SLM;600E;PBF-LB;Metal;1;Minimum;United States;FL;https://atimetals.com
+;Aurora Quickturn;Concept Laser;;PBF-LB;Metal;1;Minimum;United States;GA;https://auroraqt.com
+;Autotiv Manufacturing Corporation (Autotiv MFG);;;PBF-LB;Polymer;1;Minimum;United States;NH;https://www.autotiv.com/
+;Autotiv Manufacturing Corporation (Autotiv MFG);;;MEX;Polymer;50;Minimum;United States;NH;https://www.autotiv.com/
+;Auxetic;HP;;;;1;Minimum;United States;NY;https://auxetic.co
+;Avid Product Development ;;;VPP;Polymer;1;Minimum;United States;CO;https://avid3dprinting.com
+;Avid Product Development ;;;MEX;Polymer;1;Minimum;United States;CO;https://avid3dprinting.com
+;Avid Product Development ;;;PBF-IR;Polymer;1;Minimum;United States;CO;https://avid3dprinting.com
+;Axis Prototypes Inc.;Viper;Si2;VPP;Polymer;1;Actual;Canada;QC;https://axisproto.com
+;Axis Prototypes Inc.;;;VPP;Polymer;5;Actual;Canada;QC;https://axisproto.com
+;Axis Prototypes Inc.;;;PBF-LB;Polymer;3;Actual;Canada;QC;https://axisproto.com
+;Axis Prototypes Inc.;EOS;M270;PBF-LB;Metal;1;Actual;Canada;QC;https://axisproto.com
+;Axis Prototypes Inc.;;;MEX;Polymer;1;Minimum;Canada;QC;https://axisproto.com
+;Axis Prototypes Inc.;Objet;Connex 500;MJT;Polymer;1;Actual;Canada;QC;https://axisproto.com
+;Azoth 3D;;;BJT;Metal;1;Minimum;United States;MI;https://azoth3d.com
+;Azoth 3D;Rize;;MEX;Polymer;1;Minimum;United States;MI;https://azoth3d.com
+;Azoth 3D;Desktop Metal;;MEX;Metal;1;Minimum;United States;MI;https://azoth3d.com
+;Azoth 3D;;;PBF-LB;Polymer;1;Minimum;United States;MI;https://azoth3d.com
+;Azoth 3D;;;VPP;Polymer;1;Minimum;United States;MI;https://azoth3d.com
+;B-jetting;;;BJT;;5;Minimum;United States;PA;https://b-jetting.com
+;B-jetting;;;MEX;Polymer;6;Minimum;United States;PA;https://b-jetting.com
+;Baker Industries, Inc.;;;wDED-Arc;Metal;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Baker Industries, Inc.;;;PBF-LB;Metal;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Baker Industries, Inc.;;;BJT;Metal;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Baker Industries, Inc.;;;MEX;Polymer;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Baker Industries, Inc.;;;PBF-IR;Polymer;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Baker Industries, Inc.;;;VPP;Polymer;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Baker Industries, Inc.;;;MJT;Polymer;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Baker Industries, Inc.;;;VPP;Polymer;1;Minimum;United States;MI;https://bakerindustriesinc.com
+;Barron Industries;;;VPP;Polymer;1;Minimum;United States;MI;https://barron-industries.com
+;Bastech;;;MJT;Polymer;7;Minimum;United States;OH;https://bastech.com
+;Bastech;;;PBF-LB;Metal;1;Minimum;United States;OH;https://bastech.com
+;Bastech;;;VPP;Polymer;4;Minimum;United States;OH;https://bastech.com
+;Bastech;;;MEX;Polymer;1;Minimum;United States;OH;https://bastech.com
+;Beckatt Solutions;;;MEX;Polymer;1;Minimum;United States;IL;https://beckatt.com
+;Beehive Industries;Colibrium Additive;X Line 2000;PBF-LB;Metal;1;Actual;United States;CO;https://www.beehive-industries.com/
+;Beehive Industries;Colibrium Additive;X Line 1000;PBF-LB;Metal;1;Actual;United States;CO;https://www.beehive-industries.com/
+;Beehive Industries;EOS;M290;PBF-LB;Metal;4;Actual;United States;CO;https://www.beehive-industries.com/
+;Beehive Industries;EOS;M400-4;PBF-LB;Metal;1;Actual;United States;CO;https://www.beehive-industries.com/
+;Beehive Industries;In-house;;BJT;Ceramic;2;Actual;United States;CO;https://www.beehive-industries.com/
+;Beehive Industries;Nikon SLM;SLM 500;PBF-LB;Metal;1;Actual;United States;CO;https://www.beehive-industries.com/
+;Beehive Industries;Nikon SLM;SLM 280;PBF-LB;Metal;1;Actual;United States;CO;https://www.beehive-industries.com/
+;Big Tech;Union Tech;LITE600HD;VPP;Polymer;1;Actual;United states;NY;https://prtwd.com
+;Big Tech;Proprietary;SLA-Pro 600;VPP;Polymer;1;Actual;United states;NY;https://prtwd.com
+;Big Tech;Asiga;Pro 4k;VPP;Polymer;1;Actual;United states;NY;https://prtwd.com
+;Big Tech;;;VPP;Polymer;2;Actual;United states;NY;https://prtwd.com
+;Big Tech;Formlabs;Form 3;VPP;Polymer;3;Actual;United states;NY;https://prtwd.com
+;Big Tech;Formlabs;Form 3;VPP;Polymer;3;Actual;United states;NY;https://prtwd.com
+;Black Buffalo;;;MEX;Cement-based;1;Minimum;United States;NJ;https://blackbuffalo.io
+;Bluedge;;;MEX;Polymer;1;Minimum;United States;MA;https://bluedge.com
+;Branch Technology;;;MEX;Polymer;1;Minimum;United States;TN;https://branchtechnology.com
+;Build Parts (by CIDEAS Inc.);;;VPP;Polymer;4;Minimum;United States;IL;https://buildparts.com
+;Build Parts (by CIDEAS Inc.);;;PBF-LB;Polymer;2;Minimum;United States;IL;https://buildparts.com
+;Build Parts (by CIDEAS Inc.);;;MJT;Polymer;3;Minimum;United States;IL;https://buildparts.com
+;Build Parts (by CIDEAS Inc.);;;MEX;Polymer;13;Minimum;United States;IL;https://buildparts.com
+;Burloak;Colibrium Additive;Arcam A2X;PBF-EB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;Colibrium Additive;Arcam Q20+;PBF-EB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;EOS;M100;PBF-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;EOS;M290;PBF-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;EOS;M400-4;PBF-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;EOS;P396;PBF-LB;Polymer;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;Essentium;HSE-180-HT;MEX;Polymer;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;Nikon SLM;SLM 280;PBF-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;Optomec;;pDED-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;Renishaw;AM500Q;PBF-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;TRUMPF;Truprint 1000;PBF-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burloak;TRUMPF;Truprint 2000;PBF-LB;Metal;1;Minimum;Canada;ON;https://www.burloaktech.com/
+;Burton Precision;Intamsys;310;MEX;Polymer;1;Minimum;United States;MI;https://burtonprecision.com
+;Burton Precision;Intamsys;410;MEX;Polymer;1;Minimum;United States;MI;https://burtonprecision.com
+;Burton Precision;Intamsys;610;MEX;Polymer;1;Minimum;United States;MI;https://burtonprecision.com
+;Burton Precision;Sinterit;SUZY;PBF-LB;Polymer;1;Minimum;United States;MI;https://burtonprecision.com
+;Burton Precision;Sinterit;Lisa X;PBF-LB;Polymer;1;Minimum;United States;MI;https://burtonprecision.com
+;Catalysis Additive Tooling;HP;;PBF-IR;Polymer;1;Minimum;United states;OH;https://catalysis3d.com
+;Catalysis Additive Tooling;Formlabs;;VPP;Polymer;1;Minimum;United states;OH;https://catalysis3d.com
+;Catalysis Additive Tooling;Formlabs;;PBF-LB;Polymer;1;Minimum;United states;OH;https://catalysis3d.com
+;Catalysis Additive Tooling;ExOne;;BJT;Polymer;1;Minimum;United states;OH;https://catalysis3d.com
+;Catalysis Additive Tooling;;;PBF-LB;Metal;1;Minimum;United states;OH;https://catalysis3d.com
+;Caterpillar Inc.;;;PBF-LB;Polymer;1;Minimum;United States;TX;https://www.cat.com/global-selector.html
+;Caterpillar Inc.;;;VPP;Polymer;2;Minimum;United States;TX;https://www.cat.com/global-selector.html
+;Caterpillar Inc.;;;PBF-LB;Metal;1;Minimum;United States;TX;https://www.cat.com/global-selector.html
+;Caterpillar Inc.;;;MEX;Polymer;2;Minimum;United States;TX;https://www.cat.com/global-selector.html
+;Cimquest Inc;;;MEX;Polymer;1;Minimum;United States;NJ;https://cimquest-inc.com
+;Cimquest Inc;;;PBF-LB;Polymer;1;Minimum;United States;NJ;https://cimquest-inc.com
+;Cimquest Inc;;;MJT;Polymer;1;Minimum;United States;NJ;https://cimquest-inc.com
+;Cincinnati Incorporated;;;MEX;Polymer;1;Minimum;United states;OH;https://e-ci.com/home
+;CoKreeate;;;MEX;Polymer;1;Minimum;United states;CA;https://cokreeate.com
+;CoKreeate;;;VPP;Polymer;1;Minimum;United states;CA;https://cokreeate.com
+;CoKreeate;;;BJT;Polymer;1;Minimum;United states;CA;https://cokreeate.com
+;Compound Dynamics;;;MEX;Polymer;5;Minimum;United States;WI;https://www.compounddynamics.com/
+;Concept Advanced Manufacturing Solutions;;;MEX;Polymer;1;Minimum;United States;MN;https://conceptmachine.com
+;Concept Advanced Manufacturing Solutions;;;VPP;Polymer;1;Minimum;United States;MN;https://conceptmachine.com
+;Concept Advanced Manufacturing Solutions;;;PBF-LB;Metal;1;Minimum;United States;MN;https://conceptmachine.com
+;Concept Advanced Manufacturing Solutions;;;PBF-LB;Polymer;1;Minimum;United States;MN;https://conceptmachine.com
+;Cosine Additive Inc;;;MEX;Polymer;1;Minimum;United states;TX;https://cosineadditive.com
+;CT3D;;;MEX;Polymer;1;Minimum;United States;CT;https://www.ct3d.tech/
+;CT3D;;;VPP;Polymer;1;Minimum;United States;CT;https://www.ct3d.tech/
+;CTC – Concurrent Technologies Corporation;SLM;280HL;PBF-LB;Metal;1;Minimum;United States;PA;https://ctc.com
+;CTC – Concurrent Technologies Corporation;Nikon SLM;SLM 280;pDED-LB;Metal;1;Minimum;United States;PA;https://ctc.com
+;CTC – Concurrent Technologies Corporation;Concurrent Technologies;Gen III;Cold Spray;Metal;1;Minimum;United States;PA;https://ctc.com
+;Cumberland Additive;SLM;280HL;PBF-LB;Metal;6;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;SLM;500HL;PBF-LB;Metal;1;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;Arcam;EBM Q20+;PBF-EB;Metal;2;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;JEOL;;PBF-EB;Metal;1;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;EOS;M280;PBF-LB;Metal;12;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;EOS;M290;PBF-LB;Metal;2;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;EOS;M400-4;PBF-LB;Metal;2;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;EOS;M400-1;PBF-LB;Metal;1;Actual;United States;TX;https://cai-3d.com
+;Cumberland Additive;EOS;Integra;PBF-LB;Polymer;4;Actual;United States;TX;https://cai-3d.com
+;Custom Prototypes;;;MJT;;1;Minimum;Canada;ON;https://customprototypes.ca
+;Custom Prototypes;;;PBF-LB;Metal;2;Minimum;Canada;ON;https://customprototypes.ca
+;Custom Prototypes;;;VPP;;4;Minimum;Canada;ON;https://customprototypes.ca
+;DELRAY Systems;;;MEX;Polymer;20;Minimum;United States;MI;https://3d-printer.com
+;DELRAY Systems;;;VPP;Polymer;3;Minimum;United States;MI;https://3d-printer.com
+;DELRAY Systems;;;PBF-LB;Polymer;1;Minimum;United States;MI;https://3d-printer.com
+;Dependable Pattern Works;Stratasys;200mc;MEX;Polymer;2;Actual;United States;OR;http://www.dpwcorp.com
+;Dependable Pattern Works;Stratasys;450mc;MEX;Polymer;1;Actual;United States;OR;http://www.dpwcorp.com
+;Dependable Pattern Works;Stratasys;400mc;MEX;Polymer;2;Actual;United States;OR;http://www.dpwcorp.com
+;Dependable Pattern Works;Stratasys;450mc;MEX;Polymer;1;Actual;United States;OR;http://www.dpwcorp.com
+;Detroit 3D;Markforged;;MEX;Polymer;1;Minimum;United States;MI;https://detroit3dmanufacturing.com
+;DI Labs;;;VPP;;1;Minimum;United States;MN;https://dilabs.cc
+;DI Labs;;;BJT;;13;Minimum;United States;MN;https://dilabs.cc
+;DI Labs;;;MEX;;3;Minimum;United States;MN;https://dilabs.cc
+;Duncan Machine Products – DMP;Velo3D;Sapphire;PBF-LB;Metal;1;Minimum;United States;OK;https://duncanmachineproducts.com
+;eCadCam;;;MEX;Polymer;1;Minimum;United states;CA;https://ecadcam.com/3d-printing
+;eCadCam;HP;;PBF-IR;Polymer;1;Minimum;United states;CA;https://ecadcam.com/3d-printing
+;eCadCam;;;VPP;Polymer;1;Minimum;United states;CA;https://ecadcam.com/3d-printing
+;eCadCam;;;PBF-LB;Polymer;1;Minimum;United states;CA;https://ecadcam.com/3d-printing
+;eCadCam;;;MJT;Polymer;1;Minimum;United states;CA;https://ecadcam.com/3d-printing
+;eCadCam;;;PBF-LB;Metal;1;Minimum;United states;CA;https://ecadcam.com/3d-printing
+;Electroimpact;Siemens;840D CNC;MEX;Polymer;1;Minimum;United states;WA;https://electroimpact.com/3d
+;Elite Mold & Engineering/Elite Additive Manufacturing;Carbon;M2;VPP;Polymer;1;Minimum;United states;MI;https://teameliteonline.com/additive-manufacturing
+;Endeavor3D;HP;;PBF-IR;Polymer;1;Minimum;United states;GA;https://endeavor3d.com
+;Endeavor3D;Stratasys;Fortus 450mc;MEX;Polymer;1;Minimum;United states;GA;https://endeavor3d.com
+;Endeavor3D;HP;Metal Jet;BJT;Metal;1;Minimum;United states;GA;https://endeavor3d.com
+;EPTAM Precision Metals;;;BJT;Metal;1;Actual;United states;CO;https://eptam.com
+;EPTAM Precision Metals;Intamsys;Funmat HT;MEX;Polymer;1;Actual;United states;CO;https://eptam.com
+;EPTAM Precision Metals;Formlabs;Form 2;VPP;Polymer;1;Actual;United states;CO;https://eptam.com
+;EPTAM Precision Metals;Formlabs;Fuse 1;PBF-LB;Polymer;1;Actual;United states;CO;https://eptam.com
+;EPTAM Precision Metals;Raise3D;Pro2;MEX;Polymer;25;Actual;United states;CO;https://eptam.com
+;EPTAM Precision Metals;Raise3D;Pro2 Plus;MEX;Polymer;1;Actual;United states;CO;https://eptam.com
+;EPTAM Precision Metals;Raise3D;E2;MEX;Polymer;1;Actual;United states;CO;https://eptam.com
+;Eveline;;;MEX;Glass;1;Minimum;United States;NY;https://evenline.co
+;Evology MFG;;;PBF-LB;Metal;8;Minimum;United States;WI;https://EvologyMfg.com
+;Evology MFG;;;PBF-LB;Polymer;2;Minimum;United States;WI;https://EvologyMfg.com
+;Evology MFG;;;MEX;Polymer;16;Minimum;United States;WI;https://EvologyMfg.com
+;Exco Engineering;EOS;;PBF-LB;Metal;4;Minimum;Canada;ON;https://excoeng.com
+;Exergy Solutions;Wayland Additive;Calibur3;PBF-EB;Metal;1;Actual;Canada;QC;https://exergysolutions.com
+;Extol Inc.;HP;;PBF-IR;Metal;1;Minimum;United States;MI;https://extolinc.com
+;Fabric8Labs;Proprietary;;Other;Metal;1;Minimum;United States;CA;https://www.fabric8labs.com/
+;Famaero;Proprietary;;PBF-EB;Metal;1;Actual;United states;MI;https://famaero.com
+;Fargo 3D Printing;;;MEX;Polymer;1;Minimum;United states;ND;https://fargo3dprinting.com
+;Farrar Corporation;Raise3D;Pro2;MEX;Polymer;1;Actual;United states;KS;https://farrarusa.com
+;FasTech;Gefertec;Arc405;wDED-Arc;Metal;1;Actual;United states;VA;https://fastech-engineering.com
+;FasTech;Gefertec;Arc605;wDED-Arc;Metal;1;Actual;United states;VA;https://fastech-engineering.com
+;Fathom Digital Manufacturing;;;PBF-LB;Polymer;1;Minimum;United States;WI, AZ, CO, IL, IL. MN, NY, NY, TX;https://fathommfg.com
+;Fathom Digital Manufacturing;Stratasys;Fortus 450mc;MEX;Polymer;1;Minimum;United States;WI, AZ, CO, IL, IL. MN, NY, NY, TX;https://fathommfg.com
+;Fathom Digital Manufacturing;;;MJT;Polymer;1;Minimum;United States;WI, AZ, CO, IL, IL. MN, NY, NY, TX;https://fathommfg.com
+;Fathom Digital Manufacturing;;;VPP;Polymer;1;Minimum;United States;WI, AZ, CO, IL, IL. MN, NY, NY, TX;https://fathommfg.com
+;Fathom Digital Manufacturing;EOS;M280;PBF-LB;Metal;3;Minimum;United States;WI, AZ, CO, IL, IL. MN, NY, NY, TX;https://fathommfg.com
+;Fathom Digital Manufacturing;EOS;M290;PBF-LB;Metal;1;Minimum;United States;WI, AZ, CO, IL, IL. MN, NY, NY, TX;https://fathommfg.com
+;Fathom Digital Manufacturing;HP;;PBF-IR;Polymer;1;Minimum;United States;WI, AZ, CO, IL, IL. MN, NY, NY, TX;https://fathommfg.com
+;Forerunner 3D Printing;HP;MJF 4200;PBF-IR;Polymer;1;Actual;United states;MI;https://Forerunner3d.com
+;Forerunner 3D Printing;3D Systems;;VPP;Polymer;3;Actual;United states;MI;https://Forerunner3d.com
+;Forerunner 3D Printing;Stratasys;J750;MJT;Polymer;1;Actual;United states;MI;https://Forerunner3d.com
+;Forerunner 3D Printing;Stratasys;;MEX;Polymer;3;Actual;United states;MI;https://Forerunner3d.com
+;Forerunner 3D Printing;EOS;P 770;PBF-LB;Polymer;2;Actual;United states;MI;https://Forerunner3d.com
+;Forerunner 3D Printing;Formlabs;Form 2;VPP;Polymer;2;Actual;United states;MI;https://Forerunner3d.com
+;Forge Labs;EOS;EOS P396;PBF-LB;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;Forge Labs;EOS;EOS P110 Velocis;PBF-LB;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;Forge Labs;3D Systems;ProX 800;VPP;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;Forge Labs;3D Systems;ProX 950;VPP;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;Forge Labs;HP;HP Jet Fusion 5200;PBF-IR;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;Forge Labs;HP;HP Jet Fusion 4200;PBF-IR;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;Forge Labs;Stratasys;Fortus 450;MEX;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;Forge Labs;Stratasys;Fortus 900;MEX;Polymer;1;Minimum;Canada;BC;https://forgelabs.ca
+;FreeFORM Technologies;;;BJT;Metal;1;Minimum;United States;PA;https://freeformtech.com
+;FreeFORM Technologies;;;VPP;Polymer;1;Minimum;United States;PA;https://freeformtech.com
+;FreeFORM Technologies;;;MEX;Metal;1;Minimum;United States;PA;https://freeformtech.com
+;FreeFORM Technologies;;;MEX;Polymer;1;Minimum;United States;PA;https://freeformtech.com
+;Gallagher Corporation;Carbon;;VPP;Polymer;1;Minimum;United States;IL;https://gallaghercorp.com
+;Geofabrica;Photocentric;Liquid Crystal Magna;VPP;Polymer;1;Minimum;United States;MI;https://geofabrica.com
+;Geofabrica;;;MEX;Polymer;2;Minimum;United States;MI;https://geofabrica.com
+;Geofabrica;;;wDED-Arc;Metal;1;Minimum;United States;MI;https://geofabrica.com
+;Geofabrica;;;PBF-LB;Metal;1;Minimum;United States;MI;https://geofabrica.com
+;GoEngineer;;;MJT;Polymer;50;Minimum;United States;UT;https://goengineer.com
+;GoEngineer;;;PBF-IR;Polymer;2;Minimum;United States;UT;https://goengineer.com
+;GoEngineer;;;PBF-LB;Metal;1;Minimum;United States;UT;https://goengineer.com
+;GZERO Additive;;;MEX;Polymer;4;Minimum;United States;OH;https://gzeroadditive.com
+;Hawk Ridge Systems;HP;Jet Fusion 5200;PBF-IR;Polymer;1;Minimum;United States, Canada;CA, CA, WA, OR, ID, NJ, NJ, MA, MI, OH, FL, PA, AR, ON, AB, ;https://hawkridgesys.com
+;Hawk Ridge Systems;Markforged;;MEX;;1;Minimum;United States, Canada;CA, CA, WA, OR, ID, NJ, NJ, MA, MI, OH, FL, PA, AR, ON, AB, ;https://hawkridgesys.com
+;Hawk Ridge Systems;Markforged;;MEX;Polymer;1;Minimum;United States;CA;https://hawkridgesys.com
+;Hawk Ridge Systems;HP;;PBF-IR;Polymer;1;Minimum;United States;CA;https://hawkridgesys.com
+;Heres 3D;;;MEX;Polymer;1;Minimum;United states;TN;https://www.heres3d.llc
+;Hollywood 3D Printing;;;MEX;Polymer;1;Minimum;United States;CA;https://hollywood3dprinting.com
+;Hollywood 3D Printing;;;VPP;Polymer;1;Minimum;United States;CA;https://hollywood3dprinting.com
+;Hollywood 3D Printing;;;PBF-LB;Polymer;1;Minimum;United States;CA;https://hollywood3dprinting.com
+;Hotpop Factory;Stratasys;;MEX;Polymer;1;Minimum;Canada;ON;https://hotpopfactory.com
+;Hotpop Factory;Stratasys;;PBF-LB;Polymer;1;Minimum;Canada;ON;https://hotpopfactory.com
+;Hotpop Factory;Stratasys;;VPP;Polymer;1;Minimum;Canada;ON;https://hotpopfactory.com
+;Hotpop Factory;Stratasys;;MJT;Polymer;1;Minimum;Canada;ON;https://hotpopfactory.com
+;HRL Laboratories;;;PBF-LB;Metal;3;Minimum;United states;CA;https://hrl.com
+;Humtown Products;;;BJT;Sand;12;Minimum;United States;OH;https://humtown.com
+;i-SOLIDS;;;MEX;Polymer;112;Minimum;United States;TX;https://i-solids.com
+;i-SOLIDS;;;VPP;Polymer;6;Minimum;United States;TX;https://i-solids.com
+;i-SOLIDS;;;PBF-IR;Polymer;8;Minimum;United States;TX;https://i-solids.com
+;i-SOLIDS;;;PBF-LB;Polymer;1;Minimum;United States;TX;https://i-solids.com
+;i3D MFG;EOS;M280 / M290;PBF-LB;Metal;9;Actual;United States;OR;https://www.i3dmfg.com/about-i3dmfg/
+;i3D MFG;EOS;M400-4;PBF-LB;Metal;2;Actual;United States;OR;https://www.i3dmfg.com/about-i3dmfg/
+;i3D MFG;EOS;M300-4;PBF-LB;Metal;1;Actual;United States;OR;https://www.i3dmfg.com/about-i3dmfg/
+;IC3D;;;MEX;Polymer;50;Minimum;United States;OH;https://ic3dprinters.com
+;Incodema 3D;;;MEX;Polymer;3;Minimum;United States;NY;https://www.incodema3d.com/
+;Incodema 3D;;;VPP;Polymer;2;Minimum;United States;NY;https://www.incodema3d.com/
+;Incodema 3D;;;PBF-LB;Metal;23;Minimum;United States;NY;https://www.incodema3d.com/
+;InstaVoxel;;;PBF-LB;Metal;1;Minimum;United states;MA;https://instavoxel.com
+;InstaVoxel;HP;;PBF-IR;Polymer;1;Minimum;United states;MA;https://instavoxel.com
+;InstaVoxel;;;VPP;Polymer;1;Minimum;United states;MA;https://instavoxel.com
+;InstaVoxel;;;PBF-LB;Polymer;1;Minimum;United states;MA;https://instavoxel.com
+;Jabil Additive;HP;;PBF-IR;Polymer;1;Minimum;United States;FL;https://jabil.com
+;Jabil Additive;EOS;P396;PBF-LB;Polymer;1;Minimum;United States;FL;https://jabil.com
+;Jabil Additive;EOS;Integra P44;PBF-LB;Polymer;1;Minimum;United States;FL;https://jabil.com
+;Jabil Additive;Farsoon;HT1001P;PBF-LB;Polymer;1;Minimum;United States;FL;https://jabil.com
+;Jabil Additive;Stratasys;F450;MEX;Polymer;1;Minimum;United States;FL;https://jabil.com
+;Jabil Additive;Stratasys;F900;MEX;Polymer;1;Minimum;United States;FL;https://jabil.com
+;Javelin Technologies, A TriMech Company;;;PBF-LB;Polymer;1;Minimum;Canada;ON;https://javelin-tech.com/3d/industry/aerospace
+;Javelin Technologies, A TriMech Company;;;VPP;Polymer;1;Minimum;Canada;ON;https://javelin-tech.com/3d/industry/aerospace
+;Javelin Technologies, A TriMech Company;;;MEX;Polymer;1;Minimum;Canada;ON;https://javelin-tech.com/3d/industry/aerospace
+;Javelin Technologies, A TriMech Company;;;MJT;Polymer;1;Minimum;Canada;ON;https://javelin-tech.com/3d/industry/aerospace
+;Javelin Technologies, A TriMech Company;;;PBF-LB;Metal;1;Minimum;Canada;ON;https://javelin-tech.com/3d/industry/aerospace
+;Javelin Technologies, A TriMech Company;;;PBF-IR;Polymer;1;Minimum;Canada;ON;https://javelin-tech.com/3d/industry/aerospace
+;Jawstec;HP;;PBF-IR;Polymer;1;Minimum;United States;ID;https://jawstec.com
+;Jawstec;;;VPP;Polymer;1;Minimum;United States;ID;https://jawstec.com
+;Jawstec;;;PBF-LB;Polymer;1;Minimum;United States;ID;https://jawstec.com
+;Jawstec;;;PBF-LB;Metal;1;Minimum;United States;ID;https://jawstec.com
+;Jinxbot 3D Printing Services;Creality;K1;MEX;Polymer;1;Minimum;United states;CA;https://jinxbot.com
+;Jinxbot 3D Printing Services;Creality;K1 Max;MEX;Polymer;1;Minimum;United states;CA;https://jinxbot.com
+;Jinxbot 3D Printing Services;Creality;CR10S-Pro;MEX;Polymer;1;Minimum;United states;CA;https://jinxbot.com
+;Jinxbot 3D Printing Services;Creality;CR10 S5;MEX;Polymer;1;Minimum;United states;CA;https://jinxbot.com
+;Jinxbot 3D Printing Services;Creality;CR30;MEX;Polymer;1;Minimum;United states;CA;https://jinxbot.com
+;Jinxbot 3D Printing Services;Formlabs;Form 3;VPP;Polymer;1;Minimum;United states;CA;https://jinxbot.com
+;Jinxbot 3D Printing Services;Formlabs;Fuse 1;PBF-LB;Polymer;1;Minimum;United states;CA;https://jinxbot.com
+;Kaiser Aluminum;;;PBF-LB;Metal;3;Minimum;United States;NJ;https://www.kaiseraluminum.com/
+;KAM (Keselowski Advanced Manufacturing);Colibrium Additive;M2;PBF-LB;Metal;1;Actual;United States;NC;https://kamsolutions.com
+;KAM (Keselowski Advanced Manufacturing);EOS;M280;PBF-LB;Metal;10;Actual;United States;NC;https://kamsolutions.com
+;KAM (Keselowski Advanced Manufacturing);EOS;M400-4;PBF-LB;Metal;5;Actual;United States;NC;https://kamsolutions.com
+;KAM (Keselowski Advanced Manufacturing);EOS;M290;PBF-LB;Metal;1;Actual;United States;NC;https://kamsolutions.com
+;KAM (Keselowski Advanced Manufacturing);Nikon SLM;280HL Twin;PBF-LB;Metal;3;Actual;United States;NC;https://kamsolutions.com
+;KAM (Keselowski Advanced Manufacturing);Velo3D;Sapphire XC;PBF-LB;Metal;1;Actual;United States;NC;https://kamsolutions.com
+;KARV Automation;;;MEX;Polymer;1;Minimum;United States;TX;https://karvautomation.com
+;KARV Automation;;;MJT;Polymer;1;Minimum;United States;TX;https://karvautomation.com
+;KARV Automation;;;PBF-LB;Metal;1;Minimum;United States;TX;https://karvautomation.com
+;KARV Automation;;;VPP;Polymer;1;Minimum;United States;TX;https://karvautomation.com
+;KARV Automation;;;PBF-LB;Polymer;1;Minimum;United States;TX;https://karvautomation.com
+;LGM 3D;;;BJT;;4;Minimum;United States;CO;https://lgm3d.com
+;LGM 3D;;;VPP;Polymer;1;Minimum;United States;CO;https://lgm3d.com
+;Lincoln laser solutions;In-house;;pDED-LB;Metal;5;Minimum;Canada;ON;https://www.burloaktech.com/
+;Makelab;;;MEX;Polymer;24;Minimum;United States;NY, CA;https://makelab.nyc
+;Makelab;;;VPP;Polymer;12;Minimum;United States;NY, CA;https://makelab.nyc
+;Makelab;;;PBF-IR;Polymer;2;Minimum;United States;NY, CA;https://makelab.nyc
+;Makelab;;;;Polymer;1;Minimum;United States;NY, CA;https://makelab.nyc
+;Materialise NV;;;BJT;;4;Minimum;United States;MI;https://materialise.com
+;MatterThings Inc.;Sintratec;;PBF-LB;Polymer;1;Minimum;Canada;QC;https://matterthings.com
+;MatterThings Inc.;;;MEX;Polymer;1;Minimum;Canada;QC;https://matterthings.com
+;MatterThings Inc.;;;MJT;Polymer;1;Minimum;Canada;QC;https://matterthings.com
+;MatterThings Inc.;;;VPP;Polymer;1;Minimum;Canada;QC;https://matterthings.com
+;Met-L-Flo;;;MJT;Polymer;1;Minimum;United States;IL;https://metlflo.com
+;Met-L-Flo;;;PBF-LB;Polymer;1;Minimum;United States;IL;https://metlflo.com
+;Met-L-Flo;;;VPP;Polymer;5;Minimum;United States;IL;https://metlflo.com
+;Met-L-Flo;;;BJT;;1;Minimum;United States;IL;https://metlflo.com
+;Met-L-Flo;;;MEX;Polymer;4;Minimum;United States;IL;https://metlflo.com
+;MIMO Technik;Nikon SLM;SLM 500 Quad;PBF-LB;Metal;6;Actual;United States;CA;https://mimotechnik.com
+;MIMO Technik;Nikon SLM;SLM 280 Twin;PBF-LB;Metal;4;Actual;United States;CA;https://mimotechnik.com
+;MIMO Technik;Nikon SLM;SLM 125 HL SMT 700w;PBF-LB;Metal;3;Actual;United States;CA;https://mimotechnik.com
+;Moog;;;PBF-LB;Metal;5;Minimum;United States;NY;https://moog.com
+;MTek3D;;;VPP;Polymer;1;Minimum;United States;TN;https://mtek3d.com
+;MTek3D;;;MJT;Polymer;1;Minimum;United States;TN;https://mtek3d.com
+;Northwest Rapid Manufacturing;EOS;P390;PBF-LB;Polymer;1;Actual;United States;OR;https://nwrapidmfg.com
+;Northwest Rapid Manufacturing;EOS;P730;PBF-LB;Polymer;1;Actual;United States;OR;https://nwrapidmfg.com
+;Northwest Rapid Manufacturing;EOS;P760;PBF-LB;Polymer;1;Actual;United States;OR;https://nwrapidmfg.com
+;Nota3D;3D Systems;DMP Flex 200;PBF-LB;Metal;1;Minimum;United States;WI;https://nota3d.com
+;Nota3D;3D Systems;;VPP;;1;Minimum;United States;WI;https://nota3d.com
+;Nota3D;3D Systems;;PBF-LB;Polymer;1;Minimum;United States;WI;https://nota3d.com
+;Nota3D;Markforged;;MEX;;1;Minimum;United States;WI;https://nota3d.com
+;Nota3D;3D Systems;;MJT;;1;Minimum;United States;WI;https://nota3d.com
+;Nota3D;HPS;Lumia X1;VPP;Polymer;1;Minimum;United States;WI;https://nota3d.com
+;Objex Unlimited Inc.;3D Systems;;VPP;Polymer;1;Minimum;Canada;ON;https://objexunlimited.com
+;Objex Unlimited Inc.;3D Systems;;MJT;Polymer;1;Minimum;Canada;ON;https://objexunlimited.com
+;Objex Unlimited Inc.;3D Systems;;PBF-LB;Polymer;1;Minimum;Canada;ON;https://objexunlimited.com
+;Objex Unlimited Inc.;Stratasys;;MEX;Polymer;1;Minimum;Canada;ON;https://objexunlimited.com
+;Optisys;Nikon SLM;280 and 500;PBF-LB;Metal;2;Minimum;United States;UT;https://optisys.com
+;PaliProto 3D;Zortrax;M200, M200+;MEX;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;Zortrax;M300, M300+;MEX;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;Zortrax;Inkspire;VPP;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;Markforged;X7;MEX;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;Felix;Tec 1.4 L;MEX;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;Nexa3D;NXE 400;VPP;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;EnvisionTEC;Micro Plus CDLM;VPP;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;EnvisionTEC;ULTRA 3SP HD;VPP;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;EnvisionTEC;VECTOR HD 3SP;VPP;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;Anycubic;Photon Mono;VPP;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;Ender;Pro;MEX;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;3D Systems;ProJet MJP 2500 Plus;MJT;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;PaliProto 3D;3D Systems;CJP 660Pro;MJT;Polymer;1;Minimum;United States;GA;https://paliproto.com
+;Panashape;;;PBF-LB;Polymer;1;Minimum;United states;TX;https://www.varia3d.com/
+;Panashape;HP;;PBF-IR;Polymer;1;Minimum;United states;TX;https://www.varia3d.com/
+;Panashape;;;VPP;Polymer;1;Minimum;United states;TX;https://www.varia3d.com/
+;Paradigm Manufacturing;Elegoo;;MEX;Polymer;1;Minimum;United States;AZ;https://p3dmfg.com
+;Paradigm Manufacturing;BigRep;;MEX;Polymer;1;Minimum;United States;AZ;https://p3dmfg.com
+;Paradigm Manufacturing;Elegoo;;VPP;Polymer;1;Minimum;United States;AZ;https://p3dmfg.com
+;Paradigm Manufacturing;HP;;PBF-IR;Polymer;1;Actual;United States;AZ;https://p3dmfg.com
+;Parmatech;;;BJT;Metal;1;Minimum;United States;CA;https://atwcompanies.com/parmatech
+;Part Snap;Stratasys;Fortus 400mc;MEX;Polymer;1;Actual;United States;TX;https://partsnap.com
+;Part Snap;Stratasys;Objet 30;MJT;Polymer;1;Minimum;United States;TX;https://partsnap.com
+;Part Snap;MakerGear;M2;MEX;Polymer;1;Minimum;United States;TX;https://partsnap.com
+;Part Snap;Ultimaker;2;MEX;Polymer;1;Minimum;United States;TX;https://partsnap.com
+;Part Snap;Stratasys;Dimension uPrint SE Plus;MEX;Polymer;1;Minimum;United States;TX;https://partsnap.com
+;Penn United Technologies Inc.;EOS;M290;PBF-LB;Metal;3;Actual;United States;PA;https://pennunited.com
+;Penn United Technologies Inc.;EOS ;M400-4;PBF-LB;Metal;1;Actual;United States;PA;https://pennunited.com
+;Penn United Technologies Inc.;ExOne;M-Flex;BJT;Metal;1;Actual;United States;PA;https://pennunited.com
+;Polyhistor International;Stratasys;Eden260V;MJT;Polymer;1;Minimum;United States;FL;https://phi2.com
+;Polyhistor International;Stratasys;Fortus 400mc;MEX;Polymer;1;Minimum;United States;FL;https://phi2.com
+;Ponoko Inc.;;;PBF-LB;Polymer;1;Minimum;United States;CA;https://ponoko.com
+;Ponoko Inc.;;;MEX;Polymer;1;Minimum;United States;CA;https://ponoko.com
+;Ponoko Inc.;;;VPP;Polymer;1;Minimum;United States;CA;https://ponoko.com
+;Ponoko Inc.;Stratasys;;MJT;Polymer;1;Minimum;United States;CA;https://ponoko.com
+;Ponoko Inc.;Carbon;;VPP;Polymer;1;Minimum;United States;CA;https://ponoko.com
+;Ponoko Inc.;;;VPP;Polymer;1;Minimum;United States;CA;https://ponoko.com
+;Ponoko Inc.;HP;;PBF-IR;Polymer;1;Minimum;United States;CA;https://ponoko.com
+;PPG;;;VPP;Polymer;5;Minimum;United States;PA;https://ppg.com
+;Precision ADM;;;PBF-LB;Metal;4;Minimum;Canada;MB;https://precisionadm.com
+;Precision ADM;;;VPP;Polymer;100;Minimum;Canada;MB;https://precisionadm.com
+;Prg Prototyping;;;PBF-LB;Polymer;1;Minimum;United States;KS;https://prgprototyping.com
+;Prg Prototyping;;;VPP;Polymer;1;Minimum;United States;KS;https://prgprototyping.com
+;Prg Prototyping;;;MJT;Polymer;1;Minimum;United States;KS;https://prgprototyping.com
+;Primary Manufacturing;Carbon;M1;VPP;Polymer;1;Minimum;United States;SD;https://primarymfg.com
+;Primary Manufacturing;Carbon;M2;VPP;Polymer;1;Minimum;United States;SD;https://primarymfg.com
+;Primary Manufacturing;3D Systems;Figure 4;VPP;Polymer;1;Minimum;United States;SD;https://primarymfg.com
+;Primary Manufacturing;HP;;PBF-IR;Polymer;1;Minimum;United States;SD;https://primarymfg.com
+;Primary Manufacturing;Ultimaker;S3;MEX;Polymer;1;Minimum;United States;SD;https://primarymfg.com
+;Primary Manufacturing;Ultimaker;S5;MEX;Polymer;1;Minimum;United States;SD;https://primarymfg.com
+;Primary Manufacturing;;;PBF-LB;Polymer;1;Minimum;United States;SD;https://primarymfg.com
+;Printed Solid (acquired by Prusa);;;MEX;Polymer;20;Actual;United States;DE;https://printedsolid.com
+;Printerior;;;MEX;Polymer;30;Actual;United States;MO;https://printeriordesigns.com
+;Proto 3000;HP;;PBF-IR;Polymer;1;Minimum;Canada;ON;https://proto3000.com
+;Proto 3000;;;VPP;Polymer;1;Minimum;Canada;ON;https://proto3000.com
+;Proto 3000;;;MEX;Polymer;1;Minimum;Canada;ON;https://proto3000.com
+;Proto 3000;;;PBF-LB;Polymer;1;Minimum;Canada;ON;https://proto3000.com
+;Proto 3000;;;BJT;Metal;1;Minimum;Canada;ON;https://proto3000.com
+;Proto 3000;;;PBF-LB;Metal;1;Minimum;Canada;ON;https://proto3000.com
+;Proto Cafe;;;MEX;Polymer;1;Minimum;United States;CA;https://protocafe.com
+;Proto Cafe;Stratasys;;MJT;Polymer;1;Minimum;United States;CA;https://protocafe.com
+;Proto Cafe;3D Systems;;MJT;Polymer;1;Minimum;United States;CA;https://protocafe.com
+;Proto Cafe;;;PBF-LB;Polymer;1;Minimum;United States;CA;https://protocafe.com
+;Proto Cafe;;;PBF-LB;Metal;1;Minimum;United States;CA;https://protocafe.com
+;ProtoCAM;;;VPP;Polymer;5;Minimum;United States;PA;https://protocam.com
+;ProtoCAM;;;MEX;Polymer;5;Minimum;United States;PA;https://protocam.com
+;Protolabs;;;VPP;Polymer;50;estimate;United States;NC;https://protolabs.com
+;Protolabs;Stratasys;;MJT;Polymer;10;estimate;United States;NC;https://protolabs.com
+;Protolabs;HP;;PBF-IR;Polymer;30;estimate;United States;NC;https://protolabs.com
+;Protolabs;;;PBF-LB;Polymer;20;estimate;United States;NC;https://protolabs.com
+;Protolabs;;;PBF-LB;Metal;10;estimate;United States;NC;https://protolabs.com
+;Prototek - Midwest Prototyping;;;MEX;Polymer;13;Minimum;United States;NH;https://prototek.com
+;Prototek - Midwest Prototyping;;;MJT;Polymer;1;Minimum;United States;NH;https://prototek.com
+;Prototek - Midwest Prototyping;;;VPP;Polymer;28;Minimum;United States;NH;https://prototek.com
+;Prototek - Midwest Prototyping;;;PBF-LB;Polymer;8;Minimum;United States;NH;https://prototek.com
+;Prototek Holdings;EOS;;PBF-LB;Polymer;3;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;3D Systems;;PBF-LB;Polymer;3;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;HP;;PBF-IR;Polymer;3;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;3D Systems;;VPP;Polymer;25;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;Stratasys;;VPP;Polymer;25;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;Carbon;;VPP;Polymer;10;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;Axtra3D;;VPP;Polymer;25;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;Stratasys;;MEX;Polymer;40;estimate;United States;NH;https://prototek.com/
+;Prototek Holdings;Stratasys;;MJT;Polymer;10;estimate;United States;NH;https://prototek.com/
+;Prototyp3;Proprietary;;MEX;Polymer;1;Minimum;United States;TN;https://prototyp3.xyz
+;Prototyp3;Formlabs;Form 2;VPP;Polymer;1;Minimum;United States;TN;https://prototyp3.xyz
+;Prototyp3;Phrozen;8K;VPP;Polymer;1;Minimum;United States;TN;https://prototyp3.xyz
+;Prototyp3;;;MEX;Polymer;1;Minimum;United States;TN;https://prototyp3.xyz
+;Prozix;;;VPP;Polymer;1;Minimum;United states;CA;https://prozix.com/coming-soon
+;Prozix;;;MEX;Polymer;1;Minimum;United states;CA;https://prozix.com/coming-soon
+;Purple Porcupine;;;VPP;Polymer;1;Minimum;United states;CA;https://purpleporcupine.com
+;Purple Porcupine;;;MEX;Polymer;1;Minimum;United states;CA;https://purpleporcupine.com
+;Purple Porcupine;;;MJT;Polymer;1;Minimum;United states;CA;https://purpleporcupine.com
+;Purple Porcupine;HP;;PBF-IR;Polymer;1;Minimum;United states;CA;https://purpleporcupine.com
+;Purple Porcupine;Stratasys;;PBF-IR;Polymer;1;Minimum;United states;CA;https://purpleporcupine.com
+;Quadrus Corporation;;;PBF-LB;Metal;1;Minimum;United States;AL;https://quadruscorp.com
+;Quaker City Castings;;;BJT;Sand;1;Minimum;United States;OH;https://quakercitycastings.com
+;Quickparts;;;MJT;Polymer;5;Minimum;United States;WA;https://quickparts.com
+;Quickparts;;;PBF-LB;Metal;4;Minimum;United States;WA;https://quickparts.com
+;Quickparts;;;PBF-LB;Polymer;30;Minimum;United States;WA;https://quickparts.com
+;Quickparts;;;VPP;Polymer;105;Minimum;United States;WA;https://quickparts.com
+;R&D Technologies, Inc.;Stratasys;;MEX;Polymer;1;Minimum;United States;RI;https://rnd-tech.com
+;R&D Technologies, Inc.;Stratasys;;MJT;Polymer;1;Minimum;United States;RI;https://rnd-tech.com
+;R&D Technologies, Inc.;Stratasys;P3;VPP;Polymer;1;Minimum;United States;RI;https://rnd-tech.com
+;R&D Technologies, Inc.;Stratasys;H350;PBF-IR;Polymer;1;Minimum;United States;RI;https://rnd-tech.com
+;Rapid Prototyping Services;;;MEX;Polymer;6;Minimum;United States;FL;https://rapidps.com/
+;RapidMade;;;BJT;Polymer;3;Minimum;United States;OR;https://rapidmade.com
+;RapidMade;;;VPP;Polymer;1;Minimum;United States;OR;https://rapidmade.com
+;RapidMade;;;MEX;Polymer;1;Minimum;United States;OR;https://rapidmade.com
+;Realize, Inc.;;;VPP;Polymer;13;Minimum;United States;OR;www.realizeinc.com
+;Realize, Inc.;;;PBF-LB;Polymer;1;Minimum;United States;OR;www.realizeinc.com
+;RP+M (rapid prototype + manufacturing llc);;;MEX;Polymer;6;Minimum;United States;OH;https://rpplusm.com
+;Samcraft;;;MEX;Polymer;1;Minimum;United states;TN;info@samcraft.shop
+;Shop 3D;;;MEX;Polymer;1;Minimum;Canada;BC;https://shop3d.ca
+;Shop 3D;;;VPP;Polymer;1;Minimum;Canada;BC;https://shop3d.ca
+;Shop 3D;;;PBF-LB;Polymer;1;Minimum;Canada;BC;https://shop3d.ca
+;SICAM;;;VPP;Polymer;3;Minimum;United States;NJ;https://www.sicam.com
+;SICAM;;;BJT;Polymer;2;Minimum;United States;NJ;https://www.sicam.com
+;SICAM;;;MEX;Polymer;3;Minimum;United States;NJ;https://www.sicam.com
+;SICAM;;;VPP;Polymer;1;Minimum;United States;NJ;https://www.sicam.com
+;Sintavia, LLC;AMCM;M 4K;PBF-LB;Metal;2;Actual;United States;FL;https://sintavia.com
+;Sintavia, LLC;Colibrium Additive;Arcam A2X;PBF-EB;Metal;4;Actual;United States;FL;https://sintavia.com
+;Sintavia, LLC;Colibrium Additive;Arcam Q20+;PBF-EB;Metal;3;Actual;United States;FL;https://sintavia.com
+;Sintavia, LLC;EOS;M400-4;PBF-LB;Metal;9;Actual;United States;FL;https://sintavia.com
+;Sintavia, LLC;EOS;M290;PBF-LB;Metal;5;Actual;United States;FL;https://sintavia.com
+;Sintavia, LLC;EOS;M400-1;PBF-LB;Metal;1;Actual;United States;FL;https://sintavia.com
+;Sintavia, LLC;Nikon SLM;SLM 280;PBF-LB;Metal;3;Actual;United States;FL;https://sintavia.com
+;Sintavia, LLC;Trumpf;TruLaser Cell 3000;pDED-LB;Metal;1;Actual;United States;FL;https://sintavia.com
+;Skuld;;;MEX;Polymer;10;Minimum;United States;OH;https://skuldllc.com
+;Solaxis Ingenious Manufacturing;;;PBF-LB;Polymer;2;Minimum;Canada;QC;https://solaxis.ca
+;Solaxis Ingenious Manufacturing;;;PBF-LB;Metal;1;Minimum;Canada;QC;https://solaxis.ca
+;Solaxis Ingenious Manufacturing;;;MEX;Polymer;16;Minimum;Canada;QC;https://solaxis.ca
+;Solidiform;;;MEX;Polymer;1;Minimum;United States;TX;http://www.solidiform.com
+;Solidiform;3D Systems;Viper;VPP;Polymer;1;Actual;United States;TX;http://www.solidiform.com
+;Solidiform;3D Systems;SLA7000;VPP;Polymer;2;Actual;United States;TX;http://www.solidiform.com
+;Superior Joining Technologies, Inc.;;;MEX;Polymer;1;Minimum;United States;IL;https://superiorjt.com
+;Superior Joining Technologies, Inc.;Colibrium Additive;Mlab 100W;PBF-LB;Metal;1;Minimum;United States;IL;https://superiorjt.com
+;Superior Joining Technologies, Inc.;;;pDED-LB;Metal;1;Minimum;United States;IL;https://www.superiorjt.com
+;Sybridge;HP;MJF 4200;PBF-IR;Polymer;1;Minimum;United states/Canada;AL, CA, FL, IL, MA, MI, PA, TN, ON, ON, ON, ON, ON;https://sybridge.com
+;Sybridge;HP;MJF 5200;PBF-IR;Polymer;1;Minimum;United states/Canada;AL, CA, FL, IL, MA, MI, PA, TN, ON, ON, ON, ON, ON;https://sybridge.com
+;Sybridge;Carbon;;VPP;Polymer;1;Minimum;United states/Canada;AL, CA, FL, IL, MA, MI, PA, TN, ON, ON, ON, ON, ON;https://sybridge.com
+;Sybridge;Stratasys;;MEX;Polymer;1;Minimum;United states/Canada;AL, CA, FL, IL, MA, MI, PA, TN, ON, ON, ON, ON, ON;https://sybridge.com
+;Sybridge;Formlabs;Form 3B;VPP;Polymer;1;Minimum;United states/Canada;AL, CA, FL, IL, MA, MI, PA, TN, ON, ON, ON, ON, ON;https://sybridge.com
+;Sybridge;Formlabs;Form 3L;VPP;Polymer;1;Minimum;United states/Canada;AL, CA, FL, IL, MA, MI, PA, TN, ON, ON, ON, ON, ON;https://sybridge.com
+;Sybridge;;;PBF-LB;Metal;1;Minimum;United states/Canada;AL, CA, FL, IL, MA, MI, PA, TN, ON, ON, ON, ON, ON;https://sybridge.com
+;Sybridge;Carbon;;VPP;Polymer;1;Minimum;United States;IL;https://sybridge.com
+;Sybridge;HP;;PBF-IR;Polymer;1;Minimum;United States;IL;https://sybridge.com
+;Sybridge;;;MEX;Polymer;1;Minimum;United States;IL;https://sybridge.com
+;Sybridge;;;VPP;Polymer;1;Minimum;United States;IL;https://sybridge.com
+;Sybridge;;;PBF-LB;Metal;1;Minimum;United States;IL;https://sybridge.com
+;Tangible Creative;;;MEX;Polymer;50;Minimum;United states;NJ;https://tangiblecreative.com
+;Tangible Creative;;;VPP;Polymer;1;Minimum;United states;NJ;https://tangiblecreative.com
+;Tangible Creative;;;PBF-LB;Polymer;1;Minimum;United states;NJ;https://tangiblecreative.com
+;Tangible Creative;;;MJT;Polymer;1;Minimum;United states;NJ;https://tangiblecreative.com
+;Tangible solutions;Colibrium Additive;M2;PBF-LB;Metal;3;Actual;United states;OH;https://tangiblesolutions3d.com
+;Tangible solutions;Colibrium Additive;Mlab;PBF-LB;Metal;7;Actual;United states;OH;https://tangiblesolutions3d.com
+;Tempus 3D;HP;MJF 5200;PBF-IR;Polymer;1;Minimum;Canada;BC;https://tempus3d.com
+;Tempus 3D;HP;;PBF-LB;Metal;1;Minimum;Canada;BC;https://tempus3d.com
+;The 3D Printing Store;;;VPP;Polymer;5;Minimum;United States;CO, TX;https://the3dprintingstore.com
+;The 3D Printing Store;;;MEX;;7;Minimum;United States;CO, TX;https://the3dprintingstore.com
+;The Lubrizol Corporation;HP;;PBF-IR;Polymer;1;Minimum;United states;OH;https://lubrizol.com/3D-Printing
+;The Lubrizol Corporation;;;VPP;Polymer;2;Minimum;United states;OH;https://lubrizol.com/3D-Printing
+;The Lubrizol Corporation;;;MEX;Polymer;1;Minimum;United states;OH;https://lubrizol.com/3D-Printing
+;The Technology House;;;VPP;Polymer;11;Minimum;United States;OH;www.tth.com
+;The Technology House;;;BJT;;4;Minimum;United States;OH;www.tth.com
+;Thingergy;3DP;Platform;MEX;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Thingergy;3DP;Workbench;MEX;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Thingergy;Raise 3D;N2Plus;MEX;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Thingergy;Lulzbot;TAZ6;MEX;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Thingergy;Ultimaker;3 Extended;MEX;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Thingergy;Formlabs;Form 2;VPP;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Thingergy;Peopoly;Moai;VPP;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Thingergy;Flashforge;Creator Pro;MEX;Polymer;1;Minimum;United states;CA;https://thingergyinc.com
+;Tooling & Equipment International – TEI (part of General Motors);Voxeljet;VX4000;BJT;Sand;3;Actual;United States;MI;https://teintl.com
+;TriMech;Stratasys;F770;MEX;Polymer;1;Minimum;United states;CT;https://trimech.com
+;TriMech;HP;;PBF-IR;Polymer;2;Actual;United states;CT;https://trimech.com
+;TriMech;Stratasys;Origin;VPP;Polymer;4;Actual;United states;CT;https://trimech.com
+;TriMech;Stratasys;Fortius 450mc;MEX;Polymer;3;Actual;Canada;ON;https://trimech.com
+;TriMech;Stratasys;J55;MJT;Polymer;1;Actual;Canada;ON;https://trimech.com
+;TriMech;Stratasys;Objet500 Connex 3;MJT;Polymer;1;Actual;Canada;ON;https://trimech.com
+;TriMech;Xact Metal;;PBF-LB;Metal;1;Minimum;Canada;ON;https://trimech.com
+;TriMech;Uniontech;RS Pro800;VPP;Polymer;3;Actual;United states;CT;https://trimech.com
+;TriMech;Desktop Metal;;;Metal;1;Minimum;Canada;ON;https://trimech.com
+;TriTech Titanium Parts;Desktop Metal;P-1;BJT;Metal;1;Minimum;United States;MI;https://tritechtitanium.com
+;Troadey Inc.;3D Systems;;VPP;Polymer;1;Minimum;Canada;QC;https://www.corp.troadey.com/
+;Troadey Inc.;3D Systems;;PBF-LB;Metal;1;Minimum;Canada;QC;https://www.corp.troadey.com/
+;Troadey Inc.;3D Systems;;VPP;Wax;1;Minimum;Canada;QC;https://www.corp.troadey.com/
+;Troadey Inc.;3D Systems;;MJT;Polymer;1;Minimum;Canada;QC;https://www.corp.troadey.com/
+;Troadey Inc.;3D Systems;;PBF-LB;Polymer;1;Minimum;Canada;QC;https://www.corp.troadey.com/
+;Tronix3D (Agile Additive);HP;;PBF-IR;Polymer;1;Minimum;United States;PA;https://tronix3d.com
+;Tronix3D (Agile Additive);Modix;Big 60;MEX;Polymer;1;Actual;United States;PA;https://tronix3d.com
+;Tronix3D (Agile Additive);Bambu Lab;X1 Carbon;MEX;Polymer;5;Actual;United States;PA;https://tronix3d.com
+;Tronix3D (Agile Additive);Roboze;ARGO 500;MEX;Polymer;1;Actual;United States;PA;https://tronix3d.com
+;Tronix3D (Agile Additive);Nexa3D;;VPP;Polymer;1;Minimum;United States;PA;https://tronix3d.com
+;Ultimate 3D;3D Systems;;PBF-LB;Polymer;1;Minimum;United states;OR;https://ult3d.com
+;Ultimate 3D;;;VPP;Polymer;1;Minimum;United states;OR;https://ult3d.com
+;Ultimate 3D;;;MEX;Polymer;1;Minimum;United states;OR;https://ult3d.com
+;Upsurge;HP;MJF 5200;PBF-IR;Polymer;1;Minimum;Canada;BC;https://upsurge3d.com
+;UPTIVE;Stratasys;Fortus;MEX;Polymer;1;Minimum;United states;MI;https://uptivemfg.com
+;UPTIVE;Markforged;;MEX;Polymer;1;Minimum;United states;MI;https://uptivemfg.com
+;UPTIVE;;;PBF-LB;Polymer;1;Minimum;United states;MI;https://uptivemfg.com
+;UPTIVE;;;PBF-LB;Metal;1;Minimum;United states;MI;https://uptivemfg.com
+;UPTIVE;HP;;PBF-IR;Polymer;1;Minimum;United states;MI;https://uptivemfg.com
+;UPTIVE;;;VPP;Polymer;1;Minimum;United states;MI;https://uptivemfg.com
+;UPTIVE;;Polyjet;MJT;Polymer;1;Minimum;United states;MI;https://uptivemfg.com
+;Valiant Products;Nikon SLM;NXG XII 600E;PBF-LB;Metal;1;Actual;United states;FL;https://valiantproductsinc.com
+;Valiant Products;Nikon SLM;NXG XII 600;PBF-LB;Metal;1;Actual;United states;FL;https://valiantproductsinc.com
+;Valiant Products;Velo3D;XC;PBF-LB;Metal;1;Actual;United states;FL;https://valiantproductsinc.com
+;Valiant Products;Stratasys;F900;MEX;Polymer;1;Actual;United states;FL;https://valiantproductsinc.com
+;Valiant Products;BigRep;ONE;MEX;Polymer;1;Actual;United states;FL;https://valiantproductsinc.com
+;Vismed 3d;;;VPP;Polymer;1;Minimum;United states;IL;https://vismed3d.com
+;Voodoo Manufacturing;;;MEX;Polymer;210;Actual;United states;NY;https://voodoomfg.com
+;Voxel Magic;;;PBF-LB;Polymer;1;Minimum;United states;NY;https://voxel-magic.com
+;Voxel Magic;;;MEX;Polymer;1;Minimum;United states;NY;https://voxel-magic.com
+;Voxel Magic;;;VPP;Polymer;1;Minimum;United states;NY;https://voxel-magic.com
+;Voxel Magic;HP;;PBF-IR;Polymer;1;Minimum;United states;NY;https://voxel-magic.com
+;Wall Colmonoy;;;PBF-LB;Metal;1;Minimum;United states;MI;https://wallcolmonoy.com
+;WhiteClouds;Creality;;MEX;Polymer;75;Actual;United states;UT;https://whiteclouds.com
+;WhiteClouds;3D Systems;ColorJet;MJT;Polymer;25;Actual;United states;UT;https://whiteclouds.com
+;WhiteClouds;Stratasys;;MEX;Polymer;40;Actual;United states;UT;https://whiteclouds.com
+;Xcentric Mold & Engineering (Quickparts);;;MEX;Polymer;1;Minimum;United states;MI;https://xcentricmold.com
+;Xcentric Mold & Engineering (Quickparts);;;VPP;Polymer;1;Minimum;United states;MI;https://xcentricmold.com
+;Xcentric Mold & Engineering (Quickparts);;;PBF-LB;Polymer;1;Minimum;United states;MI;https://xcentricmold.com
+;Xcentric Mold & Engineering (Quickparts);;;MJT;Polymer;1;Minimum;United states;MI;https://xcentricmold.com
+;Xcentric Mold & Engineering (Quickparts);HP;;PBF-IR;Polymer;1;Minimum;United states;MI;https://xcentricmold.com
+;Xcentric Mold & Engineering (Quickparts);;;PBF-LB;Metal;1;Minimum;United states;MI;https://xcentricmold.com
+;Xometry;Stratasys;Fortus 450mc;MEX;Polymer;1;Minimum;United states;MD;https://xometry.com
+;Xometry;Stratasys;Fortus 900;MEX;Polymer;1;Minimum;United states;MD;https://xometry.com
+;Xometry;Nexa3D;NXE;VPP;Polymer;1;Minimum;United states;MD;https://xometry.com
+;Xometry;Nexa3D;XiP;VPP;Polymer;1;Minimum;United states;MD;https://xometry.com
+;Xometry;Carbon;DLS;VPP;Polymer;1;Minimum;United states;MD;https://xometry.com
+;Zager 3D Printing;Raise3D;E2;MEX;Polymer;1;Minimum;United states;GA;https://zager3dprinting.com
+;Zeda Technologies;;;PBF-EB;Metal;10;Minimum;United States;OH;https://z8a.com
+;Zeda Technologies;;;BJT;Metal;2;Minimum;United States;OH;https://z8a.com
+;Zeda Technologies;Addup;;PBF-LB;Metal;4;Actual;United States;OH;https://3dprintingindustry.com/news/zeda-inc-puts-20-million-worth-of-assets-up-for-sale-in-new-online-auction-234989/
+;Zip Bit;;;MEX;Polymer;1;Minimum;United states;CA;https://zip-bit.com
+;Zip Bit;;;VPP;Polymer;1;Minimum;United states;CA;https://zip-bit.com

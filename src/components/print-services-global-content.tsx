@@ -1,0 +1,873 @@
+'use client'
+
+import { useState, useEffect, useMemo, useRef } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { 
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { 
+  Search,
+  PrinterIcon,
+  Globe,
+  Factory,
+  RefreshCw,
+  Download,
+  Calendar,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown
+} from "lucide-react"
+import { ChartExportButton } from '@/components/ChartExportButton'
+import {
+  BarChart as ReBarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from 'recharts'
+
+// Type definitions
+type PrintServiceProvider = {
+  id: string
+  company_name: string
+  segment: string
+  printer_manufacturer: string
+  printer_model: string
+  number_of_printers: number
+  count_type: 'Exact' | 'Estimated' | 'Range' | 'Minimum'
+  process: string
+  material_type: string
+  material_format: string
+  country: string
+  update_year: number
+  website?: string
+  headquarters_city?: string
+  founded_year?: number
+  employee_count_range?: string
+  services_offered?: string[]
+  industries_served?: string[]
+  certifications?: string[]
+}
+
+type FilterState = {
+  company_name: string
+  segment: string
+  printer_manufacturer: string
+  printer_model: string
+  number_of_printers_min: string
+  number_of_printers_max: string
+  count_type: string
+  process: string
+  material_type: string
+  material_format: string
+  country: string
+  update_year: string
+}
+
+export default function PrintServicesGlobalContent() {
+  const [data, setData] = useState<PrintServiceProvider[]>([])
+  const [filteredData, setFilteredData] = useState<PrintServiceProvider[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const chartRef = useRef<HTMLDivElement | null>(null)
+  const [filters, setFilters] = useState<FilterState>({
+    company_name: '',
+    segment: '',
+    printer_manufacturer: '',
+    printer_model: '',
+    number_of_printers_min: '',
+    number_of_printers_max: '',
+    count_type: '',
+    process: '',
+    material_type: '',
+    material_format: '',
+    country: '',
+    update_year: ''
+  })
+
+  type SortKey = 'company_name' | 'segment' | 'printer_manufacturer' | 'printer_model' | 'number_of_printers' | 'count_type' | 'process' | 'material_type' | 'material_format' | 'country' | 'update_year'
+  type SortState = { key: SortKey, direction: 'asc' | 'desc' }
+  const [sort, setSort] = useState<SortState>({ key: 'company_name', direction: 'asc' })
+
+  // Chart controls
+  type GroupBy = 'printer_manufacturer' | 'country' | 'process' | 'material_type'
+  type Metric = 'printers' | 'providers'
+  const [groupBy, setGroupBy] = useState<GroupBy>('printer_manufacturer')
+  const [metric, setMetric] = useState<Metric>('printers')
+
+  // Sample data for development (fallback only)
+  const sampleData: PrintServiceProvider[] = [
+    {
+      id: '1',
+      company_name: 'Protolabs',
+      segment: 'Manufacturing',
+      printer_manufacturer: 'Stratasys',
+      printer_model: 'Fortus 450mc',
+      number_of_printers: 25,
+      count_type: 'Exact',
+      process: 'FDM',
+      material_type: 'Thermoplastic',
+      material_format: 'Filament',
+      country: 'United States',
+      update_year: 2024,
+      website: 'https://protolabs.com',
+      headquarters_city: 'Maple Plain',
+      founded_year: 1999,
+      employee_count_range: '500+',
+      services_offered: ['Rapid prototyping', 'Low-volume production', 'CNC machining'],
+      industries_served: ['Automotive', 'Aerospace', 'Medical'],
+      certifications: ['ISO 9001', 'AS9100', 'ISO 13485']
+    },
+    {
+      id: '2',
+      company_name: '3D Hubs',
+      segment: 'Service Bureau',
+      printer_manufacturer: 'HP',
+      printer_model: 'Multi Jet Fusion 5200',
+      number_of_printers: 15,
+      count_type: 'Estimated',
+      process: 'MJF',
+      material_type: 'Thermoplastic',
+      material_format: 'Powder',
+      country: 'United States',
+      update_year: 2024,
+      website: 'https://3dhubs.com',
+      headquarters_city: 'New York',
+      founded_year: 2013,
+      employee_count_range: '201-500',
+      services_offered: ['On-demand manufacturing', 'Prototyping', 'End-use parts'],
+      industries_served: ['Industrial', 'Automotive', 'Consumer electronics'],
+      certifications: ['ISO 9001']
+    },
+    {
+      id: '3',
+      company_name: 'GE Additive Services',
+      segment: 'Manufacturing',
+      printer_manufacturer: 'EOS',
+      printer_model: 'M400-4',
+      number_of_printers: 8,
+      count_type: 'Exact',
+      process: 'DMLS',
+      material_type: 'Metal',
+      material_format: 'Powder',
+      country: 'United States',
+      update_year: 2024,
+      website: 'https://ge.com/additive',
+      headquarters_city: 'Cincinnati',
+      founded_year: 2016,
+      employee_count_range: '500+',
+      services_offered: ['Metal 3D printing', 'Post-processing', 'Design optimization'],
+      industries_served: ['Aerospace', 'Power generation', 'Oil and gas'],
+      certifications: ['AS9100', 'ISO 9001', 'Nadcap']
+    },
+    {
+      id: '4',
+      company_name: 'Materialise Manufacturing',
+      segment: 'Manufacturing',
+      printer_manufacturer: 'EOS',
+      printer_model: 'P396',
+      number_of_printers: 22,
+      count_type: 'Exact',
+      process: 'SLS',
+      material_type: 'Thermoplastic',
+      material_format: 'Powder',
+      country: 'Belgium',
+      update_year: 2024,
+      website: 'https://materialise.com',
+      headquarters_city: 'Leuven',
+      founded_year: 1990,
+      employee_count_range: '500+',
+      services_offered: ['Medical devices', 'Automotive parts', 'Aerospace components'],
+      industries_served: ['Medical', 'Automotive', 'Aerospace'],
+      certifications: ['ISO 13485', 'ISO 9001', 'AS9100', 'FDA registered']
+    },
+    {
+      id: '5',
+      company_name: 'UnionTech',
+      segment: 'Manufacturing',
+      printer_manufacturer: 'UnionTech',
+      printer_model: 'RSPro 600',
+      number_of_printers: 35,
+      count_type: 'Exact',
+      process: 'SLA',
+      material_type: 'Thermoset',
+      material_format: 'Resin',
+      country: 'China',
+      update_year: 2024,
+      website: 'https://uniontech3d.com',
+      headquarters_city: 'Shanghai',
+      founded_year: 2000,
+      employee_count_range: '500+',
+      services_offered: ['Large-format printing', 'Automotive prototyping', 'Consumer goods'],
+      industries_served: ['Automotive', 'Consumer electronics', 'Industrial'],
+      certifications: ['ISO 9001']
+    },
+    {
+      id: '6',
+      company_name: 'Formlabs Service Network',
+      segment: 'Medical',
+      printer_manufacturer: 'Formlabs',
+      printer_model: 'Form 3B+',
+      number_of_printers: 12,
+      count_type: 'Range',
+      process: 'SLA',
+      material_type: 'Thermoset',
+      material_format: 'Resin',
+      country: 'Germany',
+      update_year: 2024,
+      website: 'https://formlabs.com',
+      headquarters_city: 'Berlin',
+      founded_year: 2018,
+      employee_count_range: '11-50',
+      services_offered: ['Dental applications', 'Medical devices', 'Biocompatible parts'],
+      industries_served: ['Dental', 'Healthcare', 'Research'],
+      certifications: ['ISO 13485', 'FDA registered']
+    }
+  ]
+
+  // Load data
+  useEffect(() => {
+    async function load() {
+      try {
+        setLoading(true)
+        setError(null)
+
+        if (process.env.NEXT_PUBLIC_DATA_SOURCE === 'csv') {
+          const res = await fetch('/api/datasets/print-services-global')
+          if (!res.ok) throw new Error(`Failed to fetch CSV data (${res.status})`)
+          const json = await res.json()
+          const rows = (json?.data || []) as PrintServiceProvider[]
+          if (rows.length) {
+            setData(rows)
+            setFilteredData(rows)
+            return
+          }
+        }
+
+        // Supabase mode
+        const supabase = createClient()
+        const { data: rows, error } = await supabase
+          .from('print_services_global' as any)
+          .select(
+            'id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year, website, headquarters_city, founded_year, employee_count_range, services_offered, industries_served, certifications'
+          )
+          .limit(5000)
+        if (error) throw new Error(error.message)
+        if (rows && rows.length) {
+          // Map count_type text defensively
+          const norm = (v: any): 'Exact' | 'Estimated' | 'Range' | 'Minimum' => {
+            const s = String(v || '').toLowerCase()
+            if (s === 'actual' || s === 'exact') return 'Exact'
+            if (s === 'minimum' || s === 'min') return 'Minimum'
+            if (s === 'range') return 'Range'
+            return 'Estimated'
+          }
+          const mapped = (rows as any[]).map((r) => ({ ...r, count_type: norm(r.count_type) }))
+          setData(mapped as unknown as PrintServiceProvider[])
+          setFilteredData(mapped as unknown as PrintServiceProvider[])
+        } else {
+          // Fallback to sample in case of empty
+          setData(sampleData)
+          setFilteredData(sampleData)
+        }
+      } catch (err) {
+        console.error('Print Services Global load error:', err)
+        setError(err instanceof Error ? err.message : 'Failed to load data')
+        // Fallback to sample data to keep UI usable
+        setData(sampleData)
+        setFilteredData(sampleData)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    load()
+  }, [])
+
+  // Apply filters
+  useEffect(() => {
+    let filtered = data
+
+    // Company name filter
+    if (filters.company_name) {
+      const nameLower = filters.company_name.toLowerCase()
+      filtered = filtered.filter(item => item.company_name.toLowerCase().includes(nameLower))
+    }
+
+    // Dropdown filters
+    if (filters.segment && filters.segment !== 'all') {
+      filtered = filtered.filter(item => item.segment === filters.segment)
+    }
+    if (filters.printer_manufacturer && filters.printer_manufacturer !== 'all') {
+      filtered = filtered.filter(item => item.printer_manufacturer === filters.printer_manufacturer)
+    }
+    if (filters.printer_model && filters.printer_model !== 'all') {
+      filtered = filtered.filter(item => item.printer_model === filters.printer_model)
+    }
+    if (filters.count_type && filters.count_type !== 'all') {
+      filtered = filtered.filter(item => item.count_type === filters.count_type)
+    }
+    if (filters.process && filters.process !== 'all') {
+      filtered = filtered.filter(item => item.process === filters.process)
+    }
+    if (filters.material_type && filters.material_type !== 'all') {
+      filtered = filtered.filter(item => item.material_type === filters.material_type)
+    }
+    if (filters.material_format && filters.material_format !== 'all') {
+      filtered = filtered.filter(item => item.material_format === filters.material_format)
+    }
+    if (filters.country && filters.country !== 'all') {
+      filtered = filtered.filter(item => item.country === filters.country)
+    }
+    if (filters.update_year && filters.update_year !== 'all') {
+      filtered = filtered.filter(item => item.update_year.toString() === filters.update_year)
+    }
+
+    // Number of printers range
+    const minStr = filters.number_of_printers_min.trim()
+    const maxStr = filters.number_of_printers_max.trim()
+    if (minStr !== '') {
+      const min = Number(minStr)
+      if (!Number.isNaN(min)) filtered = filtered.filter(item => item.number_of_printers >= min)
+    }
+    if (maxStr !== '') {
+      const max = Number(maxStr)
+      if (!Number.isNaN(max)) filtered = filtered.filter(item => item.number_of_printers <= max)
+    }
+
+    // Sorting
+    const sorted = [...filtered].sort((a, b) => {
+      const key = sort.key
+      if (key === 'number_of_printers' || key === 'update_year') {
+        const av = (a as any)[key] ?? 0
+        const bv = (b as any)[key] ?? 0
+        return sort.direction === 'asc' ? av - bv : bv - av
+      }
+      const aVal = ((a as any)[key] ?? '').toString().toLowerCase()
+      const bVal = ((b as any)[key] ?? '').toString().toLowerCase()
+      if (aVal < bVal) return sort.direction === 'asc' ? -1 : 1
+      if (aVal > bVal) return sort.direction === 'asc' ? 1 : -1
+      return 0
+    })
+    setFilteredData(sorted)
+  }, [filters, data, sort])
+
+  // Get unique values for filter dropdowns
+  const uniq = (arr: (string | null | undefined)[]) =>
+    [...new Set(arr.map(v => (v ?? '').toString().trim()))]
+      .filter(v => v.length > 0)
+      .sort()
+  const uniqueValues = {
+    segments: uniq(data.map(item => item.segment)),
+    manufacturers: uniq(data.map(item => item.printer_manufacturer)),
+    models: uniq(data.map(item => item.printer_model)),
+    processes: uniq(data.map(item => item.process)),
+    materialTypes: uniq(data.map(item => item.material_type)),
+    materialFormats: uniq(data.map(item => item.material_format)),
+    countries: uniq(data.map(item => item.country)),
+    updateYears: [...new Set(data.map(item => item.update_year))].filter(Boolean as any).sort((a, b) => b - a)
+  }
+
+  // Chart data derived from current filteredData
+  const chartData = useMemo(() => {
+    const map: Record<string, { label: string; value: number }> = {}
+    for (const row of filteredData) {
+      const key = (row as any)[groupBy] as string
+      if (!key) continue
+      if (!map[key]) map[key] = { label: key, value: 0 }
+      if (metric === 'printers') map[key].value += Number(row.number_of_printers) || 0
+      else map[key].value += 1
+    }
+    return Object.values(map)
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10)
+  }, [filteredData, groupBy, metric])
+
+  const handleBarClick = (label: string) => {
+    setFilters(prev => {
+      const next = { ...prev }
+      if (groupBy === 'printer_manufacturer') next.printer_manufacturer = prev.printer_manufacturer === label ? '' : label
+      if (groupBy === 'country') next.country = prev.country === label ? '' : label
+      if (groupBy === 'process') next.process = prev.process === label ? '' : label
+      if (groupBy === 'material_type') next.material_type = prev.material_type === label ? '' : label
+      return next
+    })
+  }
+
+  // Calculate summary statistics
+  const totalPrinters = filteredData.reduce((sum, item) => sum + item.number_of_printers, 0)
+  const avgPrintersPerProvider = filteredData.length > 0 ? (totalPrinters / filteredData.length).toFixed(1) : '0'
+
+  const handleExport = () => {
+    // Convert to CSV
+    const headers = [
+      'Company Name', 'Segment', 'Printer Manufacturer', 'Printer Model', 
+      'Number of Printers', 'Count Type', 'Process', 'Material Type', 
+      'Material Format', 'Country', 'Update Year', 'City', 'Founded'
+    ]
+    const csvData = [
+      headers,
+      ...filteredData.map(item => [
+        item.company_name,
+        item.segment,
+        item.printer_manufacturer,
+        item.printer_model,
+        item.number_of_printers.toString(),
+        item.count_type,
+        item.process,
+        item.material_type,
+        item.material_format,
+        item.country,
+        item.update_year.toString(),
+        item.headquarters_city || '',
+        item.founded_year?.toString() || ''
+      ])
+    ]
+    
+    const csvContent = csvData.map(row => row.map(field => `"${field}"`).join(',')).join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'print-services-global.csv'
+    a.click()
+    window.URL.revokeObjectURL(url)
+  }
+
+  const toggleSort = (key: SortKey) => {
+    setSort(prev => prev.key === key
+      ? { key, direction: prev.direction === 'asc' ? 'desc' : 'asc' }
+      : { key, direction: 'asc' }
+    )
+  }
+
+  const SortIndicator = ({ column }: { column: SortKey }) => {
+    if (sort.key !== column) return <ArrowUpDown className="ml-1 h-3.5 w-3.5 text-muted-foreground" />
+    return sort.direction === 'asc' 
+      ? <ArrowUp className="ml-1 h-3.5 w-3.5 text-muted-foreground" />
+      : <ArrowDown className="ml-1 h-3.5 w-3.5 text-muted-foreground" />
+  }
+
+  if (loading) {
+    return (
+      <div className="h-full flex items-center justify-center">
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <RefreshCw className="h-4 w-4 animate-spin" />
+          Loading Print Services Global data...
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="h-full flex items-center justify-center">
+        <div className="text-center text-red-500">
+          <p className="text-lg font-semibold">Error loading data</p>
+          <p className="text-sm">{error}</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="h-full flex flex-col bg-background">
+      {/* Header */}
+      <div className="p-4 border-b border-border">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <PrinterIcon className="h-5 w-5 text-primary" />
+            <h2 className="text-lg font-semibold">Print Services Global</h2>
+            <Badge variant="secondary">{filteredData.length} providers</Badge>
+            <Badge variant="outline">{totalPrinters} printers</Badge>
+            <Badge variant="outline">Avg: {avgPrintersPerProvider} per provider</Badge>
+          </div>
+          <Button onClick={handleExport} size="sm" variant="outline">
+            <Download className="h-4 w-4 mr-2" />
+            Export CSV
+          </Button>
+        </div>
+
+        {/* Chart controls and visualization driven by current filters */}
+        <div className="mb-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="text-xs text-muted-foreground flex items-center">Chart reflects filters. Click a bar to filter.</div>
+          <Select value={groupBy} onValueChange={(v) => setGroupBy(v as GroupBy)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Group By" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="printer_manufacturer">Group: Manufacturer</SelectItem>
+              <SelectItem value="country">Group: Country</SelectItem>
+              <SelectItem value="process">Group: Process</SelectItem>
+              <SelectItem value="material_type">Group: Material Type</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={metric} onValueChange={(v) => setMetric(v as Metric)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Metric" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="printers">Metric: Total Printers</SelectItem>
+              <SelectItem value="providers">Metric: Provider Count</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <Card className="mb-4">
+          <CardHeader className="pb-2 flex items-center justify-between">
+            <CardTitle className="text-sm">Top {chartData.length} by {groupBy.replace('_',' ')} ({metric === 'printers' ? 'total printers' : 'providers'})</CardTitle>
+            <ChartExportButton targetRef={chartRef} filenameBase={`print-services_${groupBy}_${metric}`} />
+          </CardHeader>
+          <CardContent>
+            <div ref={chartRef} className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <ReBarChart data={chartData} layout="vertical" margin={{ top: 8, right: 20, left: 22, bottom: 8 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--muted)" />
+                  <XAxis type="number" tick={{ fill: 'var(--muted-foreground)', fontSize: 11 }} axisLine={{ stroke: 'var(--border)' }} />
+                  <YAxis type="category" dataKey="label" width={150} tick={{ fill: 'var(--muted-foreground)', fontSize: 11 }} axisLine={{ stroke: 'var(--border)' }} />
+                  <Tooltip formatter={(v: number) => [v, metric === 'printers' ? 'Printers' : 'Providers']} contentStyle={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8 }} />
+                  <Bar dataKey="value" radius={[0,4,4,0]}>
+                    {chartData.map((row, i) => (
+                      <Cell key={i} fill={metric === 'printers' ? 'var(--chart-4)' : 'var(--chart-2)'} cursor="pointer" onClick={() => handleBarClick(row.label)} />
+                    ))}
+                  </Bar>
+                </ReBarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Filters */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 xl:grid-cols-8 gap-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Company name"
+              value={filters.company_name}
+              onChange={(e) => setFilters(prev => ({ ...prev, company_name: e.target.value }))}
+              className="pl-10"
+            />
+          </div>
+
+          <Select value={filters.segment} onValueChange={(value) => setFilters(prev => ({ ...prev, segment: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Segment" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Segments</SelectItem>
+              {uniqueValues.segments.map(segment => (
+                <SelectItem key={segment} value={segment}>{segment}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.printer_manufacturer} onValueChange={(value) => setFilters(prev => ({ ...prev, printer_manufacturer: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Manufacturer" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Manufacturers</SelectItem>
+              {uniqueValues.manufacturers.map(manufacturer => (
+                <SelectItem key={manufacturer} value={manufacturer}>{manufacturer}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.printer_model} onValueChange={(value) => setFilters(prev => ({ ...prev, printer_model: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Printer Model" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Models</SelectItem>
+              {uniqueValues.models.map(model => (
+                <SelectItem key={model} value={model}>{model}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <div className="grid grid-cols-2 gap-2">
+            <Input
+              type="number"
+              inputMode="numeric"
+              placeholder="Min Printers"
+              value={filters.number_of_printers_min}
+              onChange={(e) => setFilters(prev => ({ ...prev, number_of_printers_min: e.target.value }))}
+            />
+            <Input
+              type="number"
+              inputMode="numeric"
+              placeholder="Max Printers"
+              value={filters.number_of_printers_max}
+              onChange={(e) => setFilters(prev => ({ ...prev, number_of_printers_max: e.target.value }))}
+            />
+          </div>
+
+          <Select value={filters.count_type} onValueChange={(value) => setFilters(prev => ({ ...prev, count_type: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Count Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Count Types</SelectItem>
+              {['Exact','Estimated','Range','Minimum'].map(ct => (
+                <SelectItem key={ct} value={ct}>{ct}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.process} onValueChange={(value) => setFilters(prev => ({ ...prev, process: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Process" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Processes</SelectItem>
+              {uniqueValues.processes.map(process => (
+                <SelectItem key={process} value={process}>{process}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.material_type} onValueChange={(value) => setFilters(prev => ({ ...prev, material_type: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Material Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Materials</SelectItem>
+              {uniqueValues.materialTypes.map(type => (
+                <SelectItem key={type} value={type}>{type}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.material_format} onValueChange={(value) => setFilters(prev => ({ ...prev, material_format: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Material Format" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Formats</SelectItem>
+              {uniqueValues.materialFormats.map(fmt => (
+                <SelectItem key={fmt} value={fmt}>{fmt}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.country} onValueChange={(value) => setFilters(prev => ({ ...prev, country: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Country" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Countries</SelectItem>
+              {uniqueValues.countries.map(country => (
+                <SelectItem key={country} value={country}>{country}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.update_year} onValueChange={(value) => setFilters(prev => ({ ...prev, update_year: value }))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Update Year" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Years</SelectItem>
+              {uniqueValues.updateYears.map((yr) => (
+                <SelectItem key={yr} value={yr.toString()}>{yr}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Button 
+            variant="outline" 
+            onClick={() => setFilters({ 
+              company_name: '',
+              segment: '',
+              printer_manufacturer: '',
+              printer_model: '',
+              number_of_printers_min: '',
+              number_of_printers_max: '',
+              count_type: '',
+              process: '',
+              material_type: '',
+              material_format: '',
+              country: '',
+              update_year: ''
+            })}
+            className="text-muted-foreground"
+          >
+            Clear Filters
+          </Button>
+        </div>
+      </div>
+
+      {/* Table (desktop) */}
+      <div className="hidden md:block flex-1 overflow-auto">
+        <Table>
+          <TableHeader className="sticky top-0 bg-background z-10">
+            <TableRow>
+              <TableHead onClick={() => toggleSort('company_name')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Company Name<SortIndicator column="company_name" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('segment')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Segment<SortIndicator column="segment" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('printer_manufacturer')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Printer Manufacturer<SortIndicator column="printer_manufacturer" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('printer_model')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Printer Model<SortIndicator column="printer_model" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('number_of_printers')} className="cursor-pointer select-none text-right">
+                <div className="inline-flex items-center">Printers<SortIndicator column="number_of_printers" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('count_type')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Count Type<SortIndicator column="count_type" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('process')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Process<SortIndicator column="process" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('material_type')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Material Type<SortIndicator column="material_type" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('material_format')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Material Format<SortIndicator column="material_format" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('country')} className="cursor-pointer select-none">
+                <div className="inline-flex items-center">Country<SortIndicator column="country" /></div>
+              </TableHead>
+              <TableHead onClick={() => toggleSort('update_year')} className="cursor-pointer select-none text-center">
+                <div className="inline-flex items-center">Update Year<SortIndicator column="update_year" /></div>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredData.map((provider) => (
+              <TableRow key={provider.id} className="hover:bg-muted/50">
+                <TableCell className="font-medium">
+                  <div className="flex items-center gap-2">
+                    {provider.website ? (
+                      <a 
+                        href={provider.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline"
+                      >
+                        {provider.company_name}
+                      </a>
+                    ) : (
+                      provider.company_name
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <Badge 
+                    variant={provider.segment === 'Manufacturing' ? 'default' : 
+                             provider.segment === 'Medical' ? 'secondary' : 'outline'}
+                  >
+                    {provider.segment}
+                  </Badge>
+                </TableCell>
+                <TableCell className="font-medium">{provider.printer_manufacturer}</TableCell>
+                <TableCell className="text-sm text-muted-foreground">{provider.printer_model}</TableCell>
+                <TableCell className="text-right font-mono font-semibold">
+                  {provider.number_of_printers}
+                </TableCell>
+                <TableCell>
+                  <Badge 
+                    variant={provider.count_type === 'Exact' ? 'default' : 'outline'}
+                    className={provider.count_type === 'Exact' ? 'bg-green-100 text-green-800' : ''}
+                  >
+                    {provider.count_type}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge variant="outline" className="font-mono text-xs">
+                    {provider.process}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge 
+                    variant={provider.material_type === 'Metal' ? 'default' : 'secondary'}
+                    className={provider.material_type === 'Metal' ? 'bg-blue-100 text-blue-800' : ''}
+                  >
+                    {provider.material_type}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-sm">{provider.material_format}</TableCell>
+                <TableCell className="flex items-center gap-2">
+                  <Globe className="h-3 w-3 text-muted-foreground" />
+                  {provider.country}
+                </TableCell>
+                <TableCell className="text-center">
+                  <div className="flex items-center justify-center gap-1">
+                    <Calendar className="h-3 w-3 text-muted-foreground" />
+                    <span className="text-sm">{provider.update_year}</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+
+        {filteredData.length === 0 && (
+          <div className="flex flex-col items-center justify-center p-8 text-center">
+            <Factory className="h-12 w-12 text-muted-foreground mb-4" />
+            <h3 className="text-lg font-semibold mb-2">No print services found</h3>
+            <p className="text-muted-foreground">
+              Try adjusting your filters or search terms to find print service providers.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Mobile list view */}
+      <div className="md:hidden flex-1 overflow-auto p-4">
+        <div className="space-y-2">
+          {filteredData.map((provider) => (
+            <div key={provider.id} className="rounded-lg border border-border bg-card p-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{provider.company_name}</div>
+                  <div className="text-xs text-muted-foreground truncate">{provider.printer_manufacturer} • {provider.printer_model || '—'}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-semibold">{provider.number_of_printers}</div>
+                  <div className="text-[10px] text-muted-foreground">Printers</div>
+                </div>
+              </div>
+              <div className="mt-2 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  <Badge variant={provider.segment === 'Manufacturing' ? 'default' : provider.segment === 'Medical' ? 'secondary' : 'outline'}>
+                    {provider.segment}
+                  </Badge>
+                  <Badge variant="outline" className="font-mono">{provider.process}</Badge>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Globe className="h-3 w-3" /> {provider.country}
+                </div>
+              </div>
+            </div>
+          ))}
+          {filteredData.length === 0 && (
+            <div className="p-6 text-center text-muted-foreground text-sm">No print services found.</div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}

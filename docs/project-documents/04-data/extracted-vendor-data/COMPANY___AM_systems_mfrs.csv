@@ -1,0 +1,303 @@
+Company name,Segment,Process,Material format,Material type,Country
+Sakuu,System manufacturer,,,Metal,United States
+Sakuu,System manufacturer,,,Polymer,United States
+Sakuu,System manufacturer,,powder,ceramic,United States
+3DEO,System manufacturer,BJT,powder,metal,United States
+"AMSKY Technology Co., Ltd.",System manufacturer,BJT,,sand,China
+"AMSKY Technology Co., Ltd.",System manufacturer,BJT,,ceramic,China
+"Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",System manufacturer,BJT,,sand,China
+"Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",System manufacturer,BJT,,metal,China
+"Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",System manufacturer,BJT,,ceramic,China
+ADDIMETAL,System manufacturer,BJT,powder,metal,France
+"3D Printing Technology, Inc. (3DPTEK)",System manufacturer,BJT,powder,metal,China
+"3D Printing Technology, Inc. (3DPTEK)",System manufacturer,BJT,powder,ceramic,China
+"3D Printing Technology, Inc. (3DPTEK)",System manufacturer,BJT,powder,sand,China
+Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS,System manufacturer,BJT,,,China
+Breuck T3D,System manufacturer,BJT,powder,ceramic,China
+3D-Hybrid,System manufacturer,Cold spray,powder,metal,United States
+SPEE3D,System manufacturer,cold spray,,,Australia
+3D-Hybrid,System manufacturer,DED-arc,wire,metal,United States
+AML3D,System manufacturer,DED-arc,wire,metal,Australia
+"Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",System manufacturer,DED-arc,wire,metal,China
+Addilan,System manufacturer,DED-arc,wire,metal,Spain
+One Off Robotics,System manufacturer,DED-arc,wire,metal,United States
+pro-beam Group,System manufacturer,DED-EB,wire,metal,Germany
+3D-Hybrid,System manufacturer,DED-LB,wire,metal,United States
+3D-Hybrid,System manufacturer,DED-LB,powder,metal,United States
+"Aachen United Technology (Tianjin) Co., Ltd. (Acunity)",System manufacturer,DED-LB,powder,metal,China
+Aconity3D GmbH,System manufacturer,DED-LB,powder,metal,Germany
+"Avimetal AM Tech Co., Ltd.",System manufacturer,DED-LB,powder,,China
+Liburdi Automation Inc,System manufacturer,DED-LB,,metal,
+"Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",System manufacturer,DED-LB,powder,,China
+Romi,System manufacturer,DED-LB,powder,metal,Brazil
+ADDere,System manufacturer,DED-LB,wire,metal,United States
+ADDICT3D,System manufacturer,DED-LB,wire,metal,Sweden
+ADDiTEC,System manufacturer,DED-LB,wire,metal,United States
+"Avimetal AM Tech Co., Ltd.",System manufacturer,DED-LB,powder,metal,China
+Nikon SLM Solutions,System manufacturer,DED-LB,powder,metal,Germany
+AMFREE,System manufacturer,DED-LB,,metal,France
+Meltio3D,System manufacturer,DED-LB,,metal,Spain
+Additec,System manufacturer,DED-LB,,metal,United States
+METROM Mechatronische Maschinen GmbH,System manufacturer,DED-LB,,metal,Germany
+OSCAR PLT GmbH,System manufacturer,DED-LB,,metal,Germany
+InssTek,System manufacturer,DED-LB,,metal,South Korea
+AddUp,System manufacturer,DED-LB,,metal,France
+ODeCon engineering GmbH,System manufacturer,DED-LB,,metal,Taiwan
+Prima Additive S.r.l.,System manufacturer,DED-LB,,metal,Italy
+"DM3D Technology, LLC ",System manufacturer,DED-LB,,metal,
+Aconity3D GmbH,System manufacturer,DED-LB,,metal,Germany
+Nikon SLM Solutions,System manufacturer,DED-LB,,metal,Germany
+Hwacheon,System manufacturer,DED-LB,,metal,South Korea
+Evobeam GmbH,System manufacturer,DED-LB,,metal,Germany
+Mazak,System manufacturer,DED-LB,,metal,Japan
+TRUMPF,System manufacturer,DED-LB,,metal,Germany
+Okuma Europe,System manufacturer,DED-LB,,metal,Germany
+VLM Robotics,System manufacturer,DED-LB,,metal,France
+Snowbird Tech,System manufacturer,DED-LB,,metal,United States
+LUNOVU,System manufacturer,DED-LB,,metal,Germany
+Bharat Fritz Werner Ltd. – BFW,System manufacturer,DED-LB,,metal,India
+Nidec Machine Tool America,System manufacturer,DED-LB,,metal,Japan
+DMG Mori,System manufacturer,DED-LB,,metal,Japan
+Ponticon,System manufacturer,DED-LB,,metal,Germany
+Ziknes,System manufacturer,DED-LB,,metal,Spain
+Mitsubishi Electric,System manufacturer,DED-LB,,metal,Japan
+Romi,System manufacturer,DED-LB,,metal,Brazil
+Mitsubishi Heavy Industries,System manufacturer,DED-LB,,metal,Japan
+Optomec,System manufacturer,DED-LB,,metal,United States
+Sugino,System manufacturer,DED-LB,,metal,Japan
+RPM Innovations,System manufacturer,DED-LB,,metal,United States
+Chiron Group,System manufacturer,DED-LB,,metal,Germany
+SOTIMECO,System manufacturer,DED-LB,,metal,
+ADDere,System manufacturer,DED-LB,,metal,United States
+INETYX,System manufacturer,DED-LB,,metal,France
+Formalloy,System manufacturer,DED-LB,,metal,United States
+Philips Corporation,System manufacturer,DED-LB,,metal,United States
+Breuck T3D,System manufacturer,FDM,filament,ceramic,China
+Breuck T3D,System manufacturer,FDM,filament,polymer,China
+1A Technologies,System manufacturer,MEX,pellet,polymer,Germany
+3D byFlow,System manufacturer,MEX,,food,The Netherlands
+3D Factories,System manufacturer,MEX,filament,polymer,Germany
+3D Paradise,System manufacturer,MEX,filament,polymer,India
+3D Platform,System manufacturer,MEX,filament,polymer,United States
+3D Systems Inc.,System manufacturer,MEX,pellet,polymer,United States
+3D Systems Inc.,System manufacturer,MEX,filament,polymer,United States
+3D-Dream,System manufacturer,MEX,pellet,polymer,Italy
+3D-Dream,System manufacturer,MEX,filament,polymer,Italy
+3D-Figo Gmbh,System manufacturer,MEX,pellet,polymer,Germany
+3DCeram Sinto,System manufacturer,MEX,filament,ceramic,France
+3DCPI-PRODYSOL,System manufacturer,MEX,filament,polymer,Spain
+3Deometry Innovations LLP,System manufacturer,MEX,filament,polymer,India
+3DGence,System manufacturer,MEX,filament,polymer,Poland
+3DKG,System manufacturer,MEX,pellets,polymer,Italy
+3DPRN,System manufacturer,MEX,filament,polymer,Italy
+3DSTUFFSNL,System manufacturer,MEX,filament,polymer,The Netherlands
+3ntr,System manufacturer,MEX,filament,polymer,Italy
+"Beijing Huitianwei Technology Co., Ltd.",System manufacturer,MEX,filament,polymer,China
+Chimak,System manufacturer,MEX,filament,polymer,Argentina
+FANUM Sp. z o.o. SP.k,System manufacturer,MEX,pellet,polymer,Poland
+Fused Form,System manufacturer,MEX,pellet,polymer,Colombia
+Fused Form,System manufacturer,MEX,filament,polymer,Colombia
+KOKONI3D,System manufacturer,MEX,filament,polymer,China
+Mosaic Manufacturing Ltd.,System manufacturer,MEX,filament,polymer,Canada
+Sethi3D,System manufacturer,MEX,filament,polymer,Brazil
+Trideo,System manufacturer,MEX,filament,polymer,Argentina
+Trimaker,System manufacturer,MEX,filament,polymer,Argentina
+Virtual Smart Factory (VSF),System manufacturer,MEX,slurry,concrete,Australia
+Virtual Smart Factory (VSF),System manufacturer,MEX,pellet,polymer,Australia
+ADDICT3D,System manufacturer,MEX,pellet,polymer,Sweden
+AddiFab,System manufacturer,MEX,filament,polymer,Denmark
+Additive Alliance,System manufacturer,MEX,filament,polymer,United States
+Afinia 3D,System manufacturer,MEX,filament,polymer,United States
+AIM3D GmbH,System manufacturer,MEX,pellet,polymer,Germany
+AIM3D GmbH,System manufacturer,MEX,pellet,metal,Germany
+AIM3D GmbH,System manufacturer,MEX,pellet,ceramic,Germany
+Airwolf 3D,System manufacturer,MEX,filament,polymer,United States
+Anisoprint 3D Printing Technology Limited Company,System manufacturer,MEX,filament,polymer,Singapore
+Winsun (Yingchuang),System manufacturer,MEX,paste,concrete,China
+Henan Creatbot Technology Limited,System manufacturer,MEX,filament,polymer,China
+"Shenzhen Adventure Technology Co., Ltd.",System manufacturer,MEX,liquid,ceramic,China
+Teccluster (Teccam),System manufacturer,MEX,pellet,Polymer,Denmark
+One Off Robotics,System manufacturer,MEX,,polymer,United States
+"Nanjing Weibu 3D Technology Co., Ltd.",System manufacturer,MEX,,polymer,
+Piocreat,System manufacturer,MEX,pellet,polymer,China
+EPSON ATMIX Corporation,System manufacturer,MEX,pellet,polymer,Japan
+3D Systems Inc.,System manufacturer,MJT,liquid,wax / polymer,United States
+3Deus Dynamics,System manufacturer,MJT,liquid,silicone,France
+ADDiTEC,System manufacturer,MJT,liquid,metal,United States
+Advanced Solutions,System manufacturer,MJT,liquid,biomaterials,United States
+"Zhuhai Sailner 3D Technology Co., Ltd.",System manufacturer,MJT,liquid,polymer,China
+Regenovo,System manufacturer,MJT,,biomaterials,China
+"Hubei Jiayi 3D Hi-Tech Co., Ltd.",System manufacturer,MJT,,biomaterials,China
+Xi'an Sailong Metal,System manufacturer,PBF-EB,powder,metal,China
+Xi'an Sailong Metal,System manufacturer,PBF-EB,powder,metal,China
+QBEAM (QuickBeam),System manufacturer,PBF-EB,powder,metal,China
+Wayland Additive,System manufacturer,PBF-EB,powder,metal,The United Kingdom
+Colibrium Additive,System manufacturer,PBF-EB,powder,metal,United States
+JEOL,System manufacturer,PBF-EB,powder,metal,Japan
+Freemelt,System manufacturer,PBF-EB,powder,metal,Sweden
+ALD Vacuum Technologies GmbH,System manufacturer,PBF-EB,powder,metal,Germany
+TADA Electric Co.,System manufacturer,PBF-EB,powder,metal,Japan
+pro-beam Group,System manufacturer,PBF-EB,powder,metal,Germany
+2onelab GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+3D MicroPrint GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+3D Systems Inc.,System manufacturer,PBF-LB,powder,metal,United States
+3D Systems Inc.,System manufacturer,PBF-LB,powder,polymer,United States
+3D4MEC,System manufacturer,PBF-LB,powder,metal,Italy
+3DM Digital Manufacturing Ltd,System manufacturer,PBF-LB,powder,polymer,Israel
+3DSLA.RU,System manufacturer,PBF-LB,powder,metal,Russia
+Aconity3D GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Additive Industries b.v.,System manufacturer,PBF-LB,powder,metal,The Netherlands
+Additive Manufacturing Customized Machines (AMCM),System manufacturer,PBF-LB,powder,metal,Germany
+AddUp,System manufacturer,PBF-LB,powder,metal,France
+Alkimat,System manufacturer,PBF-LB,powder,polymer,Brazil
+Alkimat,System manufacturer,PBF-LB,powder,metal,Brazil
+AmPro Innovations,System manufacturer,PBF-LB,powder,metal,Australia
+"AMSKY Technology Co., Ltd.",System manufacturer,PBF-LB,powder,metal,China
+"Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive)",System manufacturer,PBF-LB,powder,,China
+"Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd.",System manufacturer,PBF-LB,powder,,China
+"Avimetal AM Tech Co., Ltd.",System manufacturer,PBF-LB,powder,metal,China
+"Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",System manufacturer,PBF-LB,,wax,China
+"Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",System manufacturer,PBF-LB,,sand,China
+"Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",System manufacturer,PBF-LB,,metal,China
+Omnitek,System manufacturer,PBF-LB,powder,metal,Brazil
+OpenAdditive,System manufacturer,PBF-LB,powder,metal,
+"Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",System manufacturer,PBF-LB,powder,,China
+AddiFab,System manufacturer,PBF-LB,powder,polymer,Denmark
+Addizone,System manufacturer,PBF-LB,powder,metal,United States
+Aditiv Solutions,System manufacturer,PBF-LB,powder,metal,South Africa
+"3D Printing Technology, Inc. (3DPTEK)",System manufacturer,PBF-LB,powder,metal,China
+"3D Printing Technology, Inc. (3DPTEK)",System manufacturer,PBF-LB,powder,polymer,China
+"3D Printing Technology, Inc. (3DPTEK)",System manufacturer,PBF-LB,powder,sand,China
+"3D Printing Technology, Inc. (3DPTEK)",System manufacturer,PBF-LB,powder,wax,China
+Aixway3D GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+"Avimetal AM Tech Co., Ltd.",System manufacturer,PBF-LB,powder,metal,China
+Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS,System manufacturer,PBF-LB,powder,polymer,China
+Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS,System manufacturer,PBF-LB,powder,metal,China
+"Suzhou Tianhong Laser Co., Ltd.",System manufacturer,PBF-LB,powder,metal,China
+"Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd",System manufacturer,PBF-LB,powder,polymer,China
+AO Metal,System manufacturer,PBF-LB,powder,metal,United States
+Xact Metal,System manufacturer,PBF-LB,powder,metal,United States
+Nikon SLM Solutions,System manufacturer,PBF-LB,powder,metal,Germany
+Nanogrande Inc.,System manufacturer,PBF-LB,powder,metal,Canada
+Colibrium Additive,System manufacturer,PBF-LB,powder,metal,United States
+3D MicroPrint GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Renishaw,System manufacturer,PBF-LB,powder,metal,The United Kingdom
+Velo3D,System manufacturer,PBF-LB,powder,metal,United States
+TRUMPF,System manufacturer,PBF-LB,powder,metal,Germany
+Eplus3D,System manufacturer,PBF-LB,powder,metal,China
+FastForm Technology Co.,System manufacturer,PBF-LB,powder,metal,China
+"HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.)",System manufacturer,PBF-LB,powder,metal,China
+Teccluster (Teccam),System manufacturer,PBF-LB,Powder,Polymer,Denmark
+Teccluster (Teccam),System manufacturer,PBF-LB,Powder,Metal,Denmark
+Irpd AG,System manufacturer,PBF-LB,powder,metal,Switzerland
+Farsoon,System manufacturer,PBF-LB,powder,metal,China
+EOS,System manufacturer,PBF-LB,powder,metal,Germany
+ALPHA LASER,System manufacturer,PBF-LB,powder,metal,Germany
+Aconity3D GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Prima Additive S.r.l.,System manufacturer,PBF-LB,powder,metal,Italy
+NPPower,System manufacturer,PBF-LB,powder,metal,Slovenia
+XiAn Bright Laser Technologies Co Ltd (BLT),System manufacturer,PBF-LB,powder,metal,China
+SamyLabs,System manufacturer,PBF-LB,powder,metal,Spain
+InssTek,System manufacturer,PBF-LB,powder,metal,South Korea
+One Click Metal GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Sharebot SRL,System manufacturer,PBF-LB,powder,metal,Italy
+"Avimetal AM Tech Co., Ltd.",System manufacturer,PBF-LB,powder,metal,China
+Aurora Labs,System manufacturer,PBF-LB,powder,metal,Australia
+amace,System manufacturer,PBF-LB,powder,metal,India
+LATEC,System manufacturer,PBF-LB,powder,metal,China
+Kurtz Ersa GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Evobeam GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Intech Additive Solutions,System manufacturer,PBF-LB,powder,metal,India
+Wiiboox,System manufacturer,PBF-LB,powder,metal,China
+"Guangzhou Riton Additive Technology Co., Ltd",System manufacturer,PBF-LB,powder,metal,China
+XDM,System manufacturer,PBF-LB,powder,metal,China
+Veltz,System manufacturer,PBF-LB,powder,metal,South Korea
+Rusatom Additive Technologies,System manufacturer,PBF-LB,powder,metal,Russia
+Noura,System manufacturer,PBF-LB,powder,metal,Iran
+DediBot,System manufacturer,PBF-LB,powder,metal,China
+ProtoFab,System manufacturer,PBF-LB,powder,metal,China
+Kolibri Metals,System manufacturer,PBF-LB,powder,metal,Germany
+"Profeta Intelligent Technology Co., Ltd.",System manufacturer,PBF-LB,powder,metal,China
+Sun Metalon,System manufacturer,PBF-LB,powder,metal,United States
+SISMA S.p.A.,System manufacturer,PBF-LB,powder,metal,Italy
+"Shenzhen Kings 3D Printing Technology Co., Ltd.",System manufacturer,PBF-LB,powder,metal,China
+Additive Industries b.v.,System manufacturer,PBF-LB,powder,metal,The Netherlands
+Dentas,System manufacturer,PBF-LB,powder,metal,Slovenia
+Additive Laser Technologies (ALT),System manufacturer,PBF-LB,powder,metal,Ukraine
+2onelab GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Aixway3D GmbH,System manufacturer,PBF-LB,powder,metal,Germany
+Seurat,System manufacturer,PBF-LB,powder,metal,United States
+Laseradd,System manufacturer,PBF-LB,powder,metal,China
+3DLAM,System manufacturer,PBF-LB,powder,metal,Russia
+Nanjing Chamlion Laser Technology Co,System manufacturer,PBF-LB,powder,metal,China
+"Guangzhou Riton Additive Technology Co., Ltd",System manufacturer,PBF-LB,powder,metal,China
+Daegun Tech,System manufacturer,PBF-LB,powder,metal,South Korea
+"Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",System manufacturer,PBF-LB,powder,metal,China
+Zrapid Technologies,System manufacturer,PBF-LB,powder,metal,China
+Laser Melting Innovations (LMI),System manufacturer,PBF-LB,powder,metal,Germany
+3D Mectronic,System manufacturer,PBF-LB,powder,metal,Germany
+Wuhan Huake 3D,System manufacturer,PBF-LB,powder,metal,China
+Fonon Corporation,System manufacturer,PBF-LB,powder,metal,United States
+Additive Solutions (AddSol),System manufacturer,PBF-LB,powder,metal,Russia
+DMG Mori,System manufacturer,PBF-LB,powder,metal,Japan
+Tytus3D,System manufacturer,PBF-LB,powder,metal,United States
+Open Additive,System manufacturer,PBF-LB,powder,metal,United States
+Sodick,System manufacturer,PBF-LB,powder,metal,Japan
+Adira Addcreative,System manufacturer,PBF-LB,powder,metal,Portugal
+Matsuura Machinery Corporation,System manufacturer,PBF-LB,powder,metal,Japan
+"3D Controls Co.,Ltd.",System manufacturer,VPP,slurry,ceramic,South Korea
+3D Paradise,System manufacturer,VPP,resin,polymer,India
+3D Systems Inc.,System manufacturer,VPP,resin,polymer,United States
+3DCeram Sinto,System manufacturer,VPP,slurry,ceramic,France
+3DCPI-PRODYSOL,System manufacturer,VPP,resin,polymer,Spain
+"Beijing JCZ Technology Co., Ltd. (Ezcad)",System manufacturer,VPP,resin,polymer,China
+"Beijing Ten Dimensions Technology Co., Ltd.",System manufacturer,VPP,slurry,ceramic,China
+"Beijing Ten Dimensions Technology Co., Ltd.",System manufacturer,VPP,paste,ceramic,China
+Chimak,System manufacturer,VPP,resin,polymer,Argentina
+Ackuretta Technologies,System manufacturer,VPP,resin,polymer,Taiwan
+AddiFab,System manufacturer,VPP,resin,polymer,Denmark
+Admatec,System manufacturer,VPP,slurry,ceramic,The Netherlands
+Admatec,System manufacturer,VPP,slurry,metal,The Netherlands
+Breuck T3D,System manufacturer,VPP,slurry,ceramic,China
+"Shenzhen Adventure Technology Co., Ltd.",System manufacturer,VPP,slurry,ceramic,China
+"Shenzhen PengJi Photoelectricity Co, Ltd",System manufacturer,VPP,resin,polymer,China
+"Suzhou Pollypolymer New Materials Technology Co., Ltd.",System manufacturer,VPP,resin,polymer,China
+"UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.)",System manufacturer,VPP,resin,polymer,China
+"Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd",System manufacturer,VPP,resin,polymer,China
+Teccluster (Teccam),System manufacturer,VPP,Resin,Polymer,Denmark
+UNIZ Technology,System manufacturer,VPP,Resin,Polymer,China
+"Nanjing Weibu 3D Technology Co., Ltd.",System manufacturer,VPP,,polymer,
+"Adrayn (Chongqing Andrayyuan Technology Co., Ltd)",System manufacturer,VPP,,,China
+3D Labs,System manufacturer,MEX,,polymer,Germany
+Makertech 3D,System manufacturer,MEX,,polymer,The United Kingdom
+3DXTech,System manufacturer,MEX,,polymer,United States
+Addcomposites,System manufacturer,MEX,,polymer,Finland
+Alchimies SAS,System manufacturer,MEX,,polymer,France
+Alloy Additive,System manufacturer,DED-arc,,Metal,Turkey
+Alpha Additive,System manufacturer,MEX,,polymer,United States
+AMCM (Additive Manufacturing Customized Machines),System manufacturer,PBF-LB,,Metal,Germany
+Amnova Tech,System manufacturer,MEX,,Polymers,
+AON,System manufacturer,VPP,,ceramic,South Korea
+AON3D,System manufacturer,MEX,,polymer,Canada
+Apium Additive Technologies,System manufacturer,MEX,,polymer,Germany
+ARBURG GmbH + Co KG,System manufacturer,MEX,,polymer,Germany
+Asiga,System manufacturer,VPP,,polymer,Australia
+ATLANT 3D Nanosystems,System manufacturer,MJT,,,Denmark
+ATMAT,System manufacturer,MEX,,polymer,Poland
+atum3D B.V,System manufacturer,VPP,,polymer,The Netherlands
+Axolotl Biosciences,System manufacturer,,,Bio/Organics,Canada
+Axtra3D Inc.,System manufacturer,VPP,,polymer,United States
+Azul3D,System manufacturer,VPP,,polymer,
+B-jetting,System manufacturer,BJT,,all,United States
+B9Creations,System manufacturer,VPP,,polymer,United States
+Bambu Lab,System manufacturer,MEX,,polymer,China
+BCN3D,System manufacturer,MEX,,Polymer,Spain
+BCN3D,System manufacturer,MEX,,Metals,Spain
+BEGO,System manufacturer,VPP,,polymer,Germany
+"Beijing Tiertime Technology Co., Ltd.",System manufacturer,MEX,,polymer,China
+Belotti,System manufacturer,MEX,pellets,polymer,Italy
+BetAbram,System manufacturer,MEX,,concrete,Slovenia
+BigRep,System manufacturer,MEX,,polymer,Germany
+Black Buffalo 3D,System manufacturer,MEX,paste,ceramic,United States
+Black Buffalo 3D,System manufacturer,MEX,paste,concrete,United States
+BlackBelt,System manufacturer,MEX,filament,Polymers,The Netherlands

@@ -1,0 +1,1243 @@
+[
+  {
+    "Year": 2014,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 4102000000,
+    "__EMPTY_2": "- segmented (stacked) bar plot from 2024 to 2034 with low/avh/high forecasts broken down by segment\r\n- filters: segment"
+  },
+  {
+    "Year": 2015,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 5166000000
+  },
+  {
+    "Year": 2016,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 6064000000
+  },
+  {
+    "Year": 2017,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 7336000000
+  },
+  {
+    "Year": 2018,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 9795000000
+  },
+  {
+    "Year": 2019,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 11868000000
+  },
+  {
+    "Year": 2020,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 12758000000,
+    "__EMPTY_1": "Filters",
+    "__EMPTY_2": "Segment"
+  },
+  {
+    "Year": 2021,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 15244000000,
+    "__EMPTY_2": "Material sales",
+    "__EMPTY_3": "AM material market size'!A1"
+  },
+  {
+    "Year": 2022,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 18027000000,
+    "__EMPTY_2": "Printers sales and servicing",
+    "__EMPTY_3": "Printer sales servicing size'!A1"
+  },
+  {
+    "Year": 2023,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 20034100000,
+    "__EMPTY_2": "Printing services",
+    "__EMPTY_3": "Printing services market'!A1"
+  },
+  {
+    "Year": 2024,
+    "Type": "Past revenue",
+    "Segment": "Total",
+    " Past revenue (USD) ": 21856130461,
+    "__EMPTY_2": "Software sales",
+    "__EMPTY_3": "AM software market size'!A1"
+  },
+  {
+    "Year": 2025,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 24854709252
+  },
+  {
+    "Year": 2026,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 28306233710
+  },
+  {
+    "Year": 2027,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 32282720332
+  },
+  {
+    "Year": 2028,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 36867940404
+  },
+  {
+    "Year": 2029,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 42159366591
+  },
+  {
+    "Year": 2030,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 48270444916
+  },
+  {
+    "Year": 2031,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 55333246885
+  },
+  {
+    "Year": 2032,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 63501565808
+  },
+  {
+    "Year": 2033,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 72954532246
+  },
+  {
+    "Year": 2034,
+    "Type": "Low end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 83900836184
+  },
+  {
+    "Year": 2025,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 25534599304
+  },
+  {
+    "Year": 2026,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 29903360875
+  },
+  {
+    "Year": 2027,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 35101501091
+  },
+  {
+    "Year": 2028,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 41297506625
+  },
+  {
+    "Year": 2029,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 48695691332
+  },
+  {
+    "Year": 2030,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 57544061175
+  },
+  {
+    "Year": 2031,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 68143945193
+  },
+  {
+    "Year": 2032,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 80861795517
+  },
+  {
+    "Year": 2033,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 96143652517
+  },
+  {
+    "Year": 2034,
+    "Type": "Average forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 114532885843
+  },
+  {
+    "Year": 2025,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 26214489356
+  },
+  {
+    "Year": 2026,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 31500488041
+  },
+  {
+    "Year": 2027,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 37920281849
+  },
+  {
+    "Year": 2028,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 45727072846
+  },
+  {
+    "Year": 2029,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 55232016073
+  },
+  {
+    "Year": 2030,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 66817677434
+  },
+  {
+    "Year": 2031,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 80954643501
+  },
+  {
+    "Year": 2032,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 98222025226
+  },
+  {
+    "Year": 2033,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 119332772789
+  },
+  {
+    "Year": 2034,
+    "Type": "High end forecast",
+    "Segment": "Total",
+    " Past revenue (USD) ": 145164935501
+  },
+  {
+    "Year": 2014,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 507100000
+  },
+  {
+    "Year": 2015,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 768300000
+  },
+  {
+    "Year": 2016,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 903000000
+  },
+  {
+    "Year": 2017,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 1133700000
+  },
+  {
+    "Year": 2018,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 1494700000
+  },
+  {
+    "Year": 2019,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 1916100000
+  },
+  {
+    "Year": 2020,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 2105200000
+  },
+  {
+    "Year": 2021,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 2598200000
+  },
+  {
+    "Year": 2022,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 3259500000
+  },
+  {
+    "Year": 2023,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 3646800000
+  },
+  {
+    "Year": 2024,
+    "Type": "Past revenue",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 4379345540
+  },
+  {
+    "Year": 2025,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 5173837523
+  },
+  {
+    "Year": 2026,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 6112464630
+  },
+  {
+    "Year": 2027,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 7221375563
+  },
+  {
+    "Year": 2028,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 8531462867
+  },
+  {
+    "Year": 2029,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 10079223553
+  },
+  {
+    "Year": 2030,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 11907775841
+  },
+  {
+    "Year": 2031,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 14068060377
+  },
+  {
+    "Year": 2032,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 16620259350
+  },
+  {
+    "Year": 2033,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 19635473083
+  },
+  {
+    "Year": 2034,
+    "Type": "Low end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 23197700774
+  },
+  {
+    "Year": 2025,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 5313791700
+  },
+  {
+    "Year": 2026,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 6452098639
+  },
+  {
+    "Year": 2027,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 7839674006
+  },
+  {
+    "Year": 2028,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 9532229811
+  },
+  {
+    "Year": 2029,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 11598158834
+  },
+  {
+    "Year": 2030,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 14121466533
+  },
+  {
+    "Year": 2031,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 17205389759
+  },
+  {
+    "Year": 2032,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 20976864877
+  },
+  {
+    "Year": 2033,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 25592046707
+  },
+  {
+    "Year": 2034,
+    "Type": "Average forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 31243127877
+  },
+  {
+    "Year": 2025,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 5453745876
+  },
+  {
+    "Year": 2026,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 6791732648
+  },
+  {
+    "Year": 2027,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 8457972448
+  },
+  {
+    "Year": 2028,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 10532996754
+  },
+  {
+    "Year": 2029,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 13117094115
+  },
+  {
+    "Year": 2030,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 16335157224
+  },
+  {
+    "Year": 2031,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 20342719141
+  },
+  {
+    "Year": 2032,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 25333470403
+  },
+  {
+    "Year": 2033,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 31548620330
+  },
+  {
+    "Year": 2034,
+    "Type": "High end forecast",
+    "Segment": "Materials",
+    " Past revenue (USD) ": 39288554979
+  },
+  {
+    "Year": 2014,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 340431513
+  },
+  {
+    "Year": 2015,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 399158427
+  },
+  {
+    "Year": 2016,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 425923953
+  },
+  {
+    "Year": 2017,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 426710169
+  },
+  {
+    "Year": 2018,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 538147737
+  },
+  {
+    "Year": 2019,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 690126701
+  },
+  {
+    "Year": 2020,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 809734078
+  },
+  {
+    "Year": 2021,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1023379720
+  },
+  {
+    "Year": 2022,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1184280527
+  },
+  {
+    "Year": 2023,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1234119782
+  },
+  {
+    "Year": 2024,
+    "Type": "Past revenue",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1360000000
+  },
+  {
+    "Year": 2025,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1560863241
+  },
+  {
+    "Year": 2026,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1791392690
+  },
+  {
+    "Year": 2027,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2055969854
+  },
+  {
+    "Year": 2028,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2359623360
+  },
+  {
+    "Year": 2029,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2708124534
+  },
+  {
+    "Year": 2030,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 3108097088
+  },
+  {
+    "Year": 2031,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 3567143011
+  },
+  {
+    "Year": 2032,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 4093987061
+  },
+  {
+    "Year": 2033,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 4698642584
+  },
+  {
+    "Year": 2034,
+    "Type": "Low end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 5392601834
+  },
+  {
+    "Year": 2025,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1564025696
+  },
+  {
+    "Year": 2026,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1798666455
+  },
+  {
+    "Year": 2027,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2068517321
+  },
+  {
+    "Year": 2028,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2378863179
+  },
+  {
+    "Year": 2029,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2735782341
+  },
+  {
+    "Year": 2030,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 3146265696
+  },
+  {
+    "Year": 2031,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 3618353751
+  },
+  {
+    "Year": 2032,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 4161294261
+  },
+  {
+    "Year": 2033,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 4785723535
+  },
+  {
+    "Year": 2034,
+    "Type": "Average forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 5503874979
+  },
+  {
+    "Year": 2025,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1567188150
+  },
+  {
+    "Year": 2026,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 1805940220
+  },
+  {
+    "Year": 2027,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2081064788
+  },
+  {
+    "Year": 2028,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2398102997
+  },
+  {
+    "Year": 2029,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 2763440148
+  },
+  {
+    "Year": 2030,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 3184434304
+  },
+  {
+    "Year": 2031,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 3669564490
+  },
+  {
+    "Year": 2032,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 4228601460
+  },
+  {
+    "Year": 2033,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 4872804486
+  },
+  {
+    "Year": 2034,
+    "Type": "High end forecast",
+    "Segment": "Software",
+    " Past revenue (USD) ": 5615148125
+  },
+  {
+    "Year": 2014,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 1948468487
+  },
+  {
+    "Year": 2015,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 2284541573
+  },
+  {
+    "Year": 2016,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 2562076047
+  },
+  {
+    "Year": 2017,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 2820589831
+  },
+  {
+    "Year": 2018,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 3663152263
+  },
+  {
+    "Year": 2019,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 4341773299
+  },
+  {
+    "Year": 2020,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 4573065922
+  },
+  {
+    "Year": 2021,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 5387420280
+  },
+  {
+    "Year": 2022,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 6075219473
+  },
+  {
+    "Year": 2023,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 6046180218
+  },
+  {
+    "Year": 2024,
+    "Type": "Past revenue",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 5953372921
+  },
+  {
+    "Year": 2025,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 6356875439
+  },
+  {
+    "Year": 2026,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 6787726198
+  },
+  {
+    "Year": 2027,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 7247778785
+  },
+  {
+    "Year": 2028,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 7739012415
+  },
+  {
+    "Year": 2029,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 8263540449
+  },
+  {
+    "Year": 2030,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 8823619486
+  },
+  {
+    "Year": 2031,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 9421659073
+  },
+  {
+    "Year": 2032,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 10060232065
+  },
+  {
+    "Year": 2033,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 10742085700
+  },
+  {
+    "Year": 2034,
+    "Type": "Low end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 11470153416
+  },
+  {
+    "Year": 2025,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 6517602616
+  },
+  {
+    "Year": 2026,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 7139646323
+  },
+  {
+    "Year": 2027,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 7825805858
+  },
+  {
+    "Year": 2028,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 8583100382
+  },
+  {
+    "Year": 2029,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 9419350362
+  },
+  {
+    "Year": 2030,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 10343271528
+  },
+  {
+    "Year": 2031,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 11364580020
+  },
+  {
+    "Year": 2032,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 12494110087
+  },
+  {
+    "Year": 2033,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 13743945830
+  },
+  {
+    "Year": 2034,
+    "Type": "Average forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 15127568691
+  },
+  {
+    "Year": 2025,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 6678329793
+  },
+  {
+    "Year": 2026,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 7491566448
+  },
+  {
+    "Year": 2027,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 8403832931
+  },
+  {
+    "Year": 2028,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 9427188350
+  },
+  {
+    "Year": 2029,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 10575160276
+  },
+  {
+    "Year": 2030,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 11862923569
+  },
+  {
+    "Year": 2031,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 13307500967
+  },
+  {
+    "Year": 2032,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 14927988110
+  },
+  {
+    "Year": 2033,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 16745805961
+  },
+  {
+    "Year": 2034,
+    "Type": "High end forecast",
+    "Segment": "Printer sales",
+    " Past revenue (USD) ": 18784983965
+  },
+  {
+    "Year": 2014,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 1306000000
+  },
+  {
+    "Year": 2015,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 1714000000
+  },
+  {
+    "Year": 2016,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 2173000000
+  },
+  {
+    "Year": 2017,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 2955000000
+  },
+  {
+    "Year": 2018,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 4099000000
+  },
+  {
+    "Year": 2019,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 4920000000
+  },
+  {
+    "Year": 2020,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 5270000000
+  },
+  {
+    "Year": 2021,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 6235000000
+  },
+  {
+    "Year": 2022,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 7508000000
+  },
+  {
+    "Year": 2023,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 9107000000
+  },
+  {
+    "Year": 2024,
+    "Type": "Past revenue",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 10163412000
+  },
+  {
+    "Year": 2025,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 11763133049
+  },
+  {
+    "Year": 2026,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 13614650191
+  },
+  {
+    "Year": 2027,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 15757596131
+  },
+  {
+    "Year": 2028,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 18237841762
+  },
+  {
+    "Year": 2029,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 21108478055
+  },
+  {
+    "Year": 2030,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 24430952501
+  },
+  {
+    "Year": 2031,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 28276384424
+  },
+  {
+    "Year": 2032,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 32727087333
+  },
+  {
+    "Year": 2033,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 37878330879
+  },
+  {
+    "Year": 2034,
+    "Type": "Low end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 43840380159
+  },
+  {
+    "Year": 2025,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 12139179293
+  },
+  {
+    "Year": 2026,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 14512949458
+  },
+  {
+    "Year": 2027,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 17367503906
+  },
+  {
+    "Year": 2028,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 20803313253
+  },
+  {
+    "Year": 2029,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 24942399795
+  },
+  {
+    "Year": 2030,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 29933057419
+  },
+  {
+    "Year": 2031,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 35955621663
+  },
+  {
+    "Year": 2032,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 43229526292
+  },
+  {
+    "Year": 2033,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 52021936445
+  },
+  {
+    "Year": 2034,
+    "Type": "Average forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 62658314296
+  },
+  {
+    "Year": 2025,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 12515225537
+  },
+  {
+    "Year": 2026,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 15411248726
+  },
+  {
+    "Year": 2027,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 18977411681
+  },
+  {
+    "Year": 2028,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 23368784744
+  },
+  {
+    "Year": 2029,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 28776321534
+  },
+  {
+    "Year": 2030,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 35435162337
+  },
+  {
+    "Year": 2031,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 43634858902
+  },
+  {
+    "Year": 2032,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 53731965252
+  },
+  {
+    "Year": 2033,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 66165542011
+  },
+  {
+    "Year": 2034,
+    "Type": "High end forecast",
+    "Segment": "Printing services",
+    " Past revenue (USD) ": 81476248432
+  }
+]

@@ -1,0 +1,486 @@
+[
+  {
+    "Figure name": "Academic activities",
+    "Sheet name and link": "Academic activities'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Academic publications",
+    "Sheet name and link": "Academic publications'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Additive construction market distribution - organization type",
+    "Sheet name and link": "ACMD - organization type'!A1",
+    "V1": "ACMD - organization type'!A1",
+    "Notes": "Combine with region and material filters?"
+  },
+  {
+    "Figure name": "Additive construction market distribution - region and year",
+    "Sheet name and link": "ACMD - region and year'!A1",
+    "V1": "Used elsewhere"
+  },
+  {
+    "Figure name": "Additive construction material distribution",
+    "Sheet name and link": "ACMD!A1",
+    "V1": "^"
+  },
+  {
+    "Figure name": "Additive construction regional distribution",
+    "Sheet name and link": "ACRD!A1",
+    "V1": "^"
+  },
+  {
+    "Figure name": "All industrial AM systems shipped",
+    "Sheet name and link": "All industrial AM systems'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "AM investment distribution",
+    "Sheet name and link": "AM investment distribution'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "AM market breakdown",
+    "Sheet name and link": "AM market breakdown'!A1",
+    "V1": "Used elsewhere"
+  },
+  {
+    "Figure name": "AM market revenue",
+    "Sheet name and link": "AM market revenue'!A1",
+    "V1": 4,
+    "__EMPTY": "v1",
+    "Needs further work?": "Yes (country breakdown)",
+    "Notes": "Don't show previous years, simply show 2024 pie chart by segments with additional option to filter by country"
+  },
+  {
+    "Figure name": "AM material market size",
+    "Sheet name and link": "AM material market size'!A1",
+    "V1": 4,
+    "__EMPTY": "v1",
+    "Needs further work?": "To be consolidated into Total AM market yearly growth rate"
+  },
+  {
+    "Figure name": "AM materials offered",
+    "Sheet name and link": "AM materials offered'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "AM Partnership types",
+    "Sheet name and link": "AM Partnership types'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "AM parts in service per criticality class",
+    "Sheet name and link": "AM parts service - criticality'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "AM projects per criticality class",
+    "Sheet name and link": "AM projects - criticality'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "AM software market",
+    "Sheet name and link": "AM software market'!A1",
+    "V1": "Used elsewhere"
+  },
+  {
+    "Figure name": "AM software market size",
+    "Sheet name and link": "AM software market size'!A1",
+    "V1": 4,
+    "__EMPTY": "v1",
+    "Needs further work?": "To be consolidated into Total AM market yearly growth rate"
+  },
+  {
+    "Figure name": "AM software sales revenue",
+    "Sheet name and link": "AM software sales revenue'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Analysis of automatically importable data",
+    "Sheet name and link": "Analysis of auto imported data'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Annual AM material sales",
+    "Sheet name and link": "AM material market sales - time'!A1",
+    "V1": 3
+  },
+  {
+    "Figure name": "Annual growth rate in shipments - all industrial",
+    "Sheet name and link": "Growth industrial shipments'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Annual growth rate in shipments - metal",
+    "Sheet name and link": "Growth metal system shipments'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Annual growth rates for AM material sales",
+    "Sheet name and link": "AM material sales yearly growth'!A1",
+    "V1": "Used elsewhere"
+  },
+  {
+    "Figure name": "Annual number of M&A deals",
+    "Sheet name and link": "Annual number of M&A deals'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Carbon dioxide emissions of various production methods",
+    "Sheet name and link": "CO2 emissions prod methods'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Comparison of parts built and in service",
+    "Sheet name and link": "Parts built and in service'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Core AM Competencies in Academia",
+    "Sheet name and link": "Core AM Competency in Academia'!A1",
+    "V1": 4,
+    "__EMPTY": "Maybe too narrow interest for v1"
+  },
+  {
+    "Figure name": "Cost of producing and qualifying a single critical AM part",
+    "Sheet name and link": "Cost produce qualify AM part'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Cost of various method for making a clamp",
+    "Sheet name and link": "Cost methods for making a clamp'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Cumulative industrial AM system installations - 2024",
+    "Sheet name and link": "AM system installations - 2024'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Cumulative industrial AM system installations - over time",
+    "Sheet name and link": "AM system installations - time'!A1",
+    "V1": 3,
+    "__EMPTY": "add process/material filtering? (later) and/or switch between country/regional view"
+  },
+  {
+    "Figure name": "Cumulative industrial AM system installations - region",
+    "Sheet name and link": "AM system installation - region'!A1",
+    "V1": "Used elsewhere"
+  },
+  {
+    "Figure name": "Effect of company segment size on growth rate",
+    "Sheet name and link": "Company size v growth rate '!A1",
+    "V1": "Better not"
+  },
+  {
+    "Figure name": "Germany AM trade statistics",
+    "Sheet name and link": "Germany AM trade statistics'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Global AM patent filings",
+    "Sheet name and link": "Global AM patent filings'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Global AM patent publications",
+    "Sheet name and link": "Global AM patent publications'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Global venture capital investments in AM",
+    "Sheet name and link": "Venture capital investment'!A1",
+    "V1": "to be explored (breakdown by region/deal type)?"
+  },
+  {
+    "Figure name": "Growth in AM Workforce and AM opportunities in 2024",
+    "Sheet name and link": "AM Workforce & opportunitity'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Imports of metal machines for AM",
+    "Sheet name and link": "Imports metal AM machines'!A1",
+    "V1": 3
+  },
+  {
+    "Figure name": "Imports of polymer machines for AM",
+    "Sheet name and link": "Imports polymer AM machines'!A1",
+    "V1": 3
+  },
+  {
+    "Figure name": "Industrial AM metal systems shipped",
+    "Sheet name and link": "Industrial AM metal systems'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Investments in AM",
+    "Sheet name and link": "Investments in AM'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Investments in AM - deal type",
+    "Sheet name and link": "Investments by deal type'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Journal publications",
+    "Sheet name and link": "Journal pubs - multi-material'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Journal publications per year",
+    "Sheet name and link": "Journal publications per year'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Location of companies' AM headquarters - all known",
+    "Sheet name and link": "Company AM headquarters - all'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Location of companies' AM headquarters - contributors",
+    "Sheet name and link": "Companies - data sources'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Material products available for AM - process",
+    "Sheet name and link": "AM material products offered'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Material products available for AM - year and type",
+    "Sheet name and link": "Material products for AM'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Metal printer technologies being considered",
+    "Sheet name and link": "Printers considered'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Metal printers owned as of 2024",
+    "Sheet name and link": "Metal printers owned'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Metal printers owned by technology",
+    "Sheet name and link": "Printers owned technology'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Most profitable metals to print",
+    "Sheet name and link": "Profitable metals'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Most profitable polymers to print",
+    "Sheet name and link": "Profitable polymers'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "NAMIC-funded project breakdown",
+    "Sheet name and link": "NAMIC projects'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "New AM system additions in 2024",
+    "Sheet name and link": "System additions'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Number of AM startups by region",
+    "Sheet name and link": "AM startups by region'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Number of commercial CAD software installations",
+    "Sheet name and link": "CAD installations'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Number of patients receiving 3D printed implants-devices",
+    "Sheet name and link": "Patients printed devices'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Number of thesis publications",
+    "Sheet name and link": "Thesis publications'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Number of visitors and exhibitors",
+    "Sheet name and link": "Visitors and exhibitors'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Patent filings",
+    "Sheet name and link": "Patent filings'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Polymer printer technologies being considered",
+    "Sheet name and link": "Polymer AM systems considered'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Polymer printers owned as of 2024",
+    "Sheet name and link": "Polymer printers owned'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Polymer printers owned by technology",
+    "Sheet name and link": "Polymer printers owned by tech'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Pricing for AM metal powders",
+    "Sheet name and link": "Pricing AM metal powders'!A1",
+    "V1": 2,
+    "__EMPTY": "v1"
+  },
+  {
+    "Figure name": "Pricing for AM polymers",
+    "Sheet name and link": "Pricing AM polymers'!A1",
+    "V1": 2,
+    "__EMPTY": "v1?"
+  },
+  {
+    "Figure name": "Printer sales and servicing market",
+    "Sheet name and link": "Printer sales servicing market'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Printer sales and servicing market size",
+    "Sheet name and link": "Printer sales servicing size'!A1",
+    "V1": 4,
+    "__EMPTY": "v1",
+    "Needs further work?": "To be consolidated into Total AM market yearly growth rate"
+  },
+  {
+    "Figure name": "Printers being considered for addition in 2025",
+    "Sheet name and link": "Printers considered 2025'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Printers owned by material",
+    "Sheet name and link": "Printers owned by material'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Printing services market size",
+    "Sheet name and link": "Printing services market'!A1",
+    "V1": 4,
+    "__EMPTY": "v1",
+    "Needs further work?": "To be consolidated into Total AM market yearly growth rate"
+  },
+  {
+    "Figure name": "Region of AM investments",
+    "Sheet name and link": "Region of AM investments'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Revenue distribution of AM companies",
+    "Sheet name and link": "Revenue distribution'!A1",
+    "V1": 2
+  },
+  {
+    "Figure name": "Revenue from AM final part production",
+    "Sheet name and link": "Revenue final part production'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Revenue growth rates in the AM market - by category",
+    "Sheet name and link": "Revenue growth category'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Revenue growth rates in the AM market - by location",
+    "Sheet name and link": "Revenue growth region'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Role and interests in AM",
+    "Sheet name and link": "Role and interests in AM'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Sentiment analysis",
+    "Sheet name and link": "Sentiment analysis'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Service provider AM market revenue",
+    "Sheet name and link": "Service provider market'!A1",
+    "V1": "Used elsewhere"
+  },
+  {
+    "Figure name": "Service provider AM market yearly growth rate",
+    "Sheet name and link": "Service provider growth rates'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Share of AM publications and Effect of GDP on research output",
+    "Sheet name and link": "Publications vs GDP'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Share of AM revenue from metals",
+    "Sheet name and link": "Revenue from metals'!A1",
+    "V1": 3,
+    "Notes": "Use together with revenues by material type?"
+  },
+  {
+    "Figure name": "Share of AM revenue from polymers",
+    "Sheet name and link": "Revenue from polymers'!A1",
+    "V1": 3,
+    "Notes": "Use together with revenues by material type?"
+  },
+  {
+    "Figure name": "Share of total AM revenue attributed to each industry",
+    "Sheet name and link": "Revenue by industry'!A1",
+    "V1": 4,
+    "__EMPTY": "v1",
+    "Needs further work?": "Yes",
+    "Notes": "Add previoius years' data"
+  },
+  {
+    "Figure name": "Startups by sector",
+    "Sheet name and link": "Startups by sector'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Total AM market size",
+    "Sheet name and link": "Total AM market size'!A1",
+    "V1": "Yes",
+    "__EMPTY": "v1",
+    "Needs further work?": "No",
+    "Notes": "Just aggregate forecasts for the four segments into this single chart and allow filtering them (Printing services market size, AM material market size)"
+  },
+  {
+    "Figure name": "Total AM market yearly growth rate",
+    "Sheet name and link": "Total AM market growth rate'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Trade statistics for AM machines",
+    "Sheet name and link": "Trade statistics AM machines'!A1",
+    "V1": 5
+  },
+  {
+    "Figure name": "Type of parts produced using AM",
+    "Sheet name and link": "Type of AM parts produced'!A1",
+    "V1": 1
+  },
+  {
+    "Figure name": "Use of Additive Manufacturing in Academia",
+    "Sheet name and link": "AM use in academia'!A1",
+    "V1": 3
+  },
+  {
+    "Figure name": "Years of AM experience",
+    "Sheet name and link": "Years of AM experience'!A1",
+    "V1": 2
+  }
+]

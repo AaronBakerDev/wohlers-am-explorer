@@ -1,0 +1,3654 @@
+[
+  {
+    "Year": 2020,
+    "Month": "Feb",
+    "Company name": "Aurora Labs",
+    "Country": "Australia",
+    "Amount (in millions USD)": 1.8,
+    "Funding round": "Private plct.",
+    "Lead investor": "Tjeerd Barthen",
+    "__EMPTY_2": "Tableau prototype"
+  },
+  {
+    "Year": 2021,
+    "Month": "Aug",
+    "Company name": "Romar Engineering",
+    "Country": "Australia",
+    "Amount (in millions USD)": 4.3,
+    "Funding round": "Grant",
+    "Lead investor": "MMI"
+  },
+  {
+    "Year": 2021,
+    "Month": "Aug",
+    "Company name": "Titomic",
+    "Country": "Australia",
+    "Amount (in millions USD)": 1.7,
+    "Funding round": "Grant",
+    "Lead investor": "Australian Government"
+  },
+  {
+    "Year": 2021,
+    "Month": "Oct",
+    "Company name": "Conflux",
+    "Country": "Australia",
+    "Amount (in millions USD)": 6.3,
+    "Funding round": "Series A",
+    "Lead investor": "AM Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "Inventia Life Science",
+    "Country": "Australia",
+    "Amount (in millions USD)": 25.7,
+    "Funding round": "Series B",
+    "Lead investor": "Blackbird Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Inventia",
+    "Country": "Australia",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Not specified",
+    "Lead investor": "HESTA"
+  },
+  {
+    "Year": 2022,
+    "Month": "Dec",
+    "Company name": "Syenta",
+    "Country": "Australia",
+    "Amount (in millions USD)": 2.5,
+    "Funding round": "Seed",
+    "Lead investor": "Blackbird"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "Revo Foods",
+    "Country": "Austria",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Seed",
+    "Lead investor": "Hazelpond Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "Incus",
+    "Country": "Austria",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "AM Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "UpNano",
+    "Country": "Austria",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "IGO Industries"
+  },
+  {
+    "Year": 2019,
+    "Month": "Apr",
+    "Company name": "Fluidda",
+    "Country": "Belgium",
+    "Amount (in millions USD)": 4,
+    "Funding round": " ",
+    "Lead investor": "Materialise"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Valcun",
+    "Country": "Belgium",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Not specified",
+    "Lead investor": "Piet D’Haeyer"
+  },
+  {
+    "Year": 2023,
+    "Month": "Nov",
+    "Company name": "ValCUN",
+    "Country": "Belgium",
+    "Amount (in millions USD)": 2.7,
+    "Funding round": "Grant",
+    "Lead investor": "European Innovation Councll"
+  },
+  {
+    "Year": 2020,
+    "Month": "Mar",
+    "Company name": "SouSmile",
+    "Country": "Brazil",
+    "Amount (in millions USD)": 10,
+    "Funding round": "Series A",
+    "Lead investor": "Global Founders Capital"
+  },
+  {
+    "Year": 2020,
+    "Month": "Dec",
+    "Company name": "Tissuelabs",
+    "Country": "Brazil",
+    "Amount (in millions USD)": 0.2,
+    "Funding round": "Grant",
+    "Lead investor": "FAPESP"
+  },
+  {
+    "Year": 2019,
+    "Month": "Feb",
+    "Company name": "Equispheres",
+    "Country": "Canada",
+    "Amount (in millions USD)": 8,
+    "Funding round": " ",
+    "Lead investor": "BDC Capital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Precision ADM",
+    "Country": "Canada",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Industry veterans"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Aspect Biosystem",
+    "Country": "Canada",
+    "Amount (in millions USD)": 20,
+    "Funding round": "Series A",
+    "Lead investor": "Radical Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Equispheres",
+    "Country": "Canada",
+    "Amount (in millions USD)": 8,
+    "Funding round": " ",
+    "Lead investor": "SDTC"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Aspect Biosystems",
+    "Country": "Canada",
+    "Amount (in millions USD)": 20,
+    "Funding round": "Series A",
+    "Lead investor": "Radical Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Equispheres",
+    "Country": "Canada",
+    "Amount (in millions USD)": 8,
+    "Funding round": "Not specified",
+    "Lead investor": "SDTC"
+  },
+  {
+    "Year": 2020,
+    "Month": "Apr",
+    "Company name": "Equispheres",
+    "Country": "Canada",
+    "Amount (in millions USD)": 23.6,
+    "Funding round": "Series B",
+    "Lead investor": "HG Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Apr",
+    "Company name": "Adaptiiv Medical Tech.",
+    "Country": "Canada",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2020,
+    "Month": "May",
+    "Company name": "Shapeshift 3D",
+    "Country": "Canada",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Pre seed",
+    "Lead investor": "Government of Quebec"
+  },
+  {
+    "Year": 2021,
+    "Month": "Sep",
+    "Company name": "AON3D",
+    "Country": "Canada",
+    "Amount (in millions USD)": 11.5,
+    "Funding round": "Series A",
+    "Lead investor": "SineWave Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Equispheres",
+    "Country": "Canada",
+    "Amount (in millions USD)": 3.5,
+    "Funding round": "Grant",
+    "Lead investor": "FEDDEV"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Equispheres",
+    "Country": "Canada",
+    "Amount (in millions USD)": 3.5,
+    "Funding round": "Grant",
+    "Lead investor": "FEDDEV"
+  },
+  {
+    "Year": 2022,
+    "Month": "Apr",
+    "Company name": "Mosaic Manufacturing",
+    "Country": "Canada",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Seed",
+    "Lead investor": "Techstars"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Reaction Dynamics",
+    "Country": "Canada",
+    "Amount (in millions USD)": 3.5,
+    "Funding round": "Grant",
+    "Lead investor": "Ngen"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jul",
+    "Company name": "Metafold",
+    "Country": "Canada",
+    "Amount (in millions USD)": 1.8,
+    "Funding round": "Seed",
+    "Lead investor": "Differential Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "3D BloFIbR",
+    "Country": "Canada",
+    "Amount (in millions USD)": 3.5,
+    "Funding round": "Seed",
+    "Lead investor": "Invest Nova Scotla"
+  },
+  {
+    "Year": 2019,
+    "Month": "Aug",
+    "Company name": "LuxCreo",
+    "Country": "China",
+    "Amount (in millions USD)": 30,
+    "Funding round": "Series B",
+    "Lead investor": "Kleiner Perkins"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Meditool",
+    "Country": "China",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Evonik Venture Capital"
+  },
+  {
+    "Year": 2020,
+    "Month": "Dec",
+    "Company name": "Triastek",
+    "Country": "China",
+    "Amount (in millions USD)": 15,
+    "Funding round": "Series A",
+    "Lead investor": "Dalton Venture"
+  },
+  {
+    "Year": 2021,
+    "Month": "May",
+    "Company name": "Kings 3D",
+    "Country": "China",
+    "Amount (in millions USD)": 15.8,
+    "Funding round": "Series B",
+    "Lead investor": "Rongyi Investment"
+  },
+  {
+    "Year": 2021,
+    "Month": "May",
+    "Company name": "LuxCreo",
+    "Country": "China",
+    "Amount (in millions USD)": 15.8,
+    "Funding round": "Series B",
+    "Lead investor": "HKSTP"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jul",
+    "Company name": "Triastek",
+    "Country": "China",
+    "Amount (in millions USD)": 52.2,
+    "Funding round": "Series B",
+    "Lead investor": "Matrix"
+  },
+  {
+    "Year": 2021,
+    "Month": "Oct",
+    "Company name": "Polly Polymer",
+    "Country": "China",
+    "Amount (in millions USD)": 15.8,
+    "Funding round": "Not specified",
+    "Lead investor": "Vitalbridge Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Oct",
+    "Company name": "Enovate3D",
+    "Country": "China",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Seed",
+    "Lead investor": "Sequoia China"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Zhuhai Sailner 3D Technology",
+    "Country": "China",
+    "Amount (in millions USD)": 15.8,
+    "Funding round": "Pre A",
+    "Lead investor": "Legend Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Triastek",
+    "Country": "China",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series B+",
+    "Lead investor": "Triwise Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "Wenext",
+    "Country": "China",
+    "Amount (in millions USD)": 55,
+    "Funding round": "Series B",
+    "Lead investor": "CAS Investment Management"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "Itamsys",
+    "Country": "China",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Porsche Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "UnionTech",
+    "Country": "China",
+    "Amount (in millions USD)": 31.6,
+    "Funding round": "Series D",
+    "Lead investor": "Dening Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "HBD",
+    "Country": "China",
+    "Amount (in millions USD)": 60,
+    "Funding round": "Series A",
+    "Lead investor": "Qianhai FOF"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Raise3D",
+    "Country": "China",
+    "Amount (in millions USD)": 15.8,
+    "Funding round": "Series C",
+    "Lead investor": "Shanghai Jinpu"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "HBD",
+    "Country": "China",
+    "Amount (in millions USD)": 60,
+    "Funding round": "Series A",
+    "Lead investor": "Qianhai FOF"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Raise3D",
+    "Country": "China",
+    "Amount (in millions USD)": 14.6,
+    "Funding round": "Series C",
+    "Lead investor": "Shanghai Jinpu"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Kings 3D (Jinshi)",
+    "Country": "China",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series C",
+    "Lead investor": "Morgan Stanley"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "Chenglian Technology",
+    "Country": "China",
+    "Amount (in millions USD)": 20.4,
+    "Funding round": "Series A",
+    "Lead investor": "Zhencheng Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "BMF",
+    "Country": "China",
+    "Amount (in millions USD)": 43,
+    "Funding round": "Series C",
+    "Lead investor": "Shenzhen Capital Group"
+  },
+  {
+    "Year": 2022,
+    "Month": "Oct",
+    "Company name": "Sprintray (Xunshi)",
+    "Country": "China",
+    "Lead investor": "Softbank Vision"
+  },
+  {
+    "Year": 2022,
+    "Month": "Oct",
+    "Company name": "Polymaker",
+    "Country": "China",
+    "Funding round": "Not specified",
+    "Lead investor": "Skytrace Capital."
+  },
+  {
+    "Year": 2022,
+    "Month": "Dec",
+    "Company name": "Qbeam",
+    "Country": "China",
+    "Amount (in millions USD)": 14.6,
+    "Funding round": "Series A",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2023,
+    "Month": "May",
+    "Company name": "Eplus 3d",
+    "Country": "China",
+    "Funding round": "Series B"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "Boston Micro FabrIcation",
+    "Country": "China",
+    "Amount (in millions USD)": 24,
+    "Funding round": "Series D",
+    "Lead investor": "Guotal Junan"
+  },
+  {
+    "Year": 2023,
+    "Month": "Sep",
+    "Company name": "Trlastek",
+    "Country": "China",
+    "Amount (in millions USD)": 20.4,
+    "Funding round": "Series C",
+    "Lead investor": "Guoxin Investment"
+  },
+  {
+    "Year": 2023,
+    "Month": "Dec",
+    "Company name": "Jlangsu Vilory",
+    "Country": "China",
+    "Amount (in millions USD)": 50,
+    "Funding round": "Series B",
+    "Lead investor": "Enterprise Mixed Ownership Reform Fund"
+  },
+  {
+    "Year": 2024,
+    "Month": "Feb",
+    "Company name": "Acade Powder",
+    "Country": "China",
+    "Amount (in millions USD)": 16.7,
+    "Funding round": "Series B"
+  },
+  {
+    "Year": 2019,
+    "Month": "Mar",
+    "Company name": "Addifab",
+    "Country": "Denmark",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Grant",
+    "Lead investor": "Horizon 2020"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Addifab",
+    "Country": "Denmark",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Diamond Edge Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Nov",
+    "Company name": "Create it",
+    "Country": "Denmark",
+    "Amount (in millions USD)": 3.7,
+    "Funding round": "Not specified",
+    "Lead investor": "Investo Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Addifab",
+    "Country": "Denmark",
+    "Amount (in millions USD)": 6.3,
+    "Funding round": "Series A",
+    "Lead investor": "West Hill Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "May",
+    "Company name": "COBOD",
+    "Country": "Denmark",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "GE Renewable Energy"
+  },
+  {
+    "Year": 2022,
+    "Month": "Oct",
+    "Company name": "Hyperion Robotics",
+    "Country": "Denmark",
+    "Amount (in millions USD)": 3.3,
+    "Funding round": "Not specified",
+    "Lead investor": "Lifeline Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jun",
+    "Company name": "Brinter",
+    "Country": "Finland",
+    "Amount (in millions USD)": 1.3,
+    "Funding round": "Seed",
+    "Lead investor": "Innovestor"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jun",
+    "Company name": "XtreeE",
+    "Country": "France",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Shibumi"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Adaxis",
+    "Country": "France",
+    "Amount (in millions USD)": 1.1,
+    "Funding round": "Pre seed",
+    "Lead investor": "EIT Manufacturing"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Healshape",
+    "Country": "France",
+    "Amount (in millions USD)": 7.4,
+    "Funding round": "Series A",
+    "Lead investor": "Pulsalys SAS"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Adaxis",
+    "Country": "France",
+    "Amount (in millions USD)": 1.1,
+    "Funding round": "Pre seed",
+    "Lead investor": "EIT Manufacturing"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Healshape",
+    "Country": "France",
+    "Amount (in millions USD)": 7.4,
+    "Funding round": "Series A",
+    "Lead investor": "Pulsalys SAS"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Latitude",
+    "Country": "France",
+    "Amount (in millions USD)": 10.9,
+    "Funding round": "Series A",
+    "Lead investor": "Crédit Mutuel Innovation"
+  },
+  {
+    "Year": 2022,
+    "Month": "Oct",
+    "Company name": "Lattice Medical",
+    "Country": "France",
+    "Amount (in millions USD)": 8.7,
+    "Funding round": "Series B",
+    "Lead investor": "Einovam, Gestion"
+  },
+  {
+    "Year": 2023,
+    "Month": "May",
+    "Company name": "Lynxter",
+    "Country": "France",
+    "Amount (in millions USD)": 4.4,
+    "Funding round": "Series A",
+    "Lead investor": "IRDI Sorldec Gestlon"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jan",
+    "Company name": "Mecuris",
+    "Country": "Germany",
+    "Amount (in millions USD)": 3.6,
+    "Funding round": "Series A",
+    "Lead investor": "Vesalius Biocapital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "Umeleon",
+    "Country": "Germany",
+    "Amount (in millions USD)": 0.1,
+    "Funding round": "Incubator",
+    "Lead investor": "Stanley B&D, Techstars"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "3yourmind",
+    "Country": "Germany",
+    "Amount (in millions USD)": 1.3,
+    "Funding round": " ",
+    "Lead investor": "Investment Bank of Berlin"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Mercuris",
+    "Country": "Germany",
+    "Amount (in millions USD)": 3.6,
+    "Funding round": "Series A",
+    "Lead investor": "Bayern capital"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Simscale",
+    "Country": "Germany",
+    "Amount (in millions USD)": 27,
+    "Funding round": "Series C",
+    "Lead investor": "Insight Partners"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Simscale",
+    "Country": "Germany",
+    "Amount (in millions USD)": 32.5,
+    "Funding round": "Series C",
+    "Lead investor": "Insight Partners"
+  },
+  {
+    "Year": 2020,
+    "Month": "May",
+    "Company name": "Kumovis",
+    "Country": "Germany",
+    "Amount (in millions USD)": 4.3,
+    "Funding round": "Series A"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jun",
+    "Company name": "Lilium",
+    "Country": "Germany",
+    "Amount (in millions USD)": 35,
+    "Funding round": "Not specified",
+    "Lead investor": "Strategic investors"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jul",
+    "Company name": "Headmade Materials",
+    "Country": "Germany",
+    "Amount (in millions USD)": 2.9,
+    "Funding round": "Not specified",
+    "Lead investor": "Industrial Technologies Fund"
+  },
+  {
+    "Year": 2020,
+    "Month": "Aug",
+    "Company name": "Dyemansion",
+    "Country": "Germany",
+    "Amount (in millions USD)": 14,
+    "Funding round": "Series B",
+    "Lead investor": "Nordic Alpha Partners"
+  },
+  {
+    "Year": 2020,
+    "Month": "Sep",
+    "Company name": "3Yourmind",
+    "Country": "Germany",
+    "Amount (in millions USD)": 5.5,
+    "Funding round": "Series A",
+    "Lead investor": "ENV"
+  },
+  {
+    "Year": 2020,
+    "Month": "Oct",
+    "Company name": "Additive Drives",
+    "Country": "Germany",
+    "Amount (in millions USD)": 1.5,
+    "Funding round": "Seed",
+    "Lead investor": "AM Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Hyperganic",
+    "Country": "Germany",
+    "Amount (in millions USD)": 7.8,
+    "Funding round": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Hyperganic",
+    "Country": "Germany",
+    "Amount (in millions USD)": 7.8,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "Additive Scale",
+    "Country": "Germany",
+    "Amount (in millions USD)": 1.1,
+    "Funding round": "Seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "3YOURMIND",
+    "Country": "Germany",
+    "Amount (in millions USD)": 6.9,
+    "Funding round": "Series A+",
+    "Lead investor": "LBBW VC, Verve Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "May",
+    "Company name": "Xolo",
+    "Country": "Germany",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jul",
+    "Company name": "J.A.M.E.S.",
+    "Country": "Germany",
+    "Amount (in millions USD)": 6,
+    "Funding round": "Joint Venture",
+    "Lead investor": "Nano Dimension, Hensoldt"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Headmade Materials",
+    "Country": "Germany",
+    "Amount (in millions USD)": 6.3,
+    "Funding round": "Not specified",
+    "Lead investor": "EIC Accelerator"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "DyeMansion",
+    "Country": "Germany",
+    "Amount (in millions USD)": 16.4,
+    "Funding round": "Not specified",
+    "Lead investor": "European Innovation Council"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Headmade Materials",
+    "Country": "Germany",
+    "Amount (in millions USD)": 2.7,
+    "Funding round": "Series A",
+    "Lead investor": "AM Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Headmade Materials",
+    "Country": "Germany",
+    "Amount (in millions USD)": 6.3,
+    "Funding round": "Not specified",
+    "Lead investor": "EIC Accelerator"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "DyeMansion",
+    "Country": "Germany",
+    "Amount (in millions USD)": 16.4,
+    "Funding round": "Not specified",
+    "Lead investor": "EIC, European Investment Bank"
+  },
+  {
+    "Year": 2022,
+    "Month": "Oct",
+    "Company name": "Trinckle",
+    "Country": "Germany",
+    "Amount (in millions USD)": 3.3,
+    "Funding round": "Not specified",
+    "Lead investor": "HZG Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Nov",
+    "Company name": "Synera",
+    "Country": "Germany",
+    "Amount (in millions USD)": 15.8,
+    "Funding round": "Series A",
+    "Lead investor": "Spark Capital"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Xolo",
+    "Country": "Germany",
+    "Amount (in millions USD)": 8.7,
+    "Funding round": "Series A",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Gefertec",
+    "Country": "Germany",
+    "Funding round": "Acquisition",
+    "Lead investor": "Berlin.Industrlal.Grou"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Xolo",
+    "Country": "Germany",
+    "Amount (in millions USD)": 8.7,
+    "Funding round": "Series A"
+  },
+  {
+    "Year": 2023,
+    "Month": "Apr",
+    "Company name": "Quantica",
+    "Country": "Germany",
+    "Amount (in millions USD)": 15.3,
+    "Funding round": "Series A",
+    "Lead investor": "by Founders"
+  },
+  {
+    "Year": 2023,
+    "Month": "May",
+    "Company name": "3D Spark",
+    "Country": "Germany",
+    "Amount (in millions USD)": 1.3,
+    "Funding round": "Seed",
+    "Lead investor": "Fraunhofer Technology Transfer Fund"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jun",
+    "Company name": "Replique",
+    "Country": "Germany",
+    "Funding round": "Seed",
+    "Lead investor": "STS Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jul",
+    "Company name": "Q.BIG 3D",
+    "Country": "Germany",
+    "Amount (in millions USD)": 2.2,
+    "Funding round": "Series A",
+    "Lead investor": "HZG Group"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jul",
+    "Company name": "AIM3D",
+    "Country": "Germany",
+    "Lead investor": "HZG Group"
+  },
+  {
+    "Year": 2023,
+    "Month": "Dec",
+    "Company name": "Vectoflow",
+    "Country": "Germany",
+    "Amount (in millions USD)": 4.4,
+    "Funding round": "Series A"
+  },
+  {
+    "Year": 2021,
+    "Month": "Aug",
+    "Company name": "Toothsi",
+    "Country": "India",
+    "Amount (in millions USD)": 20,
+    "Funding round": "Series B",
+    "Lead investor": "Eight Roads Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Sep",
+    "Company name": "Skyroot",
+    "Country": "India",
+    "Amount (in millions USD)": 51,
+    "Funding round": "Series B",
+    "Lead investor": "GIC"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "ThinkMetal",
+    "Country": "India",
+    "Amount (in millions USD)": 0.2,
+    "Funding round": "Pre seed",
+    "Lead investor": "100X.VC"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "ThinkMetal",
+    "Country": "India",
+    "Amount (in millions USD)": 0.2,
+    "Funding round": "Pre seed",
+    "Lead investor": "100X.VC"
+  },
+  {
+    "Year": 2023,
+    "Month": "Sep",
+    "Company name": "ThinkMetal",
+    "Country": "India",
+    "Amount (in millions USD)": 0.3,
+    "Funding round": "Pre Seed"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jan",
+    "Company name": "Wazp",
+    "Country": "Ireland",
+    "Amount (in millions USD)": 2,
+    "Funding round": " ",
+    "Lead investor": "John Maloney"
+  },
+  {
+    "Year": 2019,
+    "Month": "Aug",
+    "Company name": "Nanofabrica",
+    "Country": "Israel",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Seed",
+    "Lead investor": "i3"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Redefine Meat",
+    "Country": "Israel",
+    "Amount (in millions USD)": 6,
+    "Funding round": " ",
+    "Lead investor": "CPT Capital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Largix",
+    "Country": "Israel",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Series A",
+    "Lead investor": "Plasson"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Printsyst",
+    "Country": "Israel",
+    "Amount (in millions USD)": "£0.6",
+    "Funding round": " ",
+    "Lead investor": "Innovate UK"
+  },
+  {
+    "Year": 2019,
+    "Month": "Oct",
+    "Company name": "Castor",
+    "Country": "Israel",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Evonik Venture Capital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Nov",
+    "Company name": "IOTech",
+    "Country": "Israel",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "Not published"
+  },
+  {
+    "Year": 2020,
+    "Month": "Apr",
+    "Company name": "Polymertal",
+    "Country": "Israel",
+    "Amount (in millions USD)": 1.5,
+    "Funding round": "Seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2020,
+    "Month": "May",
+    "Company name": "Nanofabrica",
+    "Country": "Israel",
+    "Amount (in millions USD)": 4,
+    "Funding round": "Seed",
+    "Lead investor": "M12"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jun",
+    "Company name": "Largix",
+    "Country": "Israel",
+    "Amount (in millions USD)": 2.5,
+    "Funding round": "Series A",
+    "Lead investor": "Lego, Stanley Black & Decker"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jul",
+    "Company name": "SavorEat",
+    "Country": "Israel",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Series B",
+    "Lead investor": "Mor and Meitav Dash"
+  },
+  {
+    "Year": 2020,
+    "Month": "Aug",
+    "Company name": "XJet",
+    "Country": "Israel",
+    "Amount (in millions USD)": 16,
+    "Funding round": "Not specified",
+    "Lead investor": "Existing investors"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Redefine Meat",
+    "Country": "Israel",
+    "Amount (in millions USD)": 29,
+    "Funding round": "Series A",
+    "Lead investor": "Foundation Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Cubee 3D",
+    "Country": "Israel",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Pre seed",
+    "Lead investor": "Opendoor Venture Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Redefine Meat",
+    "Country": "Israel",
+    "Amount (in millions USD)": 29,
+    "Funding round": "Series A",
+    "Lead investor": "Happiness Capital, Hanaco Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Jiga",
+    "Country": "Israel",
+    "Amount (in millions USD)": 0.1,
+    "Funding round": "Seed",
+    "Lead investor": "Y Combinator"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jun",
+    "Company name": "ioTech",
+    "Country": "Israel",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "Henkel Adhesive Technologies"
+  },
+  {
+    "Year": 2021,
+    "Month": "Aug",
+    "Company name": "Castor",
+    "Country": "Israel",
+    "Amount (in millions USD)": 3.5,
+    "Funding round": "Seed",
+    "Lead investor": "Xerox"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "XJet",
+    "Country": "Israel",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Redefine Meat",
+    "Country": "Israel",
+    "Amount (in millions USD)": 135,
+    "Funding round": "Not specified",
+    "Lead investor": "Hanaco Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Redefine Meat",
+    "Country": "Israel",
+    "Amount (in millions USD)": 135,
+    "Funding round": "Not specified",
+    "Lead investor": "Hanaco Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Mar",
+    "Company name": "Plantish",
+    "Country": "Israel",
+    "Amount (in millions USD)": 12.5,
+    "Funding round": "Seed",
+    "Lead investor": "State Of Mind Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "Steakholder Foods",
+    "Country": "Israel",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Grant",
+    "Lead investor": "SIIRDF"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Largix",
+    "Country": "Israel",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Not specified",
+    "Lead investor": "OJSC"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "Steakholder Foods",
+    "Country": "Israel",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Grant",
+    "Lead investor": "Singapore Israel Industrial R&D Foundation"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "Steakholder Foods",
+    "Country": "Israel",
+    "Amount (in millions USD)": 6.5,
+    "Funding round": "Post IPO Equity",
+    "Lead investor": "Publlc"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Largix",
+    "Country": "Israel",
+    "Amount (in millions USD)": 1,
+    "Lead investor": "OJSC"
+  },
+  {
+    "Year": 2023,
+    "Month": "May",
+    "Company name": "Castor Technologles",
+    "Country": "Israel",
+    "Funding round": "Series A",
+    "Lead investor": "Asahl Kasel"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Rejoint",
+    "Country": "Italy",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Sep",
+    "Company name": "Carcol",
+    "Country": "Italy",
+    "Amount (in millions USD)": 3.8,
+    "Funding round": "Not specified",
+    "Lead investor": "Primo Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Roboze",
+    "Country": "Italy",
+    "Funding round": "Seed",
+    "Lead investor": "Eim Capultal"
+  },
+  {
+    "Year": 2023,
+    "Month": "Mar",
+    "Company name": "Caracol",
+    "Country": "Italy",
+    "Amount (in millions USD)": 11.6,
+    "Funding round": "Series A",
+    "Lead investor": "CDP Venture Capltal"
+  },
+  {
+    "Year": 2024,
+    "Month": "Feb",
+    "Company name": "3DNextech",
+    "Country": "Italy",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Seed",
+    "Lead investor": "Eureka! Fund"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "ExtraBold",
+    "Country": "Japan",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Real Tech Holdings"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "3D Printing Corp",
+    "Country": "Japan",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Taiyo Nippon Sanso"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "SK Fine",
+    "Country": "Japan",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Osaka University Venture Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "Instalimb",
+    "Country": "Japan",
+    "Amount (in millions USD)": 3.3,
+    "Funding round": "Series A",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Oct",
+    "Company name": "Sun Metalon",
+    "Country": "Japan",
+    "Amount (in millions USD)": 5.6,
+    "Funding round": "Pre series",
+    "Lead investor": "Globis Capital Partners"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jan",
+    "Company name": "Breezm",
+    "Country": "Korea",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Series A",
+    "Lead investor": "Kakao Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jan",
+    "Company name": "Breezm",
+    "Country": "Korea",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Series A",
+    "Lead investor": "Kakao Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Feb",
+    "Company name": "Additive Industries",
+    "Country": "Netherlands",
+    "Amount (in millions USD)": 10,
+    "Funding round": "Loan",
+    "Lead investor": "BOM Brabant Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Mar",
+    "Company name": "Bond High Perf. 3D",
+    "Country": "Netherlands",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Victrex"
+  },
+  {
+    "Year": 2019,
+    "Month": "Mar",
+    "Company name": "3D Hubs",
+    "Country": "Netherlands",
+    "Amount (in millions USD)": 18,
+    "Funding round": "Series C",
+    "Lead investor": "Endeit Capital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Dec",
+    "Company name": "3D Hubs",
+    "Country": "Netherlands",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Future Shape"
+  },
+  {
+    "Year": 2020,
+    "Month": "May",
+    "Company name": "Additive Industries",
+    "Country": "Netherlands",
+    "Amount (in millions USD)": 16.9,
+    "Funding round": "Not specified",
+    "Lead investor": "Highlands Beheer Stanley Ventures Mimaki"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "MX3D",
+    "Country": "Netherlands",
+    "Amount (in millions USD)": 2.5,
+    "Funding round": "Not specified",
+    "Lead investor": "DOEN Participaties"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jul",
+    "Company name": "FononTech",
+    "Country": "Netherlands",
+    "Amount (in millions USD)": 2.5,
+    "Lead investor": "TTT Smart Industrles Fund"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Foundry Lab",
+    "Country": "New Zealand",
+    "Amount (in millions USD)": 8,
+    "Funding round": "Series A",
+    "Lead investor": "Blackbird Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Mar",
+    "Company name": "Sinterit",
+    "Country": "Poland",
+    "Amount (in millions USD)": "10.0 PLN",
+    "Funding round": " ",
+    "Lead investor": "EEC Magenta"
+  },
+  {
+    "Year": 2020,
+    "Month": "Apr",
+    "Company name": "Zmorph",
+    "Country": "Poland",
+    "Amount (in millions USD)": 1.3,
+    "Funding round": "Not specified",
+    "Lead investor": "Warsaw Equity Group"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "3D Bistro",
+    "Country": "Poland",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Seed",
+    "Lead investor": "VCLink"
+  },
+  {
+    "Year": 2023,
+    "Month": "Dec",
+    "Company name": "Orbltal Matter",
+    "Country": "Poland",
+    "Amount (in millions USD)": 1.2,
+    "Funding round": "Pre Seed",
+    "Lead investor": "Sunfish Partners"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Stereotech",
+    "Country": "Russia",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "VEB Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Immensa",
+    "Country": "Saudi Arabia",
+    "Amount (in millions USD)": 7,
+    "Funding round": "Series A",
+    "Lead investor": "Energy Capital Group"
+  },
+  {
+    "Year": 2019,
+    "Month": "Oct",
+    "Company name": "Structo",
+    "Country": "Singapore",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series D",
+    "Lead investor": "EBDI"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jun",
+    "Company name": "3D Infra",
+    "Country": "Singapore",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Pre seed",
+    "Lead investor": "M Venture Partners Baillie Gifford Plasson"
+  },
+  {
+    "Year": 2022,
+    "Month": "Aug",
+    "Company name": "Craft Health",
+    "Country": "Singapore",
+    "Amount (in millions USD)": 1.1,
+    "Funding round": "PreSeries A",
+    "Lead investor": "Mistletoe"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Breezm",
+    "Country": "South Korea",
+    "Amount (in millions USD)": 4.1,
+    "Funding round": "Series A",
+    "Lead investor": "Seoul Techno Holdings"
+  },
+  {
+    "Year": 2023,
+    "Month": "Apr",
+    "Company name": "Seeann Solution",
+    "Country": "South Korea",
+    "Lead investor": "CG Blo"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "MADDE",
+    "Country": "South Korea",
+    "Amount (in millions USD)": 2,
+    "Funding round": "Seed",
+    "Lead investor": "DSC Investment"
+  },
+  {
+    "Year": 2019,
+    "Month": "Mar",
+    "Company name": "BCN3D",
+    "Country": "Spain",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Seed",
+    "Lead investor": "Accurafy4"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "Triditive",
+    "Country": "Spain",
+    "Amount (in millions USD)": 0.1,
+    "Funding round": "Incubator",
+    "Lead investor": "Stanley B&D, Techstars"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Novameat",
+    "Country": "Spain",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "New Crop Capital"
+  },
+  {
+    "Year": 2020,
+    "Month": "May",
+    "Company name": "Triditive",
+    "Country": "Spain",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Renolit"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Cocuus",
+    "Country": "Spain",
+    "Amount (in millions USD)": 2.7,
+    "Funding round": "PreSeries A",
+    "Lead investor": "Big Idea Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Triditive",
+    "Country": "Spain",
+    "Amount (in millions USD)": 5.5,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jan",
+    "Company name": "Cellink",
+    "Country": "Sweden",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Govt grant",
+    "Lead investor": "EU"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Freemelt",
+    "Country": "Sweden",
+    "Amount (in millions USD)": "15.0 SEK",
+    "Funding round": " ",
+    "Lead investor": "Industrifonden"
+  },
+  {
+    "Year": 2020,
+    "Month": "Mar",
+    "Company name": "Cellink",
+    "Country": "Sweden",
+    "Amount (in millions USD)": 0.2,
+    "Funding round": "Grant",
+    "Lead investor": "Vinnova"
+  },
+  {
+    "Year": 2020,
+    "Month": "Sep",
+    "Company name": "Anatomic Studios",
+    "Country": "Sweden",
+    "Amount (in millions USD)": 0.5,
+    "Funding round": "Not specified",
+    "Lead investor": "Wellstreet Ventures Fund"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Wematter",
+    "Country": "Sweden",
+    "Amount (in millions USD)": 4.4,
+    "Funding round": "Not specified",
+    "Lead investor": "Private investors"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "Mycorena/ Revo Foods",
+    "Country": "Sweden",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Grant",
+    "Lead investor": "Vinnova, Eurostars"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "Mycorena/ Revo Foods",
+    "Country": "Sweden",
+    "Amount (in millions USD)": 1.6,
+    "Funding round": "Grant",
+    "Lead investor": "Vinnova, Eurostars"
+  },
+  {
+    "Year": 2019,
+    "Month": "Aug",
+    "Company name": "Spectroplast",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 1.4,
+    "Funding round": "Seed",
+    "Lead investor": "AM Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Aug",
+    "Company name": "Swissto12",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": "18.1 CHF",
+    "Funding round": "Series B",
+    "Lead investor": "Swisscanto Invest"
+  },
+  {
+    "Year": 2020,
+    "Month": "Feb",
+    "Company name": "9T Labs",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 4.3,
+    "Funding round": "Seed",
+    "Lead investor": "Wingman Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Feb",
+    "Company name": "9T Labs",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 4.3,
+    "Funding round": "Seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2020,
+    "Month": "Oct",
+    "Company name": "Readily3D",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 0.2,
+    "Funding round": "Seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Scrona",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 9.6,
+    "Funding round": "Series A",
+    "Lead investor": "AM Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "9T Labs",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 17,
+    "Funding round": "Series A",
+    "Lead investor": "Stratasys, Solvay"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "9T Labs",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 17,
+    "Funding round": "Series A",
+    "Lead investor": "Stratasys, Solvay"
+  },
+  {
+    "Year": 2023,
+    "Month": "Apr",
+    "Company name": "a metal",
+    "Country": "Switzerland",
+    "Funding round": "Pre Seed"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "Saekl Robotlcs",
+    "Country": "Switzerland",
+    "Amount (in millions USD)": 2.3,
+    "Lead investor": "Wingman Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Mar",
+    "Company name": "Phrozen",
+    "Country": "Taiwan",
+    "Amount (in millions USD)": 0.5,
+    "Funding round": "Kickstarter",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "TraBTech",
+    "Country": "Turkey",
+    "Amount (in millions USD)": 6,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "TraBtech",
+    "Country": "Turkey",
+    "Amount (in millions USD)": 6
+  },
+  {
+    "Year": 2023,
+    "Month": "Sep",
+    "Company name": "Zaxe",
+    "Country": "Turkey",
+    "Amount (in millions USD)": 1.9,
+    "Lead investor": "KVK"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jan",
+    "Company name": "Fortify",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 2.5,
+    "Funding round": "Seed",
+    "Lead investor": "Neotribe Vtrs. and Prelude Vtrs."
+  },
+  {
+    "Year": 2019,
+    "Month": "Jan",
+    "Company name": "Desktop Metal",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 160,
+    "Lead investor": "Koch Disruptive Technologies"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jan",
+    "Company name": "Essentium",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 22,
+    "Lead investor": "BASF Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Feb",
+    "Company name": "Adaptive3D",
+    "Country": "U.S.",
+    "Funding round": "Series A",
+    "Lead investor": "DSM Venturing and Applied Vtrs."
+  },
+  {
+    "Year": 2019,
+    "Month": "Feb",
+    "Company name": "Rize",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 15,
+    "Funding round": " ",
+    "Lead investor": "Innospark Vtrs., Dassault Sys."
+  },
+  {
+    "Year": 2019,
+    "Month": "Feb",
+    "Company name": "Postprocess Tech.",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 14.2,
+    "Funding round": "Debt",
+    "Lead investor": " "
+  },
+  {
+    "Year": 2019,
+    "Month": "Mar",
+    "Company name": "Markforged",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 82,
+    "Funding round": "Series D",
+    "Lead investor": "Summit Partners"
+  },
+  {
+    "Year": 2019,
+    "Month": "Apr",
+    "Company name": "Dyndrite",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 10,
+    "Funding round": "Series A",
+    "Lead investor": "Gradient Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Apr",
+    "Company name": "Fast Radius",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 48,
+    "Funding round": "Series B",
+    "Lead investor": "UPS"
+  },
+  {
+    "Year": 2019,
+    "Month": "Apr",
+    "Company name": "Metallum 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "CIT Gap Funds"
+  },
+  {
+    "Year": 2019,
+    "Month": "May",
+    "Company name": "Xometry",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 50,
+    "Funding round": " ",
+    "Lead investor": "Greenspring Associates"
+  },
+  {
+    "Year": 2019,
+    "Month": "May",
+    "Company name": "Astroprint",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1,
+    "Funding round": " ",
+    "Lead investor": "Stanley Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "May",
+    "Company name": "Impossible Objects",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 4.1,
+    "Funding round": "Series B",
+    "Lead investor": "OCA Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jun",
+    "Company name": "Elixirgen Scientific",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Ricoh"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jun",
+    "Company name": "Carbon",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 260,
+    "Funding round": "Growth",
+    "Lead investor": "Madrone Capital Partners"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "Xometry",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 5,
+    "Funding round": "Series D",
+    "Lead investor": "Robert Bosch"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "Accelerate3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 0.1,
+    "Funding round": "Incubator",
+    "Lead investor": "Stanley B&D, Techstars"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "Fortify",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 10,
+    "Funding round": "Series A",
+    "Lead investor": "Accel"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "Physna",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 6.9,
+    "Funding round": "Series A",
+    "Lead investor": "Drive Capital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Aug",
+    "Company name": "nTopology",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 20,
+    "Funding round": " ",
+    "Lead investor": "Canaan"
+  },
+  {
+    "Year": 2019,
+    "Month": "Aug",
+    "Company name": "Morf3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series B",
+    "Lead investor": "Boeing Horizon X"
+  },
+  {
+    "Year": 2019,
+    "Month": "Oct",
+    "Company name": "Relativity Space",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 140,
+    "Funding round": "Series C",
+    "Lead investor": "Bond"
+  },
+  {
+    "Year": 2019,
+    "Month": "Oct",
+    "Company name": "Voxel8",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series B",
+    "Lead investor": "DSM Venturing"
+  },
+  {
+    "Year": 2019,
+    "Month": "Oct",
+    "Company name": "Link 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 7,
+    "Funding round": " ",
+    "Lead investor": "AI Capital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Nov",
+    "Company name": "Allevi",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1,
+    "Funding round": " ",
+    "Lead investor": "Provco Group"
+  },
+  {
+    "Year": 2019,
+    "Month": "Nov",
+    "Company name": "Inkbit",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 12,
+    "Funding round": "Series B",
+    "Lead investor": "Stratasys"
+  },
+  {
+    "Year": 2019,
+    "Month": "Nov",
+    "Company name": "ELISE",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Lead investor": "BMW iVentures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Nov",
+    "Company name": "Postprocess Tech.",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 20,
+    "Funding round": "Series B",
+    "Lead investor": "Grand Oaks Capital"
+  },
+  {
+    "Year": 2019,
+    "Month": "Dec",
+    "Company name": "Authentise",
+    "Country": "U.S.",
+    "Amount (in millions USD)": "£0.1",
+    "Funding round": "Accelerator",
+    "Lead investor": "ATI Boeing Accelerator"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Elementum 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "Sumitomo Corp of America"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "Elementum 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "Sumitomo Corp of America"
+  },
+  {
+    "Year": 2020,
+    "Month": "Apr",
+    "Company name": "Arris Composites",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 48.5,
+    "Funding round": "Series B",
+    "Lead investor": "Taiwania Capital"
+  },
+  {
+    "Year": 2020,
+    "Month": "Apr",
+    "Company name": "Velo3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 28,
+    "Funding round": "Series D",
+    "Lead investor": "Piva and TNSC"
+  },
+  {
+    "Year": 2020,
+    "Month": "May",
+    "Company name": "Azul3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 8,
+    "Funding round": "Seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2020,
+    "Month": "May",
+    "Company name": "Mixed Dimensions",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jun",
+    "Company name": "Velo3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 12,
+    "Funding round": "Series E"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jun",
+    "Company name": "Evolve Additive",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 19,
+    "Funding round": "Not stated"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jul",
+    "Company name": "Continuous Composites",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Arkema"
+  },
+  {
+    "Year": 2020,
+    "Month": "Aug",
+    "Company name": "Sintavia",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Sumitomo Corp of America"
+  },
+  {
+    "Year": 2020,
+    "Month": "Aug",
+    "Company name": "Arevo",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 25,
+    "Funding round": "Series B",
+    "Lead investor": "Defy Partners, GGV Capital"
+  },
+  {
+    "Year": 2020,
+    "Month": "Aug",
+    "Company name": "ICON Build",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 35,
+    "Funding round": "Series A",
+    "Lead investor": "Moderne Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Aug",
+    "Company name": "Azul3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 12.5,
+    "Funding round": "Seed",
+    "Lead investor": "Private angel investors"
+  },
+  {
+    "Year": 2020,
+    "Month": "Aug",
+    "Company name": "Kimura Foundry America",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Sumitomo"
+  },
+  {
+    "Year": 2020,
+    "Month": "Sep",
+    "Company name": "Lightforce Orthodontics",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 14,
+    "Funding round": "Series B",
+    "Lead investor": "Tyche Partners"
+  },
+  {
+    "Year": 2020,
+    "Month": "Sep",
+    "Company name": "Xometry",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 75,
+    "Funding round": "Series E",
+    "Lead investor": "T. Rowe Price"
+  },
+  {
+    "Year": 2020,
+    "Month": "Sep",
+    "Company name": "nTolology",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 40,
+    "Funding round": "Series C",
+    "Lead investor": "Insight Partners"
+  },
+  {
+    "Year": 2020,
+    "Month": "Sep",
+    "Company name": "Ditto",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Materialise"
+  },
+  {
+    "Year": 2020,
+    "Month": "Oct",
+    "Company name": "LM Industries",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 15,
+    "Funding round": "Not specified",
+    "Lead investor": "Mirai Creation Fund II"
+  },
+  {
+    "Year": 2020,
+    "Month": "Oct",
+    "Company name": "3Diligent",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 4.2,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2020,
+    "Month": "Oct",
+    "Company name": "Adaptive3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 5.1,
+    "Funding round": "Series B",
+    "Lead investor": "Arkema"
+  },
+  {
+    "Year": 2020,
+    "Month": "Nov",
+    "Company name": "Real Dimension Inx",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3.2,
+    "Funding round": "Seed",
+    "Lead investor": "KdT Ventures"
+  },
+  {
+    "Year": 2020,
+    "Month": "Nov",
+    "Company name": "Relativity Space",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 500,
+    "Funding round": "Series D",
+    "Lead investor": "Tiger Global Management"
+  },
+  {
+    "Year": 2020,
+    "Month": "Nov",
+    "Company name": "Trio Labs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 0.6,
+    "Funding round": "Debt",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2020,
+    "Month": "Dec",
+    "Company name": "PrinterPrezz",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 16,
+    "Funding round": "Series A",
+    "Lead investor": "DOV Singularity Fund"
+  },
+  {
+    "Year": 2020,
+    "Month": "Dec",
+    "Company name": "Nuburu",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 20,
+    "Funding round": "Series B",
+    "Lead investor": "Anzu Partners"
+  },
+  {
+    "Year": 2020,
+    "Month": "Dec",
+    "Company name": "Branch Technology",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 11,
+    "Funding round": "Not specified",
+    "Lead investor": "Equipment Share"
+  },
+  {
+    "Year": 2020,
+    "Month": "Dec",
+    "Company name": "Arris Composites",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Robert Bosch Venture Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jan",
+    "Company name": "3DEO",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 14,
+    "Funding round": "Not specified",
+    "Lead investor": "Alpha Edison"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Uniformity Labs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 38.4,
+    "Funding round": "Series B",
+    "Lead investor": "IP Group, Orion Resource Partners"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Mighty Buildings",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 40,
+    "Funding round": "Series B",
+    "Lead investor": "Happiness Capital, Hanaco Vent. Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Fictiv",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 35,
+    "Funding round": "Series D"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Mantle",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 13,
+    "Funding round": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jan",
+    "Company name": "3DEO",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 14,
+    "Funding round": "Not specified",
+    "Lead investor": "Alpha Edison"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Uniformity Labs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 38.4,
+    "Funding round": "Series B",
+    "Lead investor": "IP group, Orion Resource Partners"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Mighty Buildings",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 40,
+    "Funding round": "Not specified",
+    "Lead investor": "Khosla Ventures, Zeno Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Fictiv",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 35,
+    "Funding round": "Series D",
+    "Lead investor": "40 North Ventures, Honeywell"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Mantle",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 13,
+    "Funding round": "Not specified",
+    "Lead investor": "Foundation Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Continuous Composites",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Saint Gobain   NOVA"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Fortify",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 20,
+    "Funding round": "Series B",
+    "Lead investor": "Cota Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "DDM Systems",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "10X Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Amplify Additive",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1.1,
+    "Funding round": "Series A",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "Trio Labs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3.8,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "Allegro 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Grant",
+    "Lead investor": "NSF"
+  },
+  {
+    "Year": 2021,
+    "Month": "May",
+    "Company name": "Remedy Health",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 11,
+    "Funding round": "Series A",
+    "Lead investor": "ADM Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "May",
+    "Company name": "Nexa3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 55,
+    "Funding round": "Not specified",
+    "Lead investor": "OurCrowd, Saudi Aramco Energy"
+  },
+  {
+    "Year": 2021,
+    "Month": "May",
+    "Company name": "Formlabs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 150,
+    "Funding round": "Series E",
+    "Lead investor": "SoftBank Vision Fund 2"
+  },
+  {
+    "Year": 2021,
+    "Month": "May",
+    "Company name": "Restor3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 13,
+    "Funding round": "Series B",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jun",
+    "Company name": "Seurat",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 41,
+    "Funding round": "Series B",
+    "Lead investor": "Technology Impact Fund"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jul",
+    "Company name": "Mighty Buildings",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 22,
+    "Funding round": "Series B extension",
+    "Lead investor": "ArcTern Ventures, Core Innovation"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jul",
+    "Company name": "Fabric8Labs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 19.3,
+    "Funding round": "Series A",
+    "Lead investor": "Intel Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jul",
+    "Company name": "Inkbit",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 30,
+    "Funding round": "Series B",
+    "Lead investor": "Phoenix Venture Partners"
+  },
+  {
+    "Year": 2021,
+    "Month": "Jul",
+    "Company name": "Continous Composites",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 17,
+    "Funding round": "Series A",
+    "Lead investor": "B. Riley Venture Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Aug",
+    "Company name": "Arevo",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 25,
+    "Funding round": "Series B",
+    "Lead investor": "Khosla Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Aug",
+    "Company name": "ICON",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 207,
+    "Funding round": "Series B",
+    "Lead investor": "Norwest Venture Partners"
+  },
+  {
+    "Year": 2021,
+    "Month": "Aug",
+    "Company name": "Holo",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Lam Capital"
+  },
+  {
+    "Year": 2021,
+    "Month": "Sep",
+    "Company name": "Fortius",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1.4,
+    "Funding round": "Pre seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Sep",
+    "Company name": "Evolve",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 30,
+    "Funding round": "Growth",
+    "Lead investor": "3D Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Sep",
+    "Company name": "Mantle",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 25,
+    "Funding round": "Series B",
+    "Lead investor": "Fine Structure Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Sep",
+    "Company name": "General Lattice",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Pre seed",
+    "Lead investor": "AP Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Oct",
+    "Company name": "Danae",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Conscious Venture Partners"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Lightforce Orthodontics",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 50,
+    "Funding round": "Series C",
+    "Lead investor": "Kleiner Perkins"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Biosapien",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1.8,
+    "Funding round": "Seed",
+    "Lead investor": "SOSV"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Arris",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 88.5,
+    "Funding round": "Series C",
+    "Lead investor": "XN"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "Chromatic 3D Materials",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 5,
+    "Funding round": "Not specified",
+    "Lead investor": "Embedded Ventures"
+  },
+  {
+    "Year": 2021,
+    "Month": "Nov",
+    "Company name": "nTopology",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 65,
+    "Funding round": "Series D",
+    "Lead investor": "Tiger Global Management"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "Prellis Biologics",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 14.5,
+    "Funding round": "Series B",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2021,
+    "Month": "Dec",
+    "Company name": "Rapid Liquid Print",
+    "Country": "U.S.",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Seed",
+    "Lead investor": "BMW iVentures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Seurat",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 21,
+    "Funding round": "Series B extension",
+    "Lead investor": "Xerox Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Elementun 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 22,
+    "Funding round": "Series B",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "ICON",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 185,
+    "Funding round": "Series B extension",
+    "Lead investor": "Tiger Global Management"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jan",
+    "Company name": "Seurat",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 21,
+    "Funding round": "Series B",
+    "Lead investor": "Xerox Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Elementum 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 22,
+    "Funding round": "Series B",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Mar",
+    "Company name": "Black Buffalo 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3.5,
+    "Funding round": "Seed",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Mar",
+    "Company name": "Diamond Age",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 50,
+    "Funding round": "Series A",
+    "Lead investor": "Prime Movers Lab"
+  },
+  {
+    "Year": 2022,
+    "Month": "Apr",
+    "Company name": "Andiamo",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 0.5,
+    "Funding round": "Seed",
+    "Lead investor": "ERA"
+  },
+  {
+    "Year": 2022,
+    "Month": "Apr",
+    "Company name": "Restor3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 23,
+    "Funding round": "Not specified",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Apr",
+    "Company name": "Lazarus 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 6,
+    "Funding round": "Seed",
+    "Lead investor": "Ecliptic Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "Apr",
+    "Company name": "Divergent",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 160,
+    "Funding round": "Series C",
+    "Lead investor": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Apr",
+    "Company name": "X Bow Systems",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 27,
+    "Funding round": "Series A",
+    "Lead investor": "Crosslink Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "May",
+    "Company name": "Mooji Meats",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Seed",
+    "Lead investor": "Y Combinator"
+  },
+  {
+    "Year": 2022,
+    "Month": "May",
+    "Company name": "Fictiv",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 100,
+    "Funding round": "Series E",
+    "Lead investor": "Activate Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "May",
+    "Company name": "MakerBot & Ultimaker",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 62.4,
+    "Funding round": "Not specified",
+    "Lead investor": "NPM Capital, Stratasys"
+  },
+  {
+    "Year": 2022,
+    "Month": "May",
+    "Company name": "6K",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 102,
+    "Funding round": "Series D",
+    "Lead investor": "Koch Strategic Platforms"
+  },
+  {
+    "Year": 2022,
+    "Month": "May",
+    "Company name": "KLOwen",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 10.5,
+    "Funding round": "Series A",
+    "Lead investor": "Columbia Pacific Advisors"
+  },
+  {
+    "Year": 2022,
+    "Month": "May",
+    "Company name": "Launcher",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1.7,
+    "Funding round": "Grant",
+    "Lead investor": "U.S. Space Force"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Synteris",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 2.7,
+    "Funding round": "Grant",
+    "Lead investor": "ARPA E"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Ampcera",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1.5,
+    "Funding round": "Grant",
+    "Lead investor": "U.S. Department of Energy"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "VulcanForms",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 355,
+    "Funding round": "Not specified",
+    "Lead investor": "Eclipse Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "Simplifyber",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3.5,
+    "Funding round": "Seed",
+    "Lead investor": "At One Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "Divergent",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 80,
+    "Funding round": "Debt"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "polySpectra & Fortify",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3,
+    "Funding round": "Grant",
+    "Lead investor": "Energy"
+  },
+  {
+    "Year": 2022,
+    "Month": "Aug",
+    "Company name": "Nubury",
+    "Country": "U.S.",
+    "Funding round": "Grant",
+    "Lead investor": "AFWERX SBIR"
+  },
+  {
+    "Year": 2022,
+    "Month": "Sep",
+    "Company name": "Hybrid Manufacturing",
+    "Country": "U.S.",
+    "Funding round": "Not specified"
+  },
+  {
+    "Year": 2022,
+    "Month": "Sep",
+    "Company name": "Optisks",
+    "Country": "U.S.",
+    "Funding round": "Not specified",
+    "Lead investor": "Nikon"
+  },
+  {
+    "Year": 2022,
+    "Month": "Sep",
+    "Company name": "Concurrent Technologies",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 5.2,
+    "Funding round": "Grant",
+    "Lead investor": "U.S. Air Force Research Laboratory"
+  },
+  {
+    "Year": 2022,
+    "Month": "Sep",
+    "Company name": "Firehawk Aerospace",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 18,
+    "Funding round": "Series B",
+    "Lead investor": "Capital Factory"
+  },
+  {
+    "Year": 2022,
+    "Month": "Nov",
+    "Company name": "Axtra 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 6.3,
+    "Funding round": "Series A",
+    "Lead investor": "HZG Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Nov",
+    "Company name": "Vitro 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 1.3,
+    "Funding round": "Seed",
+    "Lead investor": "Buff Gold Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Nov",
+    "Company name": "AMFG",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 8.5,
+    "Funding round": "Not specified",
+    "Lead investor": "Intel Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "Nov",
+    "Company name": "Rosotics",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 0.8,
+    "Funding round": "Pre seed",
+    "Lead investor": "Draper Associates"
+  },
+  {
+    "Year": 2022,
+    "Month": "Nov",
+    "Company name": "ICON",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 57.2,
+    "Funding round": "Grant",
+    "Lead investor": "SBIR Phase III"
+  },
+  {
+    "Year": 2022,
+    "Month": "Dec",
+    "Company name": "Fortius Metals",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 2,
+    "Funding round": "Seed",
+    "Lead investor": "AM Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Dec",
+    "Company name": "Additive Assurance",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 4.1,
+    "Funding round": "Not specified",
+    "Lead investor": "Significant Capital Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Dec",
+    "Company name": "Fortify",
+    "Country": "U.S.",
+    "Funding round": "Late Stage VC",
+    "Lead investor": "Lockheed Martin Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Dec",
+    "Company name": "Continuum",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 36,
+    "Funding round": "Not specified",
+    "Lead investor": "Ara Partners"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Dimension Inx",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 12,
+    "Funding round": "Series A",
+    "Lead investor": "Prime Movers Lab"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Freeform",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 41,
+    "Funding round": "Series A",
+    "Lead investor": "Founders Fund"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Fabric8Labs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 50,
+    "Funding round": "Series B",
+    "Lead investor": "NEA"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Zellerfeld Shoe",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 15,
+    "Funding round": "Seed",
+    "Lead investor": "Founders Fund"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "Taulman 3D",
+    "Country": "U.S.",
+    "Funding round": "Acquisition",
+    "Lead investor": "Braskem"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jan",
+    "Company name": "Dinsmore",
+    "Country": "U.S.",
+    "Funding round": "Acquisition",
+    "Lead investor": "ADDMAN Engineering"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Dimension Inx",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 12,
+    "Funding round": "Series A",
+    "Lead investor": "Prime Movers Lab"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Freeform",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 45,
+    "Funding round": "Series A",
+    "Lead investor": "Founders Fund"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Fabric8Labs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 50,
+    "Funding round": "Series B extension",
+    "Lead investor": "NEA"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Brinter",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 0.8,
+    "Funding round": "Seed"
+  },
+  {
+    "Year": 2023,
+    "Month": "Feb",
+    "Company name": "Zellerfeld Shoe",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 15,
+    "Funding round": "Seed",
+    "Lead investor": "Founders Fund"
+  },
+  {
+    "Year": 2023,
+    "Month": "Mar",
+    "Company name": "Zeda",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 52,
+    "Funding round": "Series B",
+    "Lead investor": "Boutlque Venture Partners"
+  },
+  {
+    "Year": 2023,
+    "Month": "May",
+    "Company name": "Hllos Castor",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3,
+    "Lead investor": "Industry Angels"
+  },
+  {
+    "Year": 2023,
+    "Month": "May",
+    "Company name": "Alloy Enterprises",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 26,
+    "Funding round": "Series A",
+    "Lead investor": "Piva Capltal"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jun",
+    "Company name": "Fortify",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 12.5,
+    "Lead investor": "Lockheed Martin Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jun",
+    "Company name": "LIMBER Prosthetlcs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 0.4,
+    "Funding round": "Seed"
+  },
+  {
+    "Year": 2023,
+    "Month": "Jun",
+    "Company name": "Aglle",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 13,
+    "Funding round": "Seed",
+    "Lead investor": "Caruso Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "Lightforce Orthodontics",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 80,
+    "Funding round": "Series D",
+    "Lead investor": "Ally Bridge Group"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "Chromatic 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3.1,
+    "Funding round": "Seed"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "Elementum",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 2.8,
+    "Funding round": "Grant",
+    "Lead investor": "OSD(R&E)"
+  },
+  {
+    "Year": 2023,
+    "Month": "Sep",
+    "Company name": "Kind Designs",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 5,
+    "Funding round": "Seed",
+    "Lead investor": "GOVO Venture Partners"
+  },
+  {
+    "Year": 2023,
+    "Month": "Sep",
+    "Company name": "Mighty Bulldings",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 52,
+    "Lead investor": "Waed Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Sep",
+    "Company name": "Orbltal Composites",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 2,
+    "Funding round": "Grant",
+    "Lead investor": "SBIR"
+  },
+  {
+    "Year": 2023,
+    "Month": "Sep",
+    "Company name": "Branch Technology",
+    "Country": "U.S.",
+    "Funding round": "Series B",
+    "Lead investor": "TOKYU CONST GB Innovation Fund L.P"
+  },
+  {
+    "Year": 2023,
+    "Month": "Oct",
+    "Company name": "Additive Space Technologles",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 0.1,
+    "Funding round": "Pre seed",
+    "Lead investor": "ShockVentures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Oct",
+    "Company name": "Azul 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 15,
+    "Funding round": "Series A",
+    "Lead investor": "DuPont"
+  },
+  {
+    "Year": 2023,
+    "Month": "Oct",
+    "Company name": "Seurat Technologles",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 99,
+    "Funding round": "Series C",
+    "Lead investor": "Nventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Nov",
+    "Company name": "Divergent",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 230,
+    "Funding round": "Series D",
+    "Lead investor": "Hexagon AB"
+  },
+  {
+    "Year": 2023,
+    "Month": "Dec",
+    "Company name": "6K Additive",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 23.4,
+    "Funding round": "Grant",
+    "Lead investor": "MCEIP"
+  },
+  {
+    "Year": 2023,
+    "Month": "Dec",
+    "Company name": "Ursa Major",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 138,
+    "Funding round": "Series D",
+    "Lead investor": "Explorer 1 Fund"
+  },
+  {
+    "Year": 2023,
+    "Month": "Dec",
+    "Company name": "Mighty Bulldings",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 5,
+    "Funding round": "Grant",
+    "Lead investor": "Callfornla Energy"
+  },
+  {
+    "Year": 2024,
+    "Month": "Jan",
+    "Company name": "3DEO",
+    "Country": "U.S.",
+    "Lead investor": "DBJ"
+  },
+  {
+    "Year": 2024,
+    "Month": "Jan",
+    "Company name": "Restor3d",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 17
+  },
+  {
+    "Year": 2024,
+    "Month": "Feb",
+    "Company name": "Fortlus Metals",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 3
+  },
+  {
+    "Year": 2024,
+    "Month": "Feb",
+    "Company name": "JuggerBot 3D",
+    "Country": "U.S.",
+    "Amount (in millions USD)": 4,
+    "Funding round": "Grant",
+    "Lead investor": "OSD(R&E)"
+  },
+  {
+    "Year": 2022,
+    "Month": "Aug",
+    "Company name": "Prellis Biologics",
+    "Country": "U.S.",
+    "Lead investor": "Capital and Avidity Partners"
+  },
+  {
+    "Year": 2023,
+    "Month": "Nov",
+    "Company name": "Immensa",
+    "Country": "UAE",
+    "Amount (in millions USD)": 20,
+    "Funding round": "Series B",
+    "Lead investor": "Global Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jan",
+    "Company name": "Open Bionics",
+    "Country": "UK",
+    "Amount (in millions USD)": 5.9,
+    "Funding round": "Series A",
+    "Lead investor": "Foresight Williams"
+  },
+  {
+    "Year": 2019,
+    "Month": "Feb",
+    "Company name": "Remedy Health",
+    "Country": "UK",
+    "Amount (in millions USD)": "£0.6",
+    "Funding round": "Seed",
+    "Lead investor": "Innovate UK"
+  },
+  {
+    "Year": 2019,
+    "Month": "Mar",
+    "Company name": "Reliance Precision",
+    "Country": "UK",
+    "Amount (in millions USD)": "£2.3",
+    "Funding round": "Seed",
+    "Lead investor": "Innovate UK"
+  },
+  {
+    "Year": 2019,
+    "Month": "Jul",
+    "Company name": "Axial 3D",
+    "Country": "UK",
+    "Amount (in millions USD)": 2.7,
+    "Funding round": " ",
+    "Lead investor": "Imprimatur Capital Fund Mgmt."
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Insphere",
+    "Country": "UK",
+    "Amount (in millions USD)": "£1.5",
+    "Funding round": " ",
+    "Lead investor": "Foresight Williams Tech. EIS Fund"
+  },
+  {
+    "Year": 2019,
+    "Month": "Sep",
+    "Company name": "Wayland Additive",
+    "Country": "UK",
+    "Amount (in millions USD)": "£3.0",
+    "Funding round": " ",
+    "Lead investor": "Longwall Ventures"
+  },
+  {
+    "Year": 2019,
+    "Month": "Oct",
+    "Company name": "AMT",
+    "Country": "UK",
+    "Amount (in millions USD)": 5.2,
+    "Funding round": "Series A",
+    "Lead investor": "DSM Venturing"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "HiETA Tech.",
+    "Country": "UK",
+    "Amount (in millions USD)": " ",
+    "Funding round": " ",
+    "Lead investor": "Meggitt"
+  },
+  {
+    "Year": 2020,
+    "Month": "Feb",
+    "Company name": "WAAM3D",
+    "Country": "UK",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "Accuron Technologies"
+  },
+  {
+    "Year": 2020,
+    "Month": "Mar",
+    "Company name": "Axial 3D",
+    "Country": "UK",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Grant",
+    "Lead investor": "Eurostars"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jan",
+    "Company name": "HiETA Technologies",
+    "Country": "UK",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Not specified",
+    "Lead investor": "Meggitt"
+  },
+  {
+    "Year": 2020,
+    "Month": "Feb",
+    "Company name": "WAAM3D",
+    "Country": "UK",
+    "Amount (in millions USD)": " ",
+    "Funding round": "Series A",
+    "Lead investor": "Accuron Technologies"
+  },
+  {
+    "Year": 2020,
+    "Month": "Mar",
+    "Company name": "3D Lifeprints",
+    "Country": "UK",
+    "Amount (in millions USD)": 1.7,
+    "Funding round": "Not specified",
+    "Lead investor": "Fenwall Investments"
+  },
+  {
+    "Year": 2020,
+    "Month": "Jul",
+    "Company name": "ToffeeAM",
+    "Country": "UK",
+    "Amount (in millions USD)": 1.4,
+    "Funding round": "Seed",
+    "Lead investor": "IQ Capital"
+  },
+  {
+    "Year": 2020,
+    "Month": "Oct",
+    "Company name": "Regemat 3D",
+    "Country": "UK",
+    "Amount (in millions USD)": 0.4,
+    "Funding round": "Crowd",
+    "Lead investor": "Crowdcube"
+  },
+  {
+    "Year": 2020,
+    "Month": "Dec",
+    "Company name": "Meta Additive",
+    "Country": "UK",
+    "Amount (in millions USD)": 1.7,
+    "Funding round": "Grant",
+    "Lead investor": "Innovate UK Smart Grant"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Atherton Bike",
+    "Country": "UK",
+    "Amount (in millions USD)": 0.5,
+    "Funding round": "Seed",
+    "Lead investor": "Angel Investment Network Khosla Ventures, Zeno Ventures SuperSeed"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Ai Build",
+    "Country": "UK",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Seed",
+    "Lead investor": "40 North Ventures, Honeywell"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Atherton Bike",
+    "Country": "UK",
+    "Amount (in millions USD)": 0.5,
+    "Funding round": "Seed",
+    "Lead investor": "Angel Investment Network"
+  },
+  {
+    "Year": 2021,
+    "Month": "Feb",
+    "Company name": "Ai Build",
+    "Country": "UK",
+    "Amount (in millions USD)": 1,
+    "Funding round": "Seed",
+    "Lead investor": "SuperSeed"
+  },
+  {
+    "Year": 2021,
+    "Month": "Mar",
+    "Company name": "Additive Manufacturing Technologies",
+    "Country": "UK",
+    "Amount (in millions USD)": 3.3,
+    "Funding round": "Not specified",
+    "Lead investor": "NPIF   Mercia Equity Finance"
+  },
+  {
+    "Year": 2021,
+    "Month": "Apr",
+    "Company name": "Geomiq",
+    "Country": "UK",
+    "Amount (in millions USD)": 3.8,
+    "Funding round": "Seed",
+    "Lead investor": "Samaipata"
+  },
+  {
+    "Year": 2021,
+    "Month": "Oct",
+    "Company name": "AMT",
+    "Country": "UK",
+    "Amount (in millions USD)": 14.5,
+    "Funding round": "Series B",
+    "Lead investor": "Foresight Williams Technology Funds"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Nuclera",
+    "Country": "UK",
+    "Amount (in millions USD)": 42.5,
+    "Funding round": "Series B",
+    "Lead investor": "M&G, Amadeus Capital Partners"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Q5D",
+    "Country": "UK",
+    "Amount (in millions USD)": 2.5,
+    "Funding round": "Seed",
+    "Lead investor": "Chrysalix Vcenture Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Nuclera",
+    "Country": "UK",
+    "Amount (in millions USD)": 42.5,
+    "Funding round": "Series B",
+    "Lead investor": "M&G, Amadeus Capital Partners"
+  },
+  {
+    "Year": 2022,
+    "Month": "Feb",
+    "Company name": "Q5D",
+    "Country": "UK",
+    "Amount (in millions USD)": 2.5,
+    "Funding round": "Seed",
+    "Lead investor": "Chrysalix Venture Capital"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jun",
+    "Company name": "Ai Build",
+    "Country": "UK",
+    "Amount (in millions USD)": 3.2,
+    "Funding round": "Not specified",
+    "Lead investor": "ACT Venture Partners"
+  },
+  {
+    "Year": 2022,
+    "Month": "Jul",
+    "Company name": "Geomiq",
+    "Country": "UK",
+    "Amount (in millions USD)": 8.4,
+    "Funding round": "Series A",
+    "Lead investor": "AXA Ventures"
+  },
+  {
+    "Year": 2022,
+    "Month": "Oct",
+    "Company name": "Orbex",
+    "Country": "UK",
+    "Amount (in millions USD)": 48.5,
+    "Funding round": "Series C",
+    "Lead investor": "Scottish National investment bank"
+  },
+  {
+    "Year": 2022,
+    "Month": "Nov",
+    "Company name": "Axial3D",
+    "Country": "UK",
+    "Amount (in millions USD)": 15,
+    "Funding round": "Not specified",
+    "Lead investor": "Stratasys"
+  },
+  {
+    "Year": 2023,
+    "Month": "Mar",
+    "Company name": "Evove",
+    "Country": "UK",
+    "Amount (in millions USD)": 7.2,
+    "Lead investor": "At One Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Mar",
+    "Company name": "OSSTEC",
+    "Country": "UK",
+    "Amount (in millions USD)": 1.5,
+    "Funding round": "Seed",
+    "Lead investor": "SFC Capltal"
+  },
+  {
+    "Year": 2023,
+    "Month": "Apr",
+    "Company name": "Wayland Additive",
+    "Country": "UK",
+    "Amount (in millions USD)": 5.8,
+    "Lead investor": "Longwall Ventures"
+  },
+  {
+    "Year": 2023,
+    "Month": "Aug",
+    "Company name": "Evo3D",
+    "Country": "UK",
+    "Amount (in millions USD)": 1.4,
+    "Funding round": "Grant",
+    "Lead investor": "Innovate UK"
+  },
+  {
+    "Year": 2023,
+    "Month": "Oct",
+    "Company name": "Al Bulld",
+    "Country": "UK",
+    "Amount (in millions USD)": 8.5,
+    "Funding round": "Series A",
+    "Lead investor": "IQ Capltal"
+  },
+  {
+    "Year": 2024,
+    "Month": "Jan",
+    "Company name": "WAAM3D",
+    "Country": "UK",
+    "Lead investor": "Accuron"
+  },
+  {
+    "Year": 2024,
+    "Month": "Jan",
+    "Company name": "Wayland Additive",
+    "Country": "UK",
+    "Amount (in millions USD)": 5.3,
+    "Lead investor": "Parkwalk AdvIsors"
+  },
+  {
+    "Year": 2024,
+    "Month": "Jan",
+    "Company name": "Carclnotech",
+    "Country": "UK",
+    "Amount (in millions USD)": 5.3,
+    "Lead investor": "Eos AdvIsory"
+  },
+  {
+    "Year": 2024,
+    "Month": "Feb",
+    "Company name": "AMFG",
+    "Country": "UK",
+    "Amount (in millions USD)": 0.6,
+    "Funding round": "Grant"
+  },
+  {
+    "Year": 2024,
+    "Month": "Feb",
+    "Company name": "Rivelln Robotics",
+    "Country": "UK",
+    "Amount (in millions USD)": 0.6,
+    "Funding round": "Grant",
+    "Lead investor": "Innovate UK"
+  }
+]

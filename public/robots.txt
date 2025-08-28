@@ -1,0 +1,21 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://am-explorer.wohlersassociates.com/sitemap.xml
+
+# Block access to sensitive areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /auth/callback
+
+# Allow indexing of public pages
+Allow: /
+Allow: /login
+Allow: /register
+Allow: /dashboard
+Allow: /map
+Allow: /analytics
+Allow: /data-table

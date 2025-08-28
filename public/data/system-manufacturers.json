@@ -1,0 +1,2471 @@
+[
+  {
+    "company": "1A Technologies",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://1a-technologies.com"
+  },
+  {
+    "company": "2onelab GmbH",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://2onelab.com"
+  },
+  {
+    "company": "3D byFlow",
+    "country": "The Netherlands",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Other"
+    ],
+    "website": "https://3dbyflow.com"
+  },
+  {
+    "company": "3D Controls Co.,Ltd.",
+    "country": "South Korea",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Ceramic"
+    ],
+    "website": "https://3dcontrols.co.kr"
+  },
+  {
+    "company": "3D Factories",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3dfactories.de"
+  },
+  {
+    "company": "3D Labs",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": null
+  },
+  {
+    "company": "3D Mectronic",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.3d-mectronic.de/en/"
+  },
+  {
+    "company": "3D MicroPrint GmbH",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://3dmicroprint.com"
+  },
+  {
+    "company": "3D Paradise",
+    "country": "India",
+    "processes": [
+      "Material Extrusion",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://paradise-3d.com"
+  },
+  {
+    "company": "3D Platform",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3dplatform.com"
+  },
+  {
+    "company": "3D Printing Technology, Inc. (3DPTEK)",
+    "country": "China",
+    "processes": [
+      "Binder Jetting",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Ceramic",
+      "Metal",
+      "Other",
+      "Polymer",
+      "Sand"
+    ],
+    "website": "https://www.lyafs.com/"
+  },
+  {
+    "company": "3D Systems Inc.",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion",
+      "Material Jetting",
+      "PBF-LB (Metal)",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Metal",
+      "Other",
+      "Polymer"
+    ],
+    "website": "https://3dsystems.com"
+  },
+  {
+    "company": "3D-Dream",
+    "country": "Italy",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3d-dream.it"
+  },
+  {
+    "company": "3D-Figo Gmbh",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3d-figo.de"
+  },
+  {
+    "company": "3D-Hybrid",
+    "country": "United States",
+    "processes": [
+      "Cold Spray",
+      "DED (Arc/Wire)",
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://3dhybridsolutions.com"
+  },
+  {
+    "company": "3D4MEC",
+    "country": "Italy",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://3d4mec.com"
+  },
+  {
+    "company": "3DCeram Sinto",
+    "country": "France",
+    "processes": [
+      "Material Extrusion",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Ceramic"
+    ],
+    "website": "https://3dceram.com/en"
+  },
+  {
+    "company": "3DCPI-PRODYSOL",
+    "country": "Spain",
+    "processes": [
+      "Material Extrusion",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3dcpi.com"
+  },
+  {
+    "company": "3DEO",
+    "country": "United States",
+    "processes": [
+      "Binder Jetting"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://3deo.co"
+  },
+  {
+    "company": "3Deometry Innovations LLP",
+    "country": "India",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3deometry.com"
+  },
+  {
+    "company": "3Deus Dynamics",
+    "country": "France",
+    "processes": [
+      "Material Jetting"
+    ],
+    "materials": [
+      "Other"
+    ],
+    "website": "https://3deusdynamics.com"
+  },
+  {
+    "company": "3DGence",
+    "country": "Poland",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3dgence.com"
+  },
+  {
+    "company": "3DKG",
+    "country": "Italy",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3dkg.eu/en/granulab.html"
+  },
+  {
+    "company": "3DLAM",
+    "country": "Russia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.3dlam.com"
+  },
+  {
+    "company": "3DM Digital Manufacturing Ltd",
+    "country": "Israel",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3dm-tech.co.il"
+  },
+  {
+    "company": "3DPRN",
+    "country": "Italy",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://www.3dprn.com/?lang=en"
+  },
+  {
+    "company": "3DSLA.RU",
+    "country": "Russia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://3dsla.ru"
+  },
+  {
+    "company": "3DSTUFFSNL",
+    "country": "The Netherlands",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3dstuffs.nl"
+  },
+  {
+    "company": "3DXTech",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": null
+  },
+  {
+    "company": "3ntr",
+    "country": "Italy",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://3ntr.eu"
+  },
+  {
+    "company": "Aachen United Technology (Tianjin) Co., Ltd. (Acunity)",
+    "country": "China",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.acunity.com/en/index.aspx"
+  },
+  {
+    "company": "Ackuretta Technologies",
+    "country": "Taiwan",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://ackuretta.com"
+  },
+  {
+    "company": "Aconity3D GmbH",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://aconity3d.com"
+  },
+  {
+    "company": "Addcomposites",
+    "country": "Finland",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://addcomposites.com"
+  },
+  {
+    "company": "ADDere",
+    "country": "United States",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.addere.com/"
+  },
+  {
+    "company": "ADDICT3D",
+    "country": "Sweden",
+    "processes": [
+      "Directed Energy Deposition",
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://addict3d.systems"
+  },
+  {
+    "company": "AddiFab",
+    "country": "Denmark",
+    "processes": [
+      "Material Extrusion",
+      "PBF-LB (Metal)",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://addifab.com"
+  },
+  {
+    "company": "Addilan",
+    "country": "Spain",
+    "processes": [
+      "DED (Arc/Wire)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://addilan.com"
+  },
+  {
+    "company": "ADDIMETAL",
+    "country": "France",
+    "processes": [
+      "Binder Jetting"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://addimetal.com"
+  },
+  {
+    "company": "ADDiTEC",
+    "country": "United States",
+    "processes": [
+      "Directed Energy Deposition",
+      "Material Jetting"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://additec.net"
+  },
+  {
+    "company": "Additive Alliance",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://www.additivealliancellc.com/home.html"
+  },
+  {
+    "company": "Additive Industries b.v.",
+    "country": "The Netherlands",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.additiveindustries.com/"
+  },
+  {
+    "company": "Additive Laser Technologies (ALT)",
+    "country": "Ukraine",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://alt-print.com/en"
+  },
+  {
+    "company": "Additive Manufacturing Customized Machines (AMCM)",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Additive Solutions (AddSol)",
+    "country": "Russia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://addsol.ru"
+  },
+  {
+    "company": "Addizone",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://addiz.one"
+  },
+  {
+    "company": "AddUp",
+    "country": "France",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://addupsolutions.com"
+  },
+  {
+    "company": "Adira Addcreative",
+    "country": "Portugal",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://addcreative.tech"
+  },
+  {
+    "company": "Aditiv Solutions",
+    "country": "South Africa",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.aditiv.co.za/"
+  },
+  {
+    "company": "Admatec",
+    "country": "The Netherlands",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Ceramic",
+      "Metal"
+    ],
+    "website": "https://admateceurope.com/"
+  },
+  {
+    "company": "Adrayn (Chongqing Andrayyuan Technology Co., Ltd)",
+    "country": "China",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [],
+    "website": "http://adrayn.com/product/detail/13"
+  },
+  {
+    "company": "Advanced Solutions",
+    "country": "United States",
+    "processes": [
+      "Material Jetting"
+    ],
+    "materials": [
+      "Bio"
+    ],
+    "website": "https://advancedsolutions.com"
+  },
+  {
+    "company": "Afinia 3D",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://afinia.com"
+  },
+  {
+    "company": "AIM3D GmbH",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Ceramic",
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://aim3d.de"
+  },
+  {
+    "company": "Airwolf 3D",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://airwolf3d.com"
+  },
+  {
+    "company": "Aixway3D GmbH",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://aixway3d.de"
+  },
+  {
+    "company": "Alchimies SAS",
+    "country": "France",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://alchimies.eu"
+  },
+  {
+    "company": "ALD Vacuum Technologies GmbH",
+    "country": "Germany",
+    "processes": [
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://ald-vt.de"
+  },
+  {
+    "company": "Alkimat",
+    "country": "Brazil",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://en.alkimat.com.br"
+  },
+  {
+    "company": "Alloy Additive",
+    "country": "Turkey",
+    "processes": [
+      "DED (Arc/Wire)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://alloyadditive.com"
+  },
+  {
+    "company": "Alpha Additive",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://alphaadditive.com"
+  },
+  {
+    "company": "ALPHA LASER",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "amace",
+    "country": "India",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "AMCM (Additive Manufacturing Customized Machines)",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://amcm.com"
+  },
+  {
+    "company": "AMFREE",
+    "country": "France",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://amfree.eu"
+  },
+  {
+    "company": "AML3D",
+    "country": "Australia",
+    "processes": [
+      "DED (Arc/Wire)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://aml3d.com"
+  },
+  {
+    "company": "Amnova Tech",
+    "country": "",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": null
+  },
+  {
+    "company": "AmPro Innovations",
+    "country": "Australia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://amproinnovations.com"
+  },
+  {
+    "company": "AMSKY Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Binder Jetting",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Ceramic",
+      "Metal",
+      "Sand"
+    ],
+    "website": "https://amsky.com/en/index.html"
+  },
+  {
+    "company": "Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive)",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [],
+    "website": "http://www.hit3d.com/"
+  },
+  {
+    "company": "Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [],
+    "website": "http://minggulaser.com/default.aspx?pageid=1"
+  },
+  {
+    "company": "Anisoprint 3D Printing Technology Limited Company",
+    "country": "Singapore",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://anisoprint.com"
+  },
+  {
+    "company": "AO Metal",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://aometal.com/"
+  },
+  {
+    "company": "AON",
+    "country": "South Korea",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Ceramic"
+    ],
+    "website": "https://aoninni.com"
+  },
+  {
+    "company": "AON3D",
+    "country": "Canada",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "www.aon3d.com"
+  },
+  {
+    "company": "Apium Additive Technologies",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://apiumtec.com"
+  },
+  {
+    "company": "ARBURG GmbH + Co KG",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://arburg.com"
+  },
+  {
+    "company": "Asiga",
+    "country": "Australia",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://asiga.com"
+  },
+  {
+    "company": "ATLANT 3D Nanosystems",
+    "country": "Denmark",
+    "processes": [
+      "Material Jetting"
+    ],
+    "materials": [],
+    "website": null
+  },
+  {
+    "company": "ATMAT",
+    "country": "Poland",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://atmat.pl"
+  },
+  {
+    "company": "atum3D B.V",
+    "country": "The Netherlands",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://atum3d.com"
+  },
+  {
+    "company": "Aurora Labs",
+    "country": "Australia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://auroralabs3d.com"
+  },
+  {
+    "company": "Avimetal AM Tech Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.avimetalam.com/en/"
+  },
+  {
+    "company": "Axolotl Biosciences",
+    "country": "Canada",
+    "processes": [],
+    "materials": [
+      "Bio"
+    ],
+    "website": "https://axolotlbiosciences.com"
+  },
+  {
+    "company": "Axtra3D Inc.",
+    "country": "United States",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://axtra3d.com"
+  },
+  {
+    "company": "Azul3D",
+    "country": "",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": null
+  },
+  {
+    "company": "B-jetting",
+    "country": "United States",
+    "processes": [
+      "Binder Jetting"
+    ],
+    "materials": [
+      "Other"
+    ],
+    "website": null
+  },
+  {
+    "company": "B9Creations",
+    "country": "United States",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://b9c.com"
+  },
+  {
+    "company": "Bambu Lab",
+    "country": "China",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://bambulab.com"
+  },
+  {
+    "company": "BCN3D",
+    "country": "Spain",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://www.bcn3d.com/"
+  },
+  {
+    "company": "BEGO",
+    "country": "Germany",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": null
+  },
+  {
+    "company": "Beijing Huitianwei Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://en.hori3d.com/"
+  },
+  {
+    "company": "Beijing JCZ Technology Co., Ltd. (Ezcad)",
+    "country": "China",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://www.ezcad.com/"
+  },
+  {
+    "company": "Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS",
+    "country": "China",
+    "processes": [
+      "Binder Jetting",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://lyafs.com.cn"
+  },
+  {
+    "company": "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",
+    "country": "China",
+    "processes": [
+      "Binder Jetting",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Ceramic",
+      "Metal",
+      "Other",
+      "Sand"
+    ],
+    "website": "https://www.3dptek.com/en"
+  },
+  {
+    "company": "Beijing Ten Dimensions Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Ceramic"
+    ],
+    "website": "https://en.10dim.com/"
+  },
+  {
+    "company": "Beijing Tiertime Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://tiertime.com"
+  },
+  {
+    "company": "Belotti",
+    "country": "Italy",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://belotti.com/en"
+  },
+  {
+    "company": "BetAbram",
+    "country": "Slovenia",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Concrete"
+    ],
+    "website": "https://betabram.com"
+  },
+  {
+    "company": "Bharat Fritz Werner Ltd. – BFW",
+    "country": "India",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://bfwindia.com"
+  },
+  {
+    "company": "BigRep",
+    "country": "Germany",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": null
+  },
+  {
+    "company": "Black Buffalo 3D",
+    "country": "United States",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Ceramic",
+      "Concrete"
+    ],
+    "website": null
+  },
+  {
+    "company": "BlackBelt",
+    "country": "The Netherlands",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://blackbelt-3d.com"
+  },
+  {
+    "company": "Breuck T3D",
+    "country": "China",
+    "processes": [
+      "Binder Jetting",
+      "Material Extrusion",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Ceramic",
+      "Polymer"
+    ],
+    "website": "http://www.breuck3d.com/"
+  },
+  {
+    "company": "Chimak",
+    "country": "Argentina",
+    "processes": [
+      "Material Extrusion",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "http://www.chimak3d.com/"
+  },
+  {
+    "company": "Chiron Group",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://chiron-group.com/"
+  },
+  {
+    "company": "Colibrium Additive",
+    "country": "United States",
+    "processes": [
+      "PBF-EB (Metal)",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://colibriumadditive.com"
+  },
+  {
+    "company": "Daegun Tech",
+    "country": "South Korea",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://daeguntech.com/eng/"
+  },
+  {
+    "company": "DediBot",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Dentas",
+    "country": "Slovenia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://dentas.systems/"
+  },
+  {
+    "company": "DM3D Technology, LLC ",
+    "country": "",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://dm3dtech.com"
+  },
+  {
+    "company": "DMG Mori",
+    "country": "Japan",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://en.dmgmori.com"
+  },
+  {
+    "company": "EOS",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Eplus3D",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "EPSON ATMIX Corporation",
+    "country": "Japan",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://atmix.co.jp/en/index.html"
+  },
+  {
+    "company": "Evobeam GmbH",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://evobeam.com"
+  },
+  {
+    "company": "FANUM Sp. z o.o. SP.k",
+    "country": "Poland",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://fanum.pl"
+  },
+  {
+    "company": "Farsoon",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.farsoon.com/"
+  },
+  {
+    "company": "FastForm Technology Co.",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "http://www.fastform3d.com/"
+  },
+  {
+    "company": "Fonon Corporation",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://fonon.us"
+  },
+  {
+    "company": "Formalloy",
+    "country": "United States",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://formalloy.com"
+  },
+  {
+    "company": "Freemelt",
+    "country": "Sweden",
+    "processes": [
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://freemelt.com"
+  },
+  {
+    "company": "Fused Form",
+    "country": "Colombia",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://fusedformcorp.com"
+  },
+  {
+    "company": "Guangzhou Riton Additive Technology Co., Ltd",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.riton3d.com//"
+  },
+  {
+    "company": "HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.)",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://en.hb3dp.com"
+  },
+  {
+    "company": "Henan Creatbot Technology Limited",
+    "country": "China",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://www.creatbot.com"
+  },
+  {
+    "company": "Hubei Jiayi 3D Hi-Tech Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Material Jetting"
+    ],
+    "materials": [
+      "Bio"
+    ],
+    "website": "https://en.joye3d.com/"
+  },
+  {
+    "company": "Hwacheon",
+    "country": "South Korea",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://hwacheon.com"
+  },
+  {
+    "company": "INETYX",
+    "country": "France",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://inetyx.com/en"
+  },
+  {
+    "company": "InssTek",
+    "country": "South Korea",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://insstek.com"
+  },
+  {
+    "company": "Intech Additive Solutions",
+    "country": "India",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://intechadditive.com"
+  },
+  {
+    "company": "Irpd AG",
+    "country": "Switzerland",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.irpd.ch/en"
+  },
+  {
+    "company": "JEOL",
+    "country": "Japan",
+    "processes": [
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://jeol.co.jp"
+  },
+  {
+    "company": "KOKONI3D",
+    "country": "China",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://kokoni3d.com"
+  },
+  {
+    "company": "Kolibri Metals",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://kolibri.de.com/en"
+  },
+  {
+    "company": "Kurtz Ersa GmbH",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://kurtzersa.com/homepage.html"
+  },
+  {
+    "company": "Laser Melting Innovations (LMI)",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.lm-innovations.com/en-gb/"
+  },
+  {
+    "company": "Laseradd",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.laseradd.com/en/"
+  },
+  {
+    "company": "LATEC",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Liburdi Automation Inc",
+    "country": "",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "LUNOVU",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://lunovu.com"
+  },
+  {
+    "company": "Makertech 3D",
+    "country": "The United Kingdom",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://www.makertech3d.com/"
+  },
+  {
+    "company": "Matsuura Machinery Corporation",
+    "country": "Japan",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://matsuura.co.jp"
+  },
+  {
+    "company": "Mazak",
+    "country": "Japan",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://mazak.com/about-mazak"
+  },
+  {
+    "company": "Meltio3D",
+    "country": "Spain",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://meltio3d.com"
+  },
+  {
+    "company": "METROM Mechatronische Maschinen GmbH",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://metrom.com"
+  },
+  {
+    "company": "Mitsubishi Electric",
+    "country": "Japan",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://mitsubishielectric.com"
+  },
+  {
+    "company": "Mitsubishi Heavy Industries",
+    "country": "Japan",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://mhi.com"
+  },
+  {
+    "company": "Mosaic Manufacturing Ltd.",
+    "country": "Canada",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://mosaicmfg.com"
+  },
+  {
+    "company": "Nanjing Chamlion Laser Technology Co",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://chamlion.com/en"
+  },
+  {
+    "company": "Nanjing Weibu 3D Technology Co., Ltd.",
+    "country": "",
+    "processes": [
+      "Material Extrusion",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": null
+  },
+  {
+    "company": "Nanogrande Inc.",
+    "country": "Canada",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://nanogrande.com"
+  },
+  {
+    "company": "Nidec Machine Tool America",
+    "country": "Japan",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://nidec.com/en"
+  },
+  {
+    "company": "Nikon SLM Solutions",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://stage.slm-solutions.com"
+  },
+  {
+    "company": "Noura",
+    "country": "Iran",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "NPPower",
+    "country": "Slovenia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://nppower.eu"
+  },
+  {
+    "company": "ODeCon engineering GmbH",
+    "country": "Taiwan",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://odecon.de"
+  },
+  {
+    "company": "Okuma Europe",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://okuma.eu"
+  },
+  {
+    "company": "Omnitek",
+    "country": "Brazil",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.omnitek.com.br/home"
+  },
+  {
+    "company": "One Click Metal GmbH",
+    "country": "Germany",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://oneclickmetal.com"
+  },
+  {
+    "company": "One Off Robotics",
+    "country": "United States",
+    "processes": [
+      "DED (Arc/Wire)",
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://oneoffrobotics.com/"
+  },
+  {
+    "company": "Open Additive",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "OpenAdditive",
+    "country": "",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://openadditive.com"
+  },
+  {
+    "company": "Optomec",
+    "country": "United States",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://optomec.com"
+  },
+  {
+    "company": "OSCAR PLT GmbH",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://oscar-plt.de"
+  },
+  {
+    "company": "Philips Corporation",
+    "country": "United States",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.phillipscorp.com/"
+  },
+  {
+    "company": "Piocreat",
+    "country": "China",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://piocreat3d.com"
+  },
+  {
+    "company": "Ponticon",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Prima Additive S.r.l.",
+    "country": "Italy",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://primaadditive.com/en"
+  },
+  {
+    "company": "pro-beam Group",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://pro-beam.com"
+  },
+  {
+    "company": "Profeta Intelligent Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://profeta3d.com/main"
+  },
+  {
+    "company": "ProtoFab",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://3dprotofab.com"
+  },
+  {
+    "company": "QBEAM (QuickBeam)",
+    "country": "China",
+    "processes": [
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.qbeam-3d.com"
+  },
+  {
+    "company": "Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",
+    "country": "China",
+    "processes": [
+      "DED (Arc/Wire)",
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "http://en.raycham.com/"
+  },
+  {
+    "company": "Regenovo",
+    "country": "China",
+    "processes": [
+      "Material Jetting"
+    ],
+    "materials": [
+      "Bio"
+    ],
+    "website": "http://www.regenovo.cn/"
+  },
+  {
+    "company": "Renishaw",
+    "country": "The United Kingdom",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://renishaw.com/en/metal-3d-printing--32084"
+  },
+  {
+    "company": "Romi",
+    "country": "Brazil",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://romi.com/en"
+  },
+  {
+    "company": "RPM Innovations",
+    "country": "United States",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://rpm-innovations.com"
+  },
+  {
+    "company": "Rusatom Additive Technologies",
+    "country": "Russia",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://rosat.tvel.ru/en/"
+  },
+  {
+    "company": "Sakuu",
+    "country": "United States",
+    "processes": [],
+    "materials": [
+      "Ceramic",
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://www.sakuu.com/"
+  },
+  {
+    "company": "SamyLabs",
+    "country": "Spain",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Sethi3D",
+    "country": "Brazil",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://www.sethi3d.com.br/"
+  },
+  {
+    "company": "Seurat",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://seuratech.com"
+  },
+  {
+    "company": "Sharebot SRL",
+    "country": "Italy",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://sharebot.it"
+  },
+  {
+    "company": "Shenzhen Adventure Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Material Extrusion",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Ceramic"
+    ],
+    "website": "https://www.adventure-tech.cn"
+  },
+  {
+    "company": "Shenzhen Kings 3D Printing Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://kings3dprinter.com"
+  },
+  {
+    "company": "Shenzhen PengJi Photoelectricity Co, Ltd",
+    "country": "China",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://apex-maker.com"
+  },
+  {
+    "company": "SISMA S.p.A.",
+    "country": "Italy",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://sisma.com"
+  },
+  {
+    "company": "Snowbird Tech",
+    "country": "United States",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://snowbirdtech.com"
+  },
+  {
+    "company": "Sodick",
+    "country": "Japan",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://sodick.co.jp"
+  },
+  {
+    "company": "SOTIMECO",
+    "country": "",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "SPEE3D",
+    "country": "Australia",
+    "processes": [
+      "Cold Spray"
+    ],
+    "materials": [],
+    "website": "https://spee3d.com"
+  },
+  {
+    "company": "Sugino",
+    "country": "Japan",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.sugino.com/en/"
+  },
+  {
+    "company": "Sun Metalon",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Suzhou Pollypolymer New Materials Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://pollypolymer.com"
+  },
+  {
+    "company": "Suzhou Tianhong Laser Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://cnthlaser.com"
+  },
+  {
+    "company": "TADA Electric Co.",
+    "country": "Japan",
+    "processes": [
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://tadadenki.jp/english/welding_machines/metal_3d_printer/index.html"
+  },
+  {
+    "company": "Teccluster (Teccam)",
+    "country": "Denmark",
+    "processes": [
+      "Material Extrusion",
+      "PBF-LB (Metal)",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Metal",
+      "Polymer"
+    ],
+    "website": "https://teccluster.com/"
+  },
+  {
+    "company": "Trideo",
+    "country": "Argentina",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://trideo3d.com/en"
+  },
+  {
+    "company": "Trimaker",
+    "country": "Argentina",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://trimaker.com"
+  },
+  {
+    "company": "TRUMPF",
+    "country": "Germany",
+    "processes": [
+      "Directed Energy Deposition",
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://trumpf.com"
+  },
+  {
+    "company": "Tytus3D",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.)",
+    "country": "China",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://uniformation3d.com"
+  },
+  {
+    "company": "UNIZ Technology",
+    "country": "China",
+    "processes": [
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://uniz.com"
+  },
+  {
+    "company": "Velo3D",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Veltz",
+    "country": "South Korea",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://veltz3d.com"
+  },
+  {
+    "company": "Virtual Smart Factory (VSF)",
+    "country": "Australia",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Concrete",
+      "Polymer"
+    ],
+    "website": "https://virtualsmartfactory.com"
+  },
+  {
+    "company": "VLM Robotics",
+    "country": "France",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://vlm-robotics.fr"
+  },
+  {
+    "company": "Wayland Additive",
+    "country": "The United Kingdom",
+    "processes": [
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://waylandadditive.com"
+  },
+  {
+    "company": "Wiiboox",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Winsun (Yingchuang)",
+    "country": "China",
+    "processes": [
+      "Material Extrusion"
+    ],
+    "materials": [
+      "Concrete"
+    ],
+    "website": "https://yhbm.com"
+  },
+  {
+    "company": "Wuhan Huake 3D",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "http://www.huake3d.com/en/index.asp"
+  },
+  {
+    "company": "Xact Metal",
+    "country": "United States",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "XDM",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://xdm3d.com/en"
+  },
+  {
+    "company": "Xi'an Sailong Metal",
+    "country": "China",
+    "processes": [
+      "PBF-EB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://www.sailongam.com"
+  },
+  {
+    "company": "XiAn Bright Laser Technologies Co Ltd (BLT)",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": null
+  },
+  {
+    "company": "Zhuhai Sailner 3D Technology Co., Ltd.",
+    "country": "China",
+    "processes": [
+      "Material Jetting"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://www.sailner.com/en/about"
+  },
+  {
+    "company": "Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)",
+      "Vat Photopolymerization"
+    ],
+    "materials": [
+      "Polymer"
+    ],
+    "website": "https://zongheng3d.com"
+  },
+  {
+    "company": "Ziknes",
+    "country": "Spain",
+    "processes": [
+      "Directed Energy Deposition"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://ziknes.com"
+  },
+  {
+    "company": "Zrapid Technologies",
+    "country": "China",
+    "processes": [
+      "PBF-LB (Metal)"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "website": "https://zero-tek.com/en"
+  }
+]

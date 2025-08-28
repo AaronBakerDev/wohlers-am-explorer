@@ -1,0 +1,2311 @@
+[
+  {
+    "Company name": "Sakuu",
+    "Segment": "System manufacturer",
+    "Material type": "Metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Sakuu",
+    "Segment": "System manufacturer",
+    "Material type": "Polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Sakuu",
+    "Segment": "System manufacturer",
+    "Material format": "powder",
+    "Material type": "ceramic",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3DEO",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "AMSKY Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material type": "sand",
+    "Country": "China"
+  },
+  {
+    "Company name": "AMSKY Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material type": "sand",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "ADDIMETAL",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "France"
+  },
+  {
+    "Company name": "3D Printing Technology, Inc. (3DPTEK)",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "3D Printing Technology, Inc. (3DPTEK)",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material format": "powder",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "3D Printing Technology, Inc. (3DPTEK)",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material format": "powder",
+    "Material type": "sand",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Country": "China"
+  },
+  {
+    "Company name": "Breuck T3D",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material format": "powder",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "3D-Hybrid",
+    "Segment": "System manufacturer",
+    "Process": "Cold spray",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "SPEE3D",
+    "Segment": "System manufacturer",
+    "Process": "cold spray",
+    "Country": "Australia"
+  },
+  {
+    "Company name": "3D-Hybrid",
+    "Segment": "System manufacturer",
+    "Process": "DED-arc",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "AML3D",
+    "Segment": "System manufacturer",
+    "Process": "DED-arc",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "Australia"
+  },
+  {
+    "Company name": "Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",
+    "Segment": "System manufacturer",
+    "Process": "DED-arc",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Addilan",
+    "Segment": "System manufacturer",
+    "Process": "DED-arc",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "One Off Robotics",
+    "Segment": "System manufacturer",
+    "Process": "DED-arc",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "pro-beam Group",
+    "Segment": "System manufacturer",
+    "Process": "DED-EB",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "3D-Hybrid",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3D-Hybrid",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Aachen United Technology (Tianjin) Co., Ltd. (Acunity)",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Aconity3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Avimetal AM Tech Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Country": "China"
+  },
+  {
+    "Company name": "Liburdi Automation Inc",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal"
+  },
+  {
+    "Company name": "Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Country": "China"
+  },
+  {
+    "Company name": "Romi",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Brazil"
+  },
+  {
+    "Company name": "ADDere",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "ADDICT3D",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "Sweden"
+  },
+  {
+    "Company name": "ADDiTEC",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "wire",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Avimetal AM Tech Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Nikon SLM Solutions",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "AMFREE",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "France"
+  },
+  {
+    "Company name": "Meltio3D",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "Additec",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "METROM Mechatronische Maschinen GmbH",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "OSCAR PLT GmbH",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "InssTek",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "South Korea"
+  },
+  {
+    "Company name": "AddUp",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "France"
+  },
+  {
+    "Company name": "ODeCon engineering GmbH",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Taiwan"
+  },
+  {
+    "Company name": "Prima Additive S.r.l.",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "DM3D Technology, LLC ",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal"
+  },
+  {
+    "Company name": "Aconity3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Nikon SLM Solutions",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Hwacheon",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "South Korea"
+  },
+  {
+    "Company name": "Evobeam GmbH",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Mazak",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "TRUMPF",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Okuma Europe",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "VLM Robotics",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "France"
+  },
+  {
+    "Company name": "Snowbird Tech",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "LUNOVU",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Bharat Fritz Werner Ltd. – BFW",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "India"
+  },
+  {
+    "Company name": "Nidec Machine Tool America",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "DMG Mori",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "Ponticon",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Ziknes",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "Mitsubishi Electric",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "Romi",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Brazil"
+  },
+  {
+    "Company name": "Mitsubishi Heavy Industries",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "Optomec",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Sugino",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "RPM Innovations",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Chiron Group",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "SOTIMECO",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal"
+  },
+  {
+    "Company name": "ADDere",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "INETYX",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "France"
+  },
+  {
+    "Company name": "Formalloy",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Philips Corporation",
+    "Segment": "System manufacturer",
+    "Process": "DED-LB",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Breuck T3D",
+    "Segment": "System manufacturer",
+    "Process": "FDM",
+    "Material format": "filament",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "Breuck T3D",
+    "Segment": "System manufacturer",
+    "Process": "FDM",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "1A Technologies",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "3D byFlow",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "food",
+    "Country": "The Netherlands"
+  },
+  {
+    "Company name": "3D Factories",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "3D Paradise",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "India"
+  },
+  {
+    "Company name": "3D Platform",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3D Systems Inc.",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3D Systems Inc.",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3D-Dream",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "3D-Dream",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "3D-Figo Gmbh",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "3DCeram Sinto",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "ceramic",
+    "Country": "France"
+  },
+  {
+    "Company name": "3DCPI-PRODYSOL",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "3Deometry Innovations LLP",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "India"
+  },
+  {
+    "Company name": "3DGence",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Poland"
+  },
+  {
+    "Company name": "3DKG",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellets",
+    "Material type": "polymer",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "3DPRN",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "3DSTUFFSNL",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "The Netherlands"
+  },
+  {
+    "Company name": "3ntr",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "Beijing Huitianwei Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Chimak",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Argentina"
+  },
+  {
+    "Company name": "FANUM Sp. z o.o. SP.k",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Poland"
+  },
+  {
+    "Company name": "Fused Form",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Colombia"
+  },
+  {
+    "Company name": "Fused Form",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Colombia"
+  },
+  {
+    "Company name": "KOKONI3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Mosaic Manufacturing Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Canada"
+  },
+  {
+    "Company name": "Sethi3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Brazil"
+  },
+  {
+    "Company name": "Trideo",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Argentina"
+  },
+  {
+    "Company name": "Trimaker",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Argentina"
+  },
+  {
+    "Company name": "Virtual Smart Factory (VSF)",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "slurry",
+    "Material type": "concrete",
+    "Country": "Australia"
+  },
+  {
+    "Company name": "Virtual Smart Factory (VSF)",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Australia"
+  },
+  {
+    "Company name": "ADDICT3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Sweden"
+  },
+  {
+    "Company name": "AddiFab",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "Additive Alliance",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Afinia 3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "AIM3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "AIM3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "AIM3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "ceramic",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Airwolf 3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Anisoprint 3D Printing Technology Limited Company",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "Singapore"
+  },
+  {
+    "Company name": "Winsun (Yingchuang)",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "paste",
+    "Material type": "concrete",
+    "Country": "China"
+  },
+  {
+    "Company name": "Henan Creatbot Technology Limited",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Shenzhen Adventure Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "liquid",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "Teccluster (Teccam)",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "Polymer",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "One Off Robotics",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Nanjing Weibu 3D Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer"
+  },
+  {
+    "Company name": "Piocreat",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "EPSON ATMIX Corporation",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellet",
+    "Material type": "polymer",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "3D Systems Inc.",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Material format": "liquid",
+    "Material type": "wax / polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3Deus Dynamics",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Material format": "liquid",
+    "Material type": "silicone",
+    "Country": "France"
+  },
+  {
+    "Company name": "ADDiTEC",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Material format": "liquid",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Advanced Solutions",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Material format": "liquid",
+    "Material type": "biomaterials",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Zhuhai Sailner 3D Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Material format": "liquid",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Regenovo",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Material type": "biomaterials",
+    "Country": "China"
+  },
+  {
+    "Company name": "Hubei Jiayi 3D Hi-Tech Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Material type": "biomaterials",
+    "Country": "China"
+  },
+  {
+    "Company name": "Xi'an Sailong Metal",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Xi'an Sailong Metal",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "QBEAM (QuickBeam)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Wayland Additive",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "The United Kingdom"
+  },
+  {
+    "Company name": "Colibrium Additive",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "JEOL",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "Freemelt",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Sweden"
+  },
+  {
+    "Company name": "ALD Vacuum Technologies GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "TADA Electric Co.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "pro-beam Group",
+    "Segment": "System manufacturer",
+    "Process": "PBF-EB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "2onelab GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "3D MicroPrint GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "3D Systems Inc.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3D Systems Inc.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3D4MEC",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "3DM Digital Manufacturing Ltd",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "polymer",
+    "Country": "Israel"
+  },
+  {
+    "Company name": "3DSLA.RU",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Russia"
+  },
+  {
+    "Company name": "Aconity3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Additive Industries b.v.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "The Netherlands"
+  },
+  {
+    "Company name": "Additive Manufacturing Customized Machines (AMCM)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "AddUp",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "France"
+  },
+  {
+    "Company name": "Alkimat",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "polymer",
+    "Country": "Brazil"
+  },
+  {
+    "Company name": "Alkimat",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Brazil"
+  },
+  {
+    "Company name": "AmPro Innovations",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Australia"
+  },
+  {
+    "Company name": "AMSKY Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Country": "China"
+  },
+  {
+    "Company name": "Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Country": "China"
+  },
+  {
+    "Company name": "Avimetal AM Tech Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material type": "wax",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material type": "sand",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Omnitek",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Brazil"
+  },
+  {
+    "Company name": "OpenAdditive",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal"
+  },
+  {
+    "Company name": "Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Country": "China"
+  },
+  {
+    "Company name": "AddiFab",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "polymer",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "Addizone",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Aditiv Solutions",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "South Africa"
+  },
+  {
+    "Company name": "3D Printing Technology, Inc. (3DPTEK)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "3D Printing Technology, Inc. (3DPTEK)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "3D Printing Technology, Inc. (3DPTEK)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "sand",
+    "Country": "China"
+  },
+  {
+    "Company name": "3D Printing Technology, Inc. (3DPTEK)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "wax",
+    "Country": "China"
+  },
+  {
+    "Company name": "Aixway3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Avimetal AM Tech Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Suzhou Tianhong Laser Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "AO Metal",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Xact Metal",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Nikon SLM Solutions",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Nanogrande Inc.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Canada"
+  },
+  {
+    "Company name": "Colibrium Additive",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3D MicroPrint GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Renishaw",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "The United Kingdom"
+  },
+  {
+    "Company name": "Velo3D",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "TRUMPF",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Eplus3D",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "FastForm Technology Co.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Teccluster (Teccam)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "Powder",
+    "Material type": "Polymer",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "Teccluster (Teccam)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "Powder",
+    "Material type": "Metal",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "Irpd AG",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Switzerland"
+  },
+  {
+    "Company name": "Farsoon",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "EOS",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "ALPHA LASER",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Aconity3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Prima Additive S.r.l.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "NPPower",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Slovenia"
+  },
+  {
+    "Company name": "XiAn Bright Laser Technologies Co Ltd (BLT)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "SamyLabs",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "InssTek",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "South Korea"
+  },
+  {
+    "Company name": "One Click Metal GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Sharebot SRL",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "Avimetal AM Tech Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Aurora Labs",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Australia"
+  },
+  {
+    "Company name": "amace",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "India"
+  },
+  {
+    "Company name": "LATEC",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Kurtz Ersa GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Evobeam GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Intech Additive Solutions",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "India"
+  },
+  {
+    "Company name": "Wiiboox",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Guangzhou Riton Additive Technology Co., Ltd",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "XDM",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Veltz",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "South Korea"
+  },
+  {
+    "Company name": "Rusatom Additive Technologies",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Russia"
+  },
+  {
+    "Company name": "Noura",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Iran"
+  },
+  {
+    "Company name": "DediBot",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "ProtoFab",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Kolibri Metals",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Profeta Intelligent Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Sun Metalon",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "SISMA S.p.A.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "Shenzhen Kings 3D Printing Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Additive Industries b.v.",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "The Netherlands"
+  },
+  {
+    "Company name": "Dentas",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Slovenia"
+  },
+  {
+    "Company name": "Additive Laser Technologies (ALT)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Ukraine"
+  },
+  {
+    "Company name": "2onelab GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Aixway3D GmbH",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Seurat",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Laseradd",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "3DLAM",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Russia"
+  },
+  {
+    "Company name": "Nanjing Chamlion Laser Technology Co",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Guangzhou Riton Additive Technology Co., Ltd",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Daegun Tech",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "South Korea"
+  },
+  {
+    "Company name": "Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Zrapid Technologies",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Laser Melting Innovations (LMI)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "3D Mectronic",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Wuhan Huake 3D",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "China"
+  },
+  {
+    "Company name": "Fonon Corporation",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Additive Solutions (AddSol)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Russia"
+  },
+  {
+    "Company name": "DMG Mori",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "Tytus3D",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Open Additive",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Sodick",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "Adira Addcreative",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Portugal"
+  },
+  {
+    "Company name": "Matsuura Machinery Corporation",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material format": "powder",
+    "Material type": "metal",
+    "Country": "Japan"
+  },
+  {
+    "Company name": "3D Controls Co.,Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "slurry",
+    "Material type": "ceramic",
+    "Country": "South Korea"
+  },
+  {
+    "Company name": "3D Paradise",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "India"
+  },
+  {
+    "Company name": "3D Systems Inc.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "3DCeram Sinto",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "slurry",
+    "Material type": "ceramic",
+    "Country": "France"
+  },
+  {
+    "Company name": "3DCPI-PRODYSOL",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "Beijing JCZ Technology Co., Ltd. (Ezcad)",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing Ten Dimensions Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "slurry",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "Beijing Ten Dimensions Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "paste",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "Chimak",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "Argentina"
+  },
+  {
+    "Company name": "Ackuretta Technologies",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "Taiwan"
+  },
+  {
+    "Company name": "AddiFab",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "Admatec",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "slurry",
+    "Material type": "ceramic",
+    "Country": "The Netherlands"
+  },
+  {
+    "Company name": "Admatec",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "slurry",
+    "Material type": "metal",
+    "Country": "The Netherlands"
+  },
+  {
+    "Company name": "Breuck T3D",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "slurry",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "Shenzhen Adventure Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "slurry",
+    "Material type": "ceramic",
+    "Country": "China"
+  },
+  {
+    "Company name": "Shenzhen PengJi Photoelectricity Co, Ltd",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Suzhou Pollypolymer New Materials Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.)",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "resin",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Teccluster (Teccam)",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "Resin",
+    "Material type": "Polymer",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "UNIZ Technology",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material format": "Resin",
+    "Material type": "Polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Nanjing Weibu 3D Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "polymer"
+  },
+  {
+    "Company name": "Adrayn (Chongqing Andrayyuan Technology Co., Ltd)",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Country": "China"
+  },
+  {
+    "Company name": "3D Labs",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Makertech 3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "The United Kingdom"
+  },
+  {
+    "Company name": "3DXTech",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Addcomposites",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "Finland"
+  },
+  {
+    "Company name": "Alchimies SAS",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "France"
+  },
+  {
+    "Company name": "Alloy Additive",
+    "Segment": "System manufacturer",
+    "Process": "DED-arc",
+    "Material type": "Metal",
+    "Country": "Turkey"
+  },
+  {
+    "Company name": "Alpha Additive",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "AMCM (Additive Manufacturing Customized Machines)",
+    "Segment": "System manufacturer",
+    "Process": "PBF-LB",
+    "Material type": "Metal",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Amnova Tech",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "Polymers"
+  },
+  {
+    "Company name": "AON",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "ceramic",
+    "Country": "South Korea"
+  },
+  {
+    "Company name": "AON3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "Canada"
+  },
+  {
+    "Company name": "Apium Additive Technologies",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "ARBURG GmbH + Co KG",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Asiga",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "polymer",
+    "Country": "Australia"
+  },
+  {
+    "Company name": "ATLANT 3D Nanosystems",
+    "Segment": "System manufacturer",
+    "Process": "MJT",
+    "Country": "Denmark"
+  },
+  {
+    "Company name": "ATMAT",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "Poland"
+  },
+  {
+    "Company name": "atum3D B.V",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "polymer",
+    "Country": "The Netherlands"
+  },
+  {
+    "Company name": "Axolotl Biosciences",
+    "Segment": "System manufacturer",
+    "Material type": "Bio/Organics",
+    "Country": "Canada"
+  },
+  {
+    "Company name": "Axtra3D Inc.",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Azul3D",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "polymer"
+  },
+  {
+    "Company name": "B-jetting",
+    "Segment": "System manufacturer",
+    "Process": "BJT",
+    "Material type": "all",
+    "Country": "United States"
+  },
+  {
+    "Company name": "B9Creations",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "polymer",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Bambu Lab",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "BCN3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "Polymer",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "BCN3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "Metals",
+    "Country": "Spain"
+  },
+  {
+    "Company name": "BEGO",
+    "Segment": "System manufacturer",
+    "Process": "VPP",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Beijing Tiertime Technology Co., Ltd.",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "China"
+  },
+  {
+    "Company name": "Belotti",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "pellets",
+    "Material type": "polymer",
+    "Country": "Italy"
+  },
+  {
+    "Company name": "BetAbram",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "concrete",
+    "Country": "Slovenia"
+  },
+  {
+    "Company name": "BigRep",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material type": "polymer",
+    "Country": "Germany"
+  },
+  {
+    "Company name": "Black Buffalo 3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "paste",
+    "Material type": "ceramic",
+    "Country": "United States"
+  },
+  {
+    "Company name": "Black Buffalo 3D",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "paste",
+    "Material type": "concrete",
+    "Country": "United States"
+  },
+  {
+    "Company name": "BlackBelt",
+    "Segment": "System manufacturer",
+    "Process": "MEX",
+    "Material format": "filament",
+    "Material type": "Polymers",
+    "Country": "The Netherlands"
+  }
+]

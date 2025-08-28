@@ -1,0 +1,981 @@
+[
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Armenia",
+    "Segment": "Software",
+    "__EMPTY_2": "- pie chart of 2024 AM market revenue \r\n- filters: segment, country"
+  },
+  {
+    " Revenue (USD) ": 24727272.727272727,
+    "Country": "Australia",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Austria",
+    "Segment": "Software",
+    "__EMPTY_1": "Filters",
+    "__EMPTY_2": "Segment",
+    "__EMPTY_3": "Country",
+    "__EMPTY_4": "Region"
+  },
+  {
+    " Revenue (USD) ": 24727272.727272727,
+    "Country": "Belgium",
+    "Segment": "Software",
+    "__EMPTY_2": "Material sales",
+    "__EMPTY_3": "Albania",
+    "__EMPTY_4": "APAC"
+  },
+  {
+    " Revenue (USD) ": 68000000,
+    "Country": "Canada",
+    "Segment": "Software",
+    "__EMPTY_2": "Printers sales and servicing",
+    "__EMPTY_3": "Belarus",
+    "__EMPTY_4": "EMEA"
+  },
+  {
+    " Revenue (USD) ": 24727272.727272727,
+    "Country": "China",
+    "Segment": "Software",
+    "__EMPTY_2": "Printing services",
+    "__EMPTY_3": "…"
+  },
+  {
+    " Revenue (USD) ": 12363636.363636363,
+    "Country": "Denmark",
+    "Segment": "Software",
+    "__EMPTY_2": "Software sales"
+  },
+  {
+    " Revenue (USD) ": 18545454.545454547,
+    "Country": "Finland",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 49454545.45454545,
+    "Country": "France",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 160727272.72727272,
+    "Country": "Germany",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 24727272.727272727,
+    "Country": "Hungary",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Iceland",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 18545454.545454547,
+    "Country": "India",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Ireland",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 18545454.545454547,
+    "Country": "Israel",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 49454545.45454545,
+    "Country": "Italy",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Kuwait",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Latvia",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 12363636.363636363,
+    "Country": "Luxemburg",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Portugal",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Romania",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 12363636.363636363,
+    "Country": "Russia",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Singapore",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "South Africa",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "South Korea",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 30909090.90909091,
+    "Country": "Spain",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 12363636.363636363,
+    "Country": "Sweden",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 18545454.545454547,
+    "Country": "Switzerland",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Thailand",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "The Czech Republic",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 43272727.27272727,
+    "Country": "The Netherlands",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 123636363.63636364,
+    "Country": "The United Kingdom",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 525454545.45454544,
+    "Country": "United States",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6181818.181818182,
+    "Country": "Uruguay",
+    "Segment": "Software"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Angola",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 26279022.62443439,
+    "Country": "Argentina",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 341627294.11764705,
+    "Country": "Australia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 124825357.46606335,
+    "Country": "Austria",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Belarus",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 124825357.46606335,
+    "Country": "Belgium",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 26279022.62443439,
+    "Country": "Brazil",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 19709266.96832579,
+    "Country": "Bulgaria",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 282499493.2126697,
+    "Country": "Canada",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 19709266.96832579,
+    "Country": "Chile",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 446743384.61538464,
+    "Country": "China",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Colombia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Croatia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Curacao",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Cyprus",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 72267312.21719457,
+    "Country": "Denmark",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Egypt",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Estonia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 98546334.84162895,
+    "Country": "Finland",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 341627294.11764705,
+    "Country": "France",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 1084009683.2579186,
+    "Country": "Germany",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 59127800.904977374,
+    "Country": "Greece",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Guatemala",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 39418533.93665158,
+    "Country": "Hungary",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 499301429.8642534,
+    "Country": "India",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Indonesia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Iran",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 26279022.62443439,
+    "Country": "Ireland",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 65697556.56108597,
+    "Country": "Israel",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 564998986.4253393,
+    "Country": "Italy",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 144534624.43438914,
+    "Country": "Japan",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Jordan﻿",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Kosovo",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Kuwait",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Latvia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 26279022.62443439,
+    "Country": "Lithuania",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Luxemburg",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 19709266.96832579,
+    "Country": "Malaysia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 65697556.56108597,
+    "Country": "Mexico",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 72267312.21719457,
+    "Country": "New Zealand",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Nigeria",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 26279022.62443439,
+    "Country": "Norway",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 26279022.62443439,
+    "Country": "Poland",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 26279022.62443439,
+    "Country": "Portugal",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Romania",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 78837067.87330316,
+    "Country": "Russia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Saudi Arabia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Serbia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 124825357.46606335,
+    "Country": "Singapore",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Slovakia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 19709266.96832579,
+    "Country": "Slovenia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 72267312.21719457,
+    "Country": "South Africa",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 45988289.59276018,
+    "Country": "South Korea",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 210232180.9954751,
+    "Country": "Spain",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 65697556.56108597,
+    "Country": "Sweden",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 243080959.2760181,
+    "Country": "Switzerland",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Taiwan",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 32848778.280542985,
+    "Country": "Thailand",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 59127800.904977374,
+    "Country": "The Czech Republic",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 367906316.74208146,
+    "Country": "The Netherlands",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 972323837.1040725,
+    "Country": "The United Kingdom",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "The United States",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "Tunisia",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 32848778.280542985,
+    "Country": "Turkey",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 19709266.96832579,
+    "Country": "Ukraine",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 183953158.37104073,
+    "Country": "United Arab Emirates",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 6569755.656108597,
+    "Country": "United Kingdom",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 2719878841.628959,
+    "Country": "United States",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 13139511.312217195,
+    "Country": "Vietnam",
+    "Segment": "Printing service provider"
+  },
+  {
+    " Revenue (USD) ": 24668672.324585635,
+    "Country": "Argentina",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 74006016.97375691,
+    "Country": "Australia",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 115120470.8480663,
+    "Country": "Austria",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 57560235.42403315,
+    "Country": "Belgium",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 41114453.87430939,
+    "Country": "Brazil",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "Bulgaria",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 82228907.74861878,
+    "Country": "Canada",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 929186657.5593922,
+    "Country": "China",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "Colombia",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "Cyprus",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 49337344.64917127,
+    "Country": "Denmark",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 24668672.324585635,
+    "Country": "Finland",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 180903597.04696134,
+    "Country": "France",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 731837278.9627072,
+    "Country": "Germany",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 16445781.549723757,
+    "Country": "Hungary",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 115120470.8480663,
+    "Country": "India",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "Iran",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 16445781.549723757,
+    "Country": "Ireland",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 90451798.52348067,
+    "Country": "Israel",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 320692740.21961325,
+    "Country": "Italy",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 164457815.49723756,
+    "Country": "Japan",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "Latvia",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "New Zealand",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 16445781.549723757,
+    "Country": "Norway",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "Oman",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 123343361.62292817,
+    "Country": "Poland",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 8222890.774861879,
+    "Country": "Portugal",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 106897580.07320441,
+    "Country": "Russia",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 16445781.549723757,
+    "Country": "Singapore",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 16445781.549723757,
+    "Country": "Slovenia",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 24668672.324585635,
+    "Country": "South Africa",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 197349378.59668508,
+    "Country": "South Korea",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 139789143.17265195,
+    "Country": "Spain",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 57560235.42403315,
+    "Country": "Sweden",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 82228907.74861878,
+    "Country": "Switzerland",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 49337344.64917127,
+    "Country": "Taiwan",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 32891563.099447515,
+    "Country": "The Czech Republic",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 279578286.3453039,
+    "Country": "The Netherlands",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 213795160.14640883,
+    "Country": "The United Kingdom",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 57560235.42403315,
+    "Country": "Turkey",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 24668672.324585635,
+    "Country": "Ukraine",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 16445781.549723757,
+    "Country": "United Arab Emirates",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 1397891431.7265193,
+    "Country": "United States",
+    "Segment": "System manufacturer"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Angola",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 20274747.87037037,
+    "Country": "Argentina",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 67582492.90123457,
+    "Country": "Australia",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 67582492.90123457,
+    "Country": "Austria",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 33791246.45061728,
+    "Country": "Belgium",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 54065994.32098766,
+    "Country": "Brazil",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Bulgaria",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 108131988.64197531,
+    "Country": "Canada",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 20274747.87037037,
+    "Country": "Chile",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 405494957.4074074,
+    "Country": "China",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Croatia",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Denmark",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 13516498.580246914,
+    "Country": "Estonia",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 20274747.87037037,
+    "Country": "Finland",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 216263977.28395063,
+    "Country": "France",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 533901693.9197531,
+    "Country": "Germany",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Hungary",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 40549495.74074074,
+    "Country": "India",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Ireland",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 67582492.90123457,
+    "Country": "Israel",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 243296974.44444445,
+    "Country": "Italy",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 108131988.64197531,
+    "Country": "Japan",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Lithuania",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Luxemburg",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 13516498.580246914,
+    "Country": "Mexico",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Norway",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 94615490.06172839,
+    "Country": "Poland",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 27032997.16049383,
+    "Country": "Portugal",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 13516498.580246914,
+    "Country": "Romania",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 33791246.45061728,
+    "Country": "Russia",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Saudi Arabia",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 27032997.16049383,
+    "Country": "Singapore",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 13516498.580246914,
+    "Country": "Slovenia",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 13516498.580246914,
+    "Country": "South Africa",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 40549495.74074074,
+    "Country": "South Korea",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 148681484.38271606,
+    "Country": "Spain",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 114890237.93209876,
+    "Country": "Sweden",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 101373739.35185185,
+    "Country": "Switzerland",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 40549495.74074074,
+    "Country": "Taiwan",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Thailand",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 20274747.87037037,
+    "Country": "The Czech Republic",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 155439733.6728395,
+    "Country": "The Netherlands",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 344670713.7962963,
+    "Country": "The United Kingdom",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "Tunisia",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 20274747.87037037,
+    "Country": "Turkey",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 6758249.290123457,
+    "Country": "United Arab Emirates",
+    "Segment": "Material provider"
+  },
+  {
+    " Revenue (USD) ": 1047528639.9691358,
+    "Country": "United States",
+    "Segment": "Material provider"
+  }
+]
