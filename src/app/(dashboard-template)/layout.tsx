@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { ThemeSwitcher } from '@/components/theme-switcher'
@@ -11,7 +11,6 @@ import {
   ChevronLeft,
   ChevronRight,
   FileText,
-  Target,
   Building2,
   TrendingUp,
   Calendar,

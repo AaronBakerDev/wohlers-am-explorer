@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import dynamic from 'next/dynamic'
+import NextDynamic from 'next/dynamic'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { 
@@ -15,32 +15,31 @@ import {
   Database,
   Users,
   Globe,
-  RefreshCw,
-  BarChart3
+  RefreshCw
 } from "lucide-react"
 
 // Lazily load heavy tab content to reduce initial JS bundle
-const MapExplorerContent = dynamic(() => import('@/components/map-explorer-content'), {
+const MapExplorerContent = NextDynamic(() => import('@/components/map-explorer-content'), {
   ssr: false,
 })
-const DataTableContent = dynamic(() => import('@/components/data-table-content'), {
+const DataTableContent = NextDynamic(() => import('@/components/data-table-content'), {
   ssr: false,
 })
-const DirectoryContent = dynamic(() => import('@/components/directory-content'), {
+const DirectoryContent = NextDynamic(() => import('@/components/directory-content'), {
   ssr: false,
 })
-const SystemManufacturersMatrix = dynamic(() => import('@/components/system-manufacturers-matrix'), {
+const SystemManufacturersMatrix = NextDynamic(() => import('@/components/system-manufacturers-matrix'), {
   ssr: false,
 })
-const AMSystemsManufacturersContent = dynamic(() => import('@/components/am-systems-manufacturers-content'), {
+const AMSystemsManufacturersContent = NextDynamic(() => import('@/components/am-systems-manufacturers-content'), {
   ssr: false,
 })
-const PrintServicesGlobalContent = dynamic(() => import('@/components/print-services-global-content'), {
+const PrintServicesGlobalContent = NextDynamic(() => import('@/components/print-services-global-content'), {
   ssr: false,
 })
 // Feature flag: hide Saved Searches unless explicitly enabled
 import { ENABLE_SAVED_SEARCHES } from '@/lib/flags'
-const SavedSearches = dynamic(() => import('@/components/SavedSearches'), {
+const SavedSearches = NextDynamic(() => import('@/components/SavedSearches'), {
   ssr: false,
 })
 

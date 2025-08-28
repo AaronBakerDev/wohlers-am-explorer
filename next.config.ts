@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    // Reduce bundle parse cost for large libs by modularizing imports
-    optimizePackageImports: ["lucide-react"],
+    // Keep defaults; avoid aggressive package import optimization that can break ESM interop
+    // optimizePackageImports removed due to runtime issues in production bundles
   },
   
   // Force dynamic rendering to avoid prerendering issues
