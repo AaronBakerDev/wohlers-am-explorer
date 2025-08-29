@@ -6,15 +6,12 @@ export async function GET(
 ) {
   try {
     const { dataset } = await params
-    const vendorUrl = new URL(request.url)
-    vendorUrl.pathname = `/api/vendor-data/${dataset}`
-
-    // Directly proxy to vendor-data (Supabase-only)
-    const vendorResponse = await fetch(vendorUrl.toString())
-
-    // Pass through status codes and JSON body
-    const body = await vendorResponse.json().catch(() => ({ error: 'Invalid response from vendor-data route' }))
-    return NextResponse.json(body, { status: vendorResponse.status })
+    
+    // Import the vendor-data handler directly instead of making an HTTP call
+    const { GET: vendorDataHandler } = await import('../vendor-data/[dataset]/route')
+    
+    // Call the vendor-data handler directly with the same request and params
+    return await vendorDataHandler(request, { params })
   } catch (error) {
     console.error('Error loading market data:', error)
     return NextResponse.json(
