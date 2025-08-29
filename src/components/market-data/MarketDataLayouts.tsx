@@ -1904,7 +1904,7 @@ export function GenericTableLayout({ data, dataset }: MarketDataLayoutProps) {
       out = out.filter(r => r.some(c => c?.toString().toLowerCase().includes(q)))
     }
     return out
-  }, [rows, selectedName, selectedSegment, searchTerm, nameIdx, segmentIdx])
+  }, [rows, selectedName, selectedSegment, searchTerm, map.nameIdx, map.segmentIdx])
 
   // Sorting
   const [sortColumn, setSortColumn] = useState<number | null>(null)
