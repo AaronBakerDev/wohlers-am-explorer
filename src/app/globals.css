@@ -243,3 +243,34 @@
   background: var(--muted-foreground);
   width: 6px;
 }
+
+/* Fix z-index issues with Leaflet maps and dropdown menus */
+/* Leaflet controls have z-index 1000, so we need higher values for UI elements */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
+
+/* Dropdown menu content */
+[role="menu"],
+[role="dialog"],
+.radix-dropdown-menu-content,
+.dropdown-menu-content {
+  z-index: 9999 !important;
+}
+
+/* Tooltip and popover content */
+[data-radix-tooltip-content],
+[data-radix-popover-content] {
+  z-index: 9999 !important;
+}
+
+/* Select and combobox dropdowns */
+[data-radix-select-content],
+[role="listbox"] {
+  z-index: 9999 !important;
+}
+
+/* Ensure map container allows other elements to overlay */
+.leaflet-container {
+  position: relative !important;
+}
