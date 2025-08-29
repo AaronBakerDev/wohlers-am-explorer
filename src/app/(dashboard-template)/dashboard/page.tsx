@@ -25,10 +25,6 @@ const MapExplorerContent = NextDynamic(() => import('@/components/map-explorer-c
   ssr: false,
   loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
 })
-const DataTableContent = NextDynamic(() => import('@/components/data-table-content'), {
-  ssr: false,
-  loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>
-})
 const DirectoryContent = NextDynamic(() => import('@/components/directory-content'), {
   ssr: false,
   loading: () => <div className="h-96 flex items-center justify-center"><RefreshCw className="h-6 w-6 animate-spin" /></div>

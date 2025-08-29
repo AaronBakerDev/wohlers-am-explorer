@@ -43,20 +43,20 @@
 - link "Profile":
   - /url: /account/profile
   - button "Profile"
-- heading "Global Printing Services" [level=1]
+- heading "AM Systems Manufacturers" [level=1]
 - paragraph: Comprehensive database and analysis
-- text: v1.3.0 SUPABASE
+- text: v1.5.0 SUPABASE
 - button "Refresh Data"
 - link "Overview":
-  - /url: /dashboard?dataset=print-services-global&view=overview
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=overview
 - link "Map View":
-  - /url: /dashboard?dataset=print-services-global&view=map
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=map
 - link "Data Table":
-  - /url: /dashboard?dataset=print-services-global&view=table
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=table
 - link "Analytics":
-  - /url: /dashboard?dataset=print-services-global&view=analytics
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=analytics
 - heading "Report Description" [level=2]
-- paragraph: Global directory of additive manufacturing print service providers and bureaus. This comprehensive database covers service capabilities, materials offered, geographic reach, and pricing models across the worldwide AM services market.
+- paragraph: Comprehensive directory of additive manufacturing systems and equipment manufacturers worldwide. This dataset includes detailed information about production systems, technology capabilities, and manufacturing specifications.
 - heading "Dataset Information" [level=2]
 - text: COMPANIES 0 Total entries COVERAGE Global coverage Geographic reach DATA POINTS 800+ data points per company Per company LAST UPDATED August 27, 2024 Data freshness
 - heading "About This Report" [level=3]
@@ -76,7 +76,7 @@
   - listitem: • Regular updates and fact-checking
   - listitem: • Geographic coordinate validation
   - listitem: • Technology classification review
-- alert: Wohlers AM Market Explorer
+- alert
 - button "Open Next.js Dev Tools":
   - img
 ```

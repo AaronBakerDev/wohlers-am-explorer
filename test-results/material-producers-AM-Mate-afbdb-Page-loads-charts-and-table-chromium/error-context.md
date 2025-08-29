@@ -1,0 +1,52 @@
+# Page snapshot
+
+```yaml
+- img "Wohlers ASTM Logo"
+- button
+- paragraph: Your Gateway to the AM Industry's Most Trusted Market Intelligence
+- heading "Wohlers Report" [level=3]
+- text: Wohlers Report 2024 Available
+- paragraph: Annual industry analysis
+- text: Wohlers Report 2023 Available
+- paragraph: Annual industry analysis
+- button "Upcoming (2)"
+- heading "Company Data" [level=3]
+- link "AM Systems Manufacturers":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=overview
+- link "Global Printing Services":
+  - /url: /dashboard?dataset=print-services-global&view=overview
+- button "Coming Soon (7)"
+- heading "Market Data" [level=3]
+- link "AM Market Revenue 2024":
+  - /url: /market-data/am-market-revenue-2024
+- text: 193 records
+- link "Fundings & Investments":
+  - /url: /market-data/fundings-investments
+- text: 413 investments
+- link "Mergers & Acquisitions":
+  - /url: /market-data/mergers-acquisitions
+- text: 32 deals
+- link "Print Services Pricing":
+  - /url: /market-data/print-services-pricing
+- text: 1,724 quotes
+- link "Revenue by Industry 2024":
+  - /url: /market-data/revenue-by-industry-2024
+- text: 48 industries
+- link "Total AM Market Size":
+  - /url: /market-data/total-am-market-size
+- text: 205 metrics
+- button "Dark mode"
+- link "Admin":
+  - /url: /admin
+  - button "Admin"
+- button "Settings"
+- link "Profile":
+  - /url: /account/profile
+  - button "Profile"
+- text: ⚠️
+- paragraph: Failed to fetch summary
+- button "Retry"
+- alert: Wohlers AM Market Explorer
+- button "Open Next.js Dev Tools":
+  - img
+```

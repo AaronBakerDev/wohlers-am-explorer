@@ -1,0 +1,259 @@
+# Page snapshot
+
+```yaml
+- img "Wohlers ASTM Logo"
+- button
+- paragraph: Your Gateway to the AM Industry's Most Trusted Market Intelligence
+- heading "Wohlers Report" [level=3]
+- text: Wohlers Report 2024 Available
+- paragraph: Annual industry analysis
+- text: Wohlers Report 2023 Available
+- paragraph: Annual industry analysis
+- button "Upcoming (2)"
+- heading "Company Data" [level=3]
+- link "AM Systems Manufacturers":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=overview
+- link "Global Printing Services":
+  - /url: /dashboard?dataset=print-services-global&view=overview
+- button "Coming Soon (7)"
+- heading "Market Data" [level=3]
+- link "AM Market Revenue 2024":
+  - /url: /market-data/am-market-revenue-2024
+- text: 193 records
+- link "Fundings & Investments":
+  - /url: /market-data/fundings-investments
+- text: 413 investments
+- link "Mergers & Acquisitions":
+  - /url: /market-data/mergers-acquisitions
+- text: 32 deals
+- link "Print Services Pricing":
+  - /url: /market-data/print-services-pricing
+- text: 1,724 quotes
+- link "Revenue by Industry 2024":
+  - /url: /market-data/revenue-by-industry-2024
+- text: 48 industries
+- link "Total AM Market Size":
+  - /url: /market-data/total-am-market-size
+- text: 205 metrics
+- button "Dark mode"
+- link "Admin":
+  - /url: /admin
+  - button "Admin"
+- button "Settings"
+- link "Profile":
+  - /url: /account/profile
+  - button "Profile"
+- heading "Quotes Benchmark" [level=1]
+- paragraph: Compare and analyze pricing
+- button "Export CSV"
+- button "Export JSON"
+- heading "Quotes Benchmark" [level=2]
+- button "CSV"
+- button "JSON"
+- text: "Total Quotes 2,068 (filtered: 1000) Average Price $31 Price Range $5 - $52 Median Price $32 Avg Lead Time 16d"
+- combobox: All Processes
+- combobox: All Materials
+- combobox: All Quantities
+- combobox: All Countries
+- tablist:
+  - tab "Table" [selected]
+  - tab "Scatter"
+  - tab "Comparison"
+- text: Price Quotes Comparison Detailed pricing from service providers
+- table:
+  - rowgroup:
+    - row "Company Location Process Material Quantity Price (USD) Per Unit Lead Time":
+      - cell "Company"
+      - cell "Location"
+      - cell "Process"
+      - cell "Material"
+      - cell "Quantity"
+      - cell "Price (USD)"
+      - cell "Per Unit"
+      - cell "Lead Time"
+  - rowgroup:
+    - row "3D Creative Unknown Lithuania MEX Polymer PETG 1 $5.24 $5.24 29 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$5.24"
+      - cell "$5.24"
+      - cell "29 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PETG 1 $5.24 $5.24 29 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$5.24"
+      - cell "$5.24"
+      - cell "29 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PETG 1 $5.24 $5.24 29 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$5.24"
+      - cell "$5.24"
+      - cell "29 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PLA 1 $5.26 $5.26 29 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PLA"
+      - cell "1"
+      - cell "$5.26"
+      - cell "$5.26"
+      - cell "29 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PLA 1 $5.26 $5.26 29 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PLA"
+      - cell "1"
+      - cell "$5.26"
+      - cell "$5.26"
+      - cell "29 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PLA 1 $5.26 $5.26 29 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PLA"
+      - cell "1"
+      - cell "$5.26"
+      - cell "$5.26"
+      - cell "29 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PLA 1 $5.61 $5.61 27 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PLA"
+      - cell "1"
+      - cell "$5.61"
+      - cell "$5.61"
+      - cell "27 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PETG 1 $5.61 $5.61 27 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$5.61"
+      - cell "$5.61"
+      - cell "27 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PLA 1 $5.61 $5.61 27 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PLA"
+      - cell "1"
+      - cell "$5.61"
+      - cell "$5.61"
+      - cell "27 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PETG 1 $5.61 $5.61 27 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$5.61"
+      - cell "$5.61"
+      - cell "27 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PLA 1 $5.61 $5.61 27 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PLA"
+      - cell "1"
+      - cell "$5.61"
+      - cell "$5.61"
+      - cell "27 days"
+    - row "3D Creative Unknown Lithuania MEX Polymer PETG 1 $5.61 $5.61 27 days":
+      - cell "3D Creative"
+      - cell "Unknown Lithuania"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$5.61"
+      - cell "$5.61"
+      - cell "27 days"
+    - row "M Aerospace RTC INC2557 Unknown Unknown VPP Polymer Standard Resin 1 $6.44 $6.44 28 days":
+      - cell "M Aerospace RTC INC2557"
+      - cell "Unknown Unknown"
+      - cell "VPP"
+      - cell "Polymer Standard Resin"
+      - cell "1"
+      - cell "$6.44"
+      - cell "$6.44"
+      - cell "28 days"
+    - row "3DBonum Unknown United States MEX Polymer ABS 1 $6.79 $6.79 14 days":
+      - cell "3DBonum"
+      - cell "Unknown United States"
+      - cell "MEX"
+      - cell "Polymer ABS"
+      - cell "1"
+      - cell "$6.79"
+      - cell "$6.79"
+      - cell "14 days"
+    - row "3DBonum Unknown United States MEX Polymer ABS 1 $6.79 $6.79 14 days":
+      - cell "3DBonum"
+      - cell "Unknown United States"
+      - cell "MEX"
+      - cell "Polymer ABS"
+      - cell "1"
+      - cell "$6.79"
+      - cell "$6.79"
+      - cell "14 days"
+    - row "3DBonum Unknown United States MEX Polymer PETG 1 $6.84 $6.84 14 days":
+      - cell "3DBonum"
+      - cell "Unknown United States"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$6.84"
+      - cell "$6.84"
+      - cell "14 days"
+    - row "3DBonum Unknown United States MEX Polymer PETG 1 $6.84 $6.84 14 days":
+      - cell "3DBonum"
+      - cell "Unknown United States"
+      - cell "MEX"
+      - cell "Polymer PETG"
+      - cell "1"
+      - cell "$6.84"
+      - cell "$6.84"
+      - cell "14 days"
+    - row "ZELTA 3D Unknown Singapore PBF-IR Polymer PA12 1 $8.11 $8.11 17 days":
+      - cell "ZELTA 3D"
+      - cell "Unknown Singapore"
+      - cell "PBF-IR"
+      - cell "Polymer PA12"
+      - cell "1"
+      - cell "$8.11"
+      - cell "$8.11"
+      - cell "17 days"
+    - row "ZELTA 3D Unknown Singapore PBF-IR Polymer PA12 1 $8.11 $8.11 17 days":
+      - cell "ZELTA 3D"
+      - cell "Unknown Singapore"
+      - cell "PBF-IR"
+      - cell "Polymer PA12"
+      - cell "1"
+      - cell "$8.11"
+      - cell "$8.11"
+      - cell "17 days"
+    - row "ZELTA 3D Unknown Singapore PBF-LB Polymer PA12 1 $8.52 $8.52 17 days":
+      - cell "ZELTA 3D"
+      - cell "Unknown Singapore"
+      - cell "PBF-LB"
+      - cell "Polymer PA12"
+      - cell "1"
+      - cell "$8.52"
+      - cell "$8.52"
+      - cell "17 days"
+- text: Showing 20 of 1000 quotes. Export to see all.
+- alert: Wohlers AM Market Explorer
+- button "Open Next.js Dev Tools":
+  - img
+```

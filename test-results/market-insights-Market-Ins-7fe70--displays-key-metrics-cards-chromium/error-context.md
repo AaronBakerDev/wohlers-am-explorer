@@ -1,0 +1,77 @@
+# Page snapshot
+
+```yaml
+- img "Wohlers ASTM Logo"
+- button
+- paragraph: Your Gateway to the AM Industry's Most Trusted Market Intelligence
+- heading "Wohlers Report" [level=3]
+- text: Wohlers Report 2024 Available
+- paragraph: Annual industry analysis
+- text: Wohlers Report 2023 Available
+- paragraph: Annual industry analysis
+- button "Upcoming (2)"
+- heading "Company Data" [level=3]
+- link "AM Systems Manufacturers":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=overview
+- link "Global Printing Services":
+  - /url: /dashboard?dataset=print-services-global&view=overview
+- button "Coming Soon (7)"
+- heading "Market Data" [level=3]
+- link "AM Market Revenue 2024":
+  - /url: /market-data/am-market-revenue-2024
+- text: 193 records
+- link "Fundings & Investments":
+  - /url: /market-data/fundings-investments
+- text: 413 investments
+- link "Mergers & Acquisitions":
+  - /url: /market-data/mergers-acquisitions
+- text: 32 deals
+- link "Print Services Pricing":
+  - /url: /market-data/print-services-pricing
+- text: 1,724 quotes
+- link "Revenue by Industry 2024":
+  - /url: /market-data/revenue-by-industry-2024
+- text: 48 industries
+- link "Total AM Market Size":
+  - /url: /market-data/total-am-market-size
+- text: 205 metrics
+- link "Admin":
+  - /url: /admin
+  - button "Admin"
+- button "Settings"
+- link "Profile":
+  - /url: /account/profile
+  - button "Profile"
+- heading "Market Insights" [level=1]
+- paragraph: Comprehensive market analysis
+- button "Export CSV"
+- button "Export JSON"
+- heading "Market Insights" [level=2]
+- button "CSV"
+- button "JSON"
+- text: Total Market Size
+- paragraph: "2025"
+- text: YoY Growth
+- paragraph: vs 2024
+- text: CAGR (2020-2025) Top Segment
+- combobox
+- combobox
+- tablist:
+  - tab "Stacked Bar" [selected]
+  - tab "Line Chart"
+- text: AM Market Revenue Report 2024 Comprehensive analysis of additive manufacturing market performance and key industry metrics
+- heading "Key Findings" [level=4]
+- text: Global Market Size Year-over-Year Growth Leading Segment
+- heading "Market Highlights" [level=4]
+- text: Strong Growth Trajectory Growth data pending demonstrates sustained market expansion Geographic Diversification 0 countries contributing to market growth Technology Advancement 0 distinct market segments driving innovation
+- heading "Top Markets" [level=4]
+- heading "Industry Outlook" [level=5]
+- paragraph: The additive manufacturing market in 2024 shows positive momentum with developing market fundamentals. supported by technological advances and expanding global adoption across industries.
+- text: Market Size by Segment (2020-2030) Forecast in USD millions
+- button "Export PNG" [disabled]
+- text: Top Countries by Market Size 2025 market distribution Market by Segment 2025 segment breakdown
+- button "Export PNG" [disabled]
+- alert
+- button "Open Next.js Dev Tools":
+  - img
+```

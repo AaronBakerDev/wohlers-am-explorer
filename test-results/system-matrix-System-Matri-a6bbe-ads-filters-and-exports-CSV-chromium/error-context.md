@@ -1,0 +1,1589 @@
+# Page snapshot
+
+```yaml
+- img "Wohlers ASTM Logo"
+- button
+- paragraph: Your Gateway to the AM Industry's Most Trusted Market Intelligence
+- heading "Wohlers Report" [level=3]
+- text: Wohlers Report 2024 Available
+- paragraph: Annual industry analysis
+- text: Wohlers Report 2023 Available
+- paragraph: Annual industry analysis
+- button "Upcoming (2)"
+- heading "Company Data" [level=3]
+- link "AM Systems Manufacturers":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=overview
+- link "Global Printing Services":
+  - /url: /dashboard?dataset=print-services-global&view=overview
+- button "Coming Soon (7)"
+- heading "Market Data" [level=3]
+- link "AM Market Revenue 2024":
+  - /url: /market-data/am-market-revenue-2024
+- text: 193 records
+- link "Fundings & Investments":
+  - /url: /market-data/fundings-investments
+- text: 413 investments
+- link "Mergers & Acquisitions":
+  - /url: /market-data/mergers-acquisitions
+- text: 32 deals
+- link "Print Services Pricing":
+  - /url: /market-data/print-services-pricing
+- text: 1,724 quotes
+- link "Revenue by Industry 2024":
+  - /url: /market-data/revenue-by-industry-2024
+- text: 48 industries
+- link "Total AM Market Size":
+  - /url: /market-data/total-am-market-size
+- text: 205 metrics
+- button "Dark mode"
+- link "Admin":
+  - /url: /admin
+  - button "Admin"
+- button "Settings"
+- link "Profile":
+  - /url: /account/profile
+  - button "Profile"
+- heading "AM Systems Manufacturers" [level=1]
+- paragraph: Comprehensive database and analysis
+- text: v1.5.0 SUPABASE
+- button "Refresh Data"
+- link "Overview":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=overview
+- link "Map View":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=map
+- link "Data Table":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=table
+- link "Analytics":
+  - /url: /dashboard?dataset=am-systems-manufacturers&view=analytics
+- textbox "Search companies or countries…"
+- text: 220 companies
+- button "Columns"
+- button "Export 220"
+- button "Country (All)"
+- button "Process (All)"
+- button "Material (All)"
+- text: MANUFACTURERS 220 COUNTRIES 32 PROCESS TYPES 9 MATERIAL CATEGORIES 7
+- table:
+  - rowgroup:
+    - row "Country Company Types of AM Processes Material Link":
+      - cell "Country"
+      - cell "Company"
+      - cell "Types of AM Processes"
+      - cell "Material"
+      - cell "Link"
+  - rowgroup:
+    - row "Germany 1A Technologies Material Extrusion Polymer Open 1A Technologies website":
+      - cell "Germany"
+      - cell "1A Technologies"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 1A Technologies website":
+        - button "Open 1A Technologies website"
+    - row "Germany 2onelab GmbH PBF-LB (Metal) Metal Open 2onelab GmbH website":
+      - cell "Germany"
+      - cell "2onelab GmbH"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open 2onelab GmbH website":
+        - button "Open 2onelab GmbH website"
+    - row "The Netherlands 3D byFlow Material Extrusion Other Open 3D byFlow website":
+      - cell "The Netherlands"
+      - cell "3D byFlow"
+      - cell "Material Extrusion"
+      - cell "Other"
+      - cell "Open 3D byFlow website":
+        - button "Open 3D byFlow website"
+    - row "South Korea 3D Controls Co.,Ltd. Vat Photopolymerization Ceramic Open 3D Controls Co.,Ltd. website":
+      - cell "South Korea"
+      - cell "3D Controls Co.,Ltd."
+      - cell "Vat Photopolymerization"
+      - cell "Ceramic"
+      - cell "Open 3D Controls Co.,Ltd. website":
+        - button "Open 3D Controls Co.,Ltd. website"
+    - row "Germany 3D Factories Material Extrusion Polymer Open 3D Factories website":
+      - cell "Germany"
+      - cell "3D Factories"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3D Factories website":
+        - button "Open 3D Factories website"
+    - row "Germany 3D Labs Material Extrusion Polymer —":
+      - cell "Germany"
+      - cell "3D Labs"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "—"
+    - row "Germany 3D Mectronic PBF-LB (Metal) Metal Open 3D Mectronic website":
+      - cell "Germany"
+      - cell "3D Mectronic"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open 3D Mectronic website":
+        - button "Open 3D Mectronic website"
+    - row "Germany 3D MicroPrint GmbH PBF-LB (Metal) Metal Open 3D MicroPrint GmbH website":
+      - cell "Germany"
+      - cell "3D MicroPrint GmbH"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open 3D MicroPrint GmbH website":
+        - button "Open 3D MicroPrint GmbH website"
+    - row "India 3D Paradise Material Extrusion Vat Photopolymerization Polymer Open 3D Paradise website":
+      - cell "India"
+      - cell "3D Paradise"
+      - cell "Material Extrusion Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open 3D Paradise website":
+        - button "Open 3D Paradise website"
+    - row "United States 3D Platform Material Extrusion Polymer Open 3D Platform website":
+      - cell "United States"
+      - cell "3D Platform"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3D Platform website":
+        - button "Open 3D Platform website"
+    - row "China 3D Printing Technology, Inc. (3DPTEK) Binder Jetting PBF-LB (Metal) Ceramic Metal Other Polymer Sand Open 3D Printing Technology, Inc. (3DPTEK) website":
+      - cell "China"
+      - cell "3D Printing Technology, Inc. (3DPTEK)"
+      - cell "Binder Jetting PBF-LB (Metal)"
+      - cell "Ceramic Metal Other Polymer Sand"
+      - cell "Open 3D Printing Technology, Inc. (3DPTEK) website":
+        - button "Open 3D Printing Technology, Inc. (3DPTEK) website"
+    - row "United States 3D Systems Inc. Material Extrusion Material Jetting PBF-LB (Metal) Vat Photopolymerization Metal Other Polymer Open 3D Systems Inc. website":
+      - cell "United States"
+      - cell "3D Systems Inc."
+      - cell "Material Extrusion Material Jetting PBF-LB (Metal) Vat Photopolymerization"
+      - cell "Metal Other Polymer"
+      - cell "Open 3D Systems Inc. website":
+        - button "Open 3D Systems Inc. website"
+    - row "Italy 3D-Dream Material Extrusion Polymer Open 3D-Dream website":
+      - cell "Italy"
+      - cell "3D-Dream"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3D-Dream website":
+        - button "Open 3D-Dream website"
+    - row "Germany 3D-Figo Gmbh Material Extrusion Polymer Open 3D-Figo Gmbh website":
+      - cell "Germany"
+      - cell "3D-Figo Gmbh"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3D-Figo Gmbh website":
+        - button "Open 3D-Figo Gmbh website"
+    - row "United States 3D-Hybrid Cold Spray DED (Arc/Wire) Directed Energy Deposition Metal Open 3D-Hybrid website":
+      - cell "United States"
+      - cell "3D-Hybrid"
+      - cell "Cold Spray DED (Arc/Wire) Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open 3D-Hybrid website":
+        - button "Open 3D-Hybrid website"
+    - row "Italy 3D4MEC PBF-LB (Metal) Metal Open 3D4MEC website":
+      - cell "Italy"
+      - cell "3D4MEC"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open 3D4MEC website":
+        - button "Open 3D4MEC website"
+    - row "France 3DCeram Sinto Material Extrusion Vat Photopolymerization Ceramic Open 3DCeram Sinto website":
+      - cell "France"
+      - cell "3DCeram Sinto"
+      - cell "Material Extrusion Vat Photopolymerization"
+      - cell "Ceramic"
+      - cell "Open 3DCeram Sinto website":
+        - button "Open 3DCeram Sinto website"
+    - row "Spain 3DCPI-PRODYSOL Material Extrusion Vat Photopolymerization Polymer Open 3DCPI-PRODYSOL website":
+      - cell "Spain"
+      - cell "3DCPI-PRODYSOL"
+      - cell "Material Extrusion Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open 3DCPI-PRODYSOL website":
+        - button "Open 3DCPI-PRODYSOL website"
+    - row "United States 3DEO Binder Jetting Metal Open 3DEO website":
+      - cell "United States"
+      - cell "3DEO"
+      - cell "Binder Jetting"
+      - cell "Metal"
+      - cell "Open 3DEO website":
+        - button "Open 3DEO website"
+    - row "India 3Deometry Innovations LLP Material Extrusion Polymer Open 3Deometry Innovations LLP website":
+      - cell "India"
+      - cell "3Deometry Innovations LLP"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3Deometry Innovations LLP website":
+        - button "Open 3Deometry Innovations LLP website"
+    - row "France 3Deus Dynamics Material Jetting Other Open 3Deus Dynamics website":
+      - cell "France"
+      - cell "3Deus Dynamics"
+      - cell "Material Jetting"
+      - cell "Other"
+      - cell "Open 3Deus Dynamics website":
+        - button "Open 3Deus Dynamics website"
+    - row "Poland 3DGence Material Extrusion Polymer Open 3DGence website":
+      - cell "Poland"
+      - cell "3DGence"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3DGence website":
+        - button "Open 3DGence website"
+    - row "Italy 3DKG Material Extrusion Polymer Open 3DKG website":
+      - cell "Italy"
+      - cell "3DKG"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3DKG website":
+        - button "Open 3DKG website"
+    - row "Russia 3DLAM PBF-LB (Metal) Metal Open 3DLAM website":
+      - cell "Russia"
+      - cell "3DLAM"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open 3DLAM website":
+        - button "Open 3DLAM website"
+    - row "Israel 3DM Digital Manufacturing Ltd PBF-LB (Metal) Polymer Open 3DM Digital Manufacturing Ltd website":
+      - cell "Israel"
+      - cell "3DM Digital Manufacturing Ltd"
+      - cell "PBF-LB (Metal)"
+      - cell "Polymer"
+      - cell "Open 3DM Digital Manufacturing Ltd website":
+        - button "Open 3DM Digital Manufacturing Ltd website"
+    - row "Italy 3DPRN Material Extrusion Polymer Open 3DPRN website":
+      - cell "Italy"
+      - cell "3DPRN"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3DPRN website":
+        - button "Open 3DPRN website"
+    - row "Russia 3DSLA.RU PBF-LB (Metal) Metal Open 3DSLA.RU website":
+      - cell "Russia"
+      - cell "3DSLA.RU"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open 3DSLA.RU website":
+        - button "Open 3DSLA.RU website"
+    - row "The Netherlands 3DSTUFFSNL Material Extrusion Polymer Open 3DSTUFFSNL website":
+      - cell "The Netherlands"
+      - cell "3DSTUFFSNL"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3DSTUFFSNL website":
+        - button "Open 3DSTUFFSNL website"
+    - row "United States 3DXTech Material Extrusion Polymer —":
+      - cell "United States"
+      - cell "3DXTech"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "—"
+    - row "Italy 3ntr Material Extrusion Polymer Open 3ntr website":
+      - cell "Italy"
+      - cell "3ntr"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open 3ntr website":
+        - button "Open 3ntr website"
+    - row "China Aachen United Technology (Tianjin) Co., Ltd. (Acunity) Directed Energy Deposition Metal Open Aachen United Technology (Tianjin) Co., Ltd. (Acunity) website":
+      - cell "China"
+      - cell "Aachen United Technology (Tianjin) Co., Ltd. (Acunity)"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Aachen United Technology (Tianjin) Co., Ltd. (Acunity) website":
+        - button "Open Aachen United Technology (Tianjin) Co., Ltd. (Acunity) website"
+    - row "Taiwan Ackuretta Technologies Vat Photopolymerization Polymer Open Ackuretta Technologies website":
+      - cell "Taiwan"
+      - cell "Ackuretta Technologies"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Ackuretta Technologies website":
+        - button "Open Ackuretta Technologies website"
+    - row "Germany Aconity3D GmbH Directed Energy Deposition PBF-LB (Metal) Metal Open Aconity3D GmbH website":
+      - cell "Germany"
+      - cell "Aconity3D GmbH"
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Aconity3D GmbH website":
+        - button "Open Aconity3D GmbH website"
+    - row "Finland Addcomposites Material Extrusion Polymer Open Addcomposites website":
+      - cell "Finland"
+      - cell "Addcomposites"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Addcomposites website":
+        - button "Open Addcomposites website"
+    - row "United States ADDere Directed Energy Deposition Metal Open ADDere website":
+      - cell "United States"
+      - cell "ADDere"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open ADDere website":
+        - button "Open ADDere website"
+    - row "Sweden ADDICT3D Directed Energy Deposition Material Extrusion Metal Polymer Open ADDICT3D website":
+      - cell "Sweden"
+      - cell "ADDICT3D"
+      - cell "Directed Energy Deposition Material Extrusion"
+      - cell "Metal Polymer"
+      - cell "Open ADDICT3D website":
+        - button "Open ADDICT3D website"
+    - row "Denmark AddiFab Material Extrusion PBF-LB (Metal) Vat Photopolymerization Polymer Open AddiFab website":
+      - cell "Denmark"
+      - cell "AddiFab"
+      - cell "Material Extrusion PBF-LB (Metal) Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open AddiFab website":
+        - button "Open AddiFab website"
+    - row "Spain Addilan DED (Arc/Wire) Metal Open Addilan website":
+      - cell "Spain"
+      - cell "Addilan"
+      - cell "DED (Arc/Wire)"
+      - cell "Metal"
+      - cell "Open Addilan website":
+        - button "Open Addilan website"
+    - row "France ADDIMETAL Binder Jetting Metal Open ADDIMETAL website":
+      - cell "France"
+      - cell "ADDIMETAL"
+      - cell "Binder Jetting"
+      - cell "Metal"
+      - cell "Open ADDIMETAL website":
+        - button "Open ADDIMETAL website"
+    - row "United States ADDiTEC Directed Energy Deposition Material Jetting Metal Open ADDiTEC website":
+      - cell "United States"
+      - cell "ADDiTEC"
+      - cell "Directed Energy Deposition Material Jetting"
+      - cell "Metal"
+      - cell "Open ADDiTEC website":
+        - button "Open ADDiTEC website"
+    - row "United States Additive Alliance Material Extrusion Polymer Open Additive Alliance website":
+      - cell "United States"
+      - cell "Additive Alliance"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Additive Alliance website":
+        - button "Open Additive Alliance website"
+    - row "The Netherlands Additive Industries b.v. PBF-LB (Metal) Metal Open Additive Industries b.v. website":
+      - cell "The Netherlands"
+      - cell "Additive Industries b.v."
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Additive Industries b.v. website":
+        - button "Open Additive Industries b.v. website"
+    - row "Ukraine Additive Laser Technologies (ALT) PBF-LB (Metal) Metal Open Additive Laser Technologies (ALT) website":
+      - cell "Ukraine"
+      - cell "Additive Laser Technologies (ALT)"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Additive Laser Technologies (ALT) website":
+        - button "Open Additive Laser Technologies (ALT) website"
+    - row "Germany Additive Manufacturing Customized Machines (AMCM) PBF-LB (Metal) Metal —":
+      - cell "Germany"
+      - cell "Additive Manufacturing Customized Machines (AMCM)"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "Russia Additive Solutions (AddSol) PBF-LB (Metal) Metal Open Additive Solutions (AddSol) website":
+      - cell "Russia"
+      - cell "Additive Solutions (AddSol)"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Additive Solutions (AddSol) website":
+        - button "Open Additive Solutions (AddSol) website"
+    - row "United States Addizone PBF-LB (Metal) Metal Open Addizone website":
+      - cell "United States"
+      - cell "Addizone"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Addizone website":
+        - button "Open Addizone website"
+    - row "France AddUp Directed Energy Deposition PBF-LB (Metal) Metal Open AddUp website":
+      - cell "France"
+      - cell "AddUp"
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open AddUp website":
+        - button "Open AddUp website"
+    - row "Portugal Adira Addcreative PBF-LB (Metal) Metal Open Adira Addcreative website":
+      - cell "Portugal"
+      - cell "Adira Addcreative"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Adira Addcreative website":
+        - button "Open Adira Addcreative website"
+    - row "South Africa Aditiv Solutions PBF-LB (Metal) Metal Open Aditiv Solutions website":
+      - cell "South Africa"
+      - cell "Aditiv Solutions"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Aditiv Solutions website":
+        - button "Open Aditiv Solutions website"
+    - row "The Netherlands Admatec Vat Photopolymerization Ceramic Metal Open Admatec website":
+      - cell "The Netherlands"
+      - cell "Admatec"
+      - cell "Vat Photopolymerization"
+      - cell "Ceramic Metal"
+      - cell "Open Admatec website":
+        - button "Open Admatec website"
+    - row "China Adrayn (Chongqing Andrayyuan Technology Co., Ltd) Vat Photopolymerization — Open Adrayn (Chongqing Andrayyuan Technology Co., Ltd) website":
+      - cell "China"
+      - cell "Adrayn (Chongqing Andrayyuan Technology Co., Ltd)"
+      - cell "Vat Photopolymerization"
+      - cell "—"
+      - cell "Open Adrayn (Chongqing Andrayyuan Technology Co., Ltd) website":
+        - button "Open Adrayn (Chongqing Andrayyuan Technology Co., Ltd) website"
+    - row "United States Advanced Solutions Material Jetting Bio Open Advanced Solutions website":
+      - cell "United States"
+      - cell "Advanced Solutions"
+      - cell "Material Jetting"
+      - cell "Bio"
+      - cell "Open Advanced Solutions website":
+        - button "Open Advanced Solutions website"
+    - row "United States Afinia 3D Material Extrusion Polymer Open Afinia 3D website":
+      - cell "United States"
+      - cell "Afinia 3D"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Afinia 3D website":
+        - button "Open Afinia 3D website"
+    - row "Germany AIM3D GmbH Material Extrusion Ceramic Metal Polymer Open AIM3D GmbH website":
+      - cell "Germany"
+      - cell "AIM3D GmbH"
+      - cell "Material Extrusion"
+      - cell "Ceramic Metal Polymer"
+      - cell "Open AIM3D GmbH website":
+        - button "Open AIM3D GmbH website"
+    - row "United States Airwolf 3D Material Extrusion Polymer Open Airwolf 3D website":
+      - cell "United States"
+      - cell "Airwolf 3D"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Airwolf 3D website":
+        - button "Open Airwolf 3D website"
+    - row "Germany Aixway3D GmbH PBF-LB (Metal) Metal Open Aixway3D GmbH website":
+      - cell "Germany"
+      - cell "Aixway3D GmbH"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Aixway3D GmbH website":
+        - button "Open Aixway3D GmbH website"
+    - row "France Alchimies SAS Material Extrusion Polymer Open Alchimies SAS website":
+      - cell "France"
+      - cell "Alchimies SAS"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Alchimies SAS website":
+        - button "Open Alchimies SAS website"
+    - row "Germany ALD Vacuum Technologies GmbH PBF-EB (Metal) Metal Open ALD Vacuum Technologies GmbH website":
+      - cell "Germany"
+      - cell "ALD Vacuum Technologies GmbH"
+      - cell "PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open ALD Vacuum Technologies GmbH website":
+        - button "Open ALD Vacuum Technologies GmbH website"
+    - row "Brazil Alkimat PBF-LB (Metal) Metal Polymer Open Alkimat website":
+      - cell "Brazil"
+      - cell "Alkimat"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal Polymer"
+      - cell "Open Alkimat website":
+        - button "Open Alkimat website"
+    - row "Turkey Alloy Additive DED (Arc/Wire) Metal Open Alloy Additive website":
+      - cell "Turkey"
+      - cell "Alloy Additive"
+      - cell "DED (Arc/Wire)"
+      - cell "Metal"
+      - cell "Open Alloy Additive website":
+        - button "Open Alloy Additive website"
+    - row "United States Alpha Additive Material Extrusion Polymer Open Alpha Additive website":
+      - cell "United States"
+      - cell "Alpha Additive"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Alpha Additive website":
+        - button "Open Alpha Additive website"
+    - row "Germany ALPHA LASER PBF-LB (Metal) Metal —":
+      - cell "Germany"
+      - cell "ALPHA LASER"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "India amace PBF-LB (Metal) Metal —":
+      - cell "India"
+      - cell "amace"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "Germany AMCM (Additive Manufacturing Customized Machines) PBF-LB (Metal) Metal Open AMCM (Additive Manufacturing Customized Machines) website":
+      - cell "Germany"
+      - cell "AMCM (Additive Manufacturing Customized Machines)"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open AMCM (Additive Manufacturing Customized Machines) website":
+        - button "Open AMCM (Additive Manufacturing Customized Machines) website"
+    - row "France AMFREE Directed Energy Deposition Metal Open AMFREE website":
+      - cell "France"
+      - cell "AMFREE"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open AMFREE website":
+        - button "Open AMFREE website"
+    - row "Australia AML3D DED (Arc/Wire) Metal Open AML3D website":
+      - cell "Australia"
+      - cell "AML3D"
+      - cell "DED (Arc/Wire)"
+      - cell "Metal"
+      - cell "Open AML3D website":
+        - button "Open AML3D website"
+    - row "Amnova Tech Material Extrusion Polymer —":
+      - cell
+      - cell "Amnova Tech"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "—"
+    - row "Australia AmPro Innovations PBF-LB (Metal) Metal Open AmPro Innovations website":
+      - cell "Australia"
+      - cell "AmPro Innovations"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open AmPro Innovations website":
+        - button "Open AmPro Innovations website"
+    - row "China AMSKY Technology Co., Ltd. Binder Jetting PBF-LB (Metal) Ceramic Metal Sand Open AMSKY Technology Co., Ltd. website":
+      - cell "China"
+      - cell "AMSKY Technology Co., Ltd."
+      - cell "Binder Jetting PBF-LB (Metal)"
+      - cell "Ceramic Metal Sand"
+      - cell "Open AMSKY Technology Co., Ltd. website":
+        - button "Open AMSKY Technology Co., Ltd. website"
+    - row "China Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive) PBF-LB (Metal) — Open Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive) website":
+      - cell "China"
+      - cell "Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive)"
+      - cell "PBF-LB (Metal)"
+      - cell "—"
+      - cell "Open Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive) website":
+        - button "Open Anhui Hart 3D Technology Co., Ltd. (HIT 3D Additive) website"
+    - row "China Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd. PBF-LB (Metal) — Open Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd."
+      - cell "PBF-LB (Metal)"
+      - cell "—"
+      - cell "Open Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd. website":
+        - button "Open Anhui Minggu Laser Intelligent Equipment Technology Co., Ltd. website"
+    - row "Singapore Anisoprint 3D Printing Technology Limited Company Material Extrusion Polymer Open Anisoprint 3D Printing Technology Limited Company website":
+      - cell "Singapore"
+      - cell "Anisoprint 3D Printing Technology Limited Company"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Anisoprint 3D Printing Technology Limited Company website":
+        - button "Open Anisoprint 3D Printing Technology Limited Company website"
+    - row "United States AO Metal PBF-LB (Metal) Metal Open AO Metal website":
+      - cell "United States"
+      - cell "AO Metal"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open AO Metal website":
+        - button "Open AO Metal website"
+    - row "South Korea AON Vat Photopolymerization Ceramic Open AON website":
+      - cell "South Korea"
+      - cell "AON"
+      - cell "Vat Photopolymerization"
+      - cell "Ceramic"
+      - cell "Open AON website":
+        - button "Open AON website"
+    - row "Canada AON3D Material Extrusion Polymer Open AON3D website":
+      - cell "Canada"
+      - cell "AON3D"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open AON3D website":
+        - button "Open AON3D website"
+    - row "Germany Apium Additive Technologies Material Extrusion Polymer Open Apium Additive Technologies website":
+      - cell "Germany"
+      - cell "Apium Additive Technologies"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Apium Additive Technologies website":
+        - button "Open Apium Additive Technologies website"
+    - row "Germany ARBURG GmbH + Co KG Material Extrusion Polymer Open ARBURG GmbH + Co KG website":
+      - cell "Germany"
+      - cell "ARBURG GmbH + Co KG"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open ARBURG GmbH + Co KG website":
+        - button "Open ARBURG GmbH + Co KG website"
+    - row "Australia Asiga Vat Photopolymerization Polymer Open Asiga website":
+      - cell "Australia"
+      - cell "Asiga"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Asiga website":
+        - button "Open Asiga website"
+    - row "Denmark ATLANT 3D Nanosystems Material Jetting — —":
+      - cell "Denmark"
+      - cell "ATLANT 3D Nanosystems"
+      - cell "Material Jetting"
+      - cell "—"
+      - cell "—"
+    - row "Poland ATMAT Material Extrusion Polymer Open ATMAT website":
+      - cell "Poland"
+      - cell "ATMAT"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open ATMAT website":
+        - button "Open ATMAT website"
+    - row "The Netherlands atum3D B.V Vat Photopolymerization Polymer Open atum3D B.V website":
+      - cell "The Netherlands"
+      - cell "atum3D B.V"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open atum3D B.V website":
+        - button "Open atum3D B.V website"
+    - row "Australia Aurora Labs PBF-LB (Metal) Metal Open Aurora Labs website":
+      - cell "Australia"
+      - cell "Aurora Labs"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Aurora Labs website":
+        - button "Open Aurora Labs website"
+    - row "China Avimetal AM Tech Co., Ltd. Directed Energy Deposition PBF-LB (Metal) Metal Open Avimetal AM Tech Co., Ltd. website":
+      - cell "China"
+      - cell "Avimetal AM Tech Co., Ltd."
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Avimetal AM Tech Co., Ltd. website":
+        - button "Open Avimetal AM Tech Co., Ltd. website"
+    - row "Canada Axolotl Biosciences — Bio Open Axolotl Biosciences website":
+      - cell "Canada"
+      - cell "Axolotl Biosciences"
+      - cell "—"
+      - cell "Bio"
+      - cell "Open Axolotl Biosciences website":
+        - button "Open Axolotl Biosciences website"
+    - row "United States Axtra3D Inc. Vat Photopolymerization Polymer Open Axtra3D Inc. website":
+      - cell "United States"
+      - cell "Axtra3D Inc."
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Axtra3D Inc. website":
+        - button "Open Axtra3D Inc. website"
+    - row "Azul3D Vat Photopolymerization Polymer —":
+      - cell
+      - cell "Azul3D"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "—"
+    - row "United States B-jetting Binder Jetting Other —":
+      - cell "United States"
+      - cell "B-jetting"
+      - cell "Binder Jetting"
+      - cell "Other"
+      - cell "—"
+    - row "United States B9Creations Vat Photopolymerization Polymer Open B9Creations website":
+      - cell "United States"
+      - cell "B9Creations"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open B9Creations website":
+        - button "Open B9Creations website"
+    - row "China Bambu Lab Material Extrusion Polymer Open Bambu Lab website":
+      - cell "China"
+      - cell "Bambu Lab"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Bambu Lab website":
+        - button "Open Bambu Lab website"
+    - row "Spain BCN3D Material Extrusion Metal Polymer Open BCN3D website":
+      - cell "Spain"
+      - cell "BCN3D"
+      - cell "Material Extrusion"
+      - cell "Metal Polymer"
+      - cell "Open BCN3D website":
+        - button "Open BCN3D website"
+    - row "Germany BEGO Vat Photopolymerization Polymer —":
+      - cell "Germany"
+      - cell "BEGO"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "—"
+    - row "China Beijing Huitianwei Technology Co., Ltd. Material Extrusion Polymer Open Beijing Huitianwei Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Beijing Huitianwei Technology Co., Ltd."
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Beijing Huitianwei Technology Co., Ltd. website":
+        - button "Open Beijing Huitianwei Technology Co., Ltd. website"
+    - row "China Beijing JCZ Technology Co., Ltd. (Ezcad) Vat Photopolymerization Polymer Open Beijing JCZ Technology Co., Ltd. (Ezcad) website":
+      - cell "China"
+      - cell "Beijing JCZ Technology Co., Ltd. (Ezcad)"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Beijing JCZ Technology Co., Ltd. (Ezcad) website":
+        - button "Open Beijing JCZ Technology Co., Ltd. (Ezcad) website"
+    - row "China Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS Binder Jetting PBF-LB (Metal) Metal Polymer Open Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS website":
+      - cell "China"
+      - cell "Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS"
+      - cell "Binder Jetting PBF-LB (Metal)"
+      - cell "Metal Polymer"
+      - cell "Open Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS website":
+        - button "Open Beijing Longyuan Automated Fabrication System Co. Ltd. – AFS website"
+    - row "China Beijing SANDI Technology Co.(3D Printing Technology, Inc.) Binder Jetting PBF-LB (Metal) Ceramic Metal Other Sand Open Beijing SANDI Technology Co.(3D Printing Technology, Inc.) website":
+      - cell "China"
+      - cell "Beijing SANDI Technology Co.(3D Printing Technology, Inc.)"
+      - cell "Binder Jetting PBF-LB (Metal)"
+      - cell "Ceramic Metal Other Sand"
+      - cell "Open Beijing SANDI Technology Co.(3D Printing Technology, Inc.) website":
+        - button "Open Beijing SANDI Technology Co.(3D Printing Technology, Inc.) website"
+    - row "China Beijing Ten Dimensions Technology Co., Ltd. Vat Photopolymerization Ceramic Open Beijing Ten Dimensions Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Beijing Ten Dimensions Technology Co., Ltd."
+      - cell "Vat Photopolymerization"
+      - cell "Ceramic"
+      - cell "Open Beijing Ten Dimensions Technology Co., Ltd. website":
+        - button "Open Beijing Ten Dimensions Technology Co., Ltd. website"
+    - row "China Beijing Tiertime Technology Co., Ltd. Material Extrusion Polymer Open Beijing Tiertime Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Beijing Tiertime Technology Co., Ltd."
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Beijing Tiertime Technology Co., Ltd. website":
+        - button "Open Beijing Tiertime Technology Co., Ltd. website"
+    - row "Italy Belotti Material Extrusion Polymer Open Belotti website":
+      - cell "Italy"
+      - cell "Belotti"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Belotti website":
+        - button "Open Belotti website"
+    - row "Slovenia BetAbram Material Extrusion Concrete Open BetAbram website":
+      - cell "Slovenia"
+      - cell "BetAbram"
+      - cell "Material Extrusion"
+      - cell "Concrete"
+      - cell "Open BetAbram website":
+        - button "Open BetAbram website"
+    - row "India Bharat Fritz Werner Ltd. – BFW Directed Energy Deposition Metal Open Bharat Fritz Werner Ltd. – BFW website":
+      - cell "India"
+      - cell "Bharat Fritz Werner Ltd. – BFW"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Bharat Fritz Werner Ltd. – BFW website":
+        - button "Open Bharat Fritz Werner Ltd. – BFW website"
+    - row "Germany BigRep Material Extrusion Polymer —":
+      - cell "Germany"
+      - cell "BigRep"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "—"
+    - row "United States Black Buffalo 3D Material Extrusion Ceramic Concrete —":
+      - cell "United States"
+      - cell "Black Buffalo 3D"
+      - cell "Material Extrusion"
+      - cell "Ceramic Concrete"
+      - cell "—"
+    - row "The Netherlands BlackBelt Material Extrusion Polymer Open BlackBelt website":
+      - cell "The Netherlands"
+      - cell "BlackBelt"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open BlackBelt website":
+        - button "Open BlackBelt website"
+    - row "China Breuck T3D Binder Jetting Material Extrusion Vat Photopolymerization Ceramic Polymer Open Breuck T3D website":
+      - cell "China"
+      - cell "Breuck T3D"
+      - cell "Binder Jetting Material Extrusion Vat Photopolymerization"
+      - cell "Ceramic Polymer"
+      - cell "Open Breuck T3D website":
+        - button "Open Breuck T3D website"
+    - row "Argentina Chimak Material Extrusion Vat Photopolymerization Polymer Open Chimak website":
+      - cell "Argentina"
+      - cell "Chimak"
+      - cell "Material Extrusion Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Chimak website":
+        - button "Open Chimak website"
+    - row "Germany Chiron Group Directed Energy Deposition Metal Open Chiron Group website":
+      - cell "Germany"
+      - cell "Chiron Group"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Chiron Group website":
+        - button "Open Chiron Group website"
+    - row "United States Colibrium Additive PBF-EB (Metal) PBF-LB (Metal) Metal Open Colibrium Additive website":
+      - cell "United States"
+      - cell "Colibrium Additive"
+      - cell "PBF-EB (Metal) PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Colibrium Additive website":
+        - button "Open Colibrium Additive website"
+    - row "South Korea Daegun Tech PBF-LB (Metal) Metal Open Daegun Tech website":
+      - cell "South Korea"
+      - cell "Daegun Tech"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Daegun Tech website":
+        - button "Open Daegun Tech website"
+    - row "China DediBot PBF-LB (Metal) Metal —":
+      - cell "China"
+      - cell "DediBot"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "Slovenia Dentas PBF-LB (Metal) Metal Open Dentas website":
+      - cell "Slovenia"
+      - cell "Dentas"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Dentas website":
+        - button "Open Dentas website"
+    - row "DM3D Technology, LLC Directed Energy Deposition Metal Open DM3D Technology, LLC website":
+      - cell
+      - cell "DM3D Technology, LLC"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open DM3D Technology, LLC website":
+        - button "Open DM3D Technology, LLC website"
+    - row "Japan DMG Mori Directed Energy Deposition PBF-LB (Metal) Metal Open DMG Mori website":
+      - cell "Japan"
+      - cell "DMG Mori"
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open DMG Mori website":
+        - button "Open DMG Mori website"
+    - row "Germany EOS PBF-LB (Metal) Metal —":
+      - cell "Germany"
+      - cell "EOS"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "China Eplus3D PBF-LB (Metal) Metal —":
+      - cell "China"
+      - cell "Eplus3D"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "Japan EPSON ATMIX Corporation Material Extrusion Polymer Open EPSON ATMIX Corporation website":
+      - cell "Japan"
+      - cell "EPSON ATMIX Corporation"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open EPSON ATMIX Corporation website":
+        - button "Open EPSON ATMIX Corporation website"
+    - row "Germany Evobeam GmbH Directed Energy Deposition PBF-LB (Metal) Metal Open Evobeam GmbH website":
+      - cell "Germany"
+      - cell "Evobeam GmbH"
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Evobeam GmbH website":
+        - button "Open Evobeam GmbH website"
+    - row "Poland FANUM Sp. z o.o. SP.k Material Extrusion Polymer Open FANUM Sp. z o.o. SP.k website":
+      - cell "Poland"
+      - cell "FANUM Sp. z o.o. SP.k"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open FANUM Sp. z o.o. SP.k website":
+        - button "Open FANUM Sp. z o.o. SP.k website"
+    - row "China Farsoon PBF-LB (Metal) Metal Open Farsoon website":
+      - cell "China"
+      - cell "Farsoon"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Farsoon website":
+        - button "Open Farsoon website"
+    - row "China FastForm Technology Co. PBF-LB (Metal) Metal Open FastForm Technology Co. website":
+      - cell "China"
+      - cell "FastForm Technology Co."
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open FastForm Technology Co. website":
+        - button "Open FastForm Technology Co. website"
+    - row "United States Fonon Corporation PBF-LB (Metal) Metal Open Fonon Corporation website":
+      - cell "United States"
+      - cell "Fonon Corporation"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Fonon Corporation website":
+        - button "Open Fonon Corporation website"
+    - row "United States Formalloy Directed Energy Deposition Metal Open Formalloy website":
+      - cell "United States"
+      - cell "Formalloy"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Formalloy website":
+        - button "Open Formalloy website"
+    - row "Sweden Freemelt PBF-EB (Metal) Metal Open Freemelt website":
+      - cell "Sweden"
+      - cell "Freemelt"
+      - cell "PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open Freemelt website":
+        - button "Open Freemelt website"
+    - row "Colombia Fused Form Material Extrusion Polymer Open Fused Form website":
+      - cell "Colombia"
+      - cell "Fused Form"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Fused Form website":
+        - button "Open Fused Form website"
+    - row "China Guangzhou Riton Additive Technology Co., Ltd PBF-LB (Metal) Metal Open Guangzhou Riton Additive Technology Co., Ltd website":
+      - cell "China"
+      - cell "Guangzhou Riton Additive Technology Co., Ltd"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Guangzhou Riton Additive Technology Co., Ltd website":
+        - button "Open Guangzhou Riton Additive Technology Co., Ltd website"
+    - row "China HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.) PBF-LB (Metal) Metal Open HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.) website":
+      - cell "China"
+      - cell "HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.)"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.) website":
+        - button "Open HBD (Shanghai Hanbang United 3D Tech Co.,Ltd.) website"
+    - row "China Henan Creatbot Technology Limited Material Extrusion Polymer Open Henan Creatbot Technology Limited website":
+      - cell "China"
+      - cell "Henan Creatbot Technology Limited"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Henan Creatbot Technology Limited website":
+        - button "Open Henan Creatbot Technology Limited website"
+    - row "China Hubei Jiayi 3D Hi-Tech Co., Ltd. Material Jetting Bio Open Hubei Jiayi 3D Hi-Tech Co., Ltd. website":
+      - cell "China"
+      - cell "Hubei Jiayi 3D Hi-Tech Co., Ltd."
+      - cell "Material Jetting"
+      - cell "Bio"
+      - cell "Open Hubei Jiayi 3D Hi-Tech Co., Ltd. website":
+        - button "Open Hubei Jiayi 3D Hi-Tech Co., Ltd. website"
+    - row "South Korea Hwacheon Directed Energy Deposition Metal Open Hwacheon website":
+      - cell "South Korea"
+      - cell "Hwacheon"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Hwacheon website":
+        - button "Open Hwacheon website"
+    - row "France INETYX Directed Energy Deposition Metal Open INETYX website":
+      - cell "France"
+      - cell "INETYX"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open INETYX website":
+        - button "Open INETYX website"
+    - row "South Korea InssTek Directed Energy Deposition PBF-LB (Metal) Metal Open InssTek website":
+      - cell "South Korea"
+      - cell "InssTek"
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open InssTek website":
+        - button "Open InssTek website"
+    - row "India Intech Additive Solutions PBF-LB (Metal) Metal Open Intech Additive Solutions website":
+      - cell "India"
+      - cell "Intech Additive Solutions"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Intech Additive Solutions website":
+        - button "Open Intech Additive Solutions website"
+    - row "Switzerland Irpd AG PBF-LB (Metal) Metal Open Irpd AG website":
+      - cell "Switzerland"
+      - cell "Irpd AG"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Irpd AG website":
+        - button "Open Irpd AG website"
+    - row "Japan JEOL PBF-EB (Metal) Metal Open JEOL website":
+      - cell "Japan"
+      - cell "JEOL"
+      - cell "PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open JEOL website":
+        - button "Open JEOL website"
+    - row "China KOKONI3D Material Extrusion Polymer Open KOKONI3D website":
+      - cell "China"
+      - cell "KOKONI3D"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open KOKONI3D website":
+        - button "Open KOKONI3D website"
+    - row "Germany Kolibri Metals PBF-LB (Metal) Metal Open Kolibri Metals website":
+      - cell "Germany"
+      - cell "Kolibri Metals"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Kolibri Metals website":
+        - button "Open Kolibri Metals website"
+    - row "Germany Kurtz Ersa GmbH PBF-LB (Metal) Metal Open Kurtz Ersa GmbH website":
+      - cell "Germany"
+      - cell "Kurtz Ersa GmbH"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Kurtz Ersa GmbH website":
+        - button "Open Kurtz Ersa GmbH website"
+    - row "Germany Laser Melting Innovations (LMI) PBF-LB (Metal) Metal Open Laser Melting Innovations (LMI) website":
+      - cell "Germany"
+      - cell "Laser Melting Innovations (LMI)"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Laser Melting Innovations (LMI) website":
+        - button "Open Laser Melting Innovations (LMI) website"
+    - row "China Laseradd PBF-LB (Metal) Metal Open Laseradd website":
+      - cell "China"
+      - cell "Laseradd"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Laseradd website":
+        - button "Open Laseradd website"
+    - row "China LATEC PBF-LB (Metal) Metal —":
+      - cell "China"
+      - cell "LATEC"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "Liburdi Automation Inc Directed Energy Deposition Metal —":
+      - cell
+      - cell "Liburdi Automation Inc"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "—"
+    - row "Germany LUNOVU Directed Energy Deposition Metal Open LUNOVU website":
+      - cell "Germany"
+      - cell "LUNOVU"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open LUNOVU website":
+        - button "Open LUNOVU website"
+    - row "The United Kingdom Makertech 3D Material Extrusion Polymer Open Makertech 3D website":
+      - cell "The United Kingdom"
+      - cell "Makertech 3D"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Makertech 3D website":
+        - button "Open Makertech 3D website"
+    - row "Japan Matsuura Machinery Corporation PBF-LB (Metal) Metal Open Matsuura Machinery Corporation website":
+      - cell "Japan"
+      - cell "Matsuura Machinery Corporation"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Matsuura Machinery Corporation website":
+        - button "Open Matsuura Machinery Corporation website"
+    - row "Japan Mazak Directed Energy Deposition Metal Open Mazak website":
+      - cell "Japan"
+      - cell "Mazak"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Mazak website":
+        - button "Open Mazak website"
+    - row "Spain Meltio3D Directed Energy Deposition Metal Open Meltio3D website":
+      - cell "Spain"
+      - cell "Meltio3D"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Meltio3D website":
+        - button "Open Meltio3D website"
+    - row "Germany METROM Mechatronische Maschinen GmbH Directed Energy Deposition Metal Open METROM Mechatronische Maschinen GmbH website":
+      - cell "Germany"
+      - cell "METROM Mechatronische Maschinen GmbH"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open METROM Mechatronische Maschinen GmbH website":
+        - button "Open METROM Mechatronische Maschinen GmbH website"
+    - row "Japan Mitsubishi Electric Directed Energy Deposition Metal Open Mitsubishi Electric website":
+      - cell "Japan"
+      - cell "Mitsubishi Electric"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Mitsubishi Electric website":
+        - button "Open Mitsubishi Electric website"
+    - row "Japan Mitsubishi Heavy Industries Directed Energy Deposition Metal Open Mitsubishi Heavy Industries website":
+      - cell "Japan"
+      - cell "Mitsubishi Heavy Industries"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Mitsubishi Heavy Industries website":
+        - button "Open Mitsubishi Heavy Industries website"
+    - row "Canada Mosaic Manufacturing Ltd. Material Extrusion Polymer Open Mosaic Manufacturing Ltd. website":
+      - cell "Canada"
+      - cell "Mosaic Manufacturing Ltd."
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Mosaic Manufacturing Ltd. website":
+        - button "Open Mosaic Manufacturing Ltd. website"
+    - row "China Nanjing Chamlion Laser Technology Co PBF-LB (Metal) Metal Open Nanjing Chamlion Laser Technology Co website":
+      - cell "China"
+      - cell "Nanjing Chamlion Laser Technology Co"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Nanjing Chamlion Laser Technology Co website":
+        - button "Open Nanjing Chamlion Laser Technology Co website"
+    - row "Nanjing Weibu 3D Technology Co., Ltd. Material Extrusion Vat Photopolymerization Polymer —":
+      - cell
+      - cell "Nanjing Weibu 3D Technology Co., Ltd."
+      - cell "Material Extrusion Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "—"
+    - row "Canada Nanogrande Inc. PBF-LB (Metal) Metal Open Nanogrande Inc. website":
+      - cell "Canada"
+      - cell "Nanogrande Inc."
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Nanogrande Inc. website":
+        - button "Open Nanogrande Inc. website"
+    - row "Japan Nidec Machine Tool America Directed Energy Deposition Metal Open Nidec Machine Tool America website":
+      - cell "Japan"
+      - cell "Nidec Machine Tool America"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Nidec Machine Tool America website":
+        - button "Open Nidec Machine Tool America website"
+    - row "Germany Nikon SLM Solutions Directed Energy Deposition PBF-LB (Metal) Metal Open Nikon SLM Solutions website":
+      - cell "Germany"
+      - cell "Nikon SLM Solutions"
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Nikon SLM Solutions website":
+        - button "Open Nikon SLM Solutions website"
+    - row "Iran Noura PBF-LB (Metal) Metal —":
+      - cell "Iran"
+      - cell "Noura"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "Slovenia NPPower PBF-LB (Metal) Metal Open NPPower website":
+      - cell "Slovenia"
+      - cell "NPPower"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open NPPower website":
+        - button "Open NPPower website"
+    - row "Taiwan ODeCon engineering GmbH Directed Energy Deposition Metal Open ODeCon engineering GmbH website":
+      - cell "Taiwan"
+      - cell "ODeCon engineering GmbH"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open ODeCon engineering GmbH website":
+        - button "Open ODeCon engineering GmbH website"
+    - row "Germany Okuma Europe Directed Energy Deposition Metal Open Okuma Europe website":
+      - cell "Germany"
+      - cell "Okuma Europe"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Okuma Europe website":
+        - button "Open Okuma Europe website"
+    - row "Brazil Omnitek PBF-LB (Metal) Metal Open Omnitek website":
+      - cell "Brazil"
+      - cell "Omnitek"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Omnitek website":
+        - button "Open Omnitek website"
+    - row "Germany One Click Metal GmbH PBF-LB (Metal) Metal Open One Click Metal GmbH website":
+      - cell "Germany"
+      - cell "One Click Metal GmbH"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open One Click Metal GmbH website":
+        - button "Open One Click Metal GmbH website"
+    - row "United States One Off Robotics DED (Arc/Wire) Material Extrusion Metal Polymer Open One Off Robotics website":
+      - cell "United States"
+      - cell "One Off Robotics"
+      - cell "DED (Arc/Wire) Material Extrusion"
+      - cell "Metal Polymer"
+      - cell "Open One Off Robotics website":
+        - button "Open One Off Robotics website"
+    - row "United States Open Additive PBF-LB (Metal) Metal —":
+      - cell "United States"
+      - cell "Open Additive"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "OpenAdditive PBF-LB (Metal) Metal Open OpenAdditive website":
+      - cell
+      - cell "OpenAdditive"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open OpenAdditive website":
+        - button "Open OpenAdditive website"
+    - row "United States Optomec Directed Energy Deposition Metal Open Optomec website":
+      - cell "United States"
+      - cell "Optomec"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Optomec website":
+        - button "Open Optomec website"
+    - row "Germany OSCAR PLT GmbH Directed Energy Deposition Metal Open OSCAR PLT GmbH website":
+      - cell "Germany"
+      - cell "OSCAR PLT GmbH"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open OSCAR PLT GmbH website":
+        - button "Open OSCAR PLT GmbH website"
+    - row "United States Philips Corporation Directed Energy Deposition Metal Open Philips Corporation website":
+      - cell "United States"
+      - cell "Philips Corporation"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Philips Corporation website":
+        - button "Open Philips Corporation website"
+    - row "China Piocreat Material Extrusion Polymer Open Piocreat website":
+      - cell "China"
+      - cell "Piocreat"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Piocreat website":
+        - button "Open Piocreat website"
+    - row "Germany Ponticon Directed Energy Deposition Metal —":
+      - cell "Germany"
+      - cell "Ponticon"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "—"
+    - row "Italy Prima Additive S.r.l. Directed Energy Deposition PBF-LB (Metal) Metal Open Prima Additive S.r.l. website":
+      - cell "Italy"
+      - cell "Prima Additive S.r.l."
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Prima Additive S.r.l. website":
+        - button "Open Prima Additive S.r.l. website"
+    - row "Germany pro-beam Group Directed Energy Deposition PBF-EB (Metal) Metal Open pro-beam Group website":
+      - cell "Germany"
+      - cell "pro-beam Group"
+      - cell "Directed Energy Deposition PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open pro-beam Group website":
+        - button "Open pro-beam Group website"
+    - row "China Profeta Intelligent Technology Co., Ltd. PBF-LB (Metal) Metal Open Profeta Intelligent Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Profeta Intelligent Technology Co., Ltd."
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Profeta Intelligent Technology Co., Ltd. website":
+        - button "Open Profeta Intelligent Technology Co., Ltd. website"
+    - row "China ProtoFab PBF-LB (Metal) Metal Open ProtoFab website":
+      - cell "China"
+      - cell "ProtoFab"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open ProtoFab website":
+        - button "Open ProtoFab website"
+    - row "China QBEAM (QuickBeam) PBF-EB (Metal) Metal Open QBEAM (QuickBeam) website":
+      - cell "China"
+      - cell "QBEAM (QuickBeam)"
+      - cell "PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open QBEAM (QuickBeam) website":
+        - button "Open QBEAM (QuickBeam) website"
+    - row "China Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.) DED (Arc/Wire) Directed Energy Deposition PBF-LB (Metal) Metal Open Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.) website":
+      - cell "China"
+      - cell "Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.)"
+      - cell "DED (Arc/Wire) Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.) website":
+        - button "Open Raycham (Nanjing Zhongke Yue Laser Technology Co., Ltd.) website"
+    - row "China Regenovo Material Jetting Bio Open Regenovo website":
+      - cell "China"
+      - cell "Regenovo"
+      - cell "Material Jetting"
+      - cell "Bio"
+      - cell "Open Regenovo website":
+        - button "Open Regenovo website"
+    - row "The United Kingdom Renishaw PBF-LB (Metal) Metal Open Renishaw website":
+      - cell "The United Kingdom"
+      - cell "Renishaw"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Renishaw website":
+        - button "Open Renishaw website"
+    - row "Brazil Romi Directed Energy Deposition Metal Open Romi website":
+      - cell "Brazil"
+      - cell "Romi"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Romi website":
+        - button "Open Romi website"
+    - row "United States RPM Innovations Directed Energy Deposition Metal Open RPM Innovations website":
+      - cell "United States"
+      - cell "RPM Innovations"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open RPM Innovations website":
+        - button "Open RPM Innovations website"
+    - row "Russia Rusatom Additive Technologies PBF-LB (Metal) Metal Open Rusatom Additive Technologies website":
+      - cell "Russia"
+      - cell "Rusatom Additive Technologies"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Rusatom Additive Technologies website":
+        - button "Open Rusatom Additive Technologies website"
+    - row "United States Sakuu — Ceramic Metal Polymer Open Sakuu website":
+      - cell "United States"
+      - cell "Sakuu"
+      - cell "—"
+      - cell "Ceramic Metal Polymer"
+      - cell "Open Sakuu website":
+        - button "Open Sakuu website"
+    - row "Spain SamyLabs PBF-LB (Metal) Metal —":
+      - cell "Spain"
+      - cell "SamyLabs"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "Brazil Sethi3D Material Extrusion Polymer Open Sethi3D website":
+      - cell "Brazil"
+      - cell "Sethi3D"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Sethi3D website":
+        - button "Open Sethi3D website"
+    - row "United States Seurat PBF-LB (Metal) Metal Open Seurat website":
+      - cell "United States"
+      - cell "Seurat"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Seurat website":
+        - button "Open Seurat website"
+    - row "Italy Sharebot SRL PBF-LB (Metal) Metal Open Sharebot SRL website":
+      - cell "Italy"
+      - cell "Sharebot SRL"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Sharebot SRL website":
+        - button "Open Sharebot SRL website"
+    - row "China Shenzhen Adventure Technology Co., Ltd. Material Extrusion Vat Photopolymerization Ceramic Open Shenzhen Adventure Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Shenzhen Adventure Technology Co., Ltd."
+      - cell "Material Extrusion Vat Photopolymerization"
+      - cell "Ceramic"
+      - cell "Open Shenzhen Adventure Technology Co., Ltd. website":
+        - button "Open Shenzhen Adventure Technology Co., Ltd. website"
+    - row "China Shenzhen Kings 3D Printing Technology Co., Ltd. PBF-LB (Metal) Metal Open Shenzhen Kings 3D Printing Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Shenzhen Kings 3D Printing Technology Co., Ltd."
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Shenzhen Kings 3D Printing Technology Co., Ltd. website":
+        - button "Open Shenzhen Kings 3D Printing Technology Co., Ltd. website"
+    - row "China Shenzhen PengJi Photoelectricity Co, Ltd Vat Photopolymerization Polymer Open Shenzhen PengJi Photoelectricity Co, Ltd website":
+      - cell "China"
+      - cell "Shenzhen PengJi Photoelectricity Co, Ltd"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Shenzhen PengJi Photoelectricity Co, Ltd website":
+        - button "Open Shenzhen PengJi Photoelectricity Co, Ltd website"
+    - row "Italy SISMA S.p.A. PBF-LB (Metal) Metal Open SISMA S.p.A. website":
+      - cell "Italy"
+      - cell "SISMA S.p.A."
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open SISMA S.p.A. website":
+        - button "Open SISMA S.p.A. website"
+    - row "United States Snowbird Tech Directed Energy Deposition Metal Open Snowbird Tech website":
+      - cell "United States"
+      - cell "Snowbird Tech"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Snowbird Tech website":
+        - button "Open Snowbird Tech website"
+    - row "Japan Sodick PBF-LB (Metal) Metal Open Sodick website":
+      - cell "Japan"
+      - cell "Sodick"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Sodick website":
+        - button "Open Sodick website"
+    - row "SOTIMECO Directed Energy Deposition Metal —":
+      - cell
+      - cell "SOTIMECO"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "—"
+    - row "Australia SPEE3D Cold Spray — Open SPEE3D website":
+      - cell "Australia"
+      - cell "SPEE3D"
+      - cell "Cold Spray"
+      - cell "—"
+      - cell "Open SPEE3D website":
+        - button "Open SPEE3D website"
+    - row "Japan Sugino Directed Energy Deposition Metal Open Sugino website":
+      - cell "Japan"
+      - cell "Sugino"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Sugino website":
+        - button "Open Sugino website"
+    - row "United States Sun Metalon PBF-LB (Metal) Metal —":
+      - cell "United States"
+      - cell "Sun Metalon"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "China Suzhou Pollypolymer New Materials Technology Co., Ltd. Vat Photopolymerization Polymer Open Suzhou Pollypolymer New Materials Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Suzhou Pollypolymer New Materials Technology Co., Ltd."
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Suzhou Pollypolymer New Materials Technology Co., Ltd. website":
+        - button "Open Suzhou Pollypolymer New Materials Technology Co., Ltd. website"
+    - row "China Suzhou Tianhong Laser Co., Ltd. PBF-LB (Metal) Metal Open Suzhou Tianhong Laser Co., Ltd. website":
+      - cell "China"
+      - cell "Suzhou Tianhong Laser Co., Ltd."
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Suzhou Tianhong Laser Co., Ltd. website":
+        - button "Open Suzhou Tianhong Laser Co., Ltd. website"
+    - row "Japan TADA Electric Co. PBF-EB (Metal) Metal Open TADA Electric Co. website":
+      - cell "Japan"
+      - cell "TADA Electric Co."
+      - cell "PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open TADA Electric Co. website":
+        - button "Open TADA Electric Co. website"
+    - row "Denmark Teccluster (Teccam) Material Extrusion PBF-LB (Metal) Vat Photopolymerization Metal Polymer Open Teccluster (Teccam) website":
+      - cell "Denmark"
+      - cell "Teccluster (Teccam)"
+      - cell "Material Extrusion PBF-LB (Metal) Vat Photopolymerization"
+      - cell "Metal Polymer"
+      - cell "Open Teccluster (Teccam) website":
+        - button "Open Teccluster (Teccam) website"
+    - row "Argentina Trideo Material Extrusion Polymer Open Trideo website":
+      - cell "Argentina"
+      - cell "Trideo"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Trideo website":
+        - button "Open Trideo website"
+    - row "Argentina Trimaker Material Extrusion Polymer Open Trimaker website":
+      - cell "Argentina"
+      - cell "Trimaker"
+      - cell "Material Extrusion"
+      - cell "Polymer"
+      - cell "Open Trimaker website":
+        - button "Open Trimaker website"
+    - row "Germany TRUMPF Directed Energy Deposition PBF-LB (Metal) Metal Open TRUMPF website":
+      - cell "Germany"
+      - cell "TRUMPF"
+      - cell "Directed Energy Deposition PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open TRUMPF website":
+        - button "Open TRUMPF website"
+    - row "United States Tytus3D PBF-LB (Metal) Metal —":
+      - cell "United States"
+      - cell "Tytus3D"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "China UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.) Vat Photopolymerization Polymer Open UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.) website":
+      - cell "China"
+      - cell "UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.)"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.) website":
+        - button "Open UniFormation (Zhongshan Huayu YuanXing Electronic Technology Co., Ltd.) website"
+    - row "China UNIZ Technology Vat Photopolymerization Polymer Open UNIZ Technology website":
+      - cell "China"
+      - cell "UNIZ Technology"
+      - cell "Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open UNIZ Technology website":
+        - button "Open UNIZ Technology website"
+    - row "United States Velo3D PBF-LB (Metal) Metal —":
+      - cell "United States"
+      - cell "Velo3D"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "South Korea Veltz PBF-LB (Metal) Metal Open Veltz website":
+      - cell "South Korea"
+      - cell "Veltz"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Veltz website":
+        - button "Open Veltz website"
+    - row "Australia Virtual Smart Factory (VSF) Material Extrusion Concrete Polymer Open Virtual Smart Factory (VSF) website":
+      - cell "Australia"
+      - cell "Virtual Smart Factory (VSF)"
+      - cell "Material Extrusion"
+      - cell "Concrete Polymer"
+      - cell "Open Virtual Smart Factory (VSF) website":
+        - button "Open Virtual Smart Factory (VSF) website"
+    - row "France VLM Robotics Directed Energy Deposition Metal Open VLM Robotics website":
+      - cell "France"
+      - cell "VLM Robotics"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open VLM Robotics website":
+        - button "Open VLM Robotics website"
+    - row "The United Kingdom Wayland Additive PBF-EB (Metal) Metal Open Wayland Additive website":
+      - cell "The United Kingdom"
+      - cell "Wayland Additive"
+      - cell "PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open Wayland Additive website":
+        - button "Open Wayland Additive website"
+    - row "China Wiiboox PBF-LB (Metal) Metal —":
+      - cell "China"
+      - cell "Wiiboox"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "China Winsun (Yingchuang) Material Extrusion Concrete Open Winsun (Yingchuang) website":
+      - cell "China"
+      - cell "Winsun (Yingchuang)"
+      - cell "Material Extrusion"
+      - cell "Concrete"
+      - cell "Open Winsun (Yingchuang) website":
+        - button "Open Winsun (Yingchuang) website"
+    - row "China Wuhan Huake 3D PBF-LB (Metal) Metal Open Wuhan Huake 3D website":
+      - cell "China"
+      - cell "Wuhan Huake 3D"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Wuhan Huake 3D website":
+        - button "Open Wuhan Huake 3D website"
+    - row "United States Xact Metal PBF-LB (Metal) Metal —":
+      - cell "United States"
+      - cell "Xact Metal"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "China XDM PBF-LB (Metal) Metal Open XDM website":
+      - cell "China"
+      - cell "XDM"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open XDM website":
+        - button "Open XDM website"
+    - row "China Xi'an Sailong Metal PBF-EB (Metal) Metal Open Xi'an Sailong Metal website":
+      - cell "China"
+      - cell "Xi'an Sailong Metal"
+      - cell "PBF-EB (Metal)"
+      - cell "Metal"
+      - cell "Open Xi'an Sailong Metal website":
+        - button "Open Xi'an Sailong Metal website"
+    - row "China XiAn Bright Laser Technologies Co Ltd (BLT) PBF-LB (Metal) Metal —":
+      - cell "China"
+      - cell "XiAn Bright Laser Technologies Co Ltd (BLT)"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "—"
+    - row "China Zhuhai Sailner 3D Technology Co., Ltd. Material Jetting Polymer Open Zhuhai Sailner 3D Technology Co., Ltd. website":
+      - cell "China"
+      - cell "Zhuhai Sailner 3D Technology Co., Ltd."
+      - cell "Material Jetting"
+      - cell "Polymer"
+      - cell "Open Zhuhai Sailner 3D Technology Co., Ltd. website":
+        - button "Open Zhuhai Sailner 3D Technology Co., Ltd. website"
+    - row "China Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd PBF-LB (Metal) Vat Photopolymerization Polymer Open Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd website":
+      - cell "China"
+      - cell "Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd"
+      - cell "PBF-LB (Metal) Vat Photopolymerization"
+      - cell "Polymer"
+      - cell "Open Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd website":
+        - button "Open Zhuhai Zongheng 3D Intelligent Technology Co.,Ltd website"
+    - row "Spain Ziknes Directed Energy Deposition Metal Open Ziknes website":
+      - cell "Spain"
+      - cell "Ziknes"
+      - cell "Directed Energy Deposition"
+      - cell "Metal"
+      - cell "Open Ziknes website":
+        - button "Open Ziknes website"
+    - row "China Zrapid Technologies PBF-LB (Metal) Metal Open Zrapid Technologies website":
+      - cell "China"
+      - cell "Zrapid Technologies"
+      - cell "PBF-LB (Metal)"
+      - cell "Metal"
+      - cell "Open Zrapid Technologies website":
+        - button "Open Zrapid Technologies website"
+- alert
+- button "Open Next.js Dev Tools":
+  - img
+```
