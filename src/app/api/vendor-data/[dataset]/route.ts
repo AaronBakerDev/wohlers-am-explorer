@@ -64,9 +64,43 @@ export async function GET(
     const { data, error, count } = await query
 
     if (error) {
-      console.error('Supabase error:', error)
+      console.error(`Supabase error for table '${config.table}':`, {
+        error,
+        dataset,
+        table: config.table,
+        message: error.message,
+        code: error.code
+      })
+      
+      // Better error messages for common issues
+      if (error.code === '42P01') {
+        return NextResponse.json(
+          { 
+            error: `Table '${config.table}' does not exist`,
+            dataset,
+            suggestion: 'Please check if the database migrations have been run'
+          },
+          { status: 404 }
+        )
+      }
+      
+      if (error.code === 'PGRST301') {
+        return NextResponse.json(
+          { 
+            error: `No data access for table '${config.table}'`,
+            dataset,
+            suggestion: 'Please check RLS policies or authentication'
+          },
+          { status: 403 }
+        )
+      }
+      
       return NextResponse.json(
-        { error: `Failed to fetch data: ${error.message}` },
+        { 
+          error: `Failed to fetch data: ${error.message}`,
+          dataset,
+          table: config.table
+        },
         { status: 500 }
       )
     }
