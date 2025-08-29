@@ -501,14 +501,14 @@ export const FILTER_PRESETS: Record<string, CompanyFilters> = {
   // Equipment manufacturers
   AM_SYSTEMS_MANUFACTURERS: {
     companyType: ['equipment'],
-    companyRole: ['manufacturer'],
+    companyRole: ['System manufacturer'],
     isActive: true
   },
   
   // Service providers
   PRINT_SERVICES_GLOBAL: {
     companyType: ['service'], 
-    companyRole: ['provider'],
+    companyRole: ['Printing services', 'service'],
     isActive: true
   },
   
