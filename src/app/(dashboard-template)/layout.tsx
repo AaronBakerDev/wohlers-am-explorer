@@ -440,6 +440,12 @@ export default function DashboardLayout({
               <div className="p-4 border-t border-border">
                 <div className="space-y-2">
                   <ThemeSwitcher />
+                  <Link href="/admin" className="inline-flex w-full">
+                    <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
+                      <Shield className="h-3 w-3 mr-2" />
+                      Admin
+                    </Button>
+                  </Link>
                   <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
                     <Settings className="h-3 w-3 mr-2" />
                     Settings

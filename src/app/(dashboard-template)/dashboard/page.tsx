@@ -347,19 +347,9 @@ function DashboardContent() {
               <h1 className="text-2xl font-semibold text-foreground leading-tight">{reportMetadata.title}</h1>
               <p className="text-xs text-muted-foreground mt-1">Comprehensive database and analysis</p>
             </div>
+            {/* Hide debug/status badges in the main header to reduce clutter on mobile */}
             <div className="flex items-center gap-2">
-              <Badge variant="default" className="text-xs">
-                <Database className="h-3 w-3 mr-1" />
-                {reportMetadata.version}
-              </Badge>
-              <Badge variant="outline" className="text-xs" title="Data source mode">
-                {(process.env.NEXT_PUBLIC_DATA_SOURCE || 'supabase').toUpperCase()}
-              </Badge>
-              <Button variant="outline" size="sm" className="h-7 text-xs">
-                <RefreshCw className="h-3 w-3 mr-1" />
-                <span className="hidden sm:inline">Refresh Data</span>
-                <span className="sm:hidden">Refresh</span>
-              </Button>
+              {/* Intentionally left empty; badges removed per UX feedback */}
             </div>
           </div>
         </div>

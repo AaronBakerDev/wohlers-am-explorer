@@ -27,7 +27,6 @@ import {
   Code,
   Settings,
   RefreshCw,
-  Download,
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
@@ -40,6 +39,8 @@ import {
   CompanyFilterResult,
   filtersToSearchParams
 } from '@/lib/filters/company-filters'
+import ExportButton from '@/components/ExportButton'
+import type { ColumnDef } from '@/lib/export'
 
 // Icon mapping for different dataset types
 const DATASET_ICONS = {
@@ -199,42 +200,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
       : <ArrowDown className="ml-1 h-3.5 w-3.5 text-muted-foreground" />
   }
 
-  // Export functionality
-  const handleExport = () => {
-    if (!dataset) return
-    const headers = dataset.displayColumns.map(col => {
-      switch (col) {
-        case 'name': return 'Company Name'
-        case 'country': return 'Country'
-        case 'segment': return 'Segment'
-        case 'technologies': return 'Technologies'
-        case 'materials': return 'Materials'
-        case 'serviceTypes': return 'Service Types'
-        case 'website': return 'Website'
-        default: return col.charAt(0).toUpperCase() + col.slice(1)
-      }
-    })
-    
-    const csvData = [
-      headers,
-      ...filteredData.map(item => 
-        dataset.displayColumns.map(col => {
-          const value = item[col as keyof CompanyFilterResult]
-          if (Array.isArray(value)) return value.join('; ')
-          return String(value || '')
-        })
-      )
-    ]
-    
-    const csvContent = csvData.map(row => row.map(field => `"${field}"`).join(',')).join('\n')
-    const blob = new Blob([csvContent], { type: 'text/csv' })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${(dataset?.id) || datasetId}.csv`
-    a.click()
-    window.URL.revokeObjectURL(url)
-  }
+  // Export handled by shared ExportButton
 
   // Clear all filters
   const clearFilters = () => {
@@ -243,6 +209,28 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
     setSegmentFilter('')
     setTechnologyFilter('')
   }
+
+  // Build export column definitions based on dataset display columns
+  const exportColumns: ColumnDef<CompanyFilterResult>[] = (dataset?.displayColumns || []).map((col) => {
+    switch (col) {
+      case 'name':
+        return { key: 'name', header: 'Company Name' }
+      case 'country':
+        return { key: 'country', header: 'Country' }
+      case 'segment':
+        return { key: 'segment', header: 'Segment' }
+      case 'technologies':
+        return { key: 'technologies', header: 'Technologies', map: (r) => (r.technologies || []).join('; ') }
+      case 'materials':
+        return { key: 'materials', header: 'Materials', map: (r) => (r.materials || []).join('; ') }
+      case 'serviceTypes':
+        return { key: 'serviceTypes', header: 'Service Types', map: (r) => (r.serviceTypes || []).join('; ') }
+      case 'website':
+        return { key: 'website', header: 'Website' }
+      default:
+        return { key: col, header: col.charAt(0).toUpperCase() + col.slice(1) }
+    }
+  })
 
   // Loading state
   if (loading) {
@@ -292,10 +280,13 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           
           <div className="flex gap-2">
             {dataset?.enableExport && (
-              <Button onClick={handleExport} size="sm" variant="outline">
-                <Download className="h-4 w-4 mr-2" />
-                Export CSV
-              </Button>
+              <ExportButton 
+                data={filteredData}
+                columns={exportColumns}
+                filenameBase={(dataset?.id) || datasetId}
+                size="sm"
+                align="end"
+              />
             )}
           </div>
         </div>

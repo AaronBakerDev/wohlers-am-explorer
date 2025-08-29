@@ -35,7 +35,6 @@ import {
   Globe,
   Factory,
   RefreshCw,
-  Download,
   Calendar,
   ArrowUpDown,
   ArrowUp,
@@ -45,6 +44,8 @@ import {
 } from "lucide-react"
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import ExportButton from '@/components/ExportButton'
+import type { ColumnDef } from '@/lib/export'
 
 // Type definitions
 type PrintServiceProvider = CompanyWithCapabilities
@@ -415,35 +416,16 @@ export default function PrintServicesGlobalContent() {
   const avgServicesPerProvider = filteredData.length > 0 ? (totalServices / filteredData.length).toFixed(1) : '0'
   const totalTechnologies = new Set(filteredData.flatMap(item => item.technologies?.map(t => t.name) || [])).size
 
-  const handleExport = () => {
-    // Convert to CSV
-    const headers = [
-      'Company Name', 'Country', 'Segment', 'Technologies', 
-      'Services', 'Materials', 'Website', 'Founded Year'
-    ]
-    const csvData = [
-      headers,
-      ...filteredData.map(item => [
-        item.name,
-        item.country || '',
-        item.segment || '',
-        item.technologies?.map(t => t.name).join('; ') || '',
-        item.services?.map(s => s.service_name).join('; ') || '',
-        item.materials?.map(m => m.name).join('; ') || '',
-        item.website || '',
-        item.founded_year?.toString() || ''
-      ])
-    ]
-    
-    const csvContent = csvData.map(row => row.map(field => `"${field}"`).join(',')).join('\n')
-    const blob = new Blob([csvContent], { type: 'text/csv' })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'print-services-global.csv'
-    a.click()
-    window.URL.revokeObjectURL(url)
-  }
+  const exportColumns: ColumnDef<PrintServiceProvider>[] = [
+    { key: 'name', header: 'Company Name' },
+    { key: 'country', header: 'Country' },
+    { key: 'segment', header: 'Segment' },
+    { key: 'technologies', header: 'Technologies', map: (r) => (r.technologies || []).map(t => t.name).join('; ') },
+    { key: 'services', header: 'Services', map: (r) => (r.services || []).map(s => s.service_name).join('; ') },
+    { key: 'materials', header: 'Materials', map: (r) => (r.materials || []).map(m => m.name).join('; ') },
+    { key: 'website', header: 'Website' },
+    { key: 'founded_year', header: 'Founded Year' },
+  ]
 
   const toggleSort = (key: SortKey) => {
     setSort(prev => prev.key === key
@@ -494,10 +476,13 @@ export default function PrintServicesGlobalContent() {
             <Badge variant="outline">Avg: {avgServicesPerProvider} per provider</Badge>
             <Badge variant="outline">{totalTechnologies} technologies</Badge>
           </div>
-          <Button onClick={handleExport} size="sm" variant="outline">
-            <Download className="h-4 w-4 mr-2" />
-            Export CSV
-          </Button>
+          <ExportButton
+            data={filteredData}
+            columns={exportColumns}
+            filenameBase="print-services-global"
+            size="sm"
+            align="end"
+          />
         </div>
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-3 items-center">

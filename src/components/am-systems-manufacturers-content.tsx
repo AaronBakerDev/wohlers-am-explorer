@@ -26,11 +26,12 @@ import {
   Globe,
   Settings,
   RefreshCw,
-  Download,
   ArrowUpDown,
   ArrowUp,
   ArrowDown
 } from "lucide-react"
+import ExportButton from '@/components/ExportButton'
+import type { ColumnDef } from '@/lib/export'
 
 // Type definitions
 type AMSystemsManufacturer = {
@@ -264,30 +265,14 @@ export default function AMSystemsManufacturersContent() {
       : <ArrowDown className="ml-1 h-3.5 w-3.5 text-muted-foreground" />
   }
 
-  const handleExport = () => {
-    // Convert to CSV
-    const headers = ['Company Name', 'Segment', 'Process', 'Material Format', 'Material Type', 'Country']
-    const csvData = [
-      headers,
-      ...filteredData.map(item => [
-        item.company_name,
-        item.segment,
-        item.process,
-        item.material_format,
-        item.material_type,
-        item.country
-      ])
-    ]
-    
-    const csvContent = csvData.map(row => row.map(field => `"${field}"`).join(',')).join('\n')
-    const blob = new Blob([csvContent], { type: 'text/csv' })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'am-systems-manufacturers.csv'
-    a.click()
-    window.URL.revokeObjectURL(url)
-  }
+  const exportColumns: ColumnDef<AMSystemsManufacturer>[] = [
+    { key: 'company_name', header: 'Company Name' },
+    { key: 'segment', header: 'Segment' },
+    { key: 'process', header: 'Process' },
+    { key: 'material_format', header: 'Material Format' },
+    { key: 'material_type', header: 'Material Type' },
+    { key: 'country', header: 'Country' },
+  ]
 
   if (loading) {
     return (
@@ -321,10 +306,13 @@ export default function AMSystemsManufacturersContent() {
             <h2 className="text-lg font-semibold">AM Systems Manufacturers</h2>
             <Badge variant="secondary">{filteredData.length} manufacturers</Badge>
           </div>
-          <Button onClick={handleExport} size="sm" variant="outline">
-            <Download className="h-4 w-4 mr-2" />
-            Export CSV
-          </Button>
+          <ExportButton
+            data={filteredData}
+            columns={exportColumns}
+            filenameBase="am-systems-manufacturers"
+            size="sm"
+            align="end"
+          />
         </div>
 
         {/* Filters */}

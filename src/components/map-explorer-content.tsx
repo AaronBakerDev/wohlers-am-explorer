@@ -14,6 +14,7 @@ import {
 import { Technology, Material } from '@/lib/supabase/types';
 import dynamic from 'next/dynamic';
 import { emptyFilters, FilterState } from '@/lib/filters/types';
+import { filtersToSearchParams, CompanyFilterResponse, CompanyFilters } from '@/lib/filters/company-filters';
 import type { ColumnDef } from '@/lib/export';
 import { BottomDrawer, ControlsTabs, CountrySidebar, TopToolbar } from '@/components/map';
 import type { CompanyMarker, LegendBucket, StateHeatmapData } from '@/components/map';
@@ -204,35 +205,38 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
     const controller = new AbortController();
     async function fetchMapCompanies() {
       try {
-        let apiUrl = '';
-        const params = new URLSearchParams();
-        
-        if (companyType === 'equipment') {
-          // Use systems manufacturers API
-          apiUrl = '/api/companies/systems-manufacturers-map';
-          params.set('limit', '2000');
-        } else if (companyType === 'service') {
-          // Use print services API
-          apiUrl = '/api/companies/print-services-map';
-          params.set('limit', '2000');
-        } else {
-          // Default behavior: use global companies API (no viewport restriction needed)
-          apiUrl = '/api/companies/global-map';
-          params.set('limit', '2000');
-          
-          // Add search and filter parameters
-          if (searchQuery.trim()) params.set('q', searchQuery.trim());
-          if (memoizedFilters.countries.length)
-            params.set('countries', memoizedFilters.countries.join(','));
+        // Build unified filter request against /api/companies so the map
+        // reflects the same filters as the table/analytics views.
+        const selectedTechnologyNames = technologies
+          .filter(t => memoizedFilters.technologyIds.includes(t.id))
+          .map(t => t.name)
+        const selectedMaterialNames = materials
+          .filter(m => memoizedFilters.materialIds.includes(m.id))
+          .map(m => m.name)
+
+        const baseFilters: CompanyFilters = {
+          // Map-level classification, if provided
+          companyType: companyType ? [companyType] as CompanyFilters['companyType'] : undefined,
+          // Text search
+          search: searchQuery || undefined,
+          // Geography
+          country: memoizedFilters.countries.length ? memoizedFilters.countries : undefined,
+          // Capability filters (convert from ID -> name)
+          technologies: selectedTechnologyNames.length ? selectedTechnologyNames : undefined,
+          materials: selectedMaterialNames.length ? selectedMaterialNames : undefined,
         }
 
-        const res = await fetch(`${apiUrl}?${params.toString()}`, {
+        const params = filtersToSearchParams(baseFilters)
+        // Also include pagination limit supported by the API
+        params.set('limit', '2000')
+        const res = await fetch(`/api/companies?${params.toString()}`, {
           signal: controller.signal,
         });
         if (!res.ok)
           throw new Error(`Failed to fetch map companies (${res.status})`);
-        const json = await res.json();
-        const items = (json?.data?.items || []) as Array<any>;
+
+        const json: CompanyFilterResponse = await res.json();
+        const items = json?.data || []
         const transformed: CompanyMarker[] = items.map((c) => ({
           id: c.id,
           name: c.name,
@@ -243,13 +247,11 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
           technologies: c.technologies || [],
           materials: c.materials || [],
           website: c.website || null,
-          type: c.type || null,
-          totalMachines: c.totalMachines || 0,
-          uniqueProcesses: c.uniqueProcesses || 0,
-          uniqueMaterials: c.uniqueMaterials || 0,
-          uniqueManufacturers: c.uniqueManufacturers || 0,
-          companies: c.companies || [], // Include nested companies array
-          companyData: c.companyData || null, // Include company data for detailed view
+          type: c.companyType || null,
+          totalMachines: c.equipmentCount || 0,
+          uniqueProcesses: Array.isArray(c.technologies) ? c.technologies.length : 0,
+          uniqueMaterials: Array.isArray(c.materials) ? c.materials.length : 0,
+          uniqueManufacturers: 0,
         }));
         setMapCompanies(transformed);
       } catch (err) {

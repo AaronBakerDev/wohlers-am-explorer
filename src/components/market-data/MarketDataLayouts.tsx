@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart } from 'lucide-react'
+import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart, ArrowUpDown, ChevronUp, ChevronDown } from 'lucide-react'
 // import { Separator } from '@/components/ui/separator'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis, BarChart as ReBarChart, Bar } from 'recharts'
 import { MarketTotalsChart } from '@/components/market-data/MarketTotalsChart'
@@ -88,6 +88,10 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
     return filteredRows
   }, [rows, selectedSegment, selectedCountry, searchTerm, segmentIdx, nameIdx, materialIdx, selectedMaterial])
   
+  // Sorting state
+  const [sortColumn, setSortColumn] = useState<number | null>(null)
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+
   // Prepare data for pie charts
   const segmentData = useMemo(() => {
     const segmentRevenue = new Map<string, number>()
@@ -181,6 +185,44 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
 
   const segmentTotal = useMemo(() => segmentData.reduce((s, d) => s + (d.value || 0), 0), [segmentData])
   const countryTotal = useMemo(() => countryData.reduce((s, d) => s + (d.value || 0), 0), [countryData])
+
+  // Sorted data for the table (based on processedData)
+  const sortedTableData = useMemo(() => {
+    const numericCols: number[] = (() => {
+      if (dataset === 'revenue-by-industry-2024') return [1, 2]
+      return [revenueIdx]
+    })()
+
+    const arr = [...processedData]
+    if (sortColumn === null) return arr
+    const isNumeric = numericCols.includes(sortColumn)
+    const parseVal = (v: any) => {
+      if (v == null) return ''
+      if (!isNumeric) return v.toString().toLowerCase()
+      const num = parseFloat(v.toString().replace(/[^\d.-]/g, '') || '0')
+      return isNaN(num) ? 0 : num
+    }
+
+    arr.sort((a, b) => {
+      const av = parseVal(a[sortColumn!])
+      const bv = parseVal(b[sortColumn!])
+      if (av < bv) return sortDirection === 'asc' ? -1 : 1
+      if (av > bv) return sortDirection === 'asc' ? 1 : -1
+      return 0
+    })
+    return arr
+  }, [processedData, sortColumn, sortDirection, dataset, revenueIdx])
+
+  const handleSort = (index: number) => {
+    setSortColumn((prev) => {
+      if (prev === index) {
+        setSortDirection((d) => (d === 'asc' ? 'desc' : 'asc'))
+        return prev
+      }
+      setSortDirection('asc')
+      return index
+    })
+  }
   
   return (
     <div className="space-y-6">
@@ -475,14 +517,21 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
               <TableHeader>
                 <TableRow>
                   {headers.map((header, index) => (
-                    <TableHead key={index} className="font-semibold">
-                      {header}
+                    <TableHead key={index} className="font-semibold cursor-pointer select-none" onClick={() => handleSort(index)}>
+                      <div className="inline-flex items-center gap-1">
+                        <span>{header}</span>
+                        {sortColumn === index ? (
+                          sortDirection === 'asc' ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+                        )}
+                      </div>
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {processedData.slice(0, 50).map((row, rowIndex) => (
+                {sortedTableData.slice(0, 50).map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -548,6 +597,8 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
   const [countryFilter, setCountryFilter] = useState<string>('all')
   const [typeFilter, setTypeFilter] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
+  const [sortColumn, setSortColumn] = useState<number | null>(null)
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   
   // Filter data
   const filteredRows = useMemo(() => {
@@ -579,6 +630,39 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
     
     return minYear === maxYear ? minYear.toString() : `${minYear}-${maxYear}`
   }, [filteredRows])
+  
+  // Sort filtered table rows
+  const sortedInvestmentRows = useMemo(() => {
+    const numericCols = [0, 4]
+    const arr = [...filteredRows]
+    if (sortColumn === null) return arr
+    const isNumeric = numericCols.includes(sortColumn)
+    const parseVal = (v: any) => {
+      if (v == null) return ''
+      if (!isNumeric) return v.toString().toLowerCase()
+      const num = parseFloat(v.toString().replace(/[^\d.-]/g, '') || '0')
+      return isNaN(num) ? 0 : num
+    }
+    arr.sort((a, b) => {
+      const av = parseVal(a[sortColumn!])
+      const bv = parseVal(b[sortColumn!])
+      if (av < bv) return sortDirection === 'asc' ? -1 : 1
+      if (av > bv) return sortDirection === 'asc' ? 1 : -1
+      return 0
+    })
+    return arr
+  }, [filteredRows, sortColumn, sortDirection])
+
+  const handleSort = (index: number) => {
+    setSortColumn((prev) => {
+      if (prev === index) {
+        setSortDirection((d) => (d === 'asc' ? 'desc' : 'asc'))
+        return prev
+      }
+      setSortDirection('asc')
+      return index
+    })
+  }
   
   return (
     <div className="space-y-6">
@@ -732,14 +816,21 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
               <TableHeader>
                 <TableRow>
                   {headers.map((header, index) => (
-                    <TableHead key={index} className="font-semibold">
-                      {header}
+                    <TableHead key={index} className="font-semibold cursor-pointer select-none" onClick={() => handleSort(index)}>
+                      <div className="inline-flex items-center gap-1">
+                        <span>{header}</span>
+                        {sortColumn === index ? (
+                          sortDirection === 'asc' ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+                        )}
+                      </div>
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredRows.slice(0, 50).map((row, rowIndex) => (
+                {sortedInvestmentRows.slice(0, 50).map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -765,6 +856,8 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
 
 // M&A Analysis Layout - for Mergers & Acquisitions
 export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataLayoutProps) {
+  const [sortColumn, setSortColumn] = useState<number | null>(null)
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   
   const safeData = data || []
   const headers = safeData[0] || []
@@ -843,6 +936,39 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
       return dealSize > max ? dealSize : max
     }, 0)
   }, [filteredRows])
+  
+  // Sort filtered rows for table
+  const sortedMaRows = useMemo(() => {
+    const numericCols = [dealSizeIdx]
+    const arr = [...filteredRows]
+    if (sortColumn === null) return arr
+    const isNumeric = numericCols.includes(sortColumn)
+    const parseVal = (v: any) => {
+      if (v == null) return ''
+      if (!isNumeric) return v.toString().toLowerCase()
+      const num = parseFloat(v.toString().replace(/[^\d.-]/g, '') || '0')
+      return isNaN(num) ? 0 : num
+    }
+    arr.sort((a, b) => {
+      const av = parseVal(a[sortColumn!])
+      const bv = parseVal(b[sortColumn!])
+      if (av < bv) return sortDirection === 'asc' ? -1 : 1
+      if (av > bv) return sortDirection === 'asc' ? 1 : -1
+      return 0
+    })
+    return arr
+  }, [filteredRows, sortColumn, sortDirection, dealSizeIdx])
+
+  const handleSort = (index: number) => {
+    setSortColumn((prev) => {
+      if (prev === index) {
+        setSortDirection((d) => (d === 'asc' ? 'desc' : 'asc'))
+        return prev
+      }
+      setSortDirection('asc')
+      return index
+    })
+  }
   
   return (
     <div className="space-y-6">
@@ -993,14 +1119,25 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
               <TableHeader>
                 <TableRow>
                   {headers.map((header, index) => (
-                    <TableHead key={index} className="font-semibold">
-                      {header}
+                    <TableHead 
+                      key={index} 
+                      className="font-semibold cursor-pointer select-none"
+                      onClick={() => handleSort(index)}
+                    >
+                      <div className="inline-flex items-center gap-1">
+                        <span>{header}</span>
+                        {sortColumn === index ? (
+                          sortDirection === 'asc' ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+                        )}
+                      </div>
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredRows.slice(0, 50).map((row, rowIndex) => (
+                {sortedMaRows.slice(0, 50).map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -1040,7 +1177,8 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
 
 // Pricing Analysis Layout - for Print Services Pricing
 export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLayoutProps) {
-  
+  const [sortColumn, setSortColumn] = useState<number | null>(null)
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const safeData = data || []
   const headers = safeData[0] || []
   const rows = safeData.slice(1)
@@ -1114,6 +1252,39 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
   const avgCost = filteredRows.length > 0
     ? Math.round(filteredRows.reduce((sum, row) => sum + (parseFloat(row[costIdx]) || 0), 0) / filteredRows.length)
     : 0
+  
+  // Sort filtered rows
+  const sortedPricingRows = useMemo(() => {
+    const numericCols = [quantityIdx, costIdx, leadTimeIdx]
+    const arr = [...filteredRows]
+    if (sortColumn === null) return arr
+    const isNumeric = numericCols.includes(sortColumn)
+    const parseVal = (v: any) => {
+      if (v == null) return ''
+      if (!isNumeric) return v.toString().toLowerCase()
+      const num = parseFloat(v.toString().replace(/[^\d.-]/g, '') || '0')
+      return isNaN(num) ? 0 : num
+    }
+    arr.sort((a, b) => {
+      const av = parseVal(a[sortColumn!])
+      const bv = parseVal(b[sortColumn!])
+      if (av < bv) return sortDirection === 'asc' ? -1 : 1
+      if (av > bv) return sortDirection === 'asc' ? 1 : -1
+      return 0
+    })
+    return arr
+  }, [filteredRows, sortColumn, sortDirection])
+
+  const handleSort = (index: number) => {
+    setSortColumn((prev) => {
+      if (prev === index) {
+        setSortDirection((d) => (d === 'asc' ? 'desc' : 'asc'))
+        return prev
+      }
+      setSortDirection('asc')
+      return index
+    })
+  }
   
   return (
     <div className="space-y-6">
@@ -1447,14 +1618,21 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
               <TableHeader>
                 <TableRow>
                   {headers.map((header, index) => (
-                    <TableHead key={index} className="font-semibold">
-                      {header}
+                    <TableHead key={index} className="font-semibold cursor-pointer select-none" onClick={() => handleSort(index)}>
+                      <div className="inline-flex items-center gap-1">
+                        <span>{header}</span>
+                        {sortColumn === index ? (
+                          sortDirection === 'asc' ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+                        )}
+                      </div>
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {rows.slice(0, 50).map((row, rowIndex) => (
+                {sortedPricingRows.slice(0, 50).map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -1483,6 +1661,33 @@ export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLa
   const safeData = data || []
   const headers = safeData[0] || []
   const rows = safeData.slice(1)
+  const [sortColumn, setSortColumn] = useState<number | null>(null)
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+
+  const sortedDirRows = useMemo(() => {
+    const arr = [...rows]
+    if (sortColumn === null) return arr
+    const parseVal = (v: any) => v?.toString().toLowerCase() || ''
+    arr.sort((a, b) => {
+      const av = parseVal(a[sortColumn!])
+      const bv = parseVal(b[sortColumn!])
+      if (av < bv) return sortDirection === 'asc' ? -1 : 1
+      if (av > bv) return sortDirection === 'asc' ? 1 : -1
+      return 0
+    })
+    return arr
+  }, [rows, sortColumn, sortDirection])
+
+  const handleSort = (index: number) => {
+    setSortColumn((prev) => {
+      if (prev === index) {
+        setSortDirection((d) => (d === 'asc' ? 'desc' : 'asc'))
+        return prev
+      }
+      setSortDirection('asc')
+      return index
+    })
+  }
   
   return (
     <div className="space-y-6">
@@ -1599,14 +1804,21 @@ export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLa
               <TableHeader>
                 <TableRow>
                   {headers.map((header, index) => (
-                    <TableHead key={index} className="font-semibold">
-                      {header}
+                    <TableHead key={index} className="font-semibold cursor-pointer select-none" onClick={() => handleSort(index)}>
+                      <div className="inline-flex items-center gap-1">
+                        <span>{header}</span>
+                        {sortColumn === index ? (
+                          sortDirection === 'asc' ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+                        )}
+                      </div>
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {rows.slice(0, 50).map((row, rowIndex) => (
+                {sortedDirRows.slice(0, 50).map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -1643,68 +1855,207 @@ export function GenericTableLayout({ data, dataset }: MarketDataLayoutProps) {
   const headers = safeData[0] || []
   const rows = safeData.slice(1)
   
+  // Dataset-specific mapping for filters, labels, and numeric columns
+  const map = useMemo(() => {
+    // Defaults: no special mapping
+    const base = { nameIdx: -1, nameLabel: 'Name', segmentIdx: -1, segmentLabel: 'Segment', numericCols: [] as number[], revenueIdx: -1 }
+    switch (dataset) {
+      case 'am-market-revenue-2024':
+        return { ...base, nameIdx: 1, nameLabel: 'Country', segmentIdx: 2, segmentLabel: 'Segment', numericCols: [0], revenueIdx: 0 }
+      case 'revenue-by-industry-2024':
+        return { ...base, nameIdx: 0, nameLabel: 'Industry', segmentIdx: 3, segmentLabel: 'Region', numericCols: [1,2], revenueIdx: 2 }
+      case 'fundings-investments':
+        return { ...base, nameIdx: 2, nameLabel: 'Company', segmentIdx: 3, segmentLabel: 'Country', numericCols: [0,4], revenueIdx: -1 }
+      case 'mergers-acquisitions':
+        return { ...base, nameIdx: 2, nameLabel: 'Acquiring Company', segmentIdx: 4, segmentLabel: 'Deal Status', numericCols: [3], revenueIdx: -1 }
+      case 'print-services-pricing':
+        return { ...base, nameIdx: 0, nameLabel: 'Company', segmentIdx: 3, segmentLabel: 'Process', numericCols: [4,5,8], revenueIdx: 5 }
+      case 'company-information':
+        return { ...base, nameIdx: 0, nameLabel: 'Company', segmentIdx: 2, segmentLabel: 'Country', numericCols: [], revenueIdx: -1 }
+      case 'company-roles':
+        return { ...base, nameIdx: 0, nameLabel: 'Company', segmentIdx: 1, segmentLabel: 'Category', numericCols: [], revenueIdx: -1 }
+      case 'directory':
+        return { ...base, nameIdx: 0, nameLabel: 'Figure', segmentIdx: 2, segmentLabel: 'V1', numericCols: [], revenueIdx: -1 }
+      default:
+        return base
+    }
+  }, [dataset])
+
+  // Filters
+  const [selectedName, setSelectedName] = useState<string>('all')
+  const [selectedSegment, setSelectedSegment] = useState<string>('all')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const uniqueNames = useMemo(
+    () => (map.nameIdx >= 0 ? Array.from(new Set(rows.map(r => r[map.nameIdx]).filter(Boolean))) : []),
+    [rows, map.nameIdx]
+  )
+  const uniqueSegments = useMemo(
+    () => (map.segmentIdx >= 0 ? Array.from(new Set(rows.map(r => r[map.segmentIdx]).filter(Boolean))) : []),
+    [rows, map.segmentIdx]
+  )
+
+  const filteredRows = useMemo(() => {
+    let out = rows
+    if (map.nameIdx >= 0 && selectedName !== 'all') out = out.filter(r => r[map.nameIdx] === selectedName)
+    if (map.segmentIdx >= 0 && selectedSegment !== 'all') out = out.filter(r => r[map.segmentIdx] === selectedSegment)
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase()
+      out = out.filter(r => r.some(c => c?.toString().toLowerCase().includes(q)))
+    }
+    return out
+  }, [rows, selectedName, selectedSegment, searchTerm, nameIdx, segmentIdx])
+
+  // Sorting
+  const [sortColumn, setSortColumn] = useState<number | null>(null)
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+  const sortedRows = useMemo(() => {
+    const numericCols: number[] = map.numericCols
+    const arr = [...filteredRows]
+    if (sortColumn === null) return arr
+    const isNumeric = numericCols.includes(sortColumn)
+    const parseVal = (v: any) => {
+      if (v == null) return ''
+      if (!isNumeric) return v.toString().toLowerCase()
+      const num = parseFloat(v.toString().replace(/[^\d.-]/g, '') || '0')
+      return isNaN(num) ? 0 : num
+    }
+    arr.sort((a, b) => {
+      const av = parseVal(a[sortColumn!])
+      const bv = parseVal(b[sortColumn!])
+      if (av < bv) return sortDirection === 'asc' ? -1 : 1
+      if (av > bv) return sortDirection === 'asc' ? 1 : -1
+      return 0
+    })
+    return arr
+  }, [filteredRows, sortColumn, sortDirection, map.numericCols])
+
+  const handleSort = (index: number) => {
+    setSortColumn((prev) => {
+      if (prev === index) {
+        setSortDirection((d) => (d === 'asc' ? 'desc' : 'asc'))
+        return prev
+      }
+      setSortDirection('asc')
+      return index
+    })
+  }
+
+  // CSV export
+  const exportCsv = () => {
+    const rowsToExport = [headers, ...sortedRows]
+    const csv = rowsToExport
+      .map(r => r.map(cell => {
+        const s = cell?.toString() ?? ''
+        if (s.includes('"') || s.includes(',') || s.includes('\n')) {
+          return '"' + s.replace(/"/g, '""') + '"'
+        }
+        return s
+      }).join(','))
+      .join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${dataset}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   return (
-    <div className="space-y-6">
-      {/* Generic Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Records</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{rows.length}</div>
-            <p className="text-xs text-muted-foreground">Data entries</p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Columns</CardTitle>
-            <Table className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{headers.length}</div>
-            <p className="text-xs text-muted-foreground">Data fields</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Actions</CardTitle>
-            <Download className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline">Export</Button>
-              <Button size="sm" variant="outline">Filter</Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Generic Data Table */}
+    <div className="space-y-4">
       <Card>
-        <CardHeader>
-          <CardTitle className="text-lg capitalize">{dataset.replace(/-/g, ' ')} Data</CardTitle>
+        <CardHeader className="px-4 py-3">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-base capitalize">{dataset.replace(/-/g, ' ')}</CardTitle>
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary">{sortedRows.length} of {rows.length}</Badge>
+              <Button size="sm" variant="outline" onClick={exportCsv}>
+                <Download className="h-4 w-4 mr-2" />
+                Export CSV
+              </Button>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 pt-0 pb-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+            {map.nameIdx >= 0 && (
+              <Select value={selectedName} onValueChange={setSelectedName}>
+                <SelectTrigger size="sm">
+                  <SelectValue placeholder={`Filter by ${map.nameLabel.toLowerCase()}`} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  {uniqueNames.map(n => (
+                    <SelectItem key={n?.toString()} value={n?.toString() || ''}>{n}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            {map.segmentIdx >= 0 && (
+              <Select value={selectedSegment} onValueChange={setSelectedSegment}>
+                <SelectTrigger size="sm">
+                  <SelectValue placeholder={`Filter by ${map.segmentLabel.toLowerCase()}`} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  {uniqueSegments.map(s => (
+                    <SelectItem key={s?.toString()} value={s?.toString() || ''}>{s}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            <Input 
+              placeholder="Search..."
+              className="h-8"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button 
+              className="h-8" 
+              size="sm"
+              variant="outline"
+              onClick={() => { setSelectedName('all'); setSelectedSegment('all'); setSearchTerm('') }}
+            >
+              Reset
+            </Button>
+          </div>
+
           <div className="rounded-md border overflow-auto max-h-96">
             <Table>
               <TableHeader>
                 <TableRow>
                   {headers.map((header, index) => (
-                    <TableHead key={index} className="font-semibold">
-                      {header}
+                    <TableHead key={index} className="font-semibold cursor-pointer select-none" onClick={() => handleSort(index)}>
+                      <div className="inline-flex items-center gap-1">
+                        <span>{header}</span>
+                        {sortColumn === index ? (
+                          sortDirection === 'asc' ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+                        )}
+                      </div>
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {rows.slice(0, 50).map((row, rowIndex) => (
+                {sortedRows.slice(0, 100).map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
-                      <TableCell key={cellIndex}>{cell}</TableCell>
+                      <TableCell key={cellIndex}>
+                        {dataset === 'am-market-revenue-2024' && cellIndex === map.revenueIdx ? (
+                          <Badge variant="secondary">
+                            {(parseFloat(cell?.toString().replace(/[^\d.-]/g, '') || '0') / 1_000_000).toFixed(1)}M
+                          </Badge>
+                        ) : dataset === 'revenue-by-industry-2024' && cellIndex === map.revenueIdx ? (
+                          <Badge variant="secondary">
+                            {(parseFloat(cell?.toString().replace(/[^\d.-]/g, '') || '0') / 1_000_000).toFixed(1)}M
+                          </Badge>
+                        ) : (
+                          cell
+                        )}
+                      </TableCell>
                     ))}
                   </TableRow>
                 ))}

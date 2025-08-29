@@ -32,7 +32,6 @@ import {
 } from "@/components/ui/card";
 import {
   Search,
-  Download,
   Building2,
   ChevronLeft,
   ChevronRight,
@@ -41,6 +40,8 @@ import {
   ExternalLink,
   X,
 } from "lucide-react";
+import ExportButton from "@/components/ExportButton";
+import type { ColumnDef } from "@/lib/export";
 
 type ApiCompanyItem = {
   id: string;
@@ -186,45 +187,22 @@ export default function DirectoryContent() {
     setPage(1);
   };
 
-  // Export functionality
-  const handleExport = () => {
-    // Create CSV content
-    const headers = [
-      "Company",
-      "Country",
-      "Category",
-      "Funding ($M)",
-      "Funding Rounds",
-      "Last Funding",
-      "Status",
-    ];
-    const csvContent = [
-      headers.join(","),
-      ...items.map((item) =>
-        [
-          item.name,
-          item.country ?? "",
-          item.company_type ?? "",
-          item.funding?.totalMillions ?? 0,
-          item.funding?.rounds ?? 0,
-          item.funding?.lastYear ?? "",
-          item.categories?.join(";") ?? "",
-        ]
-          .map((v) => `"${String(v)}"`)
-          .join(","),
-      ),
-    ].join("\n");
-
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "directory-export.csv";
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
+  // Export handled by shared ExportButton component
 
   const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
+
+  const exportColumns: ColumnDef<ApiCompanyItem>[] = [
+    { key: 'name', header: 'Company Name' },
+    { key: 'country', header: 'Country' },
+    { key: 'company_type', header: 'Category' },
+    { key: 'website', header: 'Website' },
+    { key: 'city', header: 'City' },
+    { key: 'state', header: 'State' },
+    { key: 'categories', header: 'Categories', map: (r) => (r.categories || []).join(';') },
+    { key: 'funding', header: 'Funding Total ($M)', map: (r) => r.funding?.totalMillions ?? 0 },
+    { key: 'funding', header: 'Funding Rounds', map: (r) => r.funding?.rounds ?? 0 },
+    { key: 'funding', header: 'Last Funding Year', map: (r) => r.funding?.lastYear ?? '' },
+  ];
 
   return (
     <div className="flex-1 overflow-auto p-4">
@@ -235,10 +213,13 @@ export default function DirectoryContent() {
           <Badge variant="outline" className="text-xs">{total} results</Badge>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={handleExport} className="h-7 text-xs">
-            <Download className="h-3 w-3 mr-1" />
-            Export
-          </Button>
+          <ExportButton
+            data={items}
+            columns={exportColumns}
+            filenameBase="directory-export"
+            size="sm"
+            align="end"
+          />
         </div>
       </div>
 
@@ -263,9 +244,13 @@ export default function DirectoryContent() {
               <Button variant="ghost" size="sm" className="h-8 text-xs" onClick={resetFilters}>
                 <X className="h-3 w-3 mr-1" /> Clear
               </Button>
-              <Button variant="outline" size="sm" className="h-8 text-xs" onClick={handleExport}>
-                <Download className="h-3 w-3 mr-1" /> Export
-              </Button>
+              <ExportButton
+                data={items}
+                columns={exportColumns}
+                filenameBase="directory-export"
+                size="sm"
+                align="end"
+              />
             </div>
           </div>
 
