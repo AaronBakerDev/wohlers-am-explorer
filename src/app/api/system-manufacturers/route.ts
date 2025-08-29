@@ -15,7 +15,7 @@ function readData(): Row[] {
   try {
     const text = fs.readFileSync(p, 'utf8')
     return JSON.parse(text) as Row[]
-  } catch (e) {
+  } catch (_e) {
     return []
   }
 }

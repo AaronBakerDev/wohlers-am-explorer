@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Database, RefreshCw } from 'lucide-react'
+import { ArrowLeft, RefreshCw } from 'lucide-react'
 import { 
   RevenueAnalysisLayout,
   GenericTableLayout
@@ -79,8 +79,6 @@ export default function RevenueByIndustry2024Page() {
             
             <div className="flex items-center gap-4 mb-4 mt-4">
               <Badge variant="secondary">{loading ? 'Loading...' : totalRows > 0 ? `${totalRows.toLocaleString()} total rows` : csvData.length > 1 ? `${csvData.length - 1} rows` : 'No data'}</Badge>
-              <Badge variant="default"><Database className="h-3 w-3 mr-1" />Live Database</Badge>
-              <Badge variant="outline">Interactive Analysis</Badge>
             </div>
           </div>
           

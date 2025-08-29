@@ -85,7 +85,7 @@ export type FilterOperator = 'equals' | 'in' | 'contains' | 'startsWith' | 'ends
 export interface AdvancedFilter {
   field: keyof CompanyFilters
   operator: FilterOperator
-  value: any
+  value: string | number | boolean | string[] | number[] | [number, number] | null
 }
 
 /**

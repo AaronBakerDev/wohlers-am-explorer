@@ -31,14 +31,26 @@ export default function MergersAcquisitionsPage() {
     const loadData = async () => {
       try {
         const apiUrl = `/api/market-data/${dataset}`
+        console.log('Fetching from:', apiUrl)
         const response = await fetch(apiUrl)
         
+        console.log('Response status:', response.status, response.statusText)
+        
         if (!response.ok) {
-          const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
-          throw new Error(errorData.error || `HTTP ${response.status}`)
+          let errorMessage = `HTTP ${response.status}`
+          try {
+            const errorData = await response.json()
+            errorMessage = errorData.error || errorMessage
+          } catch (parseErr) {
+            console.warn('Could not parse error response:', parseErr)
+            const responseText = await response.text().catch(() => 'Unknown error')
+            errorMessage = responseText || errorMessage
+          }
+          throw new Error(errorMessage)
         }
 
         const data = await response.json()
+        console.log('Data loaded successfully:', data.totalRows, 'rows')
         setCsvData(data.data || [])
         setTotalRows(data.totalRows || data.rowCount || 0)
       } catch (err) {
@@ -93,11 +105,6 @@ export default function MergersAcquisitionsPage() {
                  totalRows > 0 ? `${totalRows.toLocaleString()} total rows` : 
                  csvData.length > 1 ? `${csvData.length - 1} rows` : 'No data'}
               </Badge>
-              <Badge variant="default">
-                <Database className="h-3 w-3 mr-1" />
-                Live Database
-              </Badge>
-              <Badge variant="outline">Interactive Analysis</Badge>
             </div>
           </div>
           

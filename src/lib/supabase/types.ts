@@ -785,7 +785,7 @@ export type DashboardAnalytics = {
   }>;
   competitiveSegments: Array<{
     technology: string;
-    [materialCategory: string]: any;
+    [materialCategory: string]: number | string;
   }>;
   marketConcentration: {
     technologyHHI: number;

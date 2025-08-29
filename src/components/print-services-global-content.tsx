@@ -531,24 +531,24 @@ export default function PrintServicesGlobalContent() {
             className="h-10"
           />
 
-          <Select value={filters.technologies.join(',')} onValueChange={(value) => setFilters(prev => ({ ...prev, technologies: value ? [value] : [] }))}>
+          <Select value={filters.technologies.join(',')} onValueChange={(value) => setFilters(prev => ({ ...prev, technologies: value === 'all' ? [] : [value] }))}>
             <SelectTrigger>
               <SelectValue placeholder="Technologies" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Technologies</SelectItem>
+              <SelectItem value="all">All Technologies</SelectItem>
               {uniqueValues.technologies.map(tech => (
                 <SelectItem key={tech} value={tech}>{tech}</SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          <Select value={filters.services.join(',')} onValueChange={(value) => setFilters(prev => ({ ...prev, services: value ? [value] : [] }))}>
+          <Select value={filters.services.join(',')} onValueChange={(value) => setFilters(prev => ({ ...prev, services: value === 'all' ? [] : [value] }))}>
             <SelectTrigger>
               <SelectValue placeholder="Services" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Services</SelectItem>
+              <SelectItem value="all">All Services</SelectItem>
               <SelectItem value="printing">3D Printing</SelectItem>
               <SelectItem value="design">Design Services</SelectItem>
               <SelectItem value="consulting">Consulting</SelectItem>

@@ -1,7 +1,7 @@
 "use client"
 
-import { createClient } from '@/lib/supabase/client'
 import type { UserRole } from '@/lib/auth/roles'
+import type { Json } from '@/lib/supabase/types'
 
 export type UserProfile = {
   user_id: string
@@ -13,8 +13,8 @@ export type UserProfile = {
 export type UserPreferences = {
   user_id: string
   theme: 'system' | 'light' | 'dark'
-  default_filters: Record<string, any>
-  export_preferences: Record<string, any>
+  default_filters: Json
+  export_preferences: Json
 }
 
 export async function getCurrentUserProfile(): Promise<UserProfile | null> {
@@ -39,11 +39,11 @@ export async function getCurrentUserProfile(): Promise<UserProfile | null> {
     .maybeSingle()
 
   if (error) throw error
-  return (data as any) as UserProfile | null
+  return data as UserProfile | null
   */
 }
 
-export async function upsertUserProfile(update: Partial<UserProfile>) {
+export async function upsertUserProfile(_update: Partial<UserProfile>) {
   // AUTH DISABLED - No-op
   return
   /* ORIGINAL AUTH CODE
@@ -76,11 +76,11 @@ export async function getUserPreferences(): Promise<UserPreferences | null> {
     .eq('user_id', userId)
     .maybeSingle()
   if (error) throw error
-  return data as any
+  return data as UserPreferences
   */
 }
 
-export async function upsertUserPreferences(update: Partial<UserPreferences>) {
+export async function upsertUserPreferences(_update: Partial<UserPreferences>) {
   // AUTH DISABLED - No-op
   return
   /* ORIGINAL AUTH CODE
@@ -112,7 +112,7 @@ export async function listSavedSearches() {
   */
 }
 
-export async function createSavedSearch(name: string, query: any) {
+export async function createSavedSearch(_name: string, _query: unknown) {
   // AUTH DISABLED - No-op
   return
   /* ORIGINAL AUTH CODE
@@ -125,7 +125,7 @@ export async function createSavedSearch(name: string, query: any) {
   */
 }
 
-export async function deleteSavedSearch(id: string) {
+export async function deleteSavedSearch(_id: string) {
   // AUTH DISABLED - No-op
   return
   /* ORIGINAL AUTH CODE

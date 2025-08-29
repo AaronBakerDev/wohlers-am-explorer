@@ -3,9 +3,6 @@ import {
   Company,
   Technology,
   Material,
-  CompanyInsert,
-  TechnologyInsert,
-  MaterialInsert,
   CompanyWithDetails,
   DashboardAnalytics
 } from './types'
@@ -210,7 +207,7 @@ export async function getEmployeeSizeRanges(): Promise<string[]> {
 
   const unique = [...new Set(
     data
-      .map((r: any) => r.employee_count_range as string | null)
+      .map((r: { employee_count_range: string | null }) => r.employee_count_range)
       .filter(Boolean) as string[]
   )]
   return unique.sort()
@@ -231,7 +228,7 @@ export async function getCountries(): Promise<string[]> {
 
   const unique = [...new Set(
     data
-      .map((r: any) => r.country as string | null)
+      .map((r: { country: string | null }) => r.country)
       .filter(Boolean) as string[]
   )]
   return unique.sort()
@@ -251,7 +248,7 @@ export async function getStates(): Promise<string[]> {
 
   const unique = [...new Set(
     data
-      .map((r: any) => r.state as string | null)
+      .map((r: { state: string | null }) => r.state)
       .filter(Boolean) as string[]
   )]
   return unique.sort()
@@ -642,8 +639,8 @@ export async function getDashboardAnalytics(filters?: {
     }
 
     const { data: sizeRows } = await sizeQ
-    const sizeDist = (sizeRows ?? []).reduce((acc, r: any) => {
-      const key = r.employee_count_range as string
+    const sizeDist = (sizeRows ?? []).reduce((acc, r: { employee_count_range: string | null }) => {
+      const key = r.employee_count_range || 'Unknown'
       acc[key] = (acc[key] || 0) + 1
       return acc
     }, {} as Record<string, number>)
@@ -698,7 +695,7 @@ export async function getDashboardAnalytics(filters?: {
       .from('equipment')
       .select('count, process, material')
     const segMap: Record<string, Record<string, number>> = {}
-    ;(segRows ?? []).forEach((r: any) => {
+    ;(segRows ?? []).forEach((r: { count: number | null; process: string | null; material: string | null }) => {
       const techName = r.process || 'Unknown'
       const matCat = r.material || 'Unknown'
       if (!segMap[techName]) segMap[techName] = {}

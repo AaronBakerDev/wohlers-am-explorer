@@ -2,7 +2,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useEffect, useMemo, useState } from 'react'
-import AdminGuard from '@/components/admin/AdminGuard'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
-import { PrinterIcon, Plus, Pencil, Trash2, Database } from 'lucide-react'
+import { PrinterIcon, Plus, Pencil, Trash2, Database, ArrowLeft } from 'lucide-react'
 
 type Row = {
   id: string
@@ -40,88 +40,36 @@ export default function PrintServicesAdminPage() {
   const [editing, setEditing] = useState<Row | null>(null)
   const [deleting, setDeleting] = useState<Row | null>(null)
 
-  // Demo-mode detection: when running in CSV mode we don't have a database.
-  // For demo purposes we still allow full UI interactions and "persist" new rows
-  // to localStorage so the experience looks real. This is intentionally scoped
-  // for demos and is not production persistence.
-  const isCsvMode = (process.env.NEXT_PUBLIC_DATA_SOURCE || 'supabase') === 'csv'
-
-  // LocalStorage keys for demo persistence. Heavy comments here by request:
-  // - New rows created while in CSV mode are stored under LS_KEY.
-  // - Edits and deletes apply to those demo rows. Base dataset items are not
-  //   persisted across reloads if edited/deleted in CSV mode (demo only).
-  const LS_KEY = 'demo_admin_print_services'
+  // Supabase-only mode: CSV demo persistence removed
 
   useEffect(() => {
     ;(async () => {
       try {
         setLoading(true)
         setError(null)
-        if (isCsvMode) {
-          const res = await fetch('/api/datasets/print-services-global')
-          if (!res.ok) throw new Error(`Failed to fetch dataset (${res.status})`)
-          const json = await res.json()
-          const norm = (v: any): Row['count_type'] => {
-            const s = String(v || '').toLowerCase()
-            if (s === 'actual' || s === 'exact') return 'Exact'
-            if (s === 'minimum' || s === 'min') return 'Minimum'
-            if (s === 'range') return 'Range'
-            return 'Estimated'
-          }
-          const items = (json?.data || []).map((r: any) => ({
-            id: r.id || crypto.randomUUID(),
-            company_name: r.company_name,
-            segment: r.segment,
-            printer_manufacturer: r.printer_manufacturer,
-            printer_model: r.printer_model,
-            number_of_printers: Number(r.number_of_printers) || 0,
-            count_type: norm(r.count_type),
-            process: r.process,
-            material_type: r.material_type,
-            material_format: r.material_format,
-            country: r.country,
-            update_year: Number(r.update_year) || new Date().getFullYear(),
-            website: r.website || null,
-            headquarters_city: r.headquarters_city || null,
-          })) as Row[]
-          // Merge demo-created rows from localStorage so they appear alongside
-          // the base dataset in demo/CSV mode.
-          try {
-            const saved = localStorage.getItem(LS_KEY)
-            if (saved) {
-              const demoRows = JSON.parse(saved) as Row[]
-              setRows([...items, ...demoRows])
-            } else {
-              setRows(items)
-            }
-          } catch {
-            setRows(items)
-          }
-        } else {
-          const { createClient } = await import('@/lib/supabase/client')
-          const supabase = createClient()
-          const { data, error } = await supabase
-            .from('print_services_global' as any)
-            .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year, website, headquarters_city')
-            .order('company_name', { ascending: true })
-            .limit(5000)
-          if (error) throw error
-          const norm = (v: any): Row['count_type'] => {
-            const s = String(v || '').toLowerCase()
-            if (s === 'actual' || s === 'exact') return 'Exact'
-            if (s === 'minimum' || s === 'min') return 'Minimum'
-            if (s === 'range') return 'Range'
-            return 'Estimated'
-          }
-          setRows((data ?? []).map(r => ({ ...r, count_type: norm((r as any).count_type) })) as Row[])
+        const { createClient } = await import('@/lib/supabase/client')
+        const supabase = createClient()
+        const { data, error } = await supabase
+          .from('vendor_print_services_global' as any)
+          .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year, website, headquarters_city')
+          .order('company_name', { ascending: true })
+          .limit(5000)
+        if (error) throw error
+        const norm = (v: any): Row['count_type'] => {
+          const s = String(v || '').toLowerCase()
+          if (s === 'actual' || s === 'exact') return 'Exact'
+          if (s === 'minimum' || s === 'min') return 'Minimum'
+          if (s === 'range') return 'Range'
+          return 'Estimated'
         }
+        setRows((data ?? []).map(r => ({ ...r, count_type: norm((r as any).count_type) })) as Row[])
       } catch (e: any) {
         setError(e?.message || 'Failed to load data')
       } finally {
         setLoading(false)
       }
     })()
-  }, [isCsvMode])
+  }, [])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -135,29 +83,11 @@ export default function PrintServicesAdminPage() {
   }, [rows, search])
 
   const onCreate = async (payload: Omit<Row, 'id'>) => {
-    // DEMO FALLBACK: In CSV mode, simulate persistence by writing to localStorage.
-    if (isCsvMode) {
-      const demoRow: Row = {
-        id: `demo:${crypto.randomUUID()}`,
-        ...payload,
-      }
-      setRows(prev => {
-        const next = [...prev, demoRow].sort((a, b) => a.company_name.localeCompare(b.company_name))
-        try {
-          const saved = localStorage.getItem(LS_KEY)
-          const arr = saved ? (JSON.parse(saved) as Row[]) : []
-          localStorage.setItem(LS_KEY, JSON.stringify([...arr, demoRow]))
-        } catch {}
-        return next
-      })
-      return
-    }
-
-    // REAL PERSISTENCE: Supabase write path used when in supabase mode.
+    // Supabase write path
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { data, error } = await supabase
-      .from('print_services_global' as any)
+      .from('vendor_print_services_global' as any)
       .insert(payload as any)
       .select('*')
       .single()
@@ -167,27 +97,10 @@ export default function PrintServicesAdminPage() {
   }
 
   const onUpdate = async (id: string, patch: Partial<Row>) => {
-    if (isCsvMode) {
-      // DEMO UPDATE: Update in-memory rows and persist only if it's a demo row.
-      setRows(prev => {
-        const next = prev.map(r => (r.id === id ? { ...r, ...patch } as Row : r))
-        try {
-          if (id.startsWith('demo:')) {
-            const saved = localStorage.getItem(LS_KEY)
-            const arr = saved ? (JSON.parse(saved) as Row[]) : []
-            const updated = arr.map(r => (r.id === id ? { ...r, ...patch } as Row : r))
-            localStorage.setItem(LS_KEY, JSON.stringify(updated))
-          }
-        } catch {}
-        return next
-      })
-      return
-    }
-
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { data, error } = await supabase
-      .from('print_services_global' as any)
+      .from('vendor_print_services_global' as any)
       .update(patch as any)
       .eq('id', id)
       .select('*')
@@ -198,24 +111,10 @@ export default function PrintServicesAdminPage() {
   }
 
   const onDelete = async (id: string) => {
-    if (isCsvMode) {
-      // DEMO DELETE: Remove from in-memory, and from localStorage if it was a demo row.
-      setRows(prev => prev.filter(r => r.id !== id))
-      try {
-        if (id.startsWith('demo:')) {
-          const saved = localStorage.getItem(LS_KEY)
-          const arr = saved ? (JSON.parse(saved) as Row[]) : []
-          const next = arr.filter(r => r.id !== id)
-          localStorage.setItem(LS_KEY, JSON.stringify(next))
-        }
-      } catch {}
-      return
-    }
-
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { error } = await supabase
-      .from('print_services_global' as any)
+      .from('vendor_print_services_global' as any)
       .delete()
       .eq('id', id)
     if (error) throw error
@@ -223,7 +122,7 @@ export default function PrintServicesAdminPage() {
   }
 
   return (
-    <AdminGuard>
+    
       <div className="h-full flex flex-col bg-background">
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between gap-4">
@@ -233,6 +132,11 @@ export default function PrintServicesAdminPage() {
               <Badge variant="secondary">{rows.length}</Badge>
             </div>
             <div className="flex items-center gap-2">
+              <Link href="/admin">
+                <Button variant="outline" size="sm">
+                  <ArrowLeft className="h-4 w-4 mr-1" /> Admin
+                </Button>
+              </Link>
               <div className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
                 <Database className="h-3 w-3" />
                 <span>{(process.env.NEXT_PUBLIC_DATA_SOURCE || 'supabase').toUpperCase()}</span>
@@ -357,7 +261,7 @@ export default function PrintServicesAdminPage() {
           </DialogContent>
         </Dialog>
       </div>
-    </AdminGuard>
+    
   )
 }
 
@@ -404,7 +308,22 @@ function EntityDialog({
     setUpdateYear(initialValues?.update_year ?? new Date().getFullYear())
     setWebsite(initialValues?.website ?? '')
     setHeadquartersCity(initialValues?.headquarters_city ?? '')
-  }, [initialValues?.id])
+  }, [
+    initialValues?.id,
+    initialValues?.company_name,
+    initialValues?.segment,
+    initialValues?.printer_manufacturer,
+    initialValues?.printer_model,
+    initialValues?.number_of_printers,
+    initialValues?.count_type,
+    initialValues?.process,
+    initialValues?.material_type,
+    initialValues?.material_format,
+    initialValues?.country,
+    initialValues?.update_year,
+    initialValues?.website,
+    initialValues?.headquarters_city
+  ])
 
   const handleSubmit = async () => {
     setSubmitting(true)

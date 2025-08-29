@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
             value: Number(r.revenue_usd) || 0,
           }))
         }
-      } catch (e) {
+      } catch (_e) {
         // ignore and continue with empty
       }
     }

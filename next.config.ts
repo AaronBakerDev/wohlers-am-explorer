@@ -21,7 +21,6 @@ const nextConfig: NextConfig = {
   
   // Performance optimizations
   compress: true,
-  swcMinify: true,
 };
 
 export default nextConfig;

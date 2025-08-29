@@ -16,7 +16,8 @@ type TotalsResponse = {
 export function MarketTotalsChart() {
   const [yearStart, setYearStart] = useState<string>("")
   const [yearEnd, setYearEnd] = useState<string>("")
-  const [segment, setSegment] = useState<string>("all")
+  // Multi-select support: maintain a set of selected segments
+  const [selected, setSelected] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [payload, setPayload] = useState<TotalsResponse | null>(null)
@@ -30,7 +31,7 @@ export function MarketTotalsChart() {
         params.set("startYear", yearStart)
         params.set("endYear", yearEnd)
       }
-      if (segment && segment !== "all") params.set("segment", segment)
+      // Always fetch all segments; client handles filtering for multi-select
       const res = await fetch(`/api/market/totals?${params.toString()}`)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const json = (await res.json()) as TotalsResponse
@@ -62,7 +63,7 @@ export function MarketTotalsChart() {
   }, [yearStart, yearEnd, segment])
 
   const chartData = payload?.data ?? []
-  const segments = payload?.segments ?? []
+  const segments = (payload?.segments ?? []).filter((s) => s && s.toLowerCase() !== "total")
 
   const COLORS = [
     "#0088FE",
@@ -88,20 +89,53 @@ export function MarketTotalsChart() {
     <Card>
       <CardHeader className="flex items-center justify-between">
         <CardTitle>AM Market Size by Segment</CardTitle>
-        <div className="flex items-center gap-2">
-          <Select value={segment} onValueChange={setSegment}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Segment" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Segments</SelectItem>
-              {segments.map((s) => (
-                <SelectItem key={s} value={s}>
+        <div className="flex items-center gap-3">
+          {/* Segment filters: quick multi-select checkboxes */}
+          <div className="hidden md:flex items-center gap-2">
+            {/* "All" toggle */}
+            <button
+              className={`text-xs px-2 py-1 rounded border ${
+                selected.size === 0 || selected.size === segments.length
+                  ? "border-primary text-primary bg-primary/5"
+                  : "border-border text-muted-foreground hover:text-foreground"
+              }`}
+              onClick={() => setSelected(new Set())}
+              title="Show all segments"
+            >
+              All
+            </button>
+            {segments.map((s) => {
+              const isOn = selected.size === 0 || selected.has(s)
+              return (
+                <button
+                  key={s}
+                  className={`text-xs px-2 py-1 rounded border ${
+                    isOn
+                      ? "border-primary text-primary bg-primary/5"
+                      : "border-border text-muted-foreground hover:text-foreground"
+                  }`}
+                  onClick={() => {
+                    setSelected((prev) => {
+                      const next = new Set(prev)
+                      if (prev.size === 0) {
+                        // when "All" state active, start from only this one
+                        next.add(s)
+                      } else if (next.has(s)) {
+                        next.delete(s)
+                      } else {
+                        next.add(s)
+                      }
+                      // If all selected, collapse back to "All" state for clarity
+                      if (next.size === segments.length) return new Set()
+                      return next
+                    })
+                  }}
+                >
                   {s}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+                </button>
+              )
+            })}
+          </div>
           <Select value={yearStart} onValueChange={setYearStart}>
             <SelectTrigger className="w-28">
               <SelectValue placeholder="Start" />
@@ -142,7 +176,7 @@ export function MarketTotalsChart() {
                 <YAxis stroke="currentColor" tickFormatter={(v) => `$${Math.round(Number(v) / 1_000_000)}M`} />
                 <Tooltip formatter={(v: any) => `$${(Number(v) / 1_000_000).toFixed(1)}M`} />
                 <Legend />
-                {(segment === "all" ? segments : [segment]).map((s, i) => (
+                {(selected.size === 0 ? segments : segments.filter((s) => selected.has(s))).map((s, i) => (
                   <Bar key={s} dataKey={s} stackId="a" fill={COLORS[i % COLORS.length]} />
                 ))}
               </BarChart>
@@ -153,4 +187,3 @@ export function MarketTotalsChart() {
     </Card>
   )
 }
-

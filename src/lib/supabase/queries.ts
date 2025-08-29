@@ -1,5 +1,7 @@
 import { createClient } from "./client";
 import { createClient as createServerClient } from "./server";
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from './types';
 import {
   Company,
   Technology,
@@ -171,7 +173,7 @@ export async function getCompaniesWithMapFilters(options: {
 }
 
 // State-level aggregations for heatmap
-export async function getStateStatistics(options: {
+export async function getStateStatistics(_options: {
   technologyIds?: string[];
   materialIds?: string[];
 }) {
@@ -686,7 +688,7 @@ export async function getCompaniesWithFilters(filters: CompanyFilterRequest): Pr
 /**
  * Applies all CompanyFilters to a Supabase query
  */
-function applyUnifiedFilters(query: any, filters: CompanyFilters) {
+function applyUnifiedFilters(query: ReturnType<SupabaseClient<Database>['from']>, filters: CompanyFilters) {
   // Company classification filters
   if (filters.companyType?.length) {
     query = query.in('company_type', filters.companyType)
@@ -777,7 +779,7 @@ function applyUnifiedFilters(query: any, filters: CompanyFilters) {
  * Enriches company data with detailed equipment/service information
  */
 async function enrichWithCapabilityData(
-  supabase: any, 
+  supabase: SupabaseClient<Database>, 
   companies: CompanyFilterResult[], 
   filters: CompanyFilterRequest
 ) {
@@ -886,7 +888,7 @@ async function enrichWithCapabilityData(
 /**
  * Gets available filter options for building dynamic UIs
  */
-async function getFilterOptions(supabase: any) {
+async function getFilterOptions(supabase: SupabaseClient<Database>) {
   try {
     // Get unique values from the database
     const [
@@ -908,14 +910,14 @@ async function getFilterOptions(supabase: any) {
     ])
     
     return {
-      countries: [...new Set((countriesResult.data || []).map((r: any) => r.country))].sort(),
-      states: [...new Set((statesResult.data || []).map((r: any) => r.state).filter(Boolean))].sort(),
-      companyTypes: [...new Set((typesResult.data || []).map((r: any) => r.company_type))].sort(),
+      countries: [...new Set((countriesResult.data || []).map((r: { country: string | null }) => r.country))].sort(),
+      states: [...new Set((statesResult.data || []).map((r: { state: string | null }) => r.state).filter(Boolean))].sort(),
+      companyTypes: [...new Set((typesResult.data || []).map((r: { company_type: string | null }) => r.company_type))].sort(),
       companyRoles: ['manufacturer', 'provider', 'supplier', 'developer', 'researcher'],
-      segments: [...new Set((segmentsResult.data || []).map((r: any) => r.segment).filter(Boolean))].sort(),
+      segments: [...new Set((segmentsResult.data || []).map((r: { segment: string | null }) => r.segment).filter(Boolean))].sort(),
       technologies: technologiesResult.data || [],
       materials: materialsResult.data || [],
-      primaryMarkets: [...new Set((marketsResult.data || []).map((r: any) => r.primary_market).filter(Boolean))].sort(),
+      primaryMarkets: [...new Set((marketsResult.data || []).map((r: { primary_market: string | null }) => r.primary_market).filter(Boolean))].sort(),
       employeeCountRanges: ['1-10', '11-50', '51-200', '201-500', '500+'],
       revenueRanges: ['<$1M', '$1M-$10M', '$10M-$50M', '$50M-$100M', '$100M+'],
       serviceTypes: [], // Would need additional query

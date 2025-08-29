@@ -16,7 +16,7 @@ import {
   GenericTableLayout,
   TotalMarketSizeLayout
 } from '@/components/market-data/MarketDataLayouts'
-import { DATASET_CONFIGS } from '@/lib/config/datasets'
+import { LEGACY_DATASET_CONFIGS as DATASET_CONFIGS } from '@/lib/config/datasets'
 
 // Replaced inline configs with shared DATASET_CONFIGS
 

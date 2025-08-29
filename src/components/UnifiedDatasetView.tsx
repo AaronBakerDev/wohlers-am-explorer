@@ -33,7 +33,7 @@ import {
   ArrowDown,
   ExternalLink
 } from "lucide-react"
-import { getDatasetById, type DatasetConfig } from '@/lib/config/datasets'
+import { getDatasetById } from '@/lib/config/datasets'
 import { 
   CompanyFilterRequest,
   CompanyFilterResponse,
@@ -324,12 +324,12 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
 
           {/* Country filter */}
           {dataset.displayColumns.includes('country') && filterOptions.countries.length > 0 && (
-            <Select value={countryFilter} onValueChange={setCountryFilter}>
+            <Select value={countryFilter} onValueChange={(v) => setCountryFilter(v === '__all__' ? '' : v)}>
               <SelectTrigger>
                 <SelectValue placeholder="Country" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Countries</SelectItem>
+                <SelectItem value="__all__">All Countries</SelectItem>
                 {filterOptions.countries.map(country => (
                   <SelectItem key={country} value={country}>{country}</SelectItem>
                 ))}
@@ -339,12 +339,12 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
 
           {/* Segment filter */}
           {dataset.displayColumns.includes('segment') && filterOptions.segments.length > 0 && (
-            <Select value={segmentFilter} onValueChange={setSegmentFilter}>
+            <Select value={segmentFilter} onValueChange={(v) => setSegmentFilter(v === '__all__' ? '' : v)}>
               <SelectTrigger>
                 <SelectValue placeholder="Segment" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Segments</SelectItem>
+                <SelectItem value="__all__">All Segments</SelectItem>
                 {filterOptions.segments.map(segment => (
                   <SelectItem key={segment} value={segment}>{segment}</SelectItem>
                 ))}
@@ -354,12 +354,12 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
 
           {/* Technology filter */}
           {dataset.displayColumns.includes('technologies') && filterOptions.technologies.length > 0 && (
-            <Select value={technologyFilter} onValueChange={setTechnologyFilter}>
+            <Select value={technologyFilter} onValueChange={(v) => setTechnologyFilter(v === '__all__' ? '' : v)}>
               <SelectTrigger>
                 <SelectValue placeholder="Technology" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Technologies</SelectItem>
+                <SelectItem value="__all__">All Technologies</SelectItem>
                 {filterOptions.technologies.map(tech => (
                   <SelectItem key={tech.id} value={tech.name}>{tech.name}</SelectItem>
                 ))}
@@ -384,7 +384,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           <TableHeader className="sticky top-0 bg-background z-10">
             <TableRow>
               {dataset.displayColumns.map((column) => {
-                const issortable = ['name', 'country', 'segment'].includes(column)
+                const _isSortable = ['name', 'country', 'segment'].includes(column)
                 const headerText = {
                   name: 'Company Name',
                   country: 'Country',

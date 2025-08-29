@@ -64,7 +64,7 @@ export default function SystemManufacturersMatrix() {
         const json = await res.json()
         setRows(json.data || [])
         setError(null)
-      } catch (e) {
+      } catch (_e) {
         setError('Failed to load data')
       } finally {
         setLoading(false)

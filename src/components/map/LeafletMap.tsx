@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import type { CompanyMarker, StateHeatmapData } from './types';
 
 // State name to abbreviation mapping
 const STATE_ABBREVIATIONS: Record<string, string> = {
@@ -94,29 +95,7 @@ if (typeof window !== "undefined") {
   });
 }
 
-interface CompanyMarker {
-  id: string;
-  name: string;
-  city: string | null;
-  state: string | null;
-  lat: number | null;
-  lng: number | null;
-  technologies: string[];
-  materials: string[];
-  website: string | null;
-  type: string | null;
-  totalMachines: number;
-  uniqueProcesses: number;
-  uniqueMaterials: number;
-  uniqueManufacturers: number;
-}
-
-interface StateHeatmapData {
-  state?: string;
-  country: string;
-  company_count: number;
-  total_machines: number;
-}
+// Types imported from the map types module
 
 interface LeafletMapProps {
   companies: CompanyMarker[];
@@ -221,6 +200,9 @@ function safeHttpUrl(input: unknown): string | null {
   // NU: [70.2998, -83.1076], // Nunavut
 // };
 
+/**
+ * Interactive Leaflet map for rendering company markers and optional heatmap.
+ */
 export default function LeafletMap({
   companies,
   selectedCompany,

@@ -56,7 +56,7 @@ export interface Material {
   material_type: 'Metal' | 'Thermoplastic' | 'Thermoset' | 'Ceramic' | 'Composite'
   material_format: 'Powder' | 'Filament' | 'Resin' | 'Wire' | 'Sheet' | 'Pellet'
   description?: string | null
-  properties?: Record<string, any> | null
+  properties?: Record<string, string | number | boolean | null> | null
   compatible_processes?: string[] | null
   typical_applications?: string[] | null
   created_at: string

@@ -14,7 +14,6 @@ import {
   Building2,
   TrendingUp,
   Calendar,
-  Database,
   Lock,
   Settings,
   User,
@@ -57,7 +56,7 @@ const marketData = [
     name: 'Mergers & Acquisitions',
     description: 'M&A transactions in AM industry',
     status: 'active',
-    dataPoints: '0+ deals',
+    dataPoints: '32 deals',
     lastUpdated: '2024-12-15',
     hasVendorData: true
   },
@@ -401,12 +400,6 @@ export default function DashboardLayout({
                           >
                             <div className="flex items-center justify-between mb-1">
                               <span className="text-sm font-medium">{item.name}</span>
-                              {item.hasVendorData && (
-                                <Badge variant="outline" className="text-xs">
-                                  <Database className="h-2 w-2 mr-1" />
-                                  Live
-                                </Badge>
-                              )}
                             </div>
                             <div className="flex items-center justify-between text-xs text-muted-foreground">
                               <span>{item.dataPoints}</span>
@@ -672,12 +665,6 @@ export default function DashboardLayout({
                           >
                             {item.name}
                           </Link>
-                          {item.hasVendorData && (
-                            <Badge variant="outline" className="text-xs">
-                              <Database className="h-2 w-2 mr-1" />
-                              Live
-                            </Badge>
-                          )}
                         </div>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                           <span>{item.dataPoints}</span>

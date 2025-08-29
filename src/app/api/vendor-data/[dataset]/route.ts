@@ -12,7 +12,7 @@ export async function GET(
     
     // Get query parameters
     const page = parseInt(searchParams.get('page') || '1')
-    const limit = parseInt(searchParams.get('limit') || '100')
+    const limit = parseInt(searchParams.get('limit') || '1000')
     const search = searchParams.get('search') || ''
     const sortBy = searchParams.get('sortBy') || ''
     const sortOrder = searchParams.get('sortOrder') || 'asc'
@@ -90,46 +90,26 @@ export async function GET(
     const { count: totalCount } = await totalQuery
 
     // Transform data to CSV-like format for compatibility with existing UI
-    // Only return display columns to hide internal fields like id and created_at
-    const displayColumnIndices = config.displayColumns.map(displayCol => {
-      // Map display column back to actual column name
-      const columnIndex = config.columns.findIndex((col, idx) => {
-        // Skip id and created_at columns for display
-        if (col === 'id' || col === 'created_at') return false
-        return true
-      })
-      return columnIndex
-    }).filter(idx => idx !== -1)
+    // Filter out id and created_at columns but preserve order for other columns
+    const visibleColumns = config.columns.filter(col => col !== 'id' && col !== 'created_at')
     
     const csvData = data ? [
-      config.displayColumns, // Header row
-      ...data.map(row => {
-        // Only include non-internal columns (skip id and created_at)
-        const displayData = []
-        let displayIndex = 0
-        
-        for (let i = 0; i < config.columns.length; i++) {
-          const col = config.columns[i]
-          if (col === 'id' || col === 'created_at') continue
-          
+      config.displayColumns, // Header row (already excludes id and created_at)
+      ...data.map(row => 
+        visibleColumns.map(col => {
           const value = row[col]
           // Format numbers and dates appropriately
-          if (value === null || value === undefined) {
-            displayData.push('')
-          } else if (typeof value === 'number') {
+          if (value === null || value === undefined) return ''
+          if (typeof value === 'number') {
             // Format large numbers with commas
             if (col.includes('_usd') || col.includes('revenue')) {
-              displayData.push(value.toLocaleString())
-            } else {
-              displayData.push(value.toString())
+              return value.toLocaleString()
             }
-          } else {
-            displayData.push(value.toString())
+            return value.toString()
           }
-          displayIndex++
-        }
-        return displayData
-      })
+          return value.toString()
+        })
+      )
     ] : []
 
     return NextResponse.json({
