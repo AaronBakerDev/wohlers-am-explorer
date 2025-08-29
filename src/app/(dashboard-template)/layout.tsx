@@ -94,17 +94,17 @@ const focusReports = [
   {
     id: 'am-systems-manufacturers',
     name: 'AM Systems Manufacturers',
-    description: '89 manufacturers',
+    description: '',
     status: 'active',
-    dataPoints: '89 manufacturers',
+    dataPoints: '',
     lastUpdated: '2024-12-15'
   },
   {
     id: 'print-services-global',
     name: 'Global Printing Services',
-    description: '312 service providers',
+    description: '',
     status: 'active',
-    dataPoints: '312 service providers',
+    dataPoints: '',
     lastUpdated: '2024-12-20'
   },
   { 
@@ -425,7 +425,7 @@ export default function DashboardLayout({
                               </div>
                               <div className="flex items-center justify-between text-xs text-muted-foreground">
                                 <span>{item.dataPoints}</span>
-                                <span>Updated {item.lastUpdated}</span>
+                                
                               </div>
                             </div>
                           ))}
@@ -595,7 +595,7 @@ export default function DashboardLayout({
                         </div>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                           <span>{report.dataPoints}</span>
-                          <span>Updated {report.lastUpdated}</span>
+                          
                         </div>
                       </div>
                     )
@@ -668,7 +668,7 @@ export default function DashboardLayout({
                         </div>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                           <span>{item.dataPoints}</span>
-                          <span>Updated {item.lastUpdated}</span>
+                          
                         </div>
                       </div>
                     )
@@ -691,7 +691,7 @@ export default function DashboardLayout({
                           </div>
                           <div className="flex items-center justify-between text-xs text-muted-foreground">
                             <span>{item.dataPoints}</span>
-                            <span>Updated {item.lastUpdated}</span>
+                            
                           </div>
                         </div>
                       ))}

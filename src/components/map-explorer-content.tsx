@@ -299,6 +299,14 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
     }
   }, []);
 
+  // Handle map resize when sidebar opens/closes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new Event('resize'))
+    }, 350)
+    return () => clearTimeout(timer)
+  }, [sidebarOpen])
+
   // Filters can be reset via FilterBar's Clear button
 
   // Show loading state
@@ -331,17 +339,6 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
   }
 
   // Removed unused topTechnologies and topMaterials - no longer needed after viewport fetching
-
-  // Handle map resize when sidebar opens/closes
-  useEffect(() => {
-    // Trigger map resize after DOM updates when sidebar state changes
-    const timer = setTimeout(() => {
-      // Force a window resize event to trigger Leaflet's built-in resize handler
-      window.dispatchEvent(new Event('resize'));
-    }, 350); // Slightly longer than CSS transition duration
-
-    return () => clearTimeout(timer);
-  }, [sidebarOpen]);
 
   const exportColumns: ColumnDef<CompanyMarker>[] = [
     { key: 'id', header: 'ID' },

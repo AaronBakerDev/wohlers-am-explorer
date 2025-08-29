@@ -109,7 +109,11 @@ export default function BottomDrawer({ company, getMarkerColor, onClose }: Props
               <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
                 <div className='bg-muted/50 rounded-lg p-3'>
                   <div className='text-xl font-bold text-chart-4'>{company.totalMachines}</div>
-                  <div className='text-xs text-muted-foreground'>Total Machines</div>
+                  <div className='text-xs text-muted-foreground'>
+                    {company.name.includes('manufacturers') || 
+                     (company.type === 'equipment' && company.companies && company.companies.length > 0) 
+                     ? 'Manufacturers' : 'Total Machines'}
+                  </div>
                 </div>
                 <div className='bg-muted/50 rounded-lg p-3'>
                   <div className='text-xl font-bold text-chart-2'>{company.uniqueProcesses}</div>

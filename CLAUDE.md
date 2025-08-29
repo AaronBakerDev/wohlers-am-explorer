@@ -141,3 +141,5 @@ The application expects AM company data including:
 - Shared components in `src/components/ui/` following shadcn patterns
 - Utility functions centralized in `src/lib/utils.ts`
 - Supabase integration isolated in `src/lib/supabase/` directory
+- Never write SQL files, always use a Supabase MCP.
+- Always default to use the Supabase MCP when you want to get more information about our database schema.

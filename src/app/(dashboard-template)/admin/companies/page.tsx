@@ -11,7 +11,8 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Building2, Plus, Pencil, Trash2, Database, ExternalLink, ArrowLeft } from 'lucide-react'
+import { Building2, Plus, Pencil, Trash2, ExternalLink, Search } from 'lucide-react'
+import { ResponsiveAdminLayout } from '@/components/admin/responsive-admin-layout'
 import type { Database, Company, CompanyInsert, CompanyUpdate } from '@/lib/supabase/types'
 
 // Supabase error type
@@ -131,81 +132,113 @@ export default function CompaniesAdminPage() {
     setRows(prev => prev.filter(r => r.id !== id))
   }
 
+  const headerActions = (
+    <div className="flex items-center gap-2">
+      <Badge variant="secondary" className="hidden sm:inline-flex">{rows.length} records</Badge>
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Search companies…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="pl-9 w-44 md:w-56"
+        />
+      </div>
+      <Button size="sm" onClick={() => setCreating(true)} className="shrink-0">
+        <Plus className="h-4 w-4 mr-1" /> New
+      </Button>
+    </div>
+  )
+
   return (
-    <div className="h-full flex flex-col bg-background">
-        <div className="p-4 border-b border-border">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-semibold">Admin · Companies</h2>
-              <Badge variant="secondary">{rows.length}</Badge>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
-                <Database className="h-3 w-3" />
-                <span>{(process.env.NEXT_PUBLIC_DATA_SOURCE || 'supabase').toUpperCase()}</span>
-              </div>
-            <div className="flex items-center gap-2">
-              <Input
-                placeholder="Search companies…"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="h-9 w-56"
-              />
-              <Link href="/admin">
-                <Button variant="outline" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-1" /> Admin
-                </Button>
-              </Link>
-              <Button size="sm" onClick={() => setCreating(true)}>
-                <Plus className="h-4 w-4 mr-1" /> New
-              </Button>
-            </div>
-            </div>
-          </div>
-        </div>
+    <ResponsiveAdminLayout 
+      title="Companies"
+      description="Manage company records and details"
+      actions={headerActions}
+    >
+      <div className="h-full flex flex-col bg-background">
 
         <div className="flex-1 overflow-auto">
           {loading ? (
-            <div className="p-6 text-sm text-muted-foreground">Loading…</div>
+            <div className="flex items-center justify-center h-32">
+              <div className="text-sm text-muted-foreground">Loading companies...</div>
+            </div>
           ) : error ? (
-            <div className="p-6 text-sm text-red-600">{error}</div>
+            <div className="flex items-center justify-center h-32">
+              <div className="text-sm text-destructive bg-destructive/10 px-4 py-2 rounded-lg">
+                {error}
+              </div>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="flex items-center justify-center h-32">
+              <div className="text-center">
+                <div className="text-sm text-muted-foreground">
+                  {search ? 'No companies match your search' : 'No companies found'}
+                </div>
+                {search && (
+                  <Button variant="link" size="sm" onClick={() => setSearch('')} className="mt-1">
+                    Clear search
+                  </Button>
+                )}
+              </div>
+            </div>
           ) : (
-            <Table>
-              <TableHeader className="sticky top-0 bg-background z-10">
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Country</TableHead>
-                  <TableHead>City</TableHead>
-                  <TableHead>Founded</TableHead>
-                  <TableHead>Website</TableHead>
-                  <TableHead className="w-[1%]">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filtered.map((r) => (
-                  <TableRow key={r.id}>
-                    <TableCell className="font-medium">{r.name}</TableCell>
-                    <TableCell>{r.company_type ?? ''}</TableCell>
-                    <TableCell>{r.country ?? ''}</TableCell>
-                    <TableCell>{r.city ?? ''}</TableCell>
-                    <TableCell className="text-muted-foreground">{r.founded_year ?? ''}</TableCell>
-                    <TableCell>
-                      {r.website ? (
-                        <Link href={r.website} target="_blank" className="inline-flex items-center gap-1 text-primary hover:underline">
-                          <span className="truncate max-w-[180px]">{r.website}</span>
-                          <ExternalLink className="h-3 w-3" />
-                        </Link>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader className="sticky top-0 bg-background z-10 border-b">
+                  <TableRow>
+                    <TableHead className="min-w-[200px]">Name</TableHead>
+                    <TableHead className="hidden sm:table-cell">Type</TableHead>
+                    <TableHead className="hidden md:table-cell">Country</TableHead>
+                    <TableHead className="hidden lg:table-cell">City</TableHead>
+                    <TableHead className="hidden xl:table-cell">Founded</TableHead>
+                    <TableHead className="hidden md:table-cell">Website</TableHead>
+                    <TableHead className="w-[1%] text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filtered.map((r) => (
+                    <TableRow key={r.id} className="hover:bg-muted/50">
+                      <TableCell className="font-medium">
+                        <div className="min-w-0">
+                          <div className="truncate">{r.name}</div>
+                          <div className="sm:hidden text-xs text-muted-foreground mt-1">
+                            {r.company_type && <span>{r.company_type}</span>}
+                            {r.country && <span> • {r.country}</span>}
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell text-sm">{r.company_type ?? '—'}</TableCell>
+                      <TableCell className="hidden md:table-cell text-sm">{r.country ?? '—'}</TableCell>
+                      <TableCell className="hidden lg:table-cell text-sm">{r.city ?? '—'}</TableCell>
+                      <TableCell className="hidden xl:table-cell text-sm text-muted-foreground">{r.founded_year ?? '—'}</TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {r.website ? (
+                          <Link href={r.website} target="_blank" className="inline-flex items-center gap-1 text-primary hover:underline">
+                            <span className="truncate max-w-[150px] text-sm">{r.website}</span>
+                            <ExternalLink className="h-3 w-3" />
+                          </Link>
                       ) : ''}
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex items-center gap-2 justify-end">
-                        <Button size="icon" variant="outline" className="h-8 w-8" title="Edit" onClick={() => setEditing(r)}>
+                      <div className="flex items-center gap-1 justify-end">
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          className="h-8 w-8 hover:bg-primary hover:text-primary-foreground" 
+                          title="Edit company" 
+                          onClick={() => setEditing(r)}
+                        >
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button size="icon" variant="outline" className="h-8 w-8" title="Delete" onClick={() => setDeleting(r)}>
-                          <Trash2 className="h-4 w-4 text-red-600" />
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          className="h-8 w-8 hover:bg-destructive hover:text-destructive-foreground" 
+                          title="Delete company" 
+                          onClick={() => setDeleting(r)}
+                        >
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>
@@ -213,6 +246,7 @@ export default function CompaniesAdminPage() {
                 ))}
               </TableBody>
             </Table>
+            </div>
           )}
         </div>
 
@@ -266,6 +300,7 @@ export default function CompaniesAdminPage() {
           </DialogContent>
         </Dialog>
       </div>
+    </ResponsiveAdminLayout>
   )
 }
 

@@ -54,25 +54,7 @@ export default function AdminHomePage() {
             </CardContent>
           </Card>
 
-          <Card className="group hover:shadow-md transition-all duration-200 border-2 hover:border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 text-orange-500" />
-                  <span>Legacy Datasets</span>
-                </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground">
-                Vendor datasets (investments, M&A, revenue, pricing)
-              </p>
-              <Link href="/admin/market-data/vendor" className="block">
-                <Button size="sm" variant="outline" className="w-full">Browse Datasets</Button>
-              </Link>
-            </CardContent>
-          </Card>
+
 
           <Card className="group hover:shadow-md transition-all duration-200 border-2 hover:border-primary/20">
             <CardHeader>

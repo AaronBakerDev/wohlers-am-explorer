@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart } from 'lucide-react'
-import { Separator } from '@/components/ui/separator'
+// import { Separator } from '@/components/ui/separator'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis, BarChart as ReBarChart, Bar } from 'recharts'
 import { MarketTotalsChart } from '@/components/market-data/MarketTotalsChart'
 import { MarketCountriesChart } from '@/components/market-data/MarketCountriesChart'
@@ -36,10 +36,9 @@ interface MarketDataLayoutProps {
  *    based on the dataset, so this component can render both datasets correctly.
  */
 export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) {
-  if (!data || data.length === 0) return <div>No data available</div>
-  
-  const headers = data[0] || []
-  const rows = data.slice(1)
+  const safeData = data || []
+  const headers = safeData[0] || []
+  const rows = safeData.slice(1)
   
   // Map column indices by dataset (some datasets have different column orders)
   const { revenueIdx, nameIdx, segmentIdx, materialIdx } = useMemo(() => {
@@ -87,7 +86,7 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
     }
     
     return filteredRows
-  }, [rows, selectedSegment, selectedCountry, searchTerm])
+  }, [rows, selectedSegment, selectedCountry, searchTerm, segmentIdx, nameIdx, materialIdx, selectedMaterial])
   
   // Prepare data for pie charts
   const segmentData = useMemo(() => {
@@ -104,7 +103,7 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
     return Array.from(segmentRevenue.entries())
       .map(([segment, revenue]) => ({ name: segment, value: revenue }))
       .sort((a, b) => b.value - a.value)
-  }, [processedData])
+  }, [processedData, segmentIdx, revenueIdx])
   
   const countryData = useMemo(() => {
     const countryRevenue = new Map<string, number>()
@@ -121,7 +120,7 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
       .map(([country, revenue]) => ({ name: country, value: revenue }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10) // Top 10 countries
-  }, [processedData])
+  }, [processedData, nameIdx, revenueIdx])
   
   // Color palette for pie charts
   const COLORS = [
@@ -538,11 +537,11 @@ export function TotalMarketSizeLayout() {
 }
 
 // Investment Analysis Layout - for Fundings & Investments
-export function InvestmentAnalysisLayout({ data, dataset }: MarketDataLayoutProps) {
-  if (!data || data.length === 0) return <div>No data available</div>
+export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketDataLayoutProps) {
   
-  const headers = data[0] || []
-  const rows = data.slice(1)
+  const safeData = data || []
+  const headers = safeData[0] || []
+  const rows = safeData.slice(1)
   
   // Filter state
   const [yearFilter, setYearFilter] = useState<string>('all')
@@ -765,11 +764,11 @@ export function InvestmentAnalysisLayout({ data, dataset }: MarketDataLayoutProp
 }
 
 // M&A Analysis Layout - for Mergers & Acquisitions
-export function MergerAcquisitionLayout({ data, dataset }: MarketDataLayoutProps) {
-  if (!data || data.length === 0) return <div>No data available</div>
+export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataLayoutProps) {
   
-  const headers = data[0] || []
-  const rows = data.slice(1)
+  const safeData = data || []
+  const headers = safeData[0] || []
+  const rows = safeData.slice(1)
   
   // Our data structure: ['Announcement Date', 'Acquired Company', 'Acquiring Company', 'Deal Size (millions)', 'Deal Status', 'Notes']
   const [dateFilter, setDateFilter] = useState<string>('all')
@@ -1040,11 +1039,11 @@ export function MergerAcquisitionLayout({ data, dataset }: MarketDataLayoutProps
 }
 
 // Pricing Analysis Layout - for Print Services Pricing
-export function PricingAnalysisLayout({ data, dataset }: MarketDataLayoutProps) {
-  if (!data || data.length === 0) return <div>No data available</div>
+export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLayoutProps) {
   
-  const headers = data[0] || []
-  const rows = data.slice(1)
+  const safeData = data || []
+  const headers = safeData[0] || []
+  const rows = safeData.slice(1)
   
   // State for filters
   const [selectedProcess, setSelectedProcess] = useState<string>('all')
@@ -1480,11 +1479,10 @@ export function PricingAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
 }
 
 // Company Directory Layout - for Company Information, Company Roles, Directory
-export function CompanyDirectoryLayout({ data, dataset }: MarketDataLayoutProps) {
-  if (!data || data.length === 0) return <div>No data available</div>
-  
-  const headers = data[0] || []
-  const rows = data.slice(1)
+export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLayoutProps) {
+  const safeData = data || []
+  const headers = safeData[0] || []
+  const rows = safeData.slice(1)
   
   return (
     <div className="space-y-6">
@@ -1641,10 +1639,9 @@ export function CompanyDirectoryLayout({ data, dataset }: MarketDataLayoutProps)
 
 // Generic Table Layout - fallback for other datasets
 export function GenericTableLayout({ data, dataset }: MarketDataLayoutProps) {
-  if (!data || data.length === 0) return <div>No data available</div>
-  
-  const headers = data[0] || []
-  const rows = data.slice(1)
+  const safeData = data || []
+  const headers = safeData[0] || []
+  const rows = safeData.slice(1)
   
   return (
     <div className="space-y-6">

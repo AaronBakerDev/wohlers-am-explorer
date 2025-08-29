@@ -91,10 +91,27 @@ export default function PrintServicesGlobalAnalytics() {
 
         // Supabase fallback
         const supabase = createClient()
+        // Select all fields required by analytics so charts populate in Supabase mode
         const { data, error } = await supabase
           .from('vendor_print_services_global' as any)
           .select(
-            'id, company_name, segment, material_format, material_type, country'
+            [
+              'id',
+              'company_name',
+              'segment',
+              'material_format',
+              'material_type',
+              'country',
+              'printer_manufacturer',
+              'printer_model',
+              'number_of_printers',
+              'count_type',
+              'process',
+              'update_year',
+              'website',
+              'headquarters_city',
+              'additional_info'
+            ].join(', ')
           )
           .limit(5000)
         if (error) throw new Error(error.message)

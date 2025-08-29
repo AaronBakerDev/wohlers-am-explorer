@@ -21,6 +21,19 @@ interface PrintServiceMapItem {
   uniqueProcesses?: number
   uniqueMaterials?: number
   uniqueManufacturers?: number
+  companies?: Array<{
+    id: string
+    name: string
+    segment: string
+    process: string
+    material_type: string
+    material_format: string
+    printer_manufacturer: string
+    printer_model: string
+    number_of_printers: number
+    country: string
+    additional_info: string
+  }>
   companyData?: {
     id: string
     company_name: string
@@ -43,7 +56,9 @@ const COUNTRY_COORDINATES: Record<string, [number, number]> = {
   'Germany': [51.1657, 10.4515],
   'United States': [39.8283, -98.5795],
   'United Kingdom': [55.3781, -3.4360],
+  'The United Kingdom': [55.3781, -3.4360], // Handle "The" prefix
   'Netherlands': [52.1326, 5.2913],
+  'The Netherlands': [52.1326, 5.2913], // Handle "The" prefix
   'China': [35.8617, 104.1954],
   'France': [46.2276, 2.2137],
   'Italy': [41.8719, 12.5674],
@@ -73,6 +88,13 @@ const COUNTRY_COORDINATES: Record<string, [number, number]> = {
   'Portugal': [39.3999, -8.2245],
   'Greece': [39.0742, 21.8243],
   'Turkey': [38.9637, 35.2433],
+  // Common variations
+  'USA': [39.8283, -98.5795],
+  'US': [39.8283, -98.5795],
+  'UK': [55.3781, -3.4360],
+  'The UK': [55.3781, -3.4360],
+  'P.R. China': [35.8617, 104.1954],
+  'PRC': [35.8617, 104.1954],
 }
 
 // Sample data fallback function
@@ -191,53 +213,58 @@ export async function GET(request: Request) {
       rows = getSamplePrintServicesData()
     }
 
-    // Transform data into individual company markers
-    const items: PrintServiceMapItem[] = (rows || []).map((row) => {
-      const countryCoords = COUNTRY_COORDINATES[row.country] || [0, 0]
-      // Add a small random offset to avoid exact overlap, then clamp to valid bounds
-      const latOffset = (Math.random() - 0.5) * 1.0 // +/- 0.5 degree
-      const lngOffset = (Math.random() - 0.5) * 2.0 // +/- 1 degree
-      const lat = Math.max(-85, Math.min(85, countryCoords[0] + latOffset))
-      const lng = Math.max(-179, Math.min(179, countryCoords[1] + lngOffset))
-
-      return {
+    // Group companies by country to create cluster markers (like systems manufacturers)
+    const countryClusters = new Map<string, any[]>()
+    
+    rows?.forEach((row) => {
+      if (!countryClusters.has(row.country)) {
+        countryClusters.set(row.country, [])
+      }
+      countryClusters.get(row.country)!.push({
         id: row.id,
         name: row.company_name,
-        city: null, // No city data available in vendor table
-        state: null, // Print services typically don't have state data for global
+        segment: row.segment || 'Service Provider',
+        process: row.process,
+        material_type: row.material_type,
+        material_format: row.material_format,
+        printer_manufacturer: row.printer_manufacturer,
+        printer_model: row.printer_model,
+        number_of_printers: row.number_of_printers || 0,
         country: row.country,
-        lat,
-        lng,
-        technologies: [row.process].filter(Boolean), // Single process per row, filter nulls
-        materials: [row.material_type].filter(Boolean), // Single material type per row, filter nulls
-        website: null, // No website data available in vendor table
-        type: row.segment || 'service', // Use segment as type, fallback to 'service'
-        services: [row.printer_manufacturer, row.printer_model].filter(Boolean), // Use printer info as services
-        capabilities: [row.additional_info].filter(Boolean), // Use additional info as capabilities
-        totalMachines: row.number_of_printers || 0,
-        uniqueProcesses: 1,
-        uniqueMaterials: 1,
-        uniqueManufacturers: 1,
-        // Include the full row data for detailed display
-        companyData: {
-          id: row.id,
-          company_name: row.company_name,
-          segment: row.segment || 'Service Provider',
-          printer_manufacturer: row.printer_manufacturer || 'Unknown',
-          printer_model: row.printer_model || 'Unknown',
-          number_of_printers: row.number_of_printers || 0,
-          count_type: row.count_type || 'Unknown',
-          process: row.process || 'Unknown',
-          material_type: row.material_type || 'Unknown',
-          material_format: row.material_format || 'Unknown',
-          country: row.country || 'Unknown',
-          update_year: row.update_year || new Date().getFullYear(),
-          additional_info: row.additional_info || ''
-        }
+        additional_info: row.additional_info
+      })
+    })
+
+    // Create one marker per country with service provider count
+    const items: PrintServiceMapItem[] = Array.from(countryClusters.entries()).map(([country, companies]) => {
+      const countryCoords = COUNTRY_COORDINATES[country] || [0, 0]
+      const uniqueProcesses = new Set(companies.map(c => c.process).filter(Boolean)).size
+      const uniqueMaterials = new Set(companies.map(c => c.material_type).filter(Boolean)).size
+      const totalPrinters = companies.reduce((sum, c) => sum + (c.number_of_printers || 0), 0)
+      
+      return {
+        id: `country-${country}`,
+        name: `${country} (${companies.length} service providers)`,
+        city: country,
+        state: null,
+        country: country,
+        lat: countryCoords[0],
+        lng: countryCoords[1],
+        technologies: Array.from(new Set(companies.map(c => c.process).filter(Boolean))),
+        materials: Array.from(new Set(companies.map(c => c.material_type).filter(Boolean))),
+        website: null,
+        type: 'service',
+        services: [],
+        capabilities: [],
+        totalMachines: totalPrinters,
+        uniqueProcesses: uniqueProcesses,
+        uniqueMaterials: uniqueMaterials,
+        uniqueManufacturers: companies.length,
+        companies: companies // Include all companies for the sidebar
       }
     })
 
-    console.log(`Print services map API: returning ${items.length} individual company markers`)
+    console.log(`Print services map API: returning ${items.length} country clusters with ${rows?.length || 0} total companies`)
     
     return NextResponse.json({ 
       data: { 
@@ -250,47 +277,55 @@ export async function GET(request: Request) {
   } catch (e: unknown) {
     console.error('Print services map API error:', e)
     // As a last resort, still return sample data rather than a hard 500
-    const items = getSamplePrintServicesData().map((row: any) => {
-      const countryCoords = COUNTRY_COORDINATES[row.country] || [0, 0]
-      const latOffset = (Math.random() - 0.5) * 1.0
-      const lngOffset = (Math.random() - 0.5) * 2.0
-      const lat = Math.max(-85, Math.min(85, countryCoords[0] + latOffset))
-      const lng = Math.max(-179, Math.min(179, countryCoords[1] + lngOffset))
-      return {
+    const sampleRows = getSamplePrintServicesData()
+    const countryClusters = new Map<string, any[]>()
+    
+    sampleRows.forEach((row: any) => {
+      if (!countryClusters.has(row.country)) {
+        countryClusters.set(row.country, [])
+      }
+      countryClusters.get(row.country)!.push({
         id: row.id,
         name: row.company_name,
-        city: null,
-        state: null,
+        segment: 'Service Provider',
+        process: row.process,
+        material_type: row.material_type,
+        material_format: 'Unknown',
+        printer_manufacturer: 'Unknown',
+        printer_model: 'Unknown',
+        number_of_printers: 0,
         country: row.country,
-        lat,
-        lng,
-        technologies: [row.process].filter(Boolean),
-        materials: [row.material_type].filter(Boolean),
+        additional_info: ''
+      })
+    })
+    
+    const items = Array.from(countryClusters.entries()).map(([country, companies]) => {
+      const countryCoords = COUNTRY_COORDINATES[country] || [0, 0]
+      const uniqueProcesses = new Set(companies.map(c => c.process).filter(Boolean)).size
+      const uniqueMaterials = new Set(companies.map(c => c.material_type).filter(Boolean)).size
+      
+      return {
+        id: `country-${country}`,
+        name: `${country} (${companies.length} service providers)`,
+        city: country,
+        state: null,
+        country: country,
+        lat: countryCoords[0],
+        lng: countryCoords[1],
+        technologies: Array.from(new Set(companies.map(c => c.process).filter(Boolean))),
+        materials: Array.from(new Set(companies.map(c => c.material_type).filter(Boolean))),
         website: null,
         type: 'service',
         services: [],
         capabilities: [],
         totalMachines: 0,
-        uniqueProcesses: 1,
-        uniqueMaterials: 1,
-        uniqueManufacturers: 1,
-        companyData: {
-          id: row.id,
-          company_name: row.company_name,
-          segment: 'Service Provider',
-          printer_manufacturer: 'Unknown',
-          printer_model: 'Unknown',
-          number_of_printers: 0,
-          count_type: 'Unknown',
-          process: row.process || 'Unknown',
-          material_type: row.material_type || 'Unknown',
-          material_format: 'Unknown',
-          country: row.country || 'Unknown',
-          update_year: new Date().getFullYear(),
-          additional_info: ''
-        }
+        uniqueProcesses: uniqueProcesses,
+        uniqueMaterials: uniqueMaterials,
+        uniqueManufacturers: companies.length,
+        companies: companies
       } as PrintServiceMapItem
     })
+    
     return NextResponse.json({ 
       data: { items, total: items.length, hasMore: false }
     }, { status: 200 })

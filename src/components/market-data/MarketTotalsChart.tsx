@@ -60,7 +60,7 @@ export function MarketTotalsChart() {
     // Reload when filters change (debounce not needed initially)
     load()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [yearStart, yearEnd, segment])
+  }, [yearStart, yearEnd])
 
   const chartData = payload?.data ?? []
   const segments = (payload?.segments ?? []).filter((s) => s && s.toLowerCase() !== "total")

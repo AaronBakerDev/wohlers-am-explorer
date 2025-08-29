@@ -449,6 +449,12 @@ export function filtersToSearchParams(filters: CompanyFilters): URLSearchParams 
 export function searchParamsToFilters(searchParams: URLSearchParams): CompanyFilters {
   const filters: CompanyFilters = {}
   
+  // Array-type filter keys that should always be treated as arrays
+  const arrayKeys = [
+    'companyType', 'companyRole', 'segment', 'country', 'state', 'city',
+    'primaryMarket', 'secondaryMarkets', 'technologies', 'materials', 'serviceTypes'
+  ]
+  
   for (const [key, value] of searchParams.entries()) {
     try {
       // Try to parse as JSON first (for objects)
@@ -458,6 +464,10 @@ export function searchParamsToFilters(searchParams: URLSearchParams): CompanyFil
       // Handle comma-separated arrays
       else if (value.includes(',')) {
         filters[key as keyof CompanyFilters] = value.split(',').filter(v => v.trim()) as any
+      }
+      // Handle array-type keys - always convert to array
+      else if (arrayKeys.includes(key)) {
+        filters[key as keyof CompanyFilters] = [value] as any
       }
       // Handle booleans
       else if (value === 'true' || value === 'false') {

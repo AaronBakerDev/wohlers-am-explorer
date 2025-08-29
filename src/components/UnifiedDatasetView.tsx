@@ -107,23 +107,20 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
     materials: []
   })
 
-  // Error handling for missing dataset
-  if (!dataset) {
-    return (
-      <div className="h-full flex items-center justify-center">
-        <div className="text-center text-red-500">
-          <p className="text-lg font-semibold">Dataset not found</p>
-          <p className="text-sm">Dataset ID "{datasetId}" is not configured</p>
-        </div>
-      </div>
-    )
-  }
+  const datasetMissing = !dataset
 
   // Get appropriate icon for dataset
-  const IconComponent = DATASET_ICONS[dataset.mapType] || Building2
+  const IconComponent = DATASET_ICONS[(dataset?.mapType as keyof typeof DATASET_ICONS) || 'equipment'] || Building2
 
   // Load data with filters
   useEffect(() => {
+    if (!dataset) {
+      setError('Dataset not found')
+      setLoading(false)
+      setData([])
+      setFilterOptions({ countries: [], segments: [], technologies: [], materials: [] })
+      return
+    }
     async function loadData() {
       try {
         setLoading(true)
@@ -204,6 +201,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
 
   // Export functionality
   const handleExport = () => {
+    if (!dataset) return
     const headers = dataset.displayColumns.map(col => {
       switch (col) {
         case 'name': return 'Company Name'
@@ -233,7 +231,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `${dataset.id}.csv`
+    a.download = `${(dataset?.id) || datasetId}.csv`
     a.click()
     window.URL.revokeObjectURL(url)
   }
@@ -252,7 +250,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
       <div className="h-full flex items-center justify-center">
         <div className="flex items-center gap-2 text-muted-foreground">
           <RefreshCw className="h-4 w-4 animate-spin" />
-          Loading {dataset.name} data...
+          Loading {(dataset?.name) || 'dataset'} data...
         </div>
       </div>
     )
@@ -286,14 +284,14 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           <div className="flex items-center gap-2">
             <IconComponent 
               className="h-5 w-5" 
-              style={{ color: dataset.color }}
+              style={{ color: dataset?.color || undefined }}
             />
-            <h2 className="text-lg font-semibold">{dataset.name}</h2>
+            <h2 className="text-lg font-semibold">{dataset?.name || 'Dataset not found'}</h2>
             <Badge variant="secondary">{filteredData.length} companies</Badge>
           </div>
           
           <div className="flex gap-2">
-            {dataset.enableExport && (
+            {dataset?.enableExport && (
               <Button onClick={handleExport} size="sm" variant="outline">
                 <Download className="h-4 w-4 mr-2" />
                 Export CSV
@@ -303,9 +301,9 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
         </div>
 
         {/* Description */}
-        {dataset.description && (
+        {dataset?.description && (
           <p className="text-sm text-muted-foreground mb-4 max-w-3xl">
-            {dataset.description}
+            {dataset?.description}
           </p>
         )}
 
@@ -323,7 +321,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           </div>
 
           {/* Country filter */}
-          {dataset.displayColumns.includes('country') && filterOptions.countries.length > 0 && (
+          {dataset?.displayColumns.includes('country') && filterOptions.countries.length > 0 && (
             <Select value={countryFilter} onValueChange={(v) => setCountryFilter(v === '__all__' ? '' : v)}>
               <SelectTrigger>
                 <SelectValue placeholder="Country" />
@@ -338,7 +336,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           )}
 
           {/* Segment filter */}
-          {dataset.displayColumns.includes('segment') && filterOptions.segments.length > 0 && (
+          {dataset?.displayColumns.includes('segment') && filterOptions.segments.length > 0 && (
             <Select value={segmentFilter} onValueChange={(v) => setSegmentFilter(v === '__all__' ? '' : v)}>
               <SelectTrigger>
                 <SelectValue placeholder="Segment" />
@@ -353,7 +351,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           )}
 
           {/* Technology filter */}
-          {dataset.displayColumns.includes('technologies') && filterOptions.technologies.length > 0 && (
+          {dataset?.displayColumns.includes('technologies') && filterOptions.technologies.length > 0 && (
             <Select value={technologyFilter} onValueChange={(v) => setTechnologyFilter(v === '__all__' ? '' : v)}>
               <SelectTrigger>
                 <SelectValue placeholder="Technology" />
@@ -383,7 +381,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
         <Table>
           <TableHeader className="sticky top-0 bg-background z-10">
             <TableRow>
-              {dataset.displayColumns.map((column) => {
+              {(dataset?.displayColumns ?? []).map((column) => {
                 const _isSortable = ['name', 'country', 'segment'].includes(column)
                 const headerText = {
                   name: 'Company Name',
@@ -398,12 +396,12 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
                 return (
                   <TableHead 
                     key={column}
-                    onClick={isortable ? () => toggleSort(column as SortKey) : undefined}
-                    className={isortable ? "cursor-pointer select-none" : ""}
+                    onClick={_isSortable ? () => toggleSort(column as SortKey) : undefined}
+                    className={_isSortable ? "cursor-pointer select-none" : ""}
                   >
                     <div className="inline-flex items-center">
                       {headerText}
-                      {isortable && <SortIndicator column={column as SortKey} />}
+                      {_isSortable && <SortIndicator column={column as SortKey} />}
                     </div>
                   </TableHead>
                 )
@@ -413,7 +411,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           <TableBody>
             {filteredData.map((company) => (
               <TableRow key={company.id} className="hover:bg-muted/50">
-                {dataset.displayColumns.map((column) => (
+                {(dataset?.displayColumns ?? []).map((column) => (
                   <TableCell key={column}>
                     {column === 'name' && (
                       <div className="flex items-center gap-2">

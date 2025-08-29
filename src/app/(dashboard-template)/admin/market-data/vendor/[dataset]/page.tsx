@@ -93,17 +93,7 @@ export default function VendorDatasetAdminPage() {
     })()
   }, [dataset, config, defaultSort.key, defaultSort.asc])
 
-  if (!dataset || !config) {
-    return (
-      
-        <div className="p-6">
-          <Card>
-            <CardContent className="pt-6">Invalid dataset.</CardContent>
-          </Card>
-        </div>
-      
-    )
-  }
+  const invalidDataset = !dataset || !config
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -164,7 +154,7 @@ export default function VendorDatasetAdminPage() {
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <BarChart3 className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-semibold">Admin · {LEGACY_DATASET_CONFIGS[dataset].name}</h2>
+              <h2 className="text-lg font-semibold">Admin · {config?.name ?? 'Unknown Dataset'}</h2>
               <Badge variant="secondary">{rows.length}</Badge>
             </div>
             <div className="flex items-center gap-2">
@@ -193,11 +183,13 @@ export default function VendorDatasetAdminPage() {
               </div>
             </div>
           </div>
-          <p className="text-xs text-muted-foreground mt-1">{LEGACY_DATASET_CONFIGS[dataset].description}</p>
+          <p className="text-xs text-muted-foreground mt-1">{config?.description ?? ''}</p>
         </div>
 
         <div className="flex-1 overflow-auto">
-          {loading ? (
+          {invalidDataset ? (
+            <div className="p-6 text-sm text-red-600">Invalid dataset.</div>
+          ) : loading ? (
             <div className="p-6 text-sm text-muted-foreground">Loading…</div>
           ) : error ? (
             <div className="p-6 text-sm text-red-600">{error}</div>
@@ -239,23 +231,24 @@ export default function VendorDatasetAdminPage() {
         </div>
 
         {/* Create dialog */}
+        {!invalidDataset && (
         <RowDialog
           open={creating}
           onOpenChange={setCreating}
-          title={`New — ${LEGACY_DATASET_CONFIGS[dataset].name}`}
+          title={`New — ${config?.name ?? ''}`}
           columns={visibleColumns}
           onSubmit={async (values) => {
             await onCreate(values)
             setCreating(false)
           }}
-        />
+        />)}
 
         {/* Edit dialog */}
-        {editing && (
+        {editing && !invalidDataset && (
           <RowDialog
             open={!!editing}
             onOpenChange={(v) => !v && setEditing(null)}
-            title={`Edit — ${LEGACY_DATASET_CONFIGS[dataset].name}`}
+            title={`Edit — ${config?.name ?? ''}`}
             columns={visibleColumns}
             initialValues={editing}
             onSubmit={async (values) => {

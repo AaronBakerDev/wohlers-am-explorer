@@ -5,6 +5,14 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { CompanyMarker, StateHeatmapData } from './types';
 
+// Fix Leaflet default icon issue in Next.js
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+});
+
 // State name to abbreviation mapping
 const STATE_ABBREVIATIONS: Record<string, string> = {
   // US States
@@ -693,6 +701,13 @@ export default function LeafletMap({
         const safeCity = escapeHtml(company.city);
         const safeState = escapeHtml(company.state);
         const safeWebsite = safeHttpUrl(company.website);
+        
+        // Check if this is a country-level aggregation of manufacturers
+        // (name includes "manufacturers" or it's equipment type with companies array)
+        const isManufacturerCluster = company.name.includes('manufacturers') || 
+          (company.type === 'equipment' && company.companies && company.companies.length > 0);
+        const machineLabel = isManufacturerCluster ? 'Manufacturers' : 'Machines';
+        
         const popupContent = `
           <div class="p-3 min-w-48">
             <h3 class="font-medium text-sm mb-1">${safeName}</h3>
@@ -701,7 +716,7 @@ export default function LeafletMap({
             <div class="grid grid-cols-2 gap-3 mb-3 p-2 bg-muted/30 rounded">
               <div class="text-center">
                 <div class="text-lg font-bold text-chart-4">${company.totalMachines}</div>
-                <div class="text-xs text-muted-foreground">Machines</div>
+                <div class="text-xs text-muted-foreground">${machineLabel}</div>
               </div>
               <div class="text-center">
                 <div class="text-lg font-bold text-chart-2">${company.uniqueProcesses}</div>
