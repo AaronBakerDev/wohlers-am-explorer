@@ -392,6 +392,17 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
 
   // Removed unused topTechnologies and topMaterials - no longer needed after viewport fetching
 
+  // Handle map resize when sidebar opens/closes
+  useEffect(() => {
+    // Trigger map resize after DOM updates when sidebar state changes
+    const timer = setTimeout(() => {
+      // Force a window resize event to trigger Leaflet's built-in resize handler
+      window.dispatchEvent(new Event('resize'));
+    }, 350); // Slightly longer than CSS transition duration
+
+    return () => clearTimeout(timer);
+  }, [sidebarOpen]);
+
   const exportColumns: ColumnDef<CompanyMarker>[] = [
     { key: 'id', header: 'ID' },
     { key: 'name', header: 'Company Name' },
@@ -571,9 +582,12 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
         </div>
       </div>
 
-      {/* Map and details */}
-      <div className='flex-1 flex min-h-0'>
-        <div className='flex-1 relative'>
+      {/* Map and details - Grid layout for sidebar */}
+      <div className={`flex-1 grid min-h-0 transition-all duration-300 ${
+        sidebarOpen ? 'grid-cols-[1fr_384px]' : 'grid-cols-[1fr]'
+      }`}>
+        {/* Map Container */}
+        <div className='relative min-w-0'>
           <LeafletMap
             companies={searchFilteredCompanies}
             selectedCompany={selectedCompany}
@@ -594,10 +608,11 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
             stateData={stateData}
             onViewportChange={setViewportBbox}
           />
+        </div>
 
-          {/* Sidebar for Country Company Listings */}
-          {sidebarOpen && (
-            <div className='absolute right-0 top-0 h-full w-96 bg-card border-l border-border shadow-lg z-30 overflow-hidden'>
+        {/* Sidebar for Country Company Listings */}
+        {sidebarOpen && (
+          <div className='bg-card border-l border-border shadow-lg overflow-hidden'>
               <div className='h-full flex flex-col'>
                 {/* Sidebar Header */}
                 <div className='p-4 border-b border-border flex items-center justify-between'>
