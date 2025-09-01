@@ -7,6 +7,7 @@ export interface CompanyMarker {
   name: string;
   city: string | null;
   state: string | null;
+  country?: string | null;
   lat: number | null;
   lng: number | null;
   technologies: string[];

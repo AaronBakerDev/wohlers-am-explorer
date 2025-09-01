@@ -500,15 +500,13 @@ export function searchParamsToFilters(searchParams: URLSearchParams): CompanyFil
 export const FILTER_PRESETS: Record<string, CompanyFilters> = {
   // Equipment manufacturers
   AM_SYSTEMS_MANUFACTURERS: {
-    companyType: ['equipment'],
-    companyRole: ['System manufacturer'],
+    segment: ['System manufacturer'],
     isActive: true
   },
   
   // Service providers
   PRINT_SERVICES_GLOBAL: {
-    companyType: ['service'], 
-    companyRole: ['Printing services', 'service'],
+    segment: ['Printing services'],
     isActive: true
   },
   

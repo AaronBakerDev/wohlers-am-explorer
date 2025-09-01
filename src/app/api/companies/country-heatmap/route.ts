@@ -11,10 +11,11 @@ export async function GET(request: Request) {
     const supabase = await createClient()
     
     if (companyType === 'equipment') {
-      // Use AM Systems Manufacturers data for equipment manufacturers
+      // Use merged view for equipment manufacturers
       const { data: rows, error } = await supabase
-        .from('vendor_am_systems_manufacturers')
+        .from('vendor_companies_merged')
         .select('country')
+        .eq('segment', 'System manufacturer')
       
       if (error) throw error
       
@@ -40,10 +41,11 @@ export async function GET(request: Request) {
       return NextResponse.json({ data })
       
     } else if (companyType === 'service') {
-      // Use Print Services Global data for service providers
+      // Use merged view for service providers
       const { data: rows, error } = await supabase
-        .from('vendor_print_services_global')
+        .from('vendor_companies_merged')
         .select('country')
+        .eq('segment', 'Printing services')
       
       if (error) throw error
       

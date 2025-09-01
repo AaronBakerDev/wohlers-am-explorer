@@ -1,12 +1,14 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+// Tabs removed since Legend switcher is no longer needed
+// import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import FilterBar from '@/components/filters/FilterBar'
 import { Search } from 'lucide-react'
 import type { FilterState } from '@/lib/filters/types'
 import type { LegendBucket, CompanyMarker } from './types'
+import { ENABLE_MAP_SEARCH } from '@/lib/flags'
 
 /**
- * Filter and legend tabs above the map. Includes search, FilterBar, and legend.
+ * Filter controls above the map. Legend switcher removed.
  */
 type Props = {
   searchQuery: string
@@ -26,20 +28,20 @@ export default function ControlsTabs({
   onSearchQueryChange,
   filters,
   onFiltersChange,
-  legendBuckets,
-  getMarkerColor,
-  companies,
+  // Unused props retained for compatibility with callers
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  legendBuckets: _legendBuckets,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getMarkerColor: _getMarkerColor,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  companies: _companies,
 }: Props) {
   return (
     <div className='border-b border-border bg-background'>
-      <div className='px-4 pt-3'>
-        <Tabs defaultValue='filters'>
-          <TabsList>
-            <TabsTrigger value='filters'>Filters</TabsTrigger>
-            <TabsTrigger value='legend'>Legend</TabsTrigger>
-          </TabsList>
-          <TabsContent value='filters' className='mt-3'>
-            <div className='flex items-center gap-3 flex-wrap'>
+      <div className='px-4 pt-5 pb-4'>
+        <div className='mt-2'>
+          <div className='flex items-center gap-5 md:gap-8 flex-wrap'>
+            {ENABLE_MAP_SEARCH && (
               <div className='relative w-full max-w-md'>
                 <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
                 <Input
@@ -49,91 +51,17 @@ export default function ControlsTabs({
                   className='pl-9'
                 />
               </div>
-              <div className='flex-1 min-w-[280px]'>
-                <FilterBar
-                  value={filters}
-                  onChange={onFiltersChange}
-                  orientation='horizontal'
-                />
-              </div>
+            )}
+            <div className='flex-1 min-w-[280px]'>
+              <FilterBar
+                value={filters}
+                onChange={onFiltersChange}
+                orientation='horizontal'
+                className='gap-4 md:gap-6'
+              />
             </div>
-          </TabsContent>
-          <TabsContent value='legend' className='mt-3'>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-              <div>
-                <h4 className='text-sm font-medium mb-2'>Company Types</h4>
-                <div className='grid grid-cols-2 gap-2 text-sm'>
-                  <div className='flex items-center gap-2'>
-                    <span
-                      className='w-3 h-3 rounded-full'
-                      style={{ backgroundColor: getMarkerColor('equipment') }}
-                    />{' '}
-                    Equipment
-                  </div>
-                  <div className='flex items-center gap-2'>
-                    <span
-                      className='w-3 h-3 rounded-full'
-                      style={{ backgroundColor: getMarkerColor('service') }}
-                    />{' '}
-                    Service
-                  </div>
-                  <div className='flex items-center gap-2'>
-                    <span
-                      className='w-3 h-3 rounded-full'
-                      style={{ backgroundColor: getMarkerColor('software') }}
-                    />{' '}
-                    Software
-                  </div>
-                  <div className='flex items-center gap-2'>
-                    <span
-                      className='w-3 h-3 rounded-full'
-                      style={{ backgroundColor: getMarkerColor('material') }}
-                    />{' '}
-                    Material
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h4 className='text-sm font-medium mb-2'>Quick Stats</h4>
-                <div className='grid grid-cols-2 gap-4 text-center'>
-                  <div>
-                    <div className='text-xl font-semibold text-foreground'>
-                      {companies.length}
-                    </div>
-                    <div className='text-xs text-muted-foreground'>
-                      Companies
-                    </div>
-                  </div>
-                  <div>
-                    <div className='text-xl font-semibold text-foreground'>
-                      {companies.reduce((sum, c) => sum + c.totalMachines, 0)}
-                    </div>
-                    <div className='text-xs text-muted-foreground'>
-                      Machines
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='md:col-span-2'>
-                <h4 className='text-sm font-medium mb-2'>Heatmap Scale</h4>
-                {legendBuckets.length ? (
-                  <div className='flex flex-wrap gap-3 text-sm'>
-                    {legendBuckets.map((b, i) => (
-                      <div key={`${b.color}-${i}`} className='flex items-center gap-2'>
-                        <span className='inline-block w-4 h-3 rounded-sm' style={{ backgroundColor: b.color }} />
-                        <span className='text-muted-foreground text-xs'>{b.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className='text-xs text-muted-foreground'>
-                    No data available for heatmap
-                  </div>
-                )}
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+          </div>
+        </div>
       </div>
     </div>
   )

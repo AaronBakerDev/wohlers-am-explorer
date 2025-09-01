@@ -56,8 +56,9 @@ export default function AMSystemsAdminPage() {
         const { createClient } = await import('@/lib/supabase/client')
         const supabase = createClient()
         const { data, error } = await supabase
-          .from('vendor_am_systems_manufacturers')
-          .select('id, company_name, segment, process, material_format, material_type, country, created_at')
+          .from('vendor_companies_merged')
+          .select('id, company_name, segment, process, material_format, material_type, country')
+          .eq('segment', 'System manufacturer')
           .order('company_name', { ascending: true })
           .limit(5000)
         if (error) throw error
@@ -86,8 +87,8 @@ export default function AMSystemsAdminPage() {
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { data, error } = await supabase
-      .from('vendor_am_systems_manufacturers')
-      .insert(payload)
+      .from('vendor_companies_merged')
+      .insert({ ...payload, segment: 'System manufacturer' })
       .select('*')
       .single()
     if (error) throw error
@@ -100,8 +101,8 @@ export default function AMSystemsAdminPage() {
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { data, error } = await supabase
-      .from('vendor_am_systems_manufacturers')
-      .update(patch)
+      .from('vendor_companies_merged')
+      .update({ ...patch, segment: 'System manufacturer' })
       .eq('id', id)
       .select('*')
       .single()
@@ -115,7 +116,7 @@ export default function AMSystemsAdminPage() {
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { error } = await supabase
-      .from('vendor_am_systems_manufacturers')
+      .from('vendor_companies_merged')
       .delete()
       .eq('id', id)
     if (error) throw error

@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { PrinterIcon, Factory, Building2, BarChart3, ArrowRight } from 'lucide-react'
+import { Building2, BarChart3, ArrowRight } from 'lucide-react'
 import { ResponsiveAdminLayout } from '@/components/admin/responsive-admin-layout'
 
 export default function AdminHomePage() {
@@ -50,48 +50,6 @@ export default function AdminHomePage() {
               </p>
               <Link href="/admin/market-data" className="block">
                 <Button size="sm" variant="default" className="w-full">Manage Market Data</Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-
-
-          <Card className="group hover:shadow-md transition-all duration-200 border-2 hover:border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <PrinterIcon className="h-5 w-5 text-primary" />
-                  <span>Print Services</span>
-                </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground">
-                Global providers, capabilities, and equipment
-              </p>
-              <Link href="/admin/print-services" className="block">
-                <Button size="sm" variant="default" className="w-full">Manage Services</Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-md transition-all duration-200 border-2 hover:border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <Factory className="h-5 w-5 text-primary" />
-                  <span>AM Systems</span>
-                </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground">
-                Manufacturers, processes, and materials
-              </p>
-              <Link href="/admin/am-systems" className="block">
-                <Button size="sm" variant="default" className="w-full">Manage Systems</Button>
               </Link>
             </CardContent>
           </Card>

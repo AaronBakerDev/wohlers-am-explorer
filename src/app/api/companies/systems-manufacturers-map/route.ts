@@ -169,10 +169,10 @@ export async function GET(request: Request) {
 
     const supabase = await createClient()
     
-    // Try to fetch AM systems manufacturers data, fallback to sample data if table doesn't exist
+    // Fetch from merged view with System manufacturer segment filter
     let rows: any[] = []
     const { data, error } = await supabase
-      .from('vendor_am_systems_manufacturers')
+      .from('vendor_companies_merged')
       .select(`
         id,
         company_name,
@@ -182,11 +182,12 @@ export async function GET(request: Request) {
         material_format,
         material_type
       `)
+      .eq('segment', 'System manufacturer')
       .limit(limit)
     
     if (error && error.code === '42P01') {
-      // Table doesn't exist, use sample data
-      console.log('AM Systems Manufacturers table does not exist, using sample data')
+      // View doesn't exist, use sample data
+      console.log('vendor_companies_merged view does not exist, using sample data')
       rows = getSampleAMSystemsData()
     } else if (error) {
       throw error

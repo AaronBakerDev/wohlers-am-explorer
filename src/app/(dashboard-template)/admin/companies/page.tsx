@@ -23,8 +23,21 @@ type SupabaseError = {
   code?: string
 }
 
+// Extended company type with equipment and material data
+type ExtendedCompany = Company & {
+  segment?: string | null
+  printer_manufacturer?: string | null
+  printer_model?: string | null
+  number_of_printers?: number | null
+  count_type?: string | null
+  process?: string | null
+  material_type?: string | null
+  material_format?: string | null
+  update_year?: number | null
+}
+
 // Use the proper Company type but maintain Row compatibility
-type Row = Company
+type Row = ExtendedCompany
 type CompaniesRow = Company
 type CompaniesInsert = CompanyInsert
 type CompaniesUpdate = CompanyUpdate
@@ -66,13 +79,56 @@ export default function CompaniesAdminPage() {
         setError(null)
         const { createClient } = await import('@/lib/supabase/client')
         const supabase = createClient()
-        const { data, error } = await supabase
+        // Get all companies from the merged view
+        const { data: mergedData, error: mergedError } = await supabase
+          .from('vendor_companies_merged')
+          .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year')
+          .order('company_name', { ascending: true })
+          .limit(5000)
+        
+        if (mergedError) throw mergedError
+        
+        // Also get main companies data for additional fields
+        const { data: companiesData, error: companiesError } = await supabase
           .from('companies')
           .select('id, name, company_type, country, state, city, website, founded_year, employee_count_range, revenue_range, is_public_company, stock_ticker, parent_company')
           .order('name', { ascending: true })
           .limit(5000)
+        
+        if (companiesError) throw companiesError
+        
+        // Create a map for quick lookup of vendor data from merged view
+        const vendorMap = new Map<string, any>()
+        mergedData?.forEach(item => {
+          const key = item.company_name?.toLowerCase()
+          if (key && !vendorMap.has(key)) {
+            vendorMap.set(key, item)
+          }
+        })
+        
+        // Merge the data
+        const { data, error } = { 
+          data: companiesData?.map(company => {
+            const nameLower = company.name.toLowerCase()
+            const vendorInfo = vendorMap.get(nameLower)
+            
+            return {
+              ...company,
+              segment: vendorInfo?.segment || null,
+              printer_manufacturer: vendorInfo?.printer_manufacturer || null,
+              printer_model: vendorInfo?.printer_model || null,
+              number_of_printers: vendorInfo?.number_of_printers || null,
+              count_type: vendorInfo?.count_type || null,
+              process: vendorInfo?.process || null,
+              material_type: vendorInfo?.material_type || null,
+              material_format: vendorInfo?.material_format || null,
+              update_year: vendorInfo?.update_year || null
+            }
+          }),
+          error: null
+        }
         if (error) throw error
-        setRows(data as Company[] || [])
+        setRows(data as ExtendedCompany[] || [])
       } catch (error) {
         const err = error as SupabaseError
         setError(err.message || 'Failed to load data')
@@ -102,7 +158,7 @@ export default function CompaniesAdminPage() {
       .single()
     if (error) throw error
     if (data) {
-      setRows(prev => [...prev, data as Company].sort((a, b) => a.name.localeCompare(b.name)))
+      setRows(prev => [...prev, data as ExtendedCompany].sort((a, b) => a.name.localeCompare(b.name)))
     }
   }
 
@@ -117,7 +173,7 @@ export default function CompaniesAdminPage() {
       .single()
     if (error) throw error
     if (data) {
-      setRows(prev => prev.map(r => (r.id === id ? data as Company : r)))
+      setRows(prev => prev.map(r => (r.id === id ? data as ExtendedCompany : r)))
     }
   }
 
@@ -187,12 +243,17 @@ export default function CompaniesAdminPage() {
               <Table>
                 <TableHeader className="sticky top-0 bg-background z-10 border-b">
                   <TableRow>
-                    <TableHead className="min-w-[200px]">Name</TableHead>
-                    <TableHead className="hidden sm:table-cell">Type</TableHead>
+                    <TableHead className="min-w-[200px]">Company Name</TableHead>
+                    <TableHead className="hidden sm:table-cell">Segment</TableHead>
+                    <TableHead className="hidden md:table-cell">Printer Manufacturer</TableHead>
+                    <TableHead className="hidden lg:table-cell">Printer Model</TableHead>
+                    <TableHead className="hidden xl:table-cell">Number of Printers</TableHead>
+                    <TableHead className="hidden xl:table-cell">Count Type</TableHead>
+                    <TableHead className="hidden 2xl:table-cell">Process</TableHead>
+                    <TableHead className="hidden 2xl:table-cell">Material Type</TableHead>
+                    <TableHead className="hidden 2xl:table-cell">Material Format</TableHead>
                     <TableHead className="hidden md:table-cell">Country</TableHead>
-                    <TableHead className="hidden lg:table-cell">City</TableHead>
-                    <TableHead className="hidden xl:table-cell">Founded</TableHead>
-                    <TableHead className="hidden md:table-cell">Website</TableHead>
+                    <TableHead className="hidden xl:table-cell">Update Year</TableHead>
                     <TableHead className="w-[1%] text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -203,24 +264,22 @@ export default function CompaniesAdminPage() {
                         <div className="min-w-0">
                           <div className="truncate">{r.name}</div>
                           <div className="sm:hidden text-xs text-muted-foreground mt-1">
-                            {r.company_type && <span>{r.company_type}</span>}
+                            {r.segment && <span>{r.segment}</span>}
                             {r.country && <span> • {r.country}</span>}
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="hidden sm:table-cell text-sm">{r.company_type ?? '—'}</TableCell>
+                      <TableCell className="hidden sm:table-cell text-sm">{r.segment ?? '—'}</TableCell>
+                      <TableCell className="hidden md:table-cell text-sm">{r.printer_manufacturer ?? '—'}</TableCell>
+                      <TableCell className="hidden lg:table-cell text-sm">{r.printer_model ?? '—'}</TableCell>
+                      <TableCell className="hidden xl:table-cell text-sm">{r.number_of_printers ?? '—'}</TableCell>
+                      <TableCell className="hidden xl:table-cell text-sm">{r.count_type ?? '—'}</TableCell>
+                      <TableCell className="hidden 2xl:table-cell text-sm">{r.process ?? '—'}</TableCell>
+                      <TableCell className="hidden 2xl:table-cell text-sm">{r.material_type ?? '—'}</TableCell>
+                      <TableCell className="hidden 2xl:table-cell text-sm">{r.material_format ?? '—'}</TableCell>
                       <TableCell className="hidden md:table-cell text-sm">{r.country ?? '—'}</TableCell>
-                      <TableCell className="hidden lg:table-cell text-sm">{r.city ?? '—'}</TableCell>
-                      <TableCell className="hidden xl:table-cell text-sm text-muted-foreground">{r.founded_year ?? '—'}</TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        {r.website ? (
-                          <Link href={r.website} target="_blank" className="inline-flex items-center gap-1 text-primary hover:underline">
-                            <span className="truncate max-w-[150px] text-sm">{r.website}</span>
-                            <ExternalLink className="h-3 w-3" />
-                          </Link>
-                      ) : ''}
-                    </TableCell>
-                    <TableCell className="text-right">
+                      <TableCell className="hidden xl:table-cell text-sm text-muted-foreground">{r.update_year ?? '—'}</TableCell>
+                      <TableCell className="text-right">
                       <div className="flex items-center gap-1 justify-end">
                         <Button 
                           size="icon" 

@@ -26,7 +26,6 @@ import {
   Cell,
 } from 'recharts'
 import { Factory, Globe, BarChart3, RefreshCw } from 'lucide-react'
-import { ChartExportButton } from '@/components/ChartExportButton'
 
 type Row = {
   id?: string
@@ -77,56 +76,58 @@ export default function PrintServicesGlobalAnalytics() {
         setLoading(true)
         setError(null)
 
-        // Try CSV-backed route first when configured
-        if (process.env.NEXT_PUBLIC_DATA_SOURCE === 'csv') {
-          const res = await fetch('/api/datasets/print-services-global')
-          if (!res.ok) throw new Error(`Failed CSV fetch (${res.status})`)
-          const json = await res.json()
-          const data = (json?.data || []) as Row[]
-          if (data.length) {
-            setRows(data)
-            return
-          }
-        }
-
-        // Supabase fallback
-        const supabase = createClient()
-        // Select all fields required by analytics so charts populate in Supabase mode
-        const { data, error } = await supabase
-          .from('vendor_print_services_global' as any)
-          .select(
-            [
-              'id',
-              'company_name',
-              'segment',
-              'material_format',
-              'material_type',
-              'country',
-              'printer_manufacturer',
-              'printer_model',
-              'number_of_printers',
-              'count_type',
-              'process',
-              'update_year',
-              'website',
-              'headquarters_city',
+        // Use unified segment API
+        const params = new URLSearchParams()
+        params.set('segment', 'Printing services')
+        params.set('limit', '5000')
+        
+        const res = await fetch(`/api/datasets/unified-segment?${params.toString()}`)
+        if (!res.ok) throw new Error(`Failed to fetch data (${res.status})`)
+        
+        const json = await res.json()
+        const data = (json?.data || []) as Row[]
+        
+        if (data.length) {
+          setRows(data)
+        } else {
+          // Fallback to Supabase if no data from unified API
+          const supabase = createClient()
+          // Select all fields required by analytics so charts populate in Supabase mode
+          const { data: supabaseData, error } = await supabase
+            .from('vendor_companies_merged' as any)
+            .select(
+              [
+                'id',
+                'company_name',
+                'segment',
+                'material_format',
+                'material_type',
+                'country',
+                'printer_manufacturer',
+                'printer_model',
+                'number_of_printers',
+                'count_type',
+                'process',
+                'update_year',
               'additional_info'
             ].join(', ')
           )
+          .eq('segment', 'Printing services')
           .limit(5000)
-        if (error) throw new Error(error.message)
-        if (data && data.length) {
-          setRows(data as Row[])
-        } else {
-          // Dev fallback sample (minimal) to render charts locally
-          setRows([
-            { company_name: 'Prototype Projects', printer_manufacturer: '3D Systems', printer_model: 'Projet 6000', number_of_printers: 4, process: 'VPP', material_type: 'Polymer', country: 'United States', update_year: 2025 },
-            { company_name: 'Prototype Projects', printer_manufacturer: 'EOS', printer_model: 'P1', number_of_printers: 2, process: 'PBF-LB', material_type: 'Polymer', country: 'United States', update_year: 2025 },
-            { company_name: '3 Space', printer_manufacturer: 'Stratasys', printer_model: 'Fortus', number_of_printers: 1, process: 'MEX', material_type: 'Polymer', country: 'United States', update_year: 2025 },
-            { company_name: '3 DPX', printer_manufacturer: 'EOS', number_of_printers: 1, process: 'PBF-LB', material_type: 'Polymer', country: 'United States', update_year: 2025 },
-            { company_name: 'UPM', printer_manufacturer: 'Fabrisonic', printer_model: 'SonicLayer 1200', number_of_printers: 1, process: 'SHL', material_type: 'Metal', country: 'United States', update_year: 2025 },
-            { company_name: 'Beijing Ten Dimensions', number_of_printers: 30, process: 'MJT', material_type: 'Ceramic', country: 'China', update_year: 2025 },
-          ])
+          if (error) throw new Error(error.message)
+          if (supabaseData && supabaseData.length) {
+            setRows(supabaseData as Row[])
+          } else {
+            // Dev fallback sample (minimal) to render charts locally
+            setRows([
+              { company_name: 'Prototype Projects', printer_manufacturer: '3D Systems', printer_model: 'Projet 6000', number_of_printers: 4, process: 'VPP', material_type: 'Polymer', country: 'United States', update_year: 2025 },
+              { company_name: 'Prototype Projects', printer_manufacturer: 'EOS', printer_model: 'P1', number_of_printers: 2, process: 'PBF-LB', material_type: 'Polymer', country: 'United States', update_year: 2025 },
+              { company_name: '3 Space', printer_manufacturer: 'Stratasys', printer_model: 'Fortus', number_of_printers: 1, process: 'MEX', material_type: 'Polymer', country: 'United States', update_year: 2025 },
+              { company_name: '3 DPX', printer_manufacturer: 'EOS', number_of_printers: 1, process: 'PBF-LB', material_type: 'Polymer', country: 'United States', update_year: 2025 },
+              { company_name: 'UPM', printer_manufacturer: 'Fabrisonic', printer_model: 'SonicLayer 1200', number_of_printers: 1, process: 'SHL', material_type: 'Metal', country: 'United States', update_year: 2025 },
+              { company_name: 'Beijing Ten Dimensions', number_of_printers: 30, process: 'MJT', material_type: 'Ceramic', country: 'China', update_year: 2025 },
+            ])
+          }
         }
       } catch (e) {
         console.error('PSG analytics load error:', e)
@@ -351,7 +352,6 @@ export default function PrintServicesGlobalAnalytics() {
             <Badge variant="outline" className="text-xs">
               <BarChart3 className="h-3 w-3 mr-1" /> {totals.printers} printers
             </Badge>
-            <ChartExportButton targetRef={chartGridRef} filenameBase={`print-services-analytics`} />
           </div>
         </div>
       </div>
@@ -477,7 +477,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Installed Printers by Country (Top 10)</CardTitle>
-              <ChartExportButton targetRef={refPrintersByCountry} filenameBase={`psg_printers-by-country`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -504,7 +503,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Providers by Country (Top 10)</CardTitle>
-              <ChartExportButton targetRef={refProvidersByCountry} filenameBase={`psg_providers-by-country`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -531,7 +529,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Printers by Process (Stacked by Material)</CardTitle>
-              <ChartExportButton targetRef={refPrintersByProcess} filenameBase={`psg_printers-by-process`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -567,7 +564,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Printers by Manufacturer (Top 10)</CardTitle>
-              <ChartExportButton targetRef={refPrintersByManufacturer} filenameBase={`psg_printers-by-manufacturer`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -594,7 +590,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Top Printer Models (Top 10)</CardTitle>
-              <ChartExportButton targetRef={refTopModels} filenameBase={`psg_top-printer-models`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -618,7 +613,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Count Type Distribution</CardTitle>
-              <ChartExportButton targetRef={refCountType} filenameBase={`psg_count-type`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -643,7 +637,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Process × Material Type</CardTitle>
-              <ChartExportButton targetRef={refMatrixProcMat} filenameBase={`psg_matrix-process-material`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -658,7 +651,6 @@ export default function PrintServicesGlobalAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Country × Process (Top Countries)</CardTitle>
-              <ChartExportButton targetRef={refMatrixCountryProc} filenameBase={`psg_matrix-country-process`} />
             </div>
           </CardHeader>
           <CardContent>

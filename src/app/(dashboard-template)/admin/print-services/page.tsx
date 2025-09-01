@@ -50,8 +50,9 @@ export default function PrintServicesAdminPage() {
         const { createClient } = await import('@/lib/supabase/client')
         const supabase = createClient()
         const { data, error } = await supabase
-          .from('vendor_print_services_global' as any)
-          .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year, website, headquarters_city')
+          .from('vendor_companies_merged' as any)
+          .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year, additional_info')
+          .eq('segment', 'Printing services')
           .order('company_name', { ascending: true })
           .limit(5000)
         if (error) throw error
@@ -87,8 +88,8 @@ export default function PrintServicesAdminPage() {
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { data, error } = await supabase
-      .from('vendor_print_services_global' as any)
-      .insert(payload as any)
+      .from('vendor_companies_merged' as any)
+      .insert({ ...payload, segment: 'Printing services' } as any)
       .select('*')
       .single()
     if (error) throw error
@@ -100,8 +101,8 @@ export default function PrintServicesAdminPage() {
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { data, error } = await supabase
-      .from('vendor_print_services_global' as any)
-      .update(patch as any)
+      .from('vendor_companies_merged' as any)
+      .update({ ...patch, segment: 'Printing services' } as any)
       .eq('id', id)
       .select('*')
       .single()
@@ -114,7 +115,7 @@ export default function PrintServicesAdminPage() {
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { error } = await supabase
-      .from('vendor_print_services_global' as any)
+      .from('vendor_companies_merged' as any)
       .delete()
       .eq('id', id)
     if (error) throw error

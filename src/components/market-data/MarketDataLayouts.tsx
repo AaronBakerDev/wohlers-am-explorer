@@ -9,7 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input'
 import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart, ArrowUpDown, ChevronUp, ChevronDown } from 'lucide-react'
 // import { Separator } from '@/components/ui/separator'
-import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis, BarChart as ReBarChart, Bar } from 'recharts'
+import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis, BarChart as ReBarChart, Bar, Brush } from 'recharts'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
 import { MarketTotalsChart } from '@/components/market-data/MarketTotalsChart'
 import { MarketCountriesChart } from '@/components/market-data/MarketCountriesChart'
 
@@ -1219,8 +1221,9 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
   
   // Prepare scatter plot data
   const scatterData = filteredRows.map((row, index) => ({
-    x: parseInt(row[leadTimeIdx]) || 0, // Lead time (days)
-    y: parseFloat(row[costIdx]) || 0,   // Manufacturing cost ($USD)
+    // Clamp to >= 0 to avoid negative values causing odd axis ranges
+    x: Math.max(0, parseInt(row[leadTimeIdx]) || 0), // Lead time (days)
+    y: Math.max(0, parseFloat(row[costIdx]) || 0),   // Manufacturing cost ($USD)
     country: row[countryIdx] || 'Unknown',
     company: row[companyIdx] || 'Unknown',
     process: row[processIdx] || 'Unknown',
@@ -1252,6 +1255,40 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
   const avgCost = filteredRows.length > 0
     ? Math.round(filteredRows.reduce((sum, row) => sum + (parseFloat(row[costIdx]) || 0), 0) / filteredRows.length)
     : 0
+
+  // Visibility controls for the scatter chart
+  const [focusCentral, setFocusCentral] = useState(true)
+  const [useLogScale, setUseLogScale] = useState(false)
+
+  // Helpers
+  const quantile = (arr: number[], q: number) => {
+    if (arr.length === 0) return 0
+    const sorted = [...arr].sort((a, b) => a - b)
+    const pos = (sorted.length - 1) * q
+    const base = Math.floor(pos)
+    const rest = pos - base
+    return sorted[base + 1] !== undefined
+      ? sorted[base] + rest * (sorted[base + 1] - sorted[base])
+      : sorted[base]
+  }
+  const formatUsdShort = (n: number) => {
+    if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
+    if (n >= 1_000) return `$${Math.round(n / 1_000)}k`
+    return `$${Math.round(n)}`
+  }
+
+  // Compute domains with optional outlier trimming to make the dense region visible
+  const { xDomain, yDomain } = useMemo(() => {
+    const xs = scatterData.map(d => d.x).filter(v => Number.isFinite(v))
+    const ys = scatterData.map(d => d.y).filter(v => Number.isFinite(v) && v > 0)
+    if (xs.length === 0 || ys.length === 0) return { xDomain: ['auto', 'auto'] as any, yDomain: ['auto', 'auto'] as any }
+    if (!focusCentral) return { xDomain: ['auto', 'auto'] as any, yDomain: ['auto', 'auto'] as any }
+    const xMin = Math.max(0, Math.floor(quantile(xs, 0.01)))
+    const xMax = Math.ceil(quantile(xs, 0.99))
+    const yMin = Math.max(1, Math.floor(quantile(ys, 0.01)))
+    const yMax = Math.ceil(quantile(ys, 0.95))
+    return { xDomain: [xMin, xMax] as any, yDomain: [yMin, yMax] as any }
+  }, [scatterData, focusCentral])
   
   // Sort filtered rows
   const sortedPricingRows = useMemo(() => {
@@ -1536,39 +1573,59 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
       {/* Scatter Plot */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
-            <TrendingUp className="h-5 w-5" />
-            Manufacturing Cost vs Lead Time
-          </CardTitle>
-          <p className="text-sm text-muted-foreground">
-            Scatter plot showing cost vs delivery time, colored by country. Larger dots indicate higher quantities.
-          </p>
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <TrendingUp className="h-5 w-5" />
+                Manufacturing Cost vs Lead Time
+              </CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Scatter plot showing cost vs delivery time, colored by country. Larger dots indicate higher quantities.
+              </p>
+            </div>
+            <div className="flex items-center gap-4 text-xs">
+              <div className="flex items-center gap-2">
+                <Switch id="focusCentral" checked={focusCentral} onCheckedChange={setFocusCentral} />
+                <Label htmlFor="focusCentral">Focus on central 95%</Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <Switch id="logScale" checked={useLogScale} onCheckedChange={setUseLogScale} />
+                <Label htmlFor="logScale">Log Y scale</Label>
+              </div>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="h-96 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <ScatterChart>
+              <ScatterChart margin={{ top: 24, right: 24, bottom: 64, left: 80 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
                   dataKey="x" 
                   type="number" 
                   name="Lead Time"
                   unit=" days"
-                  label={{ value: 'Lead Time (days)', position: 'insideBottom', offset: -5 }}
+                  domain={xDomain as any}
+                  tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
+                  label={{ value: 'Lead Time (days)', position: 'insideBottom', offset: 20 }}
                 />
                 <YAxis 
                   dataKey="y" 
                   type="number" 
                   name="Cost"
-                  unit=" USD"
-                  label={{ value: 'Manufacturing Cost ($USD)', angle: -90, position: 'insideLeft' }}
-                  tickFormatter={(value) => `$${value.toLocaleString()}`}
+                  // Remove unit suffix from ticks to prevent clipping; show currency symbol only
+                  scale={useLogScale ? 'log' : 'linear'}
+                  domain={yDomain as any}
+                  allowDataOverflow
+                  tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
+                  label={{ value: 'Manufacturing Cost (USD)', angle: -90, position: 'insideLeft', offset: 10 }}
+                  tickFormatter={(value) => formatUsdShort(Number(value))}
                 />
                 {/* Bubble size reflects quantity */}
-                <ZAxis dataKey="z" range={[40, 200]} />
+                <ZAxis dataKey="z" range={[20, 120]} />
                 <Tooltip 
                   formatter={(value, name) => [
-                    name === 'Cost' ? `$${value.toLocaleString()}` : value,
+                    name === 'Cost' ? formatUsdShort(Number(value)) : value,
                     name === 'Cost' ? 'Manufacturing Cost' : 'Lead Time'
                   ]}
                   labelFormatter={(label, payload) => {
@@ -1597,10 +1654,11 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
                     name={country}
                     data={points}
                     fill={getCountryColor(country)}
-                    fillOpacity={0.7}
+                    fillOpacity={0.65}
                   />
                 ))}
-                <Legend />
+                <Legend verticalAlign="top" align="left" wrapperStyle={{ paddingBottom: 8 }} />
+                <Brush dataKey="x" height={18} stroke="#cbd5e1" travellerWidth={8} />
               </ScatterChart>
             </ResponsiveContainer>
           </div>
@@ -1729,8 +1787,6 @@ export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLa
                 <SelectItem value="independent">Independent</SelectItem>
               </SelectContent>
             </Select>
-            
-            <Input placeholder="Search companies..." className="h-8" />
             
             <Button className="h-8" size="sm" variant="outline">
               Reset

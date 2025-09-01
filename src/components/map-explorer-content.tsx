@@ -16,7 +16,7 @@ import dynamic from 'next/dynamic';
 import { emptyFilters, FilterState } from '@/lib/filters/types';
 import { filtersToSearchParams, CompanyFilterResponse, CompanyFilters } from '@/lib/filters/company-filters';
 import type { ColumnDef } from '@/lib/export';
-import { BottomDrawer, ControlsTabs, CountrySidebar, TopToolbar } from '@/components/map';
+import { BottomDrawer, ControlsTabs, CompanyListSidebar, TopToolbar } from '@/components/map';
 import type { CompanyMarker, LegendBucket, StateHeatmapData } from '@/components/map';
 
 // Lightweight loading component to avoid complex inline JSX in dynamic() options
@@ -39,14 +39,15 @@ const LeafletMap = dynamic(() => import('@/components/map/LeafletMap'), {
 
 type CompanyType = 'equipment' | 'service' | 'software' | 'material' | 'other'
 
-export default function MapExplorerContent({ companyType }: { companyType?: CompanyType } = {}) {
+export default function MapExplorerContent({ companyType, datasetId }: { companyType?: CompanyType, datasetId?: string } = {}) {
   // Move environment variable check outside of render cycle
   const isCSVMode = process.env.NEXT_PUBLIC_DATA_SOURCE === 'csv';
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyMarker | null>(
     null
   );
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // Always-on sidebar for results list
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedCountryCompanies, setSelectedCountryCompanies] = useState<CompanyMarker['companies']>([]);
   const [expandedCompany, setExpandedCompany] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -197,6 +198,14 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
     setLegendBuckets(buckets);
   }, [stateData]);
 
+  // Vendor dataset detection for merged vendor view
+  const isVendorDataset = datasetId === 'am-systems-manufacturers' || datasetId === 'print-services-global'
+  const vendorSegment = datasetId === 'am-systems-manufacturers'
+    ? 'System manufacturer'
+    : datasetId === 'print-services-global'
+      ? 'Printing services'
+      : null
+
   // Fetch map-visible companies from server when viewport or filters change (supabase mode only)
   useEffect(() => {
     if (isCSVMode) return; // disable pins in CSV mode
@@ -205,8 +214,7 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
     const controller = new AbortController();
     async function fetchMapCompanies() {
       try {
-        // Build unified filter request against /api/companies so the map
-        // reflects the same filters as the table/analytics views.
+        // Build selected tech/material names
         const selectedTechnologyNames = technologies
           .filter(t => memoizedFilters.technologyIds.includes(t.id))
           .map(t => t.name)
@@ -214,46 +222,74 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
           .filter(m => memoizedFilters.materialIds.includes(m.id))
           .map(m => m.name)
 
-        const baseFilters: CompanyFilters = {
-          // Map-level classification, if provided
-          companyType: companyType ? [companyType] as CompanyFilters['companyType'] : undefined,
-          // Text search
-          search: searchQuery || undefined,
-          // Geography
-          country: memoizedFilters.countries.length ? memoizedFilters.countries : undefined,
-          // Capability filters (convert from ID -> name)
-          technologies: selectedTechnologyNames.length ? selectedTechnologyNames : undefined,
-          materials: selectedMaterialNames.length ? selectedMaterialNames : undefined,
+        if (isVendorDataset && vendorSegment) {
+          // Use unified segment API for vendor datasets
+          const params = new URLSearchParams()
+          params.set('segment', vendorSegment)
+          params.set('limit', '2000')
+          if (searchQuery) params.set('search', searchQuery)
+          if (memoizedFilters.countries.length) {
+            params.set('country', memoizedFilters.countries[0])
+          }
+          if (selectedTechnologyNames.length) params.set('process', selectedTechnologyNames[0])
+          if (selectedMaterialNames.length) params.set('materialType', selectedMaterialNames[0])
+
+          const res = await fetch(`/api/datasets/unified-segment?${params.toString()}`, { signal: controller.signal })
+          if (!res.ok) throw new Error(`Failed to fetch vendor map companies (${res.status})`)
+          const json = await res.json()
+          const items = json?.data || []
+          const transformed: CompanyMarker[] = items.map((c: any) => ({
+            id: c.id,
+            name: c.company_name,
+            city: c.headquarters_city || null,
+            state: null,
+            country: c.country || null,
+            lat: c.lat || null,
+            lng: c.lng || null,
+            technologies: c.process ? [c.process] : [],
+            materials: c.material_type ? [c.material_type] : [],
+            website: c.website || null,
+            type: vendorSegment === 'System manufacturer' ? 'equipment' : 'service',
+            totalMachines: c.number_of_printers || 0,
+            uniqueProcesses: c.process ? 1 : 0,
+            uniqueMaterials: c.material_type ? 1 : 0,
+            uniqueManufacturers: c.printer_manufacturer ? 1 : 0,
+          }))
+          setMapCompanies(transformed)
+        } else {
+          // Build unified filter request against /api/companies so the map reflects the same filters
+          const baseFilters: CompanyFilters = {
+            companyType: companyType ? [companyType] as CompanyFilters['companyType'] : undefined,
+            search: searchQuery || undefined,
+            country: memoizedFilters.countries.length ? memoizedFilters.countries : undefined,
+            technologies: selectedTechnologyNames.length ? selectedTechnologyNames : undefined,
+            materials: selectedMaterialNames.length ? selectedMaterialNames : undefined,
+          }
+
+          const params = filtersToSearchParams(baseFilters)
+          params.set('limit', '2000')
+          const res = await fetch(`/api/companies?${params.toString()}`, { signal: controller.signal })
+          if (!res.ok) throw new Error(`Failed to fetch map companies (${res.status})`)
+          const json: CompanyFilterResponse = await res.json()
+          const items = json?.data || []
+          const transformed: CompanyMarker[] = items.map((c) => ({
+            id: c.id,
+            name: c.name,
+            city: c.city,
+            state: c.state,
+            lat: c.lat,
+            lng: c.lng,
+            technologies: c.technologies || [],
+            materials: c.materials || [],
+            website: c.website || null,
+            type: c.companyType || null,
+            totalMachines: c.equipmentCount || 0,
+            uniqueProcesses: Array.isArray(c.technologies) ? c.technologies.length : 0,
+            uniqueMaterials: Array.isArray(c.materials) ? c.materials.length : 0,
+            uniqueManufacturers: 0,
+          }))
+          setMapCompanies(transformed)
         }
-
-        const params = filtersToSearchParams(baseFilters)
-        // Also include pagination limit supported by the API
-        params.set('limit', '2000')
-        const res = await fetch(`/api/companies?${params.toString()}`, {
-          signal: controller.signal,
-        });
-        if (!res.ok)
-          throw new Error(`Failed to fetch map companies (${res.status})`);
-
-        const json: CompanyFilterResponse = await res.json();
-        const items = json?.data || []
-        const transformed: CompanyMarker[] = items.map((c) => ({
-          id: c.id,
-          name: c.name,
-          city: c.city,
-          state: c.state,
-          lat: c.lat,
-          lng: c.lng,
-          technologies: c.technologies || [],
-          materials: c.materials || [],
-          website: c.website || null,
-          type: c.companyType || null,
-          totalMachines: c.equipmentCount || 0,
-          uniqueProcesses: Array.isArray(c.technologies) ? c.technologies.length : 0,
-          uniqueMaterials: Array.isArray(c.materials) ? c.materials.length : 0,
-          uniqueManufacturers: 0,
-        }));
-        setMapCompanies(transformed);
       } catch (err) {
         if ((err as any)?.name === 'AbortError') return;
         console.error('Error fetching map companies:', err);
@@ -266,7 +302,10 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
     searchQuery,
     isHeatmapMode,
     isCSVMode,
-    companyType]);
+    companyType,
+    datasetId,
+    isVendorDataset,
+    vendorSegment]);
 
   // Apply search filter on top of technology/material filters
   const searchFilteredCompanies = useMemo(
@@ -388,25 +427,33 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
         companies={searchFilteredCompanies}
       />
 
-      <div className={`flex-1 grid min-h-0 transition-all duration-300 ${sidebarOpen ? 'grid-cols-[1fr_384px]' : 'grid-cols-[1fr]'}`}>
+      <div className={`flex-1 grid min-h-0 transition-all duration-300 grid-cols-[1fr_384px]`}>
         <div className='relative min-w-0'>
           <LeafletMap
             companies={searchFilteredCompanies}
             selectedCompany={selectedCompany}
             onCompanySelect={(company) => {
-              if (company.companies && company.companies.length > 0) {
-                setSelectedCountryCompanies(company.companies);
-                setSidebarOpen(true);
-                setSelectedCompany(null);
-              } else {
-                setSelectedCompany(company);
-                setSidebarOpen(false);
+              setSelectedCompany(company);
+              // For vendor datasets, also filter by the company's country
+              if (isVendorDataset && company?.country) {
+                setFilters(prev => ({
+                  ...prev,
+                  countries: [company.country!]
+                }));
               }
             }}
             getMarkerColor={getMarkerColor}
             isHeatmapMode={isHeatmapMode}
             stateData={stateData}
             onViewportChange={setViewportBbox}
+            isCountryLevelOnly={isVendorDataset}
+            onCountryClick={(country) => {
+              // Update filters to show only the selected country
+              setFilters(prev => ({
+                ...prev,
+                countries: [country]
+              }));
+            }}
           />
 
           {selectedCompany && (
@@ -418,18 +465,14 @@ export default function MapExplorerContent({ companyType }: { companyType?: Comp
           )}
         </div>
 
-        {sidebarOpen && (
-          <div className='bg-card border-l border-border shadow-lg overflow-hidden'>
-            <CountrySidebar
-              companies={selectedCountryCompanies || []}
-              expandedCompany={expandedCompany}
-              onToggleExpand={(id) =>
-                setExpandedCompany(expandedCompany === id ? null : id)
-              }
-              onClose={() => setSidebarOpen(false)}
-            />
-          </div>
-        )}
+        <div className='bg-card border-l border-border shadow-lg overflow-hidden'>
+          <CompanyListSidebar
+            companies={searchFilteredCompanies}
+            selectedCompanyId={selectedCompany?.id ?? null}
+            onSelect={(c) => setSelectedCompany(c)}
+            getMarkerColor={getMarkerColor}
+          />
+        </div>
       </div>
     </div>
   );

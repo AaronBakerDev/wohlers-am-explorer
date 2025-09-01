@@ -11,8 +11,6 @@ import {
   Shield, 
   Building2, 
   BarChart3, 
-  PrinterIcon, 
-  Factory, 
   Database,
   Menu,
   X
@@ -34,21 +32,6 @@ const adminRoutes = [
     href: '/admin/market-data',
     label: 'Market Data',
     icon: BarChart3
-  },
-  {
-    href: '/admin/market-data/vendor',
-    label: 'Legacy Datasets',
-    icon: BarChart3
-  },
-  {
-    href: '/admin/print-services',
-    label: 'Print Services',
-    icon: PrinterIcon
-  },
-  {
-    href: '/admin/am-systems',
-    label: 'AM Systems',
-    icon: Factory
   }
 ]
 

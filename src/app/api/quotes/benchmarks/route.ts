@@ -9,114 +9,103 @@ export async function GET(request: NextRequest) {
     // Get query parameters
     const process = searchParams.get('process');
     const material = searchParams.get('material');
-    const quantity = searchParams.get('quantity');
+    const segment = searchParams.get('segment');
     const country = searchParams.get('country');
+    const manufacturer = searchParams.get('manufacturer');
 
-    // Supabase mode
+    // Use merged view with Printing services filter
     let pricingQuery = supabase
-      .from('service_pricing')
-      .select(`
-        *,
-        companies!inner(
-          id,
-          name,
-          country,
-          city,
-          state
-        )
-      `)
-      .order('price_usd', { ascending: true });
+      .from('vendor_companies_merged')
+      .select('*')
+      .eq('segment', 'Printing services');
 
     if (process && process !== 'all') pricingQuery = pricingQuery.eq('process', process);
-    if (material && material !== 'all') pricingQuery = pricingQuery.eq('material_category', material);
-    if (quantity) pricingQuery = pricingQuery.eq('quantity', parseInt(quantity));
-    if (country && country !== 'all') pricingQuery = pricingQuery.eq('companies.country', country);
+    if (material && material !== 'all') pricingQuery = pricingQuery.eq('material_type', material);
+    // Segment filter already applied above for Printing services
+    if (country && country !== 'all') pricingQuery = pricingQuery.eq('country', country);
+    if (manufacturer && manufacturer !== 'all') pricingQuery = pricingQuery.eq('printer_manufacturer', manufacturer);
+
+    // Apply ordering and limit after filters
+    pricingQuery = pricingQuery.order('company_name', { ascending: true }).limit(3000);
 
     const { data: pricingData, error: pricingError } = await pricingQuery;
     if (pricingError) {
       console.error('Error fetching pricing data:', pricingError);
       return NextResponse.json({ error: 'Failed to fetch pricing data' }, { status: 500 });
     }
+    
+    console.log(`Fetched ${pricingData?.length || 0} records from vendor_companies_merged`);
 
-    // Benchmarks not computed in Supabase mode here (handled via stats below)
-    const benchmarkData: any[] = []
-
-    // Calculate statistics if we have data
-    const prices = pricingData?.map(item => item.price_usd).filter(p => p !== null) || [];
-    const leadTimes = pricingData?.map(item => item.lead_time_days).filter(l => l !== null) || [];
+    // Calculate statistics from equipment data
+    const printerCounts = pricingData?.map(item => item.number_of_printers).filter(p => p !== null) || [];
+    const updateYears = pricingData?.map(item => item.update_year).filter(y => y !== null) || [];
 
     const statistics = {
-      price: {
-        min: Math.min(...prices),
-        max: Math.max(...prices),
-        avg: prices.length > 0 ? prices.reduce((a, b) => a + b, 0) / prices.length : 0,
-        median: prices.length > 0 ? prices.sort((a, b) => a - b)[Math.floor(prices.length / 2)] : 0,
-        count: prices.length
+      printers: {
+        min: Math.min(...printerCounts),
+        max: Math.max(...printerCounts),
+        avg: printerCounts.length > 0 ? printerCounts.reduce((a, b) => a + b, 0) / printerCounts.length : 0,
+        median: printerCounts.length > 0 ? printerCounts.sort((a, b) => a - b)[Math.floor(printerCounts.length / 2)] : 0,
+        count: printerCounts.length,
+        total: printerCounts.reduce((a, b) => a + b, 0)
       },
-      leadTime: {
-        min: Math.min(...leadTimes),
-        max: Math.max(...leadTimes),
-        avg: leadTimes.length > 0 ? leadTimes.reduce((a, b) => a + b, 0) / leadTimes.length : 0,
-        median: leadTimes.length > 0 ? leadTimes.sort((a, b) => a - b)[Math.floor(leadTimes.length / 2)] : 0,
-        count: leadTimes.length
+      updateYear: {
+        min: Math.min(...updateYears),
+        max: Math.max(...updateYears),
+        latest: Math.max(...updateYears),
+        count: updateYears.length
       }
     };
 
-    // Get available filter options
-    const { data: filterOptions } = await supabase
-      .from('service_pricing')
-      .select('process, material_category, quantity')
-      .not('process', 'is', null)
-      .not('material_category', 'is', null);
+    // Get all unique countries using a database function to avoid row limits
+    const { data: countryData, error: countryError } = await supabase
+      .rpc('get_distinct_countries');
+    
+    if (countryError) {
+      console.error('Error fetching countries:', countryError);
+    }
+    
+    const uniqueCountries = countryData?.map(item => item.country).filter(Boolean) || [];
+    
+    // Get filter options for other fields from the already fetched data
+    const uniqueProcesses = [...new Set(pricingData?.map(item => item.process).filter(Boolean))];
+    const uniqueMaterials = [...new Set(pricingData?.map(item => item.material_type).filter(Boolean))];
+    const uniqueSegments = [...new Set(pricingData?.map(item => item.segment).filter(Boolean))];
+    const uniqueManufacturers = [...new Set(pricingData?.map(item => item.printer_manufacturer).filter(Boolean))].sort();
+    
+    console.log(`Found ${uniqueCountries.length} unique countries`);
 
-    const uniqueProcesses = [...new Set(filterOptions?.map(item => item.process).filter(Boolean))];
-    const uniqueMaterials = [...new Set(filterOptions?.map(item => item.material_category).filter(Boolean))];
-    const uniqueQuantities = [...new Set(filterOptions?.map(item => item.quantity).filter(Boolean))].sort((a, b) => {
-      const numA = parseInt(String(a), 10);
-      const numB = parseInt(String(b), 10);
-      return numA - numB;
-    });
-
-    // Get country options from companies
-    const { data: companyCountries } = await supabase
-      .from('companies')
-      .select('country')
-      .not('country', 'is', null);
-
-    const uniqueCountries = [...new Set(companyCountries?.map(item => item.country).filter(Boolean))].sort();
-
-    // Format pricing data for comparison table
+    // Format equipment data for display
     const comparisonData = pricingData?.map(item => ({
       id: item.id,
-      company: item.companies?.name || 'Unknown',
-      country: item.companies?.country || 'Unknown',
-      location: item.companies?.city && item.companies?.state 
-        ? `${item.companies.city}, ${item.companies.state}`
-        : item.companies?.city || item.companies?.state || 'Unknown',
+      company: item.company_name || 'Unknown',
+      country: item.country || 'Unknown',
+      segment: item.segment,
+      printerManufacturer: item.printer_manufacturer,
+      printerModel: item.printer_model,
+      numberOfPrinters: item.number_of_printers,
+      countType: item.count_type,
       process: item.process,
-      material: item.material_category,
-      specificMaterial: item.specific_material,
-      quantity: item.quantity,
-      price: item.price_usd,
-      leadTime: item.lead_time_days,
-      pricePerUnit: (item.quantity && item.quantity > 0 && item.price_usd) ? item.price_usd / item.quantity : (item.price_usd || 0),
-      notes: item.notes
-    })).sort((a, b) => (a.price || 0) - (b.price || 0));
+      materialType: item.material_type,
+      materialFormat: item.material_format,
+      updateYear: item.update_year,
+      additionalInfo: item.additional_info
+    })).sort((a, b) => (a.company || '').localeCompare(b.company || ''));
 
     return NextResponse.json({
       data: comparisonData,
-      benchmarks: benchmarkData,
       statistics,
       filters: {
         processes: uniqueProcesses.sort(),
         materials: uniqueMaterials.sort(),
-        quantities: uniqueQuantities,
-        countries: uniqueCountries
+        segments: uniqueSegments.sort(),
+        countries: uniqueCountries,
+        manufacturers: uniqueManufacturers
       },
       metadata: {
-        totalProviders: new Set(pricingData?.map(item => item.company_id)).size,
-        totalQuotes: pricingData?.length || 0,
-        dataSource: 'vendor_import_2025'
+        totalCompanies: new Set(pricingData?.map(item => item.company_name)).size,
+        totalRecords: pricingData?.length || 0,
+        dataSource: 'vendor_print_services_global'
       }
     }, {
       headers: {

@@ -37,6 +37,66 @@ export const revalidate = 0
 const CACHE_TTL = 5 * 60 * 1000
 const responseCache = new Map<string, { data: CompanyFilterResponse; timestamp: number }>()
 
+// Lightweight country centroid map used to place markers when
+// precise coordinates are missing. Keys are normalized to lowercase.
+const COUNTRY_COORDINATES: Record<string, [number, number]> = {
+  'germany': [51.1657, 10.4515],
+  'united states': [39.8283, -98.5795],
+  'united states of america': [39.8283, -98.5795],
+  'usa': [39.8283, -98.5795],
+  'the united states': [39.8283, -98.5795],
+  'united kingdom': [55.3781, -3.4360],
+  'netherlands': [52.1326, 5.2913],
+  'china': [35.8617, 104.1954],
+  'france': [46.2276, 2.2137],
+  'italy': [41.8719, 12.5674],
+  'japan': [36.2048, 138.2529],
+  'south korea': [35.9078, 127.7669],
+  'canada': [56.1304, -106.3468],
+  'austria': [47.5162, 14.5501],
+  'switzerland': [46.8182, 8.2275],
+  'israel': [31.0461, 34.8516],
+  'australia': [-25.2744, 133.7751],
+  'czech republic': [49.8175, 15.4730],
+  'spain': [40.4637, -3.7492],
+  'sweden': [60.1282, 18.6435],
+  'denmark': [56.2639, 9.5018],
+  'finland': [61.9241, 25.7482],
+  'belgium': [50.5039, 4.4699],
+  'norway': [60.4720, 8.4689],
+  'poland': [51.9194, 19.1451],
+  'russia': [61.5240, 105.3188],
+  'india': [20.5937, 78.9629],
+  'brazil': [-14.2350, -51.9253],
+  'mexico': [23.6345, -102.5528],
+  'south africa': [-30.5595, 22.9375],
+  'hong kong': [22.3193, 114.1694],
+  'singapore': [1.3521, 103.8198],
+  'taiwan': [23.6978, 120.9605],
+  'ireland': [53.4129, -8.2439],
+  'portugal': [39.3999, -8.2245],
+  'greece': [39.0742, 21.8243],
+  'turkey': [38.9637, 35.2433],
+  'slovenia': [46.1512, 14.9955],
+  'hungary': [47.1625, 19.5033],
+  'romania': [45.9432, 24.9668],
+  'slovakia': [48.6690, 19.6990],
+  'estonia': [58.5953, 25.0136],
+  'latvia': [56.8796, 24.6032],
+  'lithuania': [55.1694, 23.8813],
+}
+
+function getFallbackCoords(country: string | null | undefined): [number, number] | null {
+  if (!country) return null
+  const key = country.trim().toLowerCase()
+  const coords = COUNTRY_COORDINATES[key]
+  if (!coords) return null
+  // Add a tiny jitter so markers don't perfectly overlap for large countries
+  const jitterLat = (Math.random() - 0.5) * 0.8
+  const jitterLng = (Math.random() - 0.5) * 1.6
+  return [coords[0] + jitterLat, coords[1] + jitterLng]
+}
+
 /**
  * GET /api/companies
  * 
@@ -216,8 +276,10 @@ async function getFilteredCompanies(filterRequest: CompanyFilterRequest): Promis
     country: row.country,
     state: row.state,
     city: row.city,
-    lat: row.lat,
-    lng: row.lng,
+    // Prefer precise coordinates; otherwise fall back to country centroid
+    // so global companies without geocoding still render on the map
+    lat: (row.lat ?? null) !== null ? Number(row.lat) : (getFallbackCoords(row.country)?.[0] ?? null),
+    lng: (row.lng ?? null) !== null ? Number(row.lng) : (getFallbackCoords(row.country)?.[1] ?? null),
     companyType: row.company_type,
     companyRole: row.company_role,
     segment: row.segment,

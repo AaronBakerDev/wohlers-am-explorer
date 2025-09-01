@@ -139,7 +139,7 @@ export default function MarketDataPage() {
             <p className="text-muted-foreground mb-4">{config.description}</p>
             {/* Sub-tabs: URL-driven view selector */}
             <div className="flex items-center gap-2">
-              {(['analysis','table'] as const).map(v => {
+              {(['analysis'] as const).map(v => {
                 const params = new URLSearchParams()
                 params.set('dataset', dataset)
                 params.set('view', v)

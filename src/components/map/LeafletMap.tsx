@@ -113,6 +113,8 @@ interface LeafletMapProps {
   isHeatmapMode?: boolean;
   stateData?: StateHeatmapData[];
   onViewportChange?: (bbox: [number, number, number, number]) => void;
+  isCountryLevelOnly?: boolean;
+  onCountryClick?: (country: string) => void;
 }
 
 // Basic HTML-escaping to prevent XSS in string-based Leaflet popups
@@ -219,6 +221,8 @@ export default function LeafletMap({
   isHeatmapMode = false,
   stateData = [],
   onViewportChange,
+  isCountryLevelOnly = false,
+  onCountryClick,
 }: LeafletMapProps) {
   const mapRef = useRef<L.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -231,6 +235,8 @@ export default function LeafletMap({
   // Stable refs for function props to avoid effect reruns due to identity changes
   const getMarkerColorRef = useRef(getMarkerColor);
   const onCompanySelectRef = useRef(onCompanySelect);
+  const onCountryClickRef = useRef(onCountryClick);
+  const companiesRef = useRef(companies);
   const [geoJsonData, setGeoJsonData] = useState<any>(null);
   const [isLoadingGeoData, setIsLoadingGeoData] = useState(false);
   const [clusterReady, setClusterReady] = useState(false);
@@ -283,6 +289,12 @@ export default function LeafletMap({
   // Load GeoJSON data for states and provinces
   useEffect(() => {
     const loadGeoJsonData = async () => {
+      // Skip loading GeoJSON for country-level datasets
+      if (isCountryLevelOnly) {
+        setIsLoadingGeoData(false);
+        return;
+      }
+      
       if (geoJsonData) return; // Already loaded
 
       setIsLoadingGeoData(true);
@@ -324,7 +336,7 @@ export default function LeafletMap({
     };
 
     loadGeoJsonData();
-  }, [geoJsonData]);
+  }, [geoJsonData, isCountryLevelOnly]);
 
   // Keep latest viewport callback in a ref to avoid tearing down the map
   useEffect(() => {
@@ -338,6 +350,12 @@ export default function LeafletMap({
   useEffect(() => {
     onCompanySelectRef.current = onCompanySelect;
   }, [onCompanySelect]);
+  useEffect(() => {
+    onCountryClickRef.current = onCountryClick;
+  }, [onCountryClick]);
+  useEffect(() => {
+    companiesRef.current = companies;
+  }, [companies]);
 
   // Initialize map (once)
   useEffect(() => {
@@ -358,6 +376,7 @@ export default function LeafletMap({
       zoomAnimation: true,
       fadeAnimation: true,
       markerZoomAnimation: true,
+      maxZoom: 18, // Default max zoom
     }).setView([39.8283, -98.5795], 4);
 
     // Add tile layer
@@ -398,6 +417,59 @@ export default function LeafletMap({
       }
     };
   }, []);
+
+  // Handle country-level click events
+  useEffect(() => {
+    if (!mapRef.current || !isCountryLevelOnly) return;
+
+    const handleMapClick = (e: L.LeafletMouseEvent) => {
+      // Skip if clicking on a marker (handled separately)
+      if ((e.originalEvent.target as HTMLElement).closest('.leaflet-marker-icon')) return;
+      
+      const clickLat = e.latlng.lat;
+      const clickLng = e.latlng.lng;
+      
+      // Get current companies from ref
+      const currentCompanies = companiesRef.current;
+      const companiesWithCoords = currentCompanies.filter(c => c.lat && c.lng && c.country);
+      if (companiesWithCoords.length === 0) return;
+      
+      // Find closest company to determine country
+      let closestCompany = companiesWithCoords[0];
+      let minDistance = Math.sqrt(
+        Math.pow(closestCompany.lat! - clickLat, 2) + 
+        Math.pow(closestCompany.lng! - clickLng, 2)
+      );
+      
+      for (const company of companiesWithCoords) {
+        const distance = Math.sqrt(
+          Math.pow(company.lat! - clickLat, 2) + 
+          Math.pow(company.lng! - clickLng, 2)
+        );
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestCompany = company;
+        }
+      }
+      
+      // Filter by country if click is reasonably close (within ~10 degrees)
+      if (minDistance < 10 && closestCompany.country && onCountryClickRef.current) {
+        onCountryClickRef.current(closestCompany.country);
+      }
+    };
+
+    mapRef.current.on("click", handleMapClick);
+
+    return () => {
+      mapRef.current?.off("click", handleMapClick);
+    };
+  }, [isCountryLevelOnly]);
+
+  // Update max zoom based on country-level mode
+  useEffect(() => {
+    if (!mapRef.current) return;
+    mapRef.current.setMaxZoom(isCountryLevelOnly ? 5 : 18);
+  }, [isCountryLevelOnly]);
 
   // Handle map resize when container dimensions change
   useEffect(() => {
@@ -450,8 +522,8 @@ export default function LeafletMap({
       choroplethLayerRef.current = null;
     }
 
-    if (isHeatmapMode) {
-      // Choropleth mode - show colored state polygons
+    if (isHeatmapMode && !isCountryLevelOnly) {
+      // Choropleth mode - show colored state polygons (only for non-vendor datasets)
       const intensities = memoizedStateData
         .map((s) => (s.total_machines && s.total_machines > 0 ? s.total_machines : s.company_count || 0))
         .filter((v) => v > 0)
@@ -565,7 +637,17 @@ export default function LeafletMap({
 
       // Click handler
       const zoomToFeature = (e: any) => {
-        mapRef.current?.fitBounds(e.target.getBounds());
+        if (isCountryLevelOnly) {
+          // For country-level data, don't zoom but trigger country filter
+          if (onCountryClick) {
+            // Extract country from the feature properties if available
+            const country = e.target.feature?.properties?.country || 'United States';
+            onCountryClick(country);
+          }
+        } else {
+          // For state-level data, zoom to the feature
+          mapRef.current?.fitBounds(e.target.getBounds());
+        }
       };
 
       // Feature event handlers
@@ -782,6 +864,22 @@ export default function LeafletMap({
     geoJsonData,
     clusterReady,
   ]);
+
+  // When a company is selected from an external list, pan the map to it
+  useEffect(() => {
+    if (!mapRef.current || !selectedCompany) return;
+    if (selectedCompany.lat && selectedCompany.lng) {
+      try {
+        isProgrammaticMoveRef.current = true;
+        mapRef.current.once("moveend", () => {
+          isProgrammaticMoveRef.current = false;
+        });
+        mapRef.current.setView([selectedCompany.lat, selectedCompany.lng], Math.max(mapRef.current.getZoom(), 6), {
+          animate: true,
+        });
+      } catch (_) {}
+    }
+  }, [selectedCompany]);
 
   return (
     <div ref={mapContainerRef} className="h-full w-full relative">

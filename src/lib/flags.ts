@@ -10,3 +10,13 @@ export const ENABLE_SAVED_SEARCHES = (() => {
   const v = (process.env.NEXT_PUBLIC_ENABLE_SAVED_SEARCHES || '').toString().trim().toLowerCase()
   return v === '1' || v === 'true'
 })()
+
+/**
+ * Map search bar visibility:
+ * - Hidden by default per product guidance.
+ * - To enable, set `NEXT_PUBLIC_ENABLE_MAP_SEARCH` to `true` or `1`.
+ */
+export const ENABLE_MAP_SEARCH = (() => {
+  const v = (process.env.NEXT_PUBLIC_ENABLE_MAP_SEARCH || '').toString().trim().toLowerCase()
+  return v === '1' || v === 'true'
+})()

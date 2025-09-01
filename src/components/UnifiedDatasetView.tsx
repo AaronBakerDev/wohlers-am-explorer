@@ -113,6 +113,14 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
   // Get appropriate icon for dataset
   const IconComponent = DATASET_ICONS[(dataset?.mapType as keyof typeof DATASET_ICONS) || 'equipment'] || Building2
 
+  // Vendor dataset detection and mapping
+  const isVendorDataset = datasetId === 'am-systems-manufacturers' || datasetId === 'print-services-global'
+  const vendorSegment = datasetId === 'am-systems-manufacturers'
+    ? 'System manufacturer'
+    : datasetId === 'print-services-global'
+      ? 'Printing services'
+      : null
+
   // Load data with filters
   useEffect(() => {
     if (!dataset) {
@@ -127,33 +135,54 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
         setLoading(true)
         setError(null)
 
-        // Build filter request combining dataset base filters with user selections
-        const filterRequest: CompanyFilterRequest = {
-          ...dataset.filters, // Base filters from dataset config
-          page: 1,
-          limit: 1000, // Load all for client-side filtering
-          sortBy: sort.key,
-          sortOrder: sort.direction,
-          // Override with user filters
-          search: searchQuery || undefined,
-          country: countryFilter ? [countryFilter] : dataset.filters.country,
-          segment: segmentFilter ? [segmentFilter] : dataset.filters.segment,
-          technologies: technologyFilter ? [technologyFilter] : dataset.filters.technologies,
-        }
+        if (isVendorDataset && vendorSegment) {
+          // Build vendor endpoint params
+          const params = new URLSearchParams()
+          params.set('segment', vendorSegment)
+          params.set('limit', '1000')
+          params.set('sortBy', sort.key)
+          params.set('sortOrder', sort.direction)
+          if (searchQuery) params.set('search', searchQuery)
+          if (countryFilter) params.set('country', countryFilter)
+          if (segmentFilter) params.set('segment', segmentFilter)
+          if (technologyFilter) params.set('process', technologyFilter)
 
-        // Call unified API endpoint
-        const params = filtersToSearchParams(filterRequest)
-        const response = await fetch(`/api/companies?${params.toString()}`)
-        
-        if (!response.ok) {
-          throw new Error(`API request failed: ${response.status}`)
-        }
+          const response = await fetch(`/api/vendor/companies?${params.toString()}`)
+          if (!response.ok) {
+            throw new Error(`Vendor API request failed: ${response.status}`)
+          }
+          const result: CompanyFilterResponse = await response.json()
+          setData(result.data)
+          setFilterOptions(result.filters.available)
+        } else {
+          // Build filter request combining dataset base filters with user selections
+          const filterRequest: CompanyFilterRequest = {
+            ...dataset.filters, // Base filters from dataset config
+            page: 1,
+            limit: 1000, // Load all for client-side filtering
+            sortBy: sort.key,
+            sortOrder: sort.direction,
+            // Override with user filters
+            search: searchQuery || undefined,
+            country: countryFilter ? [countryFilter] : dataset.filters.country,
+            segment: segmentFilter ? [segmentFilter] : dataset.filters.segment,
+            technologies: technologyFilter ? [technologyFilter] : dataset.filters.technologies,
+          }
 
-        const result: CompanyFilterResponse = await response.json()
-        
-        // Update state
-        setData(result.data)
-        setFilterOptions(result.filters.available)
+          // Call unified API endpoint
+          const params = filtersToSearchParams(filterRequest)
+          const response = await fetch(`/api/companies?${params.toString()}`)
+          
+          if (!response.ok) {
+            throw new Error(`API request failed: ${response.status}`)
+          }
+
+          const result: CompanyFilterResponse = await response.json()
+          
+          // Update state
+          setData(result.data)
+          setFilterOptions(result.filters.available)
+        }
         
       } catch (err) {
         console.error(`Error loading ${dataset.name} data:`, err)
@@ -164,7 +193,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
     }
 
     loadData()
-  }, [dataset, searchQuery, countryFilter, segmentFilter, technologyFilter, sort])
+  }, [dataset, datasetId, isVendorDataset, vendorSegment, searchQuery, countryFilter, segmentFilter, technologyFilter, sort])
 
   // Client-side filtering for immediate feedback
   const filteredData = useMemo(() => {
@@ -275,7 +304,6 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
               style={{ color: dataset?.color || undefined }}
             />
             <h2 className="text-lg font-semibold">{dataset?.name || 'Dataset not found'}</h2>
-            <Badge variant="secondary">{filteredData.length} companies</Badge>
           </div>
           
           <div className="flex gap-2">

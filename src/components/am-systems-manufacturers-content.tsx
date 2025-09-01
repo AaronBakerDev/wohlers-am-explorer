@@ -163,18 +163,20 @@ export default function AMSystemsManufacturersContent() {
         setLoading(true)
         setError(null)
 
-        // Supabase mode
-        const supabase = createClient()
-        const { data: rows, error } = await supabase
-          .from('vendor_am_systems_manufacturers' as any)
-          .select(
-            'id, company_name, segment, process, material_format, material_type, country'
-          )
-          .limit(5000)
-        if (error) throw new Error(error.message)
-        if (rows && rows.length) {
-          setData(rows as unknown as AMSystemsManufacturer[])
-          setFilteredData(rows as unknown as AMSystemsManufacturer[])
+        // Use unified segment API
+        const params = new URLSearchParams()
+        params.set('segment', 'System manufacturer')
+        params.set('limit', '5000')
+        
+        const res = await fetch(`/api/datasets/unified-segment?${params.toString()}`)
+        if (!res.ok) throw new Error(`Failed to fetch data (${res.status})`)
+        
+        const json = await res.json()
+        const rows = json?.data || []
+        
+        if (rows.length > 0) {
+          setData(rows as AMSystemsManufacturer[])
+          setFilteredData(rows as AMSystemsManufacturer[])
         } else {
           // Fallback to sample in case of empty
           setData(sampleData)
@@ -209,9 +211,6 @@ export default function AMSystemsManufacturersContent() {
     }
 
     // Dropdown filters
-    if (filters.segment && filters.segment !== 'all') {
-      filtered = filtered.filter(item => item.segment === filters.segment)
-    }
     if (filters.process && filters.process !== 'all') {
       filtered = filtered.filter(item => item.process === filters.process)
     }
@@ -267,7 +266,6 @@ export default function AMSystemsManufacturersContent() {
 
   const exportColumns: ColumnDef<AMSystemsManufacturer>[] = [
     { key: 'company_name', header: 'Company Name' },
-    { key: 'segment', header: 'Segment' },
     { key: 'process', header: 'Process' },
     { key: 'material_format', header: 'Material Format' },
     { key: 'material_type', header: 'Material Type' },
@@ -316,7 +314,7 @@ export default function AMSystemsManufacturersContent() {
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
@@ -326,18 +324,6 @@ export default function AMSystemsManufacturersContent() {
               className="pl-10"
             />
           </div>
-          
-          <Select value={filters.segment} onValueChange={(value) => setFilters(prev => ({ ...prev, segment: value }))}>
-            <SelectTrigger>
-              <SelectValue placeholder="Segment" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Segments</SelectItem>
-              {uniqueValues.segments.map(segment => (
-                <SelectItem key={segment} value={segment}>{segment}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
 
           <Select value={filters.process} onValueChange={(value) => setFilters(prev => ({ ...prev, process: value }))}>
             <SelectTrigger>
@@ -405,9 +391,6 @@ export default function AMSystemsManufacturersContent() {
               <TableHead onClick={() => toggleSort('company_name')} className="cursor-pointer select-none">
                 <div className="inline-flex items-center">Company Name<SortIndicator column="company_name" /></div>
               </TableHead>
-              <TableHead onClick={() => toggleSort('segment')} className="cursor-pointer select-none">
-                <div className="inline-flex items-center">Segment<SortIndicator column="segment" /></div>
-              </TableHead>
               <TableHead onClick={() => toggleSort('process')} className="cursor-pointer select-none">
                 <div className="inline-flex items-center">Process<SortIndicator column="process" /></div>
               </TableHead>
@@ -440,14 +423,6 @@ export default function AMSystemsManufacturersContent() {
                       manufacturer.company_name
                     )}
                   </div>
-                </TableCell>
-                <TableCell>
-                  <Badge 
-                    variant={manufacturer.segment === 'Industrial' ? 'default' : 
-                             manufacturer.segment === 'Professional' ? 'secondary' : 'outline'}
-                  >
-                    {manufacturer.segment}
-                  </Badge>
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline" className="font-mono text-xs">

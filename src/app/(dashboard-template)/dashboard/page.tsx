@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { Suspense, useMemo } from 'react'
+import { Suspense, useMemo, useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import NextDynamic from 'next/dynamic'
@@ -100,13 +100,74 @@ function DashboardContent() {
   const datasetId = getDatasetId()
   const dataset = getDatasetById(datasetId)
   
+  // State for company count
+  const [companyCount, setCompanyCount] = useState(0)
+  
+  // Fetch actual company count from database
+  useEffect(() => {
+    async function fetchCompanyCount() {
+      if (!dataset) return
+      
+      try {
+        // Import Supabase client dynamically to avoid SSR issues
+        const { createClient } = await import('@/lib/supabase/client')
+        const supabase = createClient()
+        
+        // For vendor datasets (AM Systems and Print Services), count entries from vendor_companies_merged
+        if (datasetId === 'am-systems-manufacturers' || datasetId === 'print-services-global') {
+          // Query vendor_companies_merged with segment filter to get actual entry count
+          let vendorQuery = supabase.from('vendor_companies_merged').select('id', { count: 'exact', head: true })
+          
+          if (datasetId === 'am-systems-manufacturers') {
+            vendorQuery = vendorQuery.eq('segment', 'System manufacturer')
+          } else if (datasetId === 'print-services-global') {
+            vendorQuery = vendorQuery.eq('segment', 'Printing services')
+          }
+          
+          const { count, error } = await vendorQuery
+          
+          if (!error && count !== null) {
+            setCompanyCount(count)
+          } else {
+            console.error('Error fetching vendor entry count:', error)
+            setCompanyCount(0)
+          }
+        } else {
+          // For other datasets, query the main companies table
+          let query = supabase.from('companies').select('id', { count: 'exact', head: true })
+          
+          if (datasetId === 'material-suppliers') {
+            query = query.eq('company_type', 'material')
+          } else if (datasetId === 'software-developers') {
+            query = query.eq('company_type', 'software')
+          }
+          // For other datasets or if no specific type, get all companies
+          
+          const { count, error } = await query
+          
+          if (!error && count !== null) {
+            setCompanyCount(count)
+          } else {
+            console.error('Error fetching company count:', error)
+            setCompanyCount(0)
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch company count:', error)
+        setCompanyCount(0)
+      }
+    }
+    
+    fetchCompanyCount()
+  }, [datasetId, dataset])
+  
   // Convert dataset config to legacy ReportMetadata format for backward compatibility
   const reportMetadata: ReportMetadata = dataset ? {
     title: dataset.name,
     description: dataset.description,
     dataSource: 'Wohlers Associates Research Database',
     lastUpdated: dataset.updatedAt ? new Date(dataset.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'December 15, 2024',
-    totalCompanies: 0, // Will be populated from API response
+    totalCompanies: companyCount,
     geographicCoverage: 'Global coverage',
     dataPoints: '800+ data points per company',
     version: dataset.version,
@@ -175,7 +236,7 @@ function DashboardContent() {
         
       case 'map':
         // Use dataset mapType to determine the appropriate map view
-        return <MapExplorerContent companyType={dataset.mapType} />
+        return <MapExplorerContent datasetId={datasetId} companyType={dataset.mapType} />
         
       case 'table':
         // Use new unified dataset view for all datasets
@@ -239,10 +300,18 @@ function DashboardContent() {
             <div className="bg-muted/30 border border-border p-4 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
                 <Users className="h-4 w-4 text-primary" />
-                <span className="text-xs font-medium text-muted-foreground">COMPANIES</span>
+                <span className="text-xs font-medium text-muted-foreground">
+                  {datasetId === 'am-systems-manufacturers' || datasetId === 'print-services-global' 
+                    ? 'ENTRIES' 
+                    : 'COMPANIES'}
+                </span>
               </div>
               <div className="text-xl font-semibold text-foreground">{reportMetadata.totalCompanies.toLocaleString()}</div>
-              <div className="text-xs text-muted-foreground">Total entries</div>
+              <div className="text-xs text-muted-foreground">
+                {datasetId === 'am-systems-manufacturers' || datasetId === 'print-services-global' 
+                  ? 'Total entries' 
+                  : 'Total companies'}
+              </div>
             </div>
 
             <div className="bg-muted/30 border border-border p-4 rounded-lg">
@@ -367,10 +436,10 @@ function DashboardContent() {
                 <Link
                   key={tab.id}
                   href={href}
-                  className={`flex items-center gap-1 md:gap-2 px-3 md:px-4 py-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                  className={`relative flex items-center gap-1 md:gap-2 px-3 md:px-4 py-3 text-xs md:text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
                     isActive
-                      ? 'border-primary text-primary'
-                      : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
+                      ? 'border-primary text-primary bg-blue-50 dark:bg-blue-950/30'
+                      : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border hover:bg-accent/50'
                   }`}
                 >
                   {tab.icon}

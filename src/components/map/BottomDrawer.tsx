@@ -17,7 +17,7 @@ type Props = {
  */
 export default function BottomDrawer({ company, getMarkerColor, onClose }: Props) {
   return (
-    <div className='absolute inset-x-0 bottom-0 z-20 pb-[env(safe-area-inset-bottom)]'>
+    <div className='absolute inset-x-0 bottom-0 z-[1200] pb-[env(safe-area-inset-bottom)]'>
       <div className='mx-auto w-full md:max-w-5xl bg-card border-t border-border rounded-t-lg shadow-lg'>
         <div className='p-4 border-b border-border flex items-start justify-between'>
           <div>

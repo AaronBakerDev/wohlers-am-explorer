@@ -72,7 +72,7 @@ export default function FundingsInvestmentsPage() {
             
             {/* View Toggle */}
             <div className="flex items-center gap-2">
-              {(['analysis','table'] as const).map(v => (
+              {(['analysis'] as const).map(v => (
                 <button
                   key={v}
                   onClick={() => setView(v)}

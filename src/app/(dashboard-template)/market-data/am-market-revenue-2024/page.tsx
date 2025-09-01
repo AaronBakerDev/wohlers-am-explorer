@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, RefreshCw } from 'lucide-react'
 import { 
@@ -15,7 +14,6 @@ export default function AMMarketRevenue2024Page() {
   const [csvData, setCsvData] = useState<string[][]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [totalRows, setTotalRows] = useState(0)
   const [view, setView] = useState<'analysis' | 'table'>('analysis')
 
   const dataset = 'am-market-revenue-2024'
@@ -40,7 +38,6 @@ export default function AMMarketRevenue2024Page() {
 
         const data = await response.json()
         setCsvData(data.data || [])
-        setTotalRows(data.totalRows || data.rowCount || 0)
       } catch (err) {
         console.error('Error loading market data:', err)
         setError(err instanceof Error ? err.message : 'Failed to load data')
@@ -72,7 +69,7 @@ export default function AMMarketRevenue2024Page() {
             
             {/* View Toggle */}
             <div className="flex items-center gap-2">
-              {(['analysis','table'] as const).map(v => (
+              {(['analysis'] as const).map(v => (
                 <button
                   key={v}
                   onClick={() => setView(v)}
@@ -87,13 +84,6 @@ export default function AMMarketRevenue2024Page() {
               ))}
             </div>
             
-            <div className="flex items-center gap-4 mb-4 mt-4">
-              <Badge variant="secondary">
-                {loading ? 'Loading...' : 
-                 csvData.length > 1 ? `${csvData.length - 1} revenue data points` :
-                 totalRows > 0 ? `${totalRows.toLocaleString()} total rows in database` : 'No data'}
-              </Badge>
-            </div>
           </div>
           
           <div className="flex items-center gap-2">

@@ -210,14 +210,66 @@ export default function PrintServicesGlobalContent() {
         setLoading(true)
         setError(null)
 
-        // Use unified API endpoint
-        const response = await fetch('/api/unified/companies?dataset=print-services-global&limit=1000')
+        // Use unified segment API
+        const params = new URLSearchParams()
+        params.set('segment', 'Printing services')
+        params.set('limit', '1000')
+        
+        const response = await fetch(`/api/datasets/unified-segment?${params.toString()}`)
         if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`)
         const result = await response.json()
 
-        if (result.companies?.length) {
-          setData(result.companies)
-          setFilteredData(result.companies)
+        if (result.data?.length) {
+          // Transform the data to match expected format
+          const transformed = result.data.map((item: any) => ({
+            id: item.id,
+            name: item.company_name,
+            website: item.website,
+            description: item.additional_info || '',
+            country: item.country,
+            state: null,
+            city: item.headquarters_city,
+            company_type: 'service',
+            company_role: 'provider',
+            segment: item.segment,
+            primary_market: 'services',
+            founded_year: item.founded_year,
+            is_active: true,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+            services: item.printer_model ? [{
+              id: `svc-${item.id}`,
+              company_id: item.id,
+              service_type: 'printing',
+              service_name: item.printer_model,
+              description: `${item.printer_manufacturer || 'Unknown'} ${item.printer_model || 'Unknown Model'}`,
+              pricing_model: 'per_part',
+              lead_time_days: 5,
+              capabilities: item.process ? [item.process] : [],
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            }] : [],
+            technologies: item.process ? [{ 
+              id: `tech-${item.id}`, 
+              name: item.process, 
+              category: 'Process', 
+              description: item.process,
+              process_type: item.process,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            }] : [],
+            materials: item.material_type ? [{ 
+              id: `mat-${item.id}`, 
+              name: item.material_type, 
+              material_type: item.material_type,
+              material_format: item.material_format || 'Unknown',
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            }] : []
+          }))
+          
+          setData(transformed)
+          setFilteredData(transformed)
         } else {
           // Keep existing fallback to sample data
           setData(sampleData)
@@ -275,9 +327,6 @@ export default function PrintServicesGlobalContent() {
     }
 
     // Dropdown filters
-    if (filters.segment && filters.segment !== 'all') {
-      filtered = filtered.filter(item => item.segment === filters.segment)
-    }
     if (filters.country && filters.country !== 'all') {
       filtered = filtered.filter(item => item.country === filters.country)
     }
@@ -339,7 +388,6 @@ export default function PrintServicesGlobalContent() {
   const activeFilterCount = useMemo(() => {
     let count = 0
     if (filters.company_name) count++
-    if (filters.segment !== 'all') count++
     if (filters.country !== 'all') count++
     if (filters.technologies.length > 0) count++
     if (filters.materials.length > 0) count++
@@ -485,7 +533,7 @@ export default function PrintServicesGlobalContent() {
           />
         </div>
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-3 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 items-center">
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
@@ -495,18 +543,6 @@ export default function PrintServicesGlobalContent() {
               className="pl-10"
             />
           </div>
-
-          <Select value={filters.segment} onValueChange={(value) => setFilters(prev => ({ ...prev, segment: value }))}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Segments</SelectItem>
-              {uniqueValues.segments.map(segment => (
-                <SelectItem key={segment} value={segment}>{segment}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
 
           <SearchableDropdown
             label="Countries"
@@ -556,12 +592,6 @@ export default function PrintServicesGlobalContent() {
             <Badge variant="secondary" className="text-xs pr-1">
               Company: {filters.company_name}
               <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, company_name: '' }))}>×</button>
-            </Badge>
-          )}
-          {filters.segment !== 'all' && (
-            <Badge variant="secondary" className="text-xs pr-1">
-              Segment: {filters.segment}
-              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, segment: 'all' }))}>×</button>
             </Badge>
           )}
           {filters.country !== 'all' && (

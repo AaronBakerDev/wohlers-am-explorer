@@ -2,9 +2,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { ThemeSwitcher } from '@/components/theme-switcher'
+import { SubscriptionModal } from '@/components/subscription-modal'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { 
@@ -21,7 +22,8 @@ import {
   X,
   ChevronDown,
   ChevronUp,
-  BarChart3
+  BarChart3,
+  Crown
 } from "lucide-react"
 import Link from "next/link"
 
@@ -171,14 +173,21 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const searchParams = useSearchParams()
+  const pathname = usePathname()
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [comingSoonExpanded, setComingSoonExpanded] = useState(false)
   const [generalReportsExpanded, setGeneralReportsExpanded] = useState(false)
+  const [subscriptionModalOpen, setSubscriptionModalOpen] = useState(false)
   
   // Get current active tab/dataset
   const currentTab = searchParams.get('tab')
   const currentDataset = searchParams.get('dataset')
+  
+  // Extract market data item from pathname
+  const pathSegments = pathname.split('/')
+  const isMarketDataPage = pathSegments.includes('market-data')
+  const marketDataId = isMarketDataPage && pathSegments[pathSegments.indexOf('market-data') + 1]
 
   // No nested navigation under Focus Reports; selecting a dataset loads the dashboard
 
@@ -253,16 +262,16 @@ export default function DashboardLayout({
                       {generalReports.filter(report => report.status === 'available').map((report) => (
                         <div
                           key={report.id}
-                          className="p-3 rounded-lg border border-border hover:bg-accent/50 cursor-pointer transition-colors"
+                          className="p-3 rounded-lg border border-border/50 opacity-30 cursor-not-allowed pointer-events-none"
                         >
                           <div className="flex items-center justify-between mb-1">
-                            <span className="text-sm font-medium">{report.name}</span>
-                            <Badge variant="outline" className="text-xs">
+                            <span className="text-sm font-medium text-gray-500 dark:text-gray-600">{report.name}</span>
+                            <Badge variant="outline" className="text-xs opacity-50 text-gray-500 dark:text-gray-600 border-gray-300 dark:border-gray-700">
                               <FileText className="h-3 w-3 mr-1" />
                               Available
                             </Badge>
                           </div>
-                          <p className="text-xs text-muted-foreground">Annual industry analysis</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-600">Annual industry analysis</p>
                         </div>
                       ))}
                       
@@ -321,9 +330,9 @@ export default function DashboardLayout({
                             key={report.id}
                             href={isAccessible ? href : "#"}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`block p-3 rounded-lg border transition-colors ${
+                            className={`block p-3 rounded-lg border transition-all ${
                               isActive 
-                                ? 'border-primary bg-primary/5' 
+                                ? 'border-primary bg-blue-50 dark:bg-blue-950/30 shadow-sm' 
                                 : isAccessible
                                 ? 'border-border hover:bg-accent/50'
                                 : 'border-border/50 opacity-50 cursor-not-allowed'
@@ -338,6 +347,27 @@ export default function DashboardLayout({
                           </Link>
                         )
                       })}
+                      
+                      {/* Premium Data Card */}
+                      <div
+                        onClick={() => {
+                          setSubscriptionModalOpen(true)
+                          setMobileMenuOpen(false)
+                        }}
+                        className="p-3 rounded-lg border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10 hover:from-primary/10 hover:to-primary/15 cursor-pointer transition-all"
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">Premium Industry Data</span>
+                          <Crown className="h-4 w-4 text-primary" />
+                        </div>
+                        <p className="text-xs text-muted-foreground mb-2">
+                          Access exclusive datasets and advanced analytics
+                        </p>
+                        <Badge variant="default" className="text-xs">
+                          <Lock className="h-3 w-3 mr-1" />
+                          Subscribe for Access
+                        </Badge>
+                      </div>
                       
                       {/* Coming Soon Reports */}
                       <div>
@@ -386,14 +416,17 @@ export default function DashboardLayout({
                       {marketData.filter(item => item.status === 'active').map((item) => {
                         const isAccessible = item.status === 'active'
                         const href = `/market-data/${item.id}`
+                        const isActive = marketDataId === item.id
 
                         return (
                           <Link
                             key={item.id}
                             href={isAccessible ? href : "#"}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`block p-3 rounded-lg border transition-colors ${
-                              isAccessible
+                            className={`block p-3 rounded-lg border transition-all ${
+                              isActive
+                              ? 'border-primary bg-blue-50 dark:bg-blue-950/30 shadow-sm'
+                              : isAccessible
                               ? 'border-border hover:bg-accent/50'
                               : 'border-border/50 opacity-50 cursor-not-allowed'
                             }`}
@@ -517,16 +550,16 @@ export default function DashboardLayout({
                   {generalReports.filter(report => report.status === 'available').map((report) => (
                     <div
                       key={report.id}
-                      className="p-3 rounded-lg border border-border hover:bg-accent/50 cursor-pointer transition-colors"
+                      className="p-3 rounded-lg border border-border/50 opacity-30 cursor-not-allowed pointer-events-none"
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium">{report.name}</span>
-                        <Badge variant="outline" className="text-xs">
+                        <span className="text-sm font-medium text-gray-500 dark:text-gray-600">{report.name}</span>
+                        <Badge variant="outline" className="text-xs opacity-50 text-gray-500 dark:text-gray-600 border-gray-300 dark:border-gray-700">
                           <FileText className="h-3 w-3 mr-1" />
                           Available
                         </Badge>
                       </div>
-                      <p className="text-xs text-muted-foreground">Annual industry analysis</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-600">Annual industry analysis</p>
                     </div>
                   ))}
                   
@@ -583,9 +616,9 @@ export default function DashboardLayout({
                     return (
                       <div
                         key={report.id}
-                        className={`p-3 rounded-lg border transition-colors ${
+                        className={`p-3 rounded-lg border transition-all ${
                           isActive 
-                            ? 'border-primary bg-primary/5' 
+                            ? 'border-primary bg-blue-50 dark:bg-blue-950/30 shadow-sm' 
                             : isAccessible
                             ? 'border-border hover:bg-accent/50'
                             : 'border-border/50 opacity-50'
@@ -606,6 +639,24 @@ export default function DashboardLayout({
                       </div>
                     )
                   })}
+                  
+                  {/* Premium Data Card */}
+                  <div
+                    onClick={() => setSubscriptionModalOpen(true)}
+                    className="p-3 rounded-lg border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10 hover:from-primary/10 hover:to-primary/15 cursor-pointer transition-all"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-medium">Premium Industry Data</span>
+                      <Crown className="h-4 w-4 text-primary" />
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Access exclusive datasets and advanced analytics
+                    </p>
+                    <Badge variant="default" className="text-xs">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Subscribe for Access
+                    </Badge>
+                  </div>
                   
                   {/* Coming Soon Reports */}
                   <div>
@@ -654,12 +705,15 @@ export default function DashboardLayout({
                   {marketData.filter(item => item.status === 'active').map((item) => {
                     const isAccessible = item.status === 'active'
                     const href = `/market-data/${item.id}`
+                    const isActive = marketDataId === item.id
 
                     return (
                       <div
                         key={item.id}
-                        className={`p-3 rounded-lg border transition-colors ${
-                          isAccessible
+                        className={`p-3 rounded-lg border transition-all ${
+                          isActive
+                          ? 'border-primary bg-blue-50 dark:bg-blue-950/30 shadow-sm'
+                          : isAccessible
                           ? 'border-border hover:bg-accent/50'
                           : 'border-border/50 opacity-50'
                         }`}
@@ -765,6 +819,12 @@ export default function DashboardLayout({
           {children}
         </div>
       </div>
+
+      {/* Subscription Modal */}
+      <SubscriptionModal 
+        open={subscriptionModalOpen} 
+        onOpenChange={setSubscriptionModalOpen} 
+      />
     </div>
   )
 }

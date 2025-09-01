@@ -9,8 +9,8 @@ export default function QuotesBenchmarkPage() {
       <div className="border-b border-border bg-background">
         <div className="p-4 md:p-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Quotes Benchmark</h1>
-            <p className="text-xs text-muted-foreground">Compare and analyze pricing</p>
+            <h1 className="text-2xl font-semibold">Equipment & Services</h1>
+            <p className="text-xs text-muted-foreground">Global printer inventory and capabilities</p>
           </div>
           <div className="flex items-center gap-2">
             <Button size="sm" variant="outline">Export CSV</Button>

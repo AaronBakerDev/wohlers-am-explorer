@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { Download, TrendingUp, Globe, DollarSign, Factory, Calendar, FileText, BarChart3, Users } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
-import { ChartExportButton } from '@/components/ChartExportButton'
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#D084D0']
 
@@ -344,7 +343,6 @@ export default function MarketInsightsContent() {
               <CardTitle>Market Size by Segment (2020-2030)</CardTitle>
               <CardDescription>Forecast in USD millions</CardDescription>
             </div>
-            <ChartExportButton targetRef={totalsChartRef} filenameBase={`market-insights_totals-${chartType}_${selectedYear}`} disabled={loading || marketData.length === 0} />
           </CardHeader>
           <CardContent>
             {loading ? (
@@ -419,7 +417,6 @@ export default function MarketInsightsContent() {
               <CardTitle>Market by Segment</CardTitle>
               <CardDescription>{selectedYear} segment breakdown</CardDescription>
             </div>
-            <ChartExportButton targetRef={pieChartRef} filenameBase={`market-insights_segments_${selectedYear}`} disabled={loading || (countryData?.bySegment?.length || 0) === 0 || stats.totalMarket === 0} />
           </CardHeader>
           <CardContent>
             {loading ? (

@@ -179,9 +179,9 @@ export async function GET(request: Request) {
     }
 
     if (supabase) {
-      // Try to fetch print services global data, fallback to sample data if table doesn't exist or permission issues
+      // Fetch from merged view with Printing services segment filter
       const { data, error } = await supabase
-        .from('vendor_print_services_global')
+        .from('vendor_companies_merged')
         .select(`
           id,
           company_name,
@@ -191,8 +191,11 @@ export async function GET(request: Request) {
           segment,
           printer_manufacturer,
           printer_model,
-          additional_info
+          additional_info,
+          number_of_printers,
+          material_format
         `)
+        .eq('segment', 'Printing services')
         .limit(limit)
 
       if (error) {

@@ -26,7 +26,6 @@ import {
   Cell,
 } from 'recharts'
 import { Building2, Globe, RefreshCw, BarChart3 } from 'lucide-react'
-import { ChartExportButton } from '@/components/ChartExportButton'
 
 type Row = {
   id?: string
@@ -68,25 +67,20 @@ export default function AMSystemsManufacturersAnalytics() {
         setLoading(true)
         setError(null)
 
-        // CSV-backed route when enabled
-        if ((process.env.NEXT_PUBLIC_DATA_SOURCE || 'supabase') === 'csv') {
-          const res = await fetch('/api/datasets/am-systems-manufacturers')
-          if (!res.ok) throw new Error(`Failed CSV fetch (${res.status})`)
-          const json = await res.json()
-          const data = (json?.data || []) as Row[]
-          if (data.length) {
-            setRows(data)
-            return
-          }
+        // Use unified segment API
+        const params = new URLSearchParams()
+        params.set('segment', 'System manufacturer')
+        params.set('limit', '5000')
+        
+        const res = await fetch(`/api/datasets/unified-segment?${params.toString()}`)
+        if (!res.ok) throw new Error(`Failed to fetch data (${res.status})`)
+        
+        const json = await res.json()
+        const data = (json?.data || []) as Row[]
+        
+        if (data.length) {
+          setRows(data)
         }
-
-        const supabase = createClient()
-        const { data, error } = await supabase
-          .from('vendor_am_systems_manufacturers' as any)
-          .select('id, company_name, segment, process, material_format, material_type, country')
-          .limit(5000)
-        if (error) throw new Error(error.message)
-        setRows((data || []) as Row[])
       } catch (e) {
         console.error('ASM analytics load error:', e)
         setError(e instanceof Error ? e.message : 'Failed to load analytics data')
@@ -217,7 +211,6 @@ export default function AMSystemsManufacturersAnalytics() {
             <Badge variant="outline" className="text-xs">
               <BarChart3 className="h-3 w-3 mr-1" /> {totals.manufacturers} manufacturers
             </Badge>
-            <ChartExportButton targetRef={chartGridRef} filenameBase={`am-systems-analytics`} />
           </div>
         </div>
       </div>
@@ -287,7 +280,6 @@ export default function AMSystemsManufacturersAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Manufacturers by Country (Top 10)</CardTitle>
-              <ChartExportButton targetRef={refManufacturersByCountry} filenameBase={`asm_mfrs-by-country`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -314,7 +306,6 @@ export default function AMSystemsManufacturersAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Manufacturers by Process</CardTitle>
-              <ChartExportButton targetRef={refManufacturersByProcess} filenameBase={`asm_mfrs-by-process`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -341,7 +332,6 @@ export default function AMSystemsManufacturersAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Material Type Distribution</CardTitle>
-              <ChartExportButton targetRef={refMaterialType} filenameBase={`asm_material-type`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -366,7 +356,6 @@ export default function AMSystemsManufacturersAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Segment Share</CardTitle>
-              <ChartExportButton targetRef={refSegmentShare} filenameBase={`asm_segment-share`} />
             </div>
           </CardHeader>
           <CardContent>
@@ -391,7 +380,6 @@ export default function AMSystemsManufacturersAnalytics() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm">Process × Material Type</CardTitle>
-              <ChartExportButton targetRef={refMatrixProcMat} filenameBase={`asm_matrix-process-material`} />
             </div>
           </CardHeader>
           <CardContent>

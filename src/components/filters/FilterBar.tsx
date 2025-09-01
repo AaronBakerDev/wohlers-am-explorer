@@ -75,8 +75,8 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
   }, [value])
 
   const containerCls = orientation === "horizontal"
-    ? "flex flex-wrap items-center gap-2"
-    : "flex flex-col gap-2"
+    ? "flex flex-wrap items-center gap-3 md:gap-4"
+    : "flex flex-col gap-3"
 
   return (
     <div className={`${containerCls} ${className}`} data-testid="filter-bar">
@@ -206,121 +206,29 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Process Types */}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button 
-            variant={value.processCategories.length > 0 ? "default" : "outline"} 
-            size="sm" 
-            className="h-8 text-xs" 
-            data-testid="filter-process"
-          >
-            <FilterIcon className="h-3 w-3 mr-1" />
-            Process Types
-            {value.processCategories.length > 0 && (
-              <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
-                {value.processCategories.length}
-              </Badge>
-            )}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
-          <DropdownMenuLabel>Filter by Process Type</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {loading ? (
-            <div className="px-2 py-4 text-center text-sm text-muted-foreground">
-              <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
-              Loading...
-            </div>
-          ) : (
-            <>
-              {value.processCategories.length > 0 && (
-                <>
-                  <DropdownMenuCheckboxItem
-                    onClick={() => onChange({ ...value, processCategories: [] })}
-                    className="font-medium"
-                  >
-                    Clear All
-                  </DropdownMenuCheckboxItem>
-                  <DropdownMenuSeparator />
-                </>
-              )}
-              {processCategories.map((cat) => (
-                <DropdownMenuCheckboxItem
-                  key={cat}
-                  checked={value.processCategories.includes(cat)}
-                  onCheckedChange={(checked) => {
-                    const next = checked
-                      ? [...value.processCategories, cat]
-                      : value.processCategories.filter(c => c !== cat)
-                    onChange({ ...value, processCategories: next })
-                  }}
-                >
-                  {cat}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
+      {/* Process Types - Disabled */}
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        className="h-8 text-xs opacity-40 cursor-not-allowed pointer-events-none text-muted-foreground" 
+        data-testid="filter-process"
+        disabled
+      >
+        <FilterIcon className="h-3 w-3 mr-1 opacity-40" />
+        Process Types
+      </Button>
 
-      {/* Company Size */}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button 
-            variant={value.sizeRanges.length > 0 ? "default" : "outline"} 
-            size="sm" 
-            className="h-8 text-xs" 
-            data-testid="filter-size"
-          >
-            <FilterIcon className="h-3 w-3 mr-1" />
-            Company Size
-            {value.sizeRanges.length > 0 && (
-              <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
-                {value.sizeRanges.length}
-              </Badge>
-            )}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
-          <DropdownMenuLabel>Filter by Size</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {loading ? (
-            <div className="px-2 py-4 text-center text-sm text-muted-foreground">
-              <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
-              Loading...
-            </div>
-          ) : (
-            <>
-              {value.sizeRanges.length > 0 && (
-                <>
-                  <DropdownMenuCheckboxItem
-                    onClick={() => onChange({ ...value, sizeRanges: [] })}
-                    className="font-medium"
-                  >
-                    Clear All
-                  </DropdownMenuCheckboxItem>
-                  <DropdownMenuSeparator />
-                </>
-              )}
-              {sizeRanges.map((range) => (
-                <DropdownMenuCheckboxItem
-                  key={range}
-                  checked={value.sizeRanges.includes(range)}
-                  onCheckedChange={(checked) => {
-                    const next = checked
-                      ? [...value.sizeRanges, range]
-                      : value.sizeRanges.filter(r => r !== range)
-                    onChange({ ...value, sizeRanges: next })
-                  }}
-                >
-                  {range}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
+      {/* Company Size - Disabled */}
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        className="h-8 text-xs opacity-40 cursor-not-allowed pointer-events-none text-muted-foreground" 
+        data-testid="filter-size"
+        disabled
+      >
+        <FilterIcon className="h-3 w-3 mr-1 opacity-40" />
+        Company Size
+      </Button>
 
       {/* Geography: Countries */}
       <DropdownMenu>
