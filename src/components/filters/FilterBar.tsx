@@ -37,6 +37,11 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
   const [processCategories, setProcessCategories] = useState<string[]>([])
   const [sizeRanges, setSizeRanges] = useState<string[]>([])
   const [countries, setCountries] = useState<string[]>([])
+  
+  // Check if we're on a vendor dataset page
+  const isVendorDataset = typeof window !== 'undefined' && 
+    (window.location.pathname.includes('am-systems-manufacturers') || 
+     window.location.pathname.includes('print-services-global'))
 
   // Load filter option lists
   useEffect(() => {
@@ -44,25 +49,60 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
     ;(async () => {
       try {
         setLoading(true)
-        const [techs, mats, categories, sizes, cntrs] = await Promise.all([
-          getTechnologies(),
-          getMaterials(),
-          getTechnologyCategories(),
-          getEmployeeSizeRanges(),
-          getCountries(),
-        ])
-        if (!active) return
-        setTechOptions(techs.map(t => ({ id: t.id, name: t.name })))
-        setMaterialOptions(mats.map(m => ({ id: m.id, name: m.name })))
-        setProcessCategories(categories)
-        setSizeRanges(sizes)
-        setCountries(cntrs)
+        
+        // For vendor datasets, fetch processes from the unified API
+        if (isVendorDataset) {
+          const segment = window.location.pathname.includes('am-systems-manufacturers') 
+            ? 'System manufacturer' 
+            : 'Printing services'
+          
+          const [techs, mats, cntrs, vendorDataRes] = await Promise.all([
+            getTechnologies(),
+            getMaterials(),
+            getCountries(),
+            fetch(`/api/datasets/unified-segment?segment=${encodeURIComponent(segment)}&limit=1`)
+          ])
+          
+          if (!active) return
+          
+          // Get processes from vendor data aggregations
+          let processes: string[] = []
+          if (vendorDataRes.ok) {
+            const vendorData = await vendorDataRes.json()
+            if (vendorData.aggregations?.byProcess) {
+              processes = Object.keys(vendorData.aggregations.byProcess)
+                .filter(p => p && p.trim() !== '')
+                .sort()
+            }
+          }
+          
+          setTechOptions(techs.map(t => ({ id: t.id, name: t.name })))
+          setMaterialOptions(mats.map(m => ({ id: m.id, name: m.name })))
+          setProcessCategories(processes)
+          setSizeRanges([]) // No size ranges for vendor data
+          setCountries(cntrs)
+        } else {
+          // Regular data loading for non-vendor pages
+          const [techs, mats, categories, sizes, cntrs] = await Promise.all([
+            getTechnologies(),
+            getMaterials(),
+            getTechnologyCategories(),
+            getEmployeeSizeRanges(),
+            getCountries(),
+          ])
+          if (!active) return
+          setTechOptions(techs.map(t => ({ id: t.id, name: t.name })))
+          setMaterialOptions(mats.map(m => ({ id: m.id, name: m.name })))
+          setProcessCategories(categories)
+          setSizeRanges(sizes)
+          setCountries(cntrs)
+        }
       } finally {
         if (active) setLoading(false)
       }
     })()
     return () => { active = false }
-  }, [])
+  }, [isVendorDataset])
 
   const activeCount = useMemo(() => {
     return (
@@ -206,29 +246,63 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Process Types - Disabled */}
-      <Button 
-        variant="ghost" 
-        size="sm" 
-        className="h-8 text-xs opacity-40 cursor-not-allowed pointer-events-none text-muted-foreground" 
-        data-testid="filter-process"
-        disabled
-      >
-        <FilterIcon className="h-3 w-3 mr-1 opacity-40" />
-        Process Types
-      </Button>
-
-      {/* Company Size - Disabled */}
-      <Button 
-        variant="ghost" 
-        size="sm" 
-        className="h-8 text-xs opacity-40 cursor-not-allowed pointer-events-none text-muted-foreground" 
-        data-testid="filter-size"
-        disabled
-      >
-        <FilterIcon className="h-3 w-3 mr-1 opacity-40" />
-        Company Size
-      </Button>
+      {/* Process Types */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button 
+            variant={value.processCategories.length > 0 ? "default" : "outline"} 
+            size="sm" 
+            className="h-8 text-xs" 
+            data-testid="filter-process"
+          >
+            <FilterIcon className="h-3 w-3 mr-1" />
+            Process Types
+            {value.processCategories.length > 0 && (
+              <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
+                {value.processCategories.length}
+              </Badge>
+            )}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
+          <DropdownMenuLabel>Filter by Process Type</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {loading ? (
+            <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
+              Loading...
+            </div>
+          ) : (
+            <>
+              {value.processCategories.length > 0 && (
+                <>
+                  <DropdownMenuCheckboxItem
+                    onClick={() => onChange({ ...value, processCategories: [] })}
+                    className="font-medium"
+                  >
+                    Clear All
+                  </DropdownMenuCheckboxItem>
+                  <DropdownMenuSeparator />
+                </>
+              )}
+              {processCategories.map((category) => (
+                <DropdownMenuCheckboxItem
+                  key={category}
+                  checked={value.processCategories.includes(category)}
+                  onCheckedChange={(checked) => {
+                    const next = checked
+                      ? [...value.processCategories, category]
+                      : value.processCategories.filter(c => c !== category)
+                    onChange({ ...value, processCategories: next })
+                  }}
+                >
+                  {category}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       {/* Geography: Countries */}
       <DropdownMenu>

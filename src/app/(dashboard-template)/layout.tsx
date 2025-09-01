@@ -262,16 +262,16 @@ export default function DashboardLayout({
                       {generalReports.filter(report => report.status === 'available').map((report) => (
                         <div
                           key={report.id}
-                          className="p-3 rounded-lg border border-border/50 opacity-30 cursor-not-allowed pointer-events-none"
+                          className="p-3 rounded-lg border border-border/50 opacity-50"
                         >
                           <div className="flex items-center justify-between mb-1">
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-600">{report.name}</span>
-                            <Badge variant="outline" className="text-xs opacity-50 text-gray-500 dark:text-gray-600 border-gray-300 dark:border-gray-700">
+                            <span className="text-sm font-medium">{report.name}</span>
+                            <Badge variant="outline" className="text-xs">
                               <FileText className="h-3 w-3 mr-1" />
                               Available
                             </Badge>
                           </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-600">Annual industry analysis</p>
+                          <p className="text-xs text-muted-foreground">Annual industry analysis</p>
                         </div>
                       ))}
                       
@@ -550,16 +550,16 @@ export default function DashboardLayout({
                   {generalReports.filter(report => report.status === 'available').map((report) => (
                     <div
                       key={report.id}
-                      className="p-3 rounded-lg border border-border/50 opacity-30 cursor-not-allowed pointer-events-none"
+                      className="p-3 rounded-lg border border-border/50 opacity-50"
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-gray-500 dark:text-gray-600">{report.name}</span>
-                        <Badge variant="outline" className="text-xs opacity-50 text-gray-500 dark:text-gray-600 border-gray-300 dark:border-gray-700">
+                        <span className="text-sm font-medium">{report.name}</span>
+                        <Badge variant="outline" className="text-xs">
                           <FileText className="h-3 w-3 mr-1" />
                           Available
                         </Badge>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-600">Annual industry analysis</p>
+                      <p className="text-xs text-muted-foreground">Annual industry analysis</p>
                     </div>
                   ))}
                   

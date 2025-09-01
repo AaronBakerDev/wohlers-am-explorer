@@ -226,12 +226,18 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
           // Use unified segment API for vendor datasets
           const params = new URLSearchParams()
           params.set('segment', vendorSegment)
-          params.set('limit', '2000')
+          // Fetch all records - Printing services has ~2400 records
+          params.set('limit', '5000')
           if (searchQuery) params.set('search', searchQuery)
           if (memoizedFilters.countries.length) {
             params.set('country', memoizedFilters.countries[0])
           }
-          if (selectedTechnologyNames.length) params.set('process', selectedTechnologyNames[0])
+          // For vendor datasets, use process categories directly if available
+          if (memoizedFilters.processCategories.length) {
+            params.set('process', memoizedFilters.processCategories[0])
+          } else if (selectedTechnologyNames.length) {
+            params.set('process', selectedTechnologyNames[0])
+          }
           if (selectedMaterialNames.length) params.set('materialType', selectedMaterialNames[0])
 
           const res = await fetch(`/api/datasets/unified-segment?${params.toString()}`, { signal: controller.signal })
