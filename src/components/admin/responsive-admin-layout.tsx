@@ -6,14 +6,11 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { Badge } from '@/components/ui/badge'
-import { 
-  Shield, 
-  Building2, 
-  BarChart3, 
+import {
+  Shield,
+  Building2,
   Database,
-  Menu,
-  X
+  Menu
 } from 'lucide-react'
 
 const adminRoutes = [
@@ -27,11 +24,6 @@ const adminRoutes = [
     href: '/admin/companies',
     label: 'Companies',
     icon: Building2
-  },
-  {
-    href: '/admin/market-data',
-    label: 'Market Data',
-    icon: BarChart3
   }
 ]
 
