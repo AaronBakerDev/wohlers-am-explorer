@@ -79,19 +79,21 @@ export default function CompaniesAdminPage() {
         setError(null)
         const { createClient } = await import('@/lib/supabase/client')
         const supabase = createClient()
-        // Get all companies from the merged view (no limit to fetch all records)
+        // Get all companies from the merged view (explicit high limit to override Supabase default)
         const { data: mergedData, error: mergedError } = await supabase
           .from('vendor_companies_merged')
           .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year')
           .order('company_name', { ascending: true })
+          .limit(10000)
         
         if (mergedError) throw mergedError
         
-        // Also get main companies data for additional fields (no limit to fetch all records)
+        // Also get main companies data for additional fields (explicit high limit to override Supabase default)
         const { data: companiesData, error: companiesError } = await supabase
           .from('companies')
           .select('id, name, company_type, country, state, city, website, founded_year, employee_count_range, revenue_range, is_public_company, stock_ticker, parent_company')
           .order('name', { ascending: true })
+          .limit(10000)
         
         if (companiesError) throw companiesError
         

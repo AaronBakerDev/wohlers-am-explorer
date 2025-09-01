@@ -101,7 +101,7 @@ function SupabaseDataTable() {
     unique_processes: true,
     unique_materials: true,
     unique_manufacturers: true,
-    website: true
+    website: false
   })
 
   // (Filter options are loaded within FilterBar)
