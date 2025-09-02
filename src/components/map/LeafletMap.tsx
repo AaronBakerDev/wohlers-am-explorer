@@ -241,10 +241,10 @@ function normalizeCountryName(input: unknown): string {
     "cote d'ivoire": "Côte d'Ivoire",
   };
   if (map[lower]) return map[lower];
-  // Title case fallback
+  // Title case fallback - ensure consistent casing
   return s
     .split(' ')
-    .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
+    .map((w) => (w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w))
     .join(' ');
 }
 
@@ -616,6 +616,15 @@ export default function LeafletMap({
         const norm = normalizeCountryName(entry.country);
         countryDataMap.set(norm, entry);
       });
+      
+      // Debug logging
+      console.log('Heatmap data loaded:', {
+        stateDataCount: memoizedStateData.length,
+        countryMapSize: countryDataMap.size,
+        sampleCountries: Array.from(countryDataMap.keys()).slice(0, 5),
+        geoJsonLoaded: !!geoJsonData,
+        geoJsonFeatures: geoJsonData?.features?.length || 0
+      });
 
       // Color function based on quantile buckets of intensity
       const getColor = (intensity: number) => colors[getBucketIndex(intensity)];
@@ -629,6 +638,16 @@ export default function LeafletMap({
               ? Number(countryInfo.total_machines)
               : Number(countryInfo.company_count || 0))
           : 0;
+        
+        // Debug first few countries
+        if (Math.random() < 0.01) {
+          console.log('Country match:', {
+            geoJsonName: feature.properties.countryName,
+            normalized: countryName,
+            found: !!countryInfo,
+            intensity
+          });
+        }
 
         return {
           fillColor: getColor(intensity),

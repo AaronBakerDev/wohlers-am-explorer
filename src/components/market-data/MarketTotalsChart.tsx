@@ -16,6 +16,8 @@ type TotalsResponse = {
 export function MarketTotalsChart() {
   const [yearStart, setYearStart] = useState<string>("")
   const [yearEnd, setYearEnd] = useState<string>("")
+  // Persist the full available year domain from the first load
+  const [yearDomain, setYearDomain] = useState<{ min: number; max: number } | null>(null)
   // Multi-select support: maintain a set of selected segments
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(false)
@@ -36,6 +38,14 @@ export function MarketTotalsChart() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const json = (await res.json()) as TotalsResponse
       setPayload(json)
+      // Capture the full unfiltered domain once so the
+      // dropdown options don't shrink when filtering
+      if (!yearDomain && json?.metadata?.yearRange?.min && json?.metadata?.yearRange?.max) {
+        setYearDomain({
+          min: json.metadata.yearRange.min,
+          max: json.metadata.yearRange.max,
+        })
+      }
       if (!yearStart || !yearEnd) {
         const min = json?.metadata?.yearRange?.min
         const max = json?.metadata?.yearRange?.max
@@ -77,13 +87,13 @@ export function MarketTotalsChart() {
   ]
 
   const years = useMemo(() => {
-    const min = payload?.metadata?.yearRange?.min
-    const max = payload?.metadata?.yearRange?.max
+    const min = yearDomain?.min
+    const max = yearDomain?.max
     if (!min || !max) return [] as number[]
     const out: number[] = []
     for (let y = min; y <= max; y++) out.push(y)
     return out
-  }, [payload])
+  }, [yearDomain])
 
   return (
     <Card>
@@ -136,30 +146,62 @@ export function MarketTotalsChart() {
               )
             })}
           </div>
-          <Select value={yearStart} onValueChange={setYearStart}>
-            <SelectTrigger className="w-28">
-              <SelectValue placeholder="Start" />
-            </SelectTrigger>
-            <SelectContent>
-              {years.map((y) => (
-                <SelectItem key={y} value={String(y)}>
-                  {y}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select value={yearEnd} onValueChange={setYearEnd}>
-            <SelectTrigger className="w-28">
-              <SelectValue placeholder="End" />
-            </SelectTrigger>
-            <SelectContent>
-              {years.map((y) => (
-                <SelectItem key={y} value={String(y)}>
-                  {y}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">From</span>
+            <Select
+              value={yearStart}
+              onValueChange={(v) => {
+                setYearStart(v)
+                // Ensure valid range: start <= end
+                if (yearEnd && parseInt(v) > parseInt(yearEnd)) {
+                  setYearEnd(v)
+                }
+              }}
+            >
+              <SelectTrigger className="w-28">
+                <SelectValue placeholder="Start" />
+              </SelectTrigger>
+              <SelectContent>
+                {years.map((y) => (
+                  <SelectItem
+                    key={y}
+                    value={String(y)}
+                    disabled={!!yearEnd && y > parseInt(yearEnd)}
+                  >
+                    {y}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">To</span>
+            <Select
+              value={yearEnd}
+              onValueChange={(v) => {
+                setYearEnd(v)
+                // Ensure valid range: start <= end
+                if (yearStart && parseInt(v) < parseInt(yearStart)) {
+                  setYearStart(v)
+                }
+              }}
+            >
+              <SelectTrigger className="w-28">
+                <SelectValue placeholder="End" />
+              </SelectTrigger>
+              <SelectContent>
+                {years.map((y) => (
+                  <SelectItem
+                    key={y}
+                    value={String(y)}
+                    disabled={!!yearStart && y < parseInt(yearStart)}
+                  >
+                    {y}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
           <Button variant="ghost" size="icon" className="h-8 w-8" onClick={load} disabled={loading}>
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>

@@ -10,11 +10,19 @@ function normalizeCountry(input?: string | null): string | null {
   const s = String(input).trim()
   if (!s) return null
   if (s.startsWith('The ')) return normalizeCountry(s.slice(4))
-  if (["U.S.", "US", "USA", "United States of America"].includes(s)) return "United States"
-  if (["U.K.", "UK"].includes(s)) return "United Kingdom"
-  if (s === "Viet Nam") return "Vietnam"
-  if (s === "Czechia") return "Czech Republic"
+  
+  // Check common aliases (case-insensitive)
+  const lower = s.toLowerCase()
+  if (["u.s.", "us", "usa", "united states of america", "united states"].includes(lower)) return "United States"
+  if (["u.k.", "uk", "united kingdom"].includes(lower)) return "United Kingdom"
+  if (lower === "viet nam") return "Vietnam"
+  if (lower === "czechia") return "Czech Republic"
+  
+  // Title case the rest for consistency
   return s
+    .split(' ')
+    .map((w) => (w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w))
+    .join(' ')
 }
 
 /**
