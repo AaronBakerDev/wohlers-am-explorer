@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -218,8 +219,7 @@ export default function AMSystemsManufacturersAnalytics() {
       {/* Filters */}
       <div className="p-4 border-b border-border">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
-          <input
-            className="px-3 py-2 text-sm bg-background border border-border rounded"
+          <Input
             placeholder="Search companies…"
             value={filters.search}
             onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}

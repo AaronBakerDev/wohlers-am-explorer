@@ -67,22 +67,7 @@ export default function AMMarketRevenue2024Page() {
             <h1 className="text-2xl font-bold mb-2">{config.name}</h1>
             <p className="text-muted-foreground mb-4">{config.description}</p>
             
-            {/* View Toggle */}
-            <div className="flex items-center gap-2">
-              {(['analysis'] as const).map(v => (
-                <button
-                  key={v}
-                  onClick={() => setView(v)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-md border transition-colors ${
-                    view === v
-                      ? 'border-primary text-primary bg-primary/5'
-                      : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
-                  }`}
-                >
-                  {v === 'analysis' ? 'Overview' : 'Table'}
-                </button>
-              ))}
-            </div>
+            {/* Overview tab hidden per request */}
             
           </div>
           

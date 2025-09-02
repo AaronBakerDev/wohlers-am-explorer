@@ -63,76 +63,7 @@ test.describe('API Endpoints', () => {
     expect(data).toHaveProperty('summary')
   })
 
-  test('GET /api/quotes/benchmarks returns valid data', async ({ request }) => {
-    const response = await request.get('/api/quotes/benchmarks')
-    
-    // Check response status
-    expect(response.ok()).toBeTruthy()
-    expect(response.status()).toBe(200)
-    
-    // Check response structure
-    const data = await response.json()
-    expect(data).toHaveProperty('data')
-    expect(data).toHaveProperty('statistics')
-    expect(data).toHaveProperty('filters')
-    expect(data).toHaveProperty('metadata')
-    
-    // Validate statistics structure
-    if (data.statistics) {
-      expect(data.statistics).toHaveProperty('price')
-      expect(data.statistics).toHaveProperty('leadTime')
-      
-      // Price stats
-      if (data.statistics.price) {
-        expect(data.statistics.price).toHaveProperty('min')
-        expect(data.statistics.price).toHaveProperty('max')
-        expect(data.statistics.price).toHaveProperty('avg')
-        expect(data.statistics.price).toHaveProperty('median')
-        expect(data.statistics.price).toHaveProperty('count')
-      }
-    }
-    
-    // Validate filters structure
-    if (data.filters) {
-      expect(data.filters).toHaveProperty('processes')
-      expect(data.filters).toHaveProperty('materials')
-      expect(data.filters).toHaveProperty('quantities')
-      expect(data.filters).toHaveProperty('countries')
-      
-      expect(Array.isArray(data.filters.processes)).toBeTruthy()
-      expect(Array.isArray(data.filters.materials)).toBeTruthy()
-      expect(Array.isArray(data.filters.quantities)).toBeTruthy()
-      expect(Array.isArray(data.filters.countries)).toBeTruthy()
-    }
-    
-    // Data should be an array
-    expect(Array.isArray(data.data)).toBeTruthy()
-  })
-
-  test('GET /api/quotes/benchmarks with process filter', async ({ request }) => {
-    const response = await request.get('/api/quotes/benchmarks?process=FDM')
-    
-    // Check response status
-    expect(response.ok()).toBeTruthy()
-    expect(response.status()).toBe(200)
-    
-    const data = await response.json()
-    expect(data).toHaveProperty('data')
-    expect(Array.isArray(data.data)).toBeTruthy()
-  })
-
-  test('GET /api/quotes/benchmarks with multiple filters', async ({ request }) => {
-    const response = await request.get('/api/quotes/benchmarks?process=SLA&material=Polymer&country=United States')
-    
-    // Check response status
-    expect(response.ok()).toBeTruthy()
-    expect(response.status()).toBe(200)
-    
-    const data = await response.json()
-    expect(data).toHaveProperty('data')
-    expect(data).toHaveProperty('statistics')
-    expect(data).toHaveProperty('filters')
-  })
+  // Quotes benchmark endpoints removed from MVP scope; related tests pruned.
 
   test('API endpoints handle errors gracefully', async ({ request }) => {
     // Test with invalid year

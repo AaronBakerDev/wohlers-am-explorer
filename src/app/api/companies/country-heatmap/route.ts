@@ -1,107 +1,88 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
-export async function GET(request: Request) {
+// Normalize common country aliases to improve grouping consistency
+function normalizeCountry(input?: string | null): string | null {
+  if (!input) return null
+  const s = String(input).trim()
+  if (!s) return null
+  if (s.startsWith('The ')) return normalizeCountry(s.slice(4))
+  if (["U.S.", "US", "USA", "United States of America"].includes(s)) return "United States"
+  if (["U.K.", "UK"].includes(s)) return "United Kingdom"
+  if (s === "Viet Nam") return "Vietnam"
+  if (s === "Czechia") return "Czech Republic"
+  return s
+}
+
+/**
+ * GET /api/companies/country-heatmap
+ * Aggregates companies by country for choropleth heatmap.
+ * Optional query params:
+ *  - type | companyType: 'equipment' | 'service' | 'material' | 'software'
+ *  - role | companyRole: classification role
+ *  - segment: one of unified segments
+ */
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const companyType = searchParams.get('type') // 'equipment' or 'service'
-    
     const supabase = await createClient()
-    
-    if (companyType === 'equipment') {
-      // Use merged view for equipment manufacturers
-      const { data: rows, error } = await supabase
-        .from('vendor_companies_merged')
-        .select('country')
-        .eq('segment', 'System manufacturer')
-      
-      if (error) throw error
-      
-      // Aggregate by country
-      const countryMap = new Map<string, { country: string; company_count: number; total_machines: number }>()
-      
-      for (const row of rows || []) {
-        const country = row.country
-        if (!country) continue
-        
-        const existing = countryMap.get(country) || { 
-          country, 
-          company_count: 0, 
-          total_machines: 0 
-        }
-        existing.company_count += 1
-        // For equipment manufacturers, we'll use company count as the intensity value
-        existing.total_machines = existing.company_count
-        countryMap.set(country, existing)
-      }
-      
-      const data = Array.from(countryMap.values())
-      return NextResponse.json({ data })
-      
-    } else if (companyType === 'service') {
-      // Use merged view for service providers
-      const { data: rows, error } = await supabase
-        .from('vendor_companies_merged')
-        .select('country')
-        .eq('segment', 'Printing services')
-      
-      if (error) throw error
-      
-      // Aggregate by country
-      const countryMap = new Map<string, { country: string; company_count: number; total_machines: number }>()
-      
-      for (const row of rows || []) {
-        const country = row.country
-        if (!country) continue
-        
-        const existing = countryMap.get(country) || { 
-          country, 
-          company_count: 0, 
-          total_machines: 0 
-        }
-        existing.company_count += 1
-        // For service providers, we'll use company count as the intensity value
-        existing.total_machines = existing.company_count
-        countryMap.set(country, existing)
-      }
-      
-      const data = Array.from(countryMap.values())
-      return NextResponse.json({ data })
-      
-    } else {
-      // Default behavior: use regular companies data aggregated by country
-      const { data: rows, error } = await supabase
-        .from('company_summaries')
-        .select('country, id')
-        .not('country', 'is', null)
-      
-      if (error) throw error
-      
-      const countryMap = new Map<string, { country: string; company_count: number; total_machines: number }>()
-      
-      for (const row of rows || []) {
-        const country = row.country
-        if (!country) continue
-        
-        const existing = countryMap.get(country) || { 
-          country, 
-          company_count: 0, 
-          total_machines: 0 
-        }
-        existing.company_count += 1
-        countryMap.set(country, existing)
-      }
-      
-      const data = Array.from(countryMap.values())
-      return NextResponse.json({ data })
+
+    // Parse optional filters
+    const type = searchParams.get('type') || searchParams.get('companyType')
+    const role = searchParams.get('role') || searchParams.get('companyRole')
+    const segment = searchParams.get('segment')
+    const countriesParam = searchParams.get('country')
+    const technologiesParam = searchParams.get('technologies')
+    const materialsParam = searchParams.get('materials')
+    const countries = countriesParam ? countriesParam.split(',').map(s => s.trim()).filter(Boolean) : []
+    const technologies = technologiesParam ? technologiesParam.split(',').map(s => s.trim()).filter(Boolean) : []
+    const materials = materialsParam ? materialsParam.split(',').map(s => s.trim()).filter(Boolean) : []
+
+    // Pull minimal fields; aggregate server-side
+    let query = supabase
+      .from('company_summaries_unified')
+      .select('id, country, equipment_count')
+
+    if (type) query = query.eq('company_type', type)
+    if (role) query = query.eq('company_role', role)
+    if (segment) query = query.eq('segment', segment)
+
+    // Apply array filters (technology/materials)
+    if (technologies.length) {
+      query = query.overlaps('technologies', technologies)
     }
-    
-  } catch (e: unknown) {
-    console.error('Country heatmap API error:', e)
-    return NextResponse.json({ 
-      error: e instanceof Error ? e.message : 'Unexpected error' 
-    }, { status: 500 })
+    if (materials.length) {
+      query = query.overlaps('materials', materials)
+    }
+    if (countries.length) {
+      query = query.in('country', countries)
+    }
+
+    const { data, error } = await query
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    // Aggregate by normalized country
+    const map = new Map<string, { country: string; company_count: number; total_machines: number }>()
+    for (const row of data || []) {
+      const country = normalizeCountry((row as any).country)
+      if (!country) continue
+      const key = country
+      const cur = map.get(key) || { country, company_count: 0, total_machines: 0 }
+      cur.company_count += 1
+      const eqCount = Number((row as any).equipment_count || 0)
+      if (!Number.isNaN(eqCount)) cur.total_machines += eqCount
+      map.set(key, cur)
+    }
+
+    const result = Array.from(map.values()).sort((a, b) => b.company_count - a.company_count)
+
+    return NextResponse.json({ data: result })
+  } catch (e: any) {
+    return NextResponse.json({ error: e?.message || 'Unexpected error' }, { status: 500 })
   }
 }

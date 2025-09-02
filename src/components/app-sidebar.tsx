@@ -78,11 +78,6 @@ const reportItems = [
     icon: FileText,
   },
   {
-    title: "COE's and Associations", 
-    url: "/reports/coes-associations",
-    icon: FileText,
-  },
-  {
     title: "Wohlers Report Contributors",
     url: "/reports/wohlers-contributors",
     icon: FileText,

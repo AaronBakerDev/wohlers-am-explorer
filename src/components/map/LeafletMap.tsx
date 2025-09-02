@@ -82,11 +82,10 @@ const STATE_ABBREVIATIONS: Record<string, string> = {
   Yukon: "YT",
 };
 
-// GeoJSON URLs (local fallback preferred)
-const US_STATES_GEOJSON_URL =
-  "/data/us-states.json";
-const US_STATES_GEOJSON_FALLBACK =
-  "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
+// World Countries GeoJSON (country-level choropleth)
+const WORLD_COUNTRIES_GEOJSON_URL = "/data/world-countries.geo.json";
+const WORLD_COUNTRIES_GEOJSON_FALLBACK =
+  "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
 // const CANADA_PROVINCES_GEOJSON_URL =
 //   "https://gist.githubusercontent.com/M1r1k/d5731bf39e1dfda5b53b4e4c560d968d/raw/c774258085ddc11776591ce95f2240d0fd0657a2/canada_provinces.geo.json";
 
@@ -210,6 +209,45 @@ function safeHttpUrl(input: unknown): string | null {
   // NU: [70.2998, -83.1076], // Nunavut
 // };
 
+// Normalize country names for matching between API data and GeoJSON feature properties
+function normalizeCountryName(input: unknown): string {
+  const s = String(input ?? '').trim();
+  if (!s) return s;
+  const lower = s.toLowerCase();
+  const map: Record<string, string> = {
+    'united states of america': 'United States',
+    'united states': 'United States',
+    'usa': 'United States',
+    'russian federation': 'Russia',
+    'republic of korea': 'South Korea',
+    'korea, republic of': 'South Korea',
+    "korea, dem. people's rep.": 'North Korea',
+    'democratic republic of the congo': 'Democratic Republic of the Congo',
+    'congo, democratic republic of the': 'Democratic Republic of the Congo',
+    'congo': 'Congo',
+    'iran, islamic republic of': 'Iran',
+    'viet nam': 'Vietnam',
+    'czechia': 'Czech Republic',
+    'syrian arab republic': 'Syria',
+    'taiwan, province of china': 'Taiwan',
+    'tanzania, united republic of': 'Tanzania',
+    'moldova, republic of': 'Moldova',
+    'bolivia (plurinational state of)': 'Bolivia',
+    'venezuela (bolivarian republic of)': 'Venezuela',
+    "lao people's democratic republic": 'Laos',
+    'palestine, state of': 'Palestine',
+    'macedonia, the former yugoslav republic of': 'North Macedonia',
+    'myanmar': 'Myanmar',
+    "cote d'ivoire": "Côte d'Ivoire",
+  };
+  if (map[lower]) return map[lower];
+  // Title case fallback
+  return s
+    .split(' ')
+    .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
+    .join(' ');
+}
+
 /**
  * Interactive Leaflet map for rendering company markers and optional heatmap.
  */
@@ -286,48 +324,42 @@ export default function LeafletMap({
     }
   }, []);
 
-  // Load GeoJSON data for states and provinces
+  // Load GeoJSON data for world countries (country-level choropleth)
   useEffect(() => {
     const loadGeoJsonData = async () => {
-      // Skip loading GeoJSON for country-level datasets
-      if (isCountryLevelOnly) {
-        setIsLoadingGeoData(false);
-        return;
-      }
+      // Skip choropleth load for vendor (country-level-only) datasets
+      if (isCountryLevelOnly) { setIsLoadingGeoData(false); return; }
       
       if (geoJsonData) return; // Already loaded
 
       setIsLoadingGeoData(true);
       try {
-        // Load US states, prefer local file then fallback to CDN
-        let usData: any = null;
+        // Load world countries geojson (local preferred, remote fallback)
+        let worldData: any = null;
         try {
-          const resLocal = await fetch(US_STATES_GEOJSON_URL, { cache: 'force-cache' });
-          if (resLocal.ok) usData = await resLocal.json();
+          const resLocal = await fetch(WORLD_COUNTRIES_GEOJSON_URL, { cache: 'force-cache' });
+          if (resLocal.ok) worldData = await resLocal.json();
         } catch {}
-        if (!usData) {
-          const resRemote = await fetch(US_STATES_GEOJSON_FALLBACK);
-          usData = await resRemote.json();
+        if (!worldData) {
+          const resRemote = await fetch(WORLD_COUNTRIES_GEOJSON_FALLBACK);
+          worldData = await resRemote.json();
         }
 
-        // Add country information to US features
-        const combinedFeatures = usData.features.map((feature: any) => ({
-          ...feature,
-          properties: {
-            ...feature.properties,
-            country: "USA",
-            code:
-              STATE_ABBREVIATIONS[feature.properties.name] ||
-              feature.properties.name,
-          },
-        }));
+        // Normalize feature properties to include a stable country name field
+        const features = (worldData.features || []).map((feature: any) => {
+          const props = feature.properties || {};
+          const name = props.ADMIN || props.admin || props.NAME || props.name;
+          return {
+            ...feature,
+            properties: {
+              ...props,
+              countryName: name,
+            },
+          };
+        });
 
-        const combinedGeoJson = {
-          type: "FeatureCollection",
-          features: combinedFeatures,
-        };
-
-        setGeoJsonData(combinedGeoJson);
+        const geo = { type: 'FeatureCollection', features };
+        setGeoJsonData(geo);
       } catch (error) {
         console.error("Error loading GeoJSON data:", error);
       } finally {
@@ -522,8 +554,8 @@ export default function LeafletMap({
       choroplethLayerRef.current = null;
     }
 
-    if (isHeatmapMode && !isCountryLevelOnly) {
-      // Choropleth mode - show colored state polygons (only for non-vendor datasets)
+    if (isHeatmapMode) {
+      // Choropleth mode - world countries
       const intensities = memoizedStateData
         .map((s) => (s.total_machines && s.total_machines > 0 ? s.total_machines : s.company_count || 0))
         .filter((v) => v > 0)
@@ -578,19 +610,11 @@ export default function LeafletMap({
       };
       buildLegend();
 
-      // Create a lookup map for state data
-      // Map different country formats and state codes
-      const stateDataMap = new Map();
-      memoizedStateData.forEach((state) => {
-        const country =
-          state.country === "United States"
-            ? "USA"
-            : state.country === "Canada"
-              ? "Canada"
-              : state.country;
-        stateDataMap.set(`${state.state}-${country}`, state);
-        // Also try without country suffix for flexibility
-        stateDataMap.set(state.state, state);
+      // Build country lookup map keyed by normalized name
+      const countryDataMap = new Map<string, any>();
+      memoizedStateData.forEach((entry) => {
+        const norm = normalizeCountryName(entry.country);
+        countryDataMap.set(norm, entry);
       });
 
       // Color function based on quantile buckets of intensity
@@ -598,14 +622,12 @@ export default function LeafletMap({
 
       // Style function for each feature
       const style = (feature: any) => {
-        const stateCode = feature.properties.code;
-        const country = feature.properties.country === "USA" ? "USA" : "Canada";
-        const stateKey = `${stateCode}-${country}`;
-        const stateInfo = stateDataMap.get(stateKey) || stateDataMap.get(stateCode);
-        const intensity = stateInfo
-          ? stateInfo.total_machines && stateInfo.total_machines > 0
-            ? Number(stateInfo.total_machines)
-            : Number(stateInfo.company_count || 0)
+        const countryName = normalizeCountryName(feature.properties.countryName);
+        const countryInfo = countryDataMap.get(countryName);
+        const intensity = countryInfo
+          ? (countryInfo.total_machines && countryInfo.total_machines > 0
+              ? Number(countryInfo.total_machines)
+              : Number(countryInfo.company_count || 0))
           : 0;
 
         return {
@@ -641,32 +663,33 @@ export default function LeafletMap({
           // For country-level data, don't zoom but trigger country filter
           if (onCountryClick) {
             // Extract country from the feature properties if available
-            const country = e.target.feature?.properties?.country || 'United States';
-            onCountryClick(country);
+            const country = normalizeCountryName(e.target.feature?.properties?.countryName || '');
+            if (country) onCountryClick(country);
           }
         } else {
-          // For state-level data, zoom to the feature
+          // For country-level data, zoom to the feature and emit country filter if available
+          const name = normalizeCountryName(e.target.feature?.properties?.countryName || '');
+          if (onCountryClickRef.current && name) {
+            onCountryClickRef.current(name);
+          }
           mapRef.current?.fitBounds(e.target.getBounds());
         }
       };
 
       // Feature event handlers
       const onEachFeature = (feature: any, layer: any) => {
-        const stateCode = feature.properties.code;
-        const country = feature.properties.country === "USA" ? "USA" : "Canada";
-        const stateKey = `${stateCode}-${country}`;
-        const stateInfo =
-          stateDataMap.get(stateKey) || stateDataMap.get(stateCode);
+        const countryName = normalizeCountryName(feature.properties.countryName);
+        const info = countryDataMap.get(countryName);
 
         // Add popup (sanitized)
-        if (stateInfo) {
-          const stateName = escapeHtml(feature.properties.name);
-          const companies = Number(stateInfo.company_count) || 0;
-          const machines = Number(stateInfo.total_machines) || 0;
+        if (info) {
+          const safeCountry = escapeHtml(countryName);
+          const companies = Number(info.company_count) || 0;
+          const machines = Number(info.total_machines) || 0;
           const avg = companies ? Math.round(machines / companies) : 0;
           const popupContent = `
             <div class="p-3 min-w-48">
-              <h3 class="font-medium text-lg mb-2">${stateName}</h3>
+              <h3 class="font-medium text-lg mb-2">${safeCountry}</h3>
               <div class="space-y-2">
                 <div class="flex justify-between">
                   <span class="text-sm text-muted-foreground">Companies:</span>
@@ -686,14 +709,10 @@ export default function LeafletMap({
           layer.bindPopup(popupContent);
         }
 
-        layer.on({
-          mouseover: highlightFeature,
-          mouseout: resetHighlight,
-          click: zoomToFeature,
-        });
+        layer.on({ mouseover: highlightFeature, mouseout: resetHighlight, click: zoomToFeature });
       };
 
-      // Create choropleth layer only if GeoJSON data is loaded
+      // Create the GeoJSON layer (countries) if loaded
       if (geoJsonData) {
         choroplethLayerRef.current = L.geoJSON(geoJsonData, {
           style: style,

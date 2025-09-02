@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, RefreshCw } from 'lucide-react'
 import { 
@@ -69,17 +68,8 @@ export default function RevenueByIndustry2024Page() {
             <h1 className="text-2xl font-bold mb-2">{config.name}</h1>
             <p className="text-muted-foreground mb-4">{config.description}</p>
             
-            <div className="flex items-center gap-2">
-              {(['analysis'] as const).map(v => (
-                <button key={v} onClick={() => setView(v)} className={`px-3 py-1.5 text-xs font-medium rounded-md border transition-colors ${view === v ? 'border-primary text-primary bg-primary/5' : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'}`}>
-                  {v === 'analysis' ? 'Overview' : 'Table'}
-                </button>
-              ))}
-            </div>
+            {/* Overview tab hidden per request */}
             
-            <div className="flex items-center gap-4 mb-4 mt-4">
-              <Badge variant="secondary">{loading ? 'Loading...' : totalRows > 0 ? `${totalRows.toLocaleString()} total rows` : csvData.length > 1 ? `${csvData.length - 1} rows` : 'No data'}</Badge>
-            </div>
           </div>
           
           <Button onClick={() => window.location.reload()} variant="ghost" size="sm" disabled={loading}>

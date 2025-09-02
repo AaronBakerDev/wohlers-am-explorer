@@ -6,11 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react';
-import {
-  getStateStatistics,
-  getTechnologies,
-  getMaterials,
-} from '@/lib/supabase/client-queries';
+import { getTechnologies, getMaterials } from '@/lib/supabase/client-queries';
 import { Technology, Material } from '@/lib/supabase/types';
 import dynamic from 'next/dynamic';
 import { emptyFilters, FilterState } from '@/lib/filters/types';
@@ -40,6 +36,17 @@ const LeafletMap = dynamic(() => import('@/components/map/LeafletMap'), {
 type CompanyType = 'equipment' | 'service' | 'software' | 'material' | 'other'
 
 export default function MapExplorerContent({ companyType, datasetId }: { companyType?: CompanyType, datasetId?: string } = {}) {
+  // Simple country normalizer to match server logic
+  const normCountry = useCallback((input?: string | null) => {
+    const s = String(input || '').trim()
+    if (!s) return s
+    if (s.startsWith('The ')) return normCountry(s.slice(4))
+    if (['U.S.', 'US', 'USA', 'United States of America'].includes(s)) return 'United States'
+    if (['U.K.', 'UK'].includes(s)) return 'United Kingdom'
+    if (s === 'Viet Nam') return 'Vietnam'
+    if (s === 'Czechia') return 'Czech Republic'
+    return s
+  }, [])
   // Move environment variable check outside of render cycle
   const isCSVMode = process.env.NEXT_PUBLIC_DATA_SOURCE === 'csv';
 
@@ -116,43 +123,31 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
   useEffect(() => {
     async function loadHeatmap() {
       try {
-        // For equipment and service company types, use country-level data
-        if (companyType === 'equipment' || companyType === 'service') {
-          const res = await fetch(`/api/companies/country-heatmap?type=${companyType}`);
-          if (!res.ok)
-            throw new Error(`Failed to fetch country heatmap (${res.status})`);
-          const json = await res.json();
-          setStateData(json.data || []);
-        } else if (isCSVMode) {
-          // In CSV mode (now global), use server endpoint with global data
-          const res = await fetch('/api/companies/heatmap');
-          if (!res.ok)
-            throw new Error(`Failed to fetch heatmap (${res.status})`);
-          const json = await res.json();
-          setStateData(json.data || []);
-        } else {
-          const technologyIds = memoizedFilters.technologyIds.length
-            ? memoizedFilters.technologyIds
-            : undefined;
-          const materialIds = memoizedFilters.materialIds.length
-            ? memoizedFilters.materialIds
-            : undefined;
-          const stateStats = await getStateStatistics({
-            technologyIds,
-            materialIds,
-            processCategories: memoizedFilters.processCategories,
-            sizeRanges: memoizedFilters.sizeRanges,
-            countries: memoizedFilters.countries,
-          });
-          setStateData(stateStats);
-        }
+        // Always use country-level aggregation (choropleth by country)
+        const params = new URLSearchParams()
+        if (companyType) params.set('type', companyType)
+        // Honor technology/material filters (translate IDs to names)
+        const selectedTechnologyNames = technologies
+          .filter(t => memoizedFilters.technologyIds.includes(t.id))
+          .map(t => t.name)
+        const selectedMaterialNames = materials
+          .filter(m => memoizedFilters.materialIds.includes(m.id))
+          .map(m => m.name)
+        if (selectedTechnologyNames.length) params.set('technologies', selectedTechnologyNames.join(','))
+        if (selectedMaterialNames.length) params.set('materials', selectedMaterialNames.join(','))
+        if (memoizedFilters.countries.length) params.set('country', memoizedFilters.countries.join(','))
+
+        const res = await fetch(`/api/companies/country-heatmap?${params.toString()}`)
+        if (!res.ok) throw new Error(`Failed to fetch country heatmap (${res.status})`)
+        const json = await res.json()
+        setStateData(json.data || [])
       } catch (err) {
         console.error('Error loading heatmap data:', err);
         setError(`Failed to load heatmap data: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     }
     loadHeatmap();
-  }, [memoizedFilters, isCSVMode, companyType]);
+  }, [memoizedFilters, isCSVMode, companyType, technologies, materials]);
 
   // Compute heatmap legend buckets (quantiles) from current stateData
   useEffect(() => {
@@ -230,7 +225,7 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
           params.set('limit', '5000')
           if (searchQuery) params.set('search', searchQuery)
           if (memoizedFilters.countries.length) {
-            params.set('country', memoizedFilters.countries[0])
+            params.set('country', normCountry(memoizedFilters.countries[0]))
           }
           // For vendor datasets, use process categories directly if available
           if (memoizedFilters.processCategories.length) {
@@ -422,6 +417,8 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
         exportData={searchFilteredCompanies}
         exportColumns={exportColumns}
         exportFilters={memoizedFilters}
+        isHeatmapMode={isHeatmapMode}
+        onToggleHeatmap={setIsHeatmapMode}
       />
       <ControlsTabs
         searchQuery={searchQuery}
@@ -444,7 +441,7 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
               if (isVendorDataset && company?.country) {
                 setFilters(prev => ({
                   ...prev,
-                  countries: [company.country!]
+                  countries: [normCountry(company.country!)]
                 }));
               }
             }}
@@ -457,7 +454,7 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
               // Update filters to show only the selected country
               setFilters(prev => ({
                 ...prev,
-                countries: [country]
+                countries: [normCountry(country)]
               }));
             }}
           />

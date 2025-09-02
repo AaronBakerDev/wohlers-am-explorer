@@ -118,7 +118,8 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const segment = searchParams.get('segment')
-    const country = searchParams.get('country')
+    const countryRaw = searchParams.get('country')
+    const country = countryRaw ? normCountry(countryRaw) : null
     const materialType = searchParams.get('materialType')
     const processFilter = searchParams.get('process')
     const search = searchParams.get('search')

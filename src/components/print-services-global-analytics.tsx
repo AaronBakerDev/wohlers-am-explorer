@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, useRef } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -359,8 +360,7 @@ export default function PrintServicesGlobalAnalytics() {
       {/* Filters */}
       <div className="p-4 border-b border-border">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-8 gap-3">
-          <input
-            className="px-3 py-2 text-sm bg-background border border-border rounded"
+          <Input
             placeholder="Company name"
             value={filters.company_name}
             onChange={(e) => setFilters(prev => ({ ...prev, company_name: e.target.value }))}
@@ -438,18 +438,16 @@ export default function PrintServicesGlobalAnalytics() {
             </SelectContent>
           </Select>
           <div className="grid grid-cols-2 gap-2">
-            <input
+            <Input
               inputMode="numeric"
               type="number"
-              className="px-3 py-2 text-sm bg-background border border-border rounded"
               placeholder="Min printers"
               value={filters.min_printers}
               onChange={(e) => setFilters(prev => ({ ...prev, min_printers: e.target.value }))}
             />
-            <input
+            <Input
               inputMode="numeric"
               type="number"
-              className="px-3 py-2 text-sm bg-background border border-border rounded"
               placeholder="Max printers"
               value={filters.max_printers}
               onChange={(e) => setFilters(prev => ({ ...prev, max_printers: e.target.value }))}

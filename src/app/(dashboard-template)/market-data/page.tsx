@@ -75,7 +75,7 @@ export default function MarketDataPage() {
     const loadData = async () => {
       try {
         // Supabase-only vendor data
-        const apiUrl = `/api/market-data/${dataset}`
+        const apiUrl = `/api/market-data/${dataset}${dataset === 'print-services-pricing' ? '?all=true' : ''}`
         const response = await fetch(apiUrl)
         
         if (!response.ok) {
@@ -137,35 +137,8 @@ export default function MarketDataPage() {
           <div>
             <h1 className="text-2xl font-bold mb-2">{config.name}</h1>
             <p className="text-muted-foreground mb-4">{config.description}</p>
-            {/* Sub-tabs: URL-driven view selector */}
-            <div className="flex items-center gap-2">
-              {(['analysis'] as const).map(v => {
-                const params = new URLSearchParams()
-                params.set('dataset', dataset)
-                params.set('view', v)
-                const href = `/market-data?${params.toString()}`
-                const isActive = view === v
-                return (
-                  <Link
-                    key={v}
-                    href={href}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-md border transition-colors ${
-                      isActive
-                        ? 'border-primary text-primary bg-primary/5'
-                        : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
-                    }`}
-                  >
-                    {v === 'analysis' ? 'Overview' : 'Table'}
-                  </Link>
-                )
-              })}
-            </div>
+            {/* Overview tab hidden per request */}
             <div className="flex items-center gap-4 mb-4">
-              <Badge variant="secondary">
-                {loading ? 'Loading...' : 
-                 totalRows > 0 ? `${totalRows.toLocaleString()} total rows` : 
-                 csvData.length > 1 ? `${csvData.length - 1} rows` : 'No data'}
-              </Badge>
               <Badge variant="default">
                 <Database className="h-3 w-3 mr-1" />
                 Live Database

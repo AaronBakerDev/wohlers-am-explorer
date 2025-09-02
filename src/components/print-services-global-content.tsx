@@ -48,7 +48,17 @@ import ExportButton from '@/components/ExportButton'
 import type { ColumnDef } from '@/lib/export'
 
 // Type definitions
-type PrintServiceProvider = CompanyWithCapabilities
+type PrintServiceProvider = CompanyWithCapabilities & {
+  // Vendor row-level fields used for filtering and display
+  printer_manufacturer?: string | null
+  printer_model?: string | null
+  number_of_printers?: number | null
+  count_type?: string | null
+  process?: string | null
+  material_type?: string | null
+  material_format?: string | null
+  update_year?: number | null
+}
 
 type FilterState = {
   company_name: string
@@ -57,6 +67,14 @@ type FilterState = {
   technologies: string[]
   materials: string[]
   services: string[]
+  // New filters for vendor-specific fields
+  printer_manufacturer: string
+  printer_model: string
+  process: string
+  material_type: string
+  count_type: string
+  min_printers: string
+  max_printers: string
 }
 
 export default function PrintServicesGlobalContent() {
@@ -74,6 +92,13 @@ export default function PrintServicesGlobalContent() {
     technologies: searchParams?.get('technologies')?.split(',').filter(Boolean) || [],
     materials: searchParams?.get('materials')?.split(',').filter(Boolean) || [],
     services: searchParams?.get('services')?.split(',').filter(Boolean) || [],
+    printer_manufacturer: (searchParams?.get('printer_manufacturer') || 'all').toString(),
+    printer_model: (searchParams?.get('printer_model') || 'all').toString(),
+    process: (searchParams?.get('process') || 'all').toString(),
+    material_type: (searchParams?.get('material_type') || 'all').toString(),
+    count_type: (searchParams?.get('count_type') || 'all').toString(),
+    min_printers: (searchParams?.get('min_printers') || '').toString(),
+    max_printers: (searchParams?.get('max_printers') || '').toString(),
   }), [searchParams])
   const [filters, setFilters] = useState<FilterState>(initialFilters)
   const debouncedCompany = useDebouncedValue(filters.company_name, 300)
@@ -237,6 +262,15 @@ export default function PrintServicesGlobalContent() {
             is_active: true,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
+            // Vendor row fields for table filters
+            printer_manufacturer: item.printer_manufacturer || null,
+            printer_model: item.printer_model || null,
+            number_of_printers: typeof item.number_of_printers === 'number' ? item.number_of_printers : (item.number_of_printers ? Number(item.number_of_printers) : null),
+            count_type: item.count_type || null,
+            process: item.process || null,
+            material_type: item.material_type || null,
+            material_format: item.material_format || null,
+            update_year: item.update_year || null,
             services: item.printer_model ? [{
               id: `svc-${item.id}`,
               company_id: item.id,
@@ -309,6 +343,13 @@ export default function PrintServicesGlobalContent() {
     setOrDelete('technologies', filters.technologies)
     setOrDelete('materials', filters.materials)
     setOrDelete('services', filters.services)
+    setOrDelete('printer_manufacturer', filters.printer_manufacturer)
+    setOrDelete('printer_model', filters.printer_model)
+    setOrDelete('process', filters.process)
+    setOrDelete('material_type', filters.material_type)
+    setOrDelete('count_type', filters.count_type)
+    setOrDelete('min_printers', filters.min_printers)
+    setOrDelete('max_printers', filters.max_printers)
     const next = `${pathname}?${url.searchParams.toString()}`
     if (lastQueryRef.current !== next) {
       lastQueryRef.current = next
@@ -329,6 +370,42 @@ export default function PrintServicesGlobalContent() {
     // Dropdown filters
     if (filters.country && filters.country !== 'all') {
       filtered = filtered.filter(item => item.country === filters.country)
+    }
+
+    // Vendor-specific dropdowns
+    if (filters.printer_manufacturer && filters.printer_manufacturer !== 'all') {
+      filtered = filtered.filter(item => (item as PrintServiceProvider).printer_manufacturer === filters.printer_manufacturer)
+    }
+    if (filters.printer_model && filters.printer_model !== 'all') {
+      filtered = filtered.filter(item => (item as PrintServiceProvider).printer_model === filters.printer_model)
+    }
+    if (filters.process && filters.process !== 'all') {
+      filtered = filtered.filter(item => ((item as PrintServiceProvider).process || '').toString() === filters.process)
+    }
+    if (filters.material_type && filters.material_type !== 'all') {
+      filtered = filtered.filter(item => ((item as PrintServiceProvider).material_type || '').toString() === filters.material_type)
+    }
+    if (filters.count_type && filters.count_type !== 'all') {
+      const normalize = (v: string | null | undefined) => {
+        const x = (v || '').toLowerCase().trim()
+        if (x === 'actual' || x === 'exact') return 'Exact'
+        if (x === 'minimum' || x === 'min') return 'Minimum'
+        if (x === 'range') return 'Range'
+        return x ? x[0].toUpperCase() + x.slice(1) : 'Estimated'
+      }
+      filtered = filtered.filter(item => normalize((item as PrintServiceProvider).count_type) === filters.count_type)
+    }
+
+    // Numeric range: number of printers
+    const min = filters.min_printers ? Number(filters.min_printers) : undefined
+    const max = filters.max_printers ? Number(filters.max_printers) : undefined
+    if (min !== undefined || max !== undefined) {
+      filtered = filtered.filter(item => {
+        const n = (item as PrintServiceProvider).number_of_printers ?? 0
+        if (min !== undefined && n < min) return false
+        if (max !== undefined && n > max) return false
+        return true
+      })
     }
 
     // Array filters
@@ -381,7 +458,19 @@ export default function PrintServicesGlobalContent() {
     countries: uniq(data.map(item => item.country)),
     technologies: uniq(data.flatMap(item => item.technologies?.map(t => t.name) || [])),
     materials: uniq(data.flatMap(item => item.materials?.map(m => m.name) || [])),
-    serviceTypes: uniq(data.flatMap(item => item.services?.map(s => s.service_type) || []))
+    serviceTypes: uniq(data.flatMap(item => item.services?.map(s => s.service_type) || [])),
+    // Vendor-specific uniques
+    processes: uniq((data as PrintServiceProvider[]).map(item => item.process)),
+    materialTypes: uniq((data as PrintServiceProvider[]).map(item => item.material_type)),
+    manufacturers: uniq((data as PrintServiceProvider[]).map(item => item.printer_manufacturer)),
+    models: uniq((data as PrintServiceProvider[]).map(item => item.printer_model)),
+    countTypes: uniq((data as PrintServiceProvider[]).map(item => {
+      const v = ((item.count_type || '') as string).toLowerCase().trim()
+      if (v === 'actual' || v === 'exact') return 'Exact'
+      if (v === 'minimum' || v === 'min') return 'Minimum'
+      if (v === 'range') return 'Range'
+      return v ? v[0].toUpperCase() + v.slice(1) : 'Estimated'
+    })),
   }
 
 
@@ -389,6 +478,13 @@ export default function PrintServicesGlobalContent() {
     let count = 0
     if (filters.company_name) count++
     if (filters.country !== 'all') count++
+    if (filters.printer_manufacturer !== 'all') count++
+    if (filters.printer_model !== 'all') count++
+    if (filters.process !== 'all') count++
+    if (filters.material_type !== 'all') count++
+    if (filters.count_type !== 'all') count++
+    if (filters.min_printers) count++
+    if (filters.max_printers) count++
     if (filters.technologies.length > 0) count++
     if (filters.materials.length > 0) count++
     if (filters.services.length > 0) count++
@@ -402,7 +498,14 @@ export default function PrintServicesGlobalContent() {
       country: 'all',
       technologies: [],
       materials: [],
-      services: []
+      services: [],
+      printer_manufacturer: 'all',
+      printer_model: 'all',
+      process: 'all',
+      material_type: 'all',
+      count_type: 'all',
+      min_printers: '',
+      max_printers: ''
     })
   }
 
@@ -533,7 +636,7 @@ export default function PrintServicesGlobalContent() {
           />
         </div>
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-3 items-center">
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
@@ -549,8 +652,70 @@ export default function PrintServicesGlobalContent() {
             options={uniqueValues.countries}
             value={filters.country}
             onChange={(value) => setFilters(prev => ({ ...prev, country: value }))}
-            className="h-10"
+            className="h-9"
           />
+
+          <SearchableDropdown
+            label="Printer Mfr."
+            options={uniqueValues.manufacturers}
+            value={filters.printer_manufacturer}
+            onChange={(value) => setFilters(prev => ({ ...prev, printer_manufacturer: value }))}
+            className="h-9"
+          />
+
+          <SearchableDropdown
+            label="Printer Model"
+            options={uniqueValues.models}
+            value={filters.printer_model}
+            onChange={(value) => setFilters(prev => ({ ...prev, printer_model: value }))}
+            className="h-9"
+          />
+
+          <SearchableDropdown
+            label="Process"
+            options={uniqueValues.processes}
+            value={filters.process}
+            onChange={(value) => setFilters(prev => ({ ...prev, process: value }))}
+            className="h-9"
+          />
+
+          <SearchableDropdown
+            label="Material Type"
+            options={uniqueValues.materialTypes}
+            value={filters.material_type}
+            onChange={(value) => setFilters(prev => ({ ...prev, material_type: value }))}
+            className="h-9"
+          />
+
+          <SearchableDropdown
+            label="Count Type"
+            options={uniqueValues.countTypes}
+            value={filters.count_type}
+            onChange={(value) => setFilters(prev => ({ ...prev, count_type: value }))}
+            className="h-9"
+          />
+
+          <div className="flex items-center gap-2">
+            <Input
+              type="number"
+              inputMode="numeric"
+              min={0}
+              placeholder="Min printers"
+              value={filters.min_printers}
+              onChange={(e) => setFilters(prev => ({ ...prev, min_printers: e.target.value }))}
+              className="h-9"
+            />
+            <span className="text-xs text-muted-foreground">to</span>
+            <Input
+              type="number"
+              inputMode="numeric"
+              min={0}
+              placeholder="Max"
+              value={filters.max_printers}
+              onChange={(e) => setFilters(prev => ({ ...prev, max_printers: e.target.value }))}
+              className="h-9"
+            />
+          </div>
 
           <Select value={filters.technologies.join(',')} onValueChange={(value) => setFilters(prev => ({ ...prev, technologies: value === 'all' ? [] : [value] }))}>
             <SelectTrigger>
@@ -598,6 +763,42 @@ export default function PrintServicesGlobalContent() {
             <Badge variant="secondary" className="text-xs pr-1">
               Country: {filters.country}
               <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, country: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.printer_manufacturer !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Mfr: {filters.printer_manufacturer}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, printer_manufacturer: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.printer_model !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Model: {filters.printer_model}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, printer_model: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.process !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Process: {filters.process}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, process: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.material_type !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Material: {filters.material_type}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, material_type: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {filters.count_type !== 'all' && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Count Type: {filters.count_type}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, count_type: 'all' }))}>×</button>
+            </Badge>
+          )}
+          {(filters.min_printers || filters.max_printers) && (
+            <Badge variant="secondary" className="text-xs pr-1">
+              Printers: {filters.min_printers || '0'}–{filters.max_printers || '∞'}
+              <button className="ml-2" onClick={() => setFilters(prev => ({ ...prev, min_printers: '', max_printers: '' }))}>×</button>
             </Badge>
           )}
           {filters.technologies.length > 0 && (

@@ -16,7 +16,9 @@
     "migrate:unified": "node scripts/complete-unified-migration.js",
     "import:companies": "node scripts/import-companies-unified.js",
     "setup:unified": "node scripts/setup-unified-schema.js", 
-    "verify:unified": "node scripts/verify-unified-migration.js"
+    "verify:unified": "node scripts/verify-unified-migration.js",
+    "clean": "node scripts/clean.js",
+    "predev": "node scripts/clean.js"
   },
   "dependencies": {
     "@playwright/test": "^1.54.2",

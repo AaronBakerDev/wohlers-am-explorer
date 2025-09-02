@@ -67,11 +67,17 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
           
           // Get processes from vendor data aggregations
           let processes: string[] = []
+          let vendorCountries: string[] = []
           if (vendorDataRes.ok) {
             const vendorData = await vendorDataRes.json()
             if (vendorData.aggregations?.byProcess) {
               processes = Object.keys(vendorData.aggregations.byProcess)
                 .filter(p => p && p.trim() !== '')
+                .sort()
+            }
+            if (vendorData.aggregations?.byCountry) {
+              vendorCountries = Object.keys(vendorData.aggregations.byCountry)
+                .filter(c => c && c.trim() !== '')
                 .sort()
             }
           }
@@ -80,7 +86,8 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
           setMaterialOptions(mats.map(m => ({ id: m.id, name: m.name })))
           setProcessCategories(processes)
           setSizeRanges([]) // No size ranges for vendor data
-          setCountries(cntrs)
+          // Prefer countries from vendor dataset aggregations to ensure normalized labels
+          setCountries(vendorCountries.length ? vendorCountries : cntrs)
         } else {
           // Regular data loading for non-vendor pages
           const [techs, mats, categories, sizes, cntrs] = await Promise.all([

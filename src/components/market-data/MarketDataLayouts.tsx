@@ -9,15 +9,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input'
 import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart, ArrowUpDown, ChevronUp, ChevronDown } from 'lucide-react'
 // import { Separator } from '@/components/ui/separator'
-import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis, BarChart as ReBarChart, Bar, Brush } from 'recharts'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
+import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis, BarChart as ReBarChart, Bar, Brush, ReferenceArea } from 'recharts'
 import { MarketTotalsChart } from '@/components/market-data/MarketTotalsChart'
 import { MarketCountriesChart } from '@/components/market-data/MarketCountriesChart'
+import { KpiCard } from '@/components/market-data/KpiCard'
+import { FilterCard } from '@/components/market-data/FilterCard'
 
 interface MarketDataLayoutProps {
   data: string[][]
   dataset: string
+}
+
+// Compact styling helpers used across filter panels and KPI cards
+const compact = {
+  header: 'px-4 py-2',
+  content: 'px-4 pt-0 pb-3',
+  kpiHeader: 'flex flex-row items-center justify-between space-y-0 pb-1 px-4',
+  kpiContent: 'px-4 py-2',
+  kpiTitle: 'text-xs font-medium',
+  kpiValue: 'text-xl font-bold',
 }
 
 /**
@@ -227,19 +237,12 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Filters (moved to top above all charts) */}
-      <Card>
-        <CardHeader className="px-4 py-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="px-4 pt-0 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <FilterCard size="xxs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger size="sm">
+              <SelectTrigger className="h-6">
                 <SelectValue placeholder={dataset === 'revenue-by-industry-2024' ? 'Industry' : 'Country'} />
               </SelectTrigger>
               <SelectContent>
@@ -250,43 +253,45 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
               </SelectContent>
             </Select>
             
-            <Select value={selectedSegment} onValueChange={setSelectedSegment}>
-              <SelectTrigger size="sm">
-                <SelectValue placeholder={dataset === 'revenue-by-industry-2024' ? 'Region' : 'Segment'} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{dataset === 'revenue-by-industry-2024' ? 'All Regions' : 'All Segments'}</SelectItem>
-                {uniqueSegments.filter(segment => segment && segment.toString().trim()).map(segment => (
-                  <SelectItem key={segment} value={segment.toString()}>{segment}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            {dataset === 'revenue-by-industry-2024' && (
-              <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
-                <SelectTrigger size="sm">
-                  <SelectValue placeholder="Material" />
+            {dataset !== 'revenue-by-industry-2024' && (
+              <Select value={selectedSegment} onValueChange={setSelectedSegment}>
+                <SelectTrigger className="h-6">
+                  <SelectValue placeholder="Segment" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Materials</SelectItem>
-                  {uniqueMaterials.map((m) => (
-                    <SelectItem key={m} value={m.toString()}>
-                      {m}
-                    </SelectItem>
+                  <SelectItem value="all">All Segments</SelectItem>
+                  {uniqueSegments.filter(segment => segment && segment.toString().trim()).map(segment => (
+                    <SelectItem key={segment} value={segment.toString()}>{segment}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             )}
+
+            {dataset === 'revenue-by-industry-2024' && (
+              <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
+              <SelectTrigger className="h-6">
+                <SelectValue placeholder="Material" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Materials</SelectItem>
+                {uniqueMaterials.map((m) => (
+                  <SelectItem key={m} value={m.toString()}>
+                    {m}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
             
             <Input 
               placeholder="Search revenue data..." 
-              className="h-8"
+              className="h-6"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             
             <Button 
-              className="h-8" 
+              className="h-6" 
               size="sm"
               variant="outline"
               onClick={() => {
@@ -299,68 +304,22 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+      </FilterCard>
 
-      {/* Summary Cards (smaller) */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <Card className="py-3">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 px-4">
-            <CardTitle className="text-xs font-medium">Total Records</CardTitle>
-            <BarChart3 className="h-3 w-3 text-muted-foreground" />
-          </CardHeader>
-          <CardContent className="px-4 py-2">
-            <div className="text-xl font-bold">{rows.length}</div>
-            <p className="text-[11px] text-muted-foreground">Revenue data points</p>
-          </CardContent>
-        </Card>
-        
-        <Card className="py-3">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 px-4">
-            <CardTitle className="text-xs font-medium">Countries/Industries</CardTitle>
-            <MapPin className="h-3 w-3 text-muted-foreground" />
-          </CardHeader>
-          <CardContent className="px-4 py-2">
-            <div className="text-xl font-bold">
-              {new Set(rows.map(row => row[1] || '')).size}
-            </div>
-            <p className="text-[11px] text-muted-foreground">Unique entries</p>
-          </CardContent>
-        </Card>
-
-        <Card className="py-3">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 px-4">
-            <CardTitle className="text-xs font-medium">Segments</CardTitle>
-            <Building2 className="h-3 w-3 text-muted-foreground" />
-          </CardHeader>
-          <CardContent className="px-4 py-2">
-            <div className="text-xl font-bold">
-              {new Set(rows.map(row => row[2] || '')).size}
-            </div>
-            <p className="text-[11px] text-muted-foreground">Market segments</p>
-          </CardContent>
-        </Card>
-
-        <Card className="py-3">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 px-4">
-            <CardTitle className="text-xs font-medium">Avg Revenue</CardTitle>
-            <DollarSign className="h-3 w-3 text-muted-foreground" />
-          </CardHeader>
-          <CardContent className="px-4 py-2">
-            <div className="text-xl font-bold">
-              {(() => {
-                if (rows.length === 0) return '$0'
-                const totalRevenue = rows.reduce((sum, row) => {
-                  const revenue = parseFloat(row[revenueIdx]?.toString().replace(/[^\d.-]/g, '') || '0')
-                  return sum + revenue
-                }, 0)
-                const avgRevenue = totalRevenue / rows.length
-                return `$${(avgRevenue / 1000000).toFixed(1)}M`
-              })()} 
-            </div>
-            <p className="text-[11px] text-muted-foreground">Per data point</p>
-          </CardContent>
-        </Card>
+      {/* Summary Cards (compact) */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
+        <KpiCard size="xxs" title="Total Records" icon={BarChart3} value={rows.length} subtitle="Revenue data points" />
+        <KpiCard size="xxs" title="Countries/Industries" icon={MapPin} value={new Set(rows.map(row => row[1] || '')).size} subtitle="Unique entries" />
+        <KpiCard size="xxs" title="Segments" icon={Building2} value={new Set(rows.map(row => row[2] || '')).size} subtitle="Market segments" />
+        <KpiCard size="xxs" title="Avg Revenue" icon={DollarSign} value={(() => {
+          if (rows.length === 0) return '$0'
+          const totalRevenue = rows.reduce((sum, row) => {
+            const revenue = parseFloat(row[revenueIdx]?.toString().replace(/[^\\d.-]/g, '') || '0')
+            return sum + revenue
+          }, 0)
+          const avgRevenue = totalRevenue / rows.length
+          return `$${(avgRevenue / 1000000).toFixed(1)}M`
+        })()} subtitle="Per data point" />
       </div>
 
       {/* Market Countries Chart (moved after filters and summary) */}
@@ -533,7 +492,7 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedTableData.slice(0, 50).map((row, rowIndex) => (
+                {sortedTableData.map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -602,6 +561,13 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
   const [sortColumn, setSortColumn] = useState<number | null>(null)
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   
+  // Normalize quantity values to consistent buckets (1 vs 1000+)
+  const normalizeQty = (v: any) => {
+    const n = parseInt((v ?? '').toString().replace(/[^0-9]/g, ''))
+    if (!Number.isFinite(n) || n <= 0) return 0
+    return n >= 1000 ? 1000 : 1
+  }
+
   // Filter data
   const filteredRows = useMemo(() => {
     return rows.filter(row => {
@@ -667,19 +633,12 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Filters */}
-      <Card>
-        <CardHeader className="px-4 py-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="px-4 pt-0 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <FilterCard size="xxs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
             <Select value={yearFilter} onValueChange={setYearFilter}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Year" />
               </SelectTrigger>
               <SelectContent>
@@ -696,7 +655,7 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
             </Select>
             
             <Select value={countryFilter} onValueChange={setCountryFilter}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Country" />
               </SelectTrigger>
               <SelectContent>
@@ -713,7 +672,7 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
             </Select>
             
             <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Round Type" />
               </SelectTrigger>
               <SelectContent>
@@ -731,13 +690,13 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
             
             <Input 
               placeholder="Search companies..." 
-              className="h-8"
+              className="h-6"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             
             <Button 
-              className="h-8" 
+              className="h-6" 
               size="sm" 
               variant="outline"
               onClick={() => {
@@ -750,60 +709,14 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+      </FilterCard>
 
-      {/* Investment Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Investments</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{filteredRows.length}</div>
-            <p className="text-xs text-muted-foreground">
-              {filteredRows.length !== rows.length ? `${rows.length} total, ${filteredRows.length} filtered` : 'Investment rounds'}
-            </p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Countries</CardTitle>
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {new Set(filteredRows.map(row => row[3] || '').filter(c => c)).size}
-            </div>
-            <p className="text-xs text-muted-foreground">Active markets</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Funding Types</CardTitle>
-            <Building2 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {new Set(filteredRows.map(row => row[5] || '').filter(t => t)).size}
-            </div>
-            <p className="text-xs text-muted-foreground">Round types</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Time Range</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{timeRange}</div>
-            <p className="text-xs text-muted-foreground">Investment period</p>
-          </CardContent>
-        </Card>
+      {/* Investment Summary (compact) */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
+        <KpiCard size="xxs" title="Total Investments" icon={TrendingUp} value={filteredRows.length} subtitle={filteredRows.length !== rows.length ? `${rows.length} total, ${filteredRows.length} filtered` : 'Investment rounds'} />
+        <KpiCard size="xxs" title="Countries" icon={MapPin} value={new Set(filteredRows.map(row => row[3] || '').filter(c => c)).size} subtitle="Active markets" />
+        <KpiCard size="xxs" title="Funding Types" icon={Building2} value={new Set(filteredRows.map(row => row[5] || '').filter(t => t)).size} subtitle="Round types" />
+        <KpiCard size="xxs" title="Time Range" icon={Calendar} value={timeRange} subtitle="Investment period" />
       </div>
 
 
@@ -832,7 +745,7 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedInvestmentRows.slice(0, 50).map((row, rowIndex) => (
+                {sortedInvestmentRows.map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -973,19 +886,12 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Filters */}
-      <Card>
-        <CardHeader className="px-4 py-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="px-4 pt-0 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <FilterCard size="xxs">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
             <Select value={dateFilter} onValueChange={setDateFilter}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Year" />
               </SelectTrigger>
               <SelectContent>
@@ -996,7 +902,7 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
             </Select>
             
             <Select value={dealSizeFilter} onValueChange={setDealSizeFilter}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Deal Size" />
               </SelectTrigger>
               <SelectContent>
@@ -1010,7 +916,7 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
             </Select>
             
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -1028,13 +934,13 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
             
             <Input 
               placeholder="Search companies..." 
-              className="h-8"
+              className="h-6"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             
             <Button 
-              className="h-8" 
+              className="h-6" 
               size="sm" 
               variant="outline"
               onClick={() => {
@@ -1047,62 +953,14 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+      </FilterCard>
 
-      {/* M&A Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Deals</CardTitle>
-            <Building2 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{filteredRows.length}</div>
-            <p className="text-xs text-muted-foreground">
-              {filteredRows.length !== rows.length ? `${rows.length} total, ${filteredRows.length} filtered` : 'M&A transactions'}
-            </p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Value</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              ${totalDealValue > 0 ? `${totalDealValue.toFixed(0)}M` : 'N/A'}
-            </div>
-            <p className="text-xs text-muted-foreground">Disclosed deals only</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Disclosed Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {filteredRows.length > 0 ? Math.round((disclosedDeals.length / filteredRows.length) * 100) : 0}%
-            </div>
-            <p className="text-xs text-muted-foreground">{disclosedDeals.length} with deal size</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Largest Deal</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {largestDeal > 0 ? `$${largestDeal}M` : 'N/A'}
-            </div>
-            <p className="text-xs text-muted-foreground">Single transaction</p>
-          </CardContent>
-        </Card>
+      {/* M&A Summary (compact) */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
+        <KpiCard size="xxs" title="Total Deals" icon={Building2} value={filteredRows.length} subtitle={filteredRows.length !== rows.length ? `${rows.length} total, ${filteredRows.length} filtered` : 'M&A transactions'} />
+        <KpiCard size="xxs" title="Total Value" icon={DollarSign} value={totalDealValue > 0 ? `$${totalDealValue.toFixed(0)}M` : 'N/A'} subtitle="Disclosed deals only" />
+        <KpiCard size="xxs" title="Disclosed Rate" icon={TrendingUp} value={`${filteredRows.length > 0 ? Math.round((disclosedDeals.length / filteredRows.length) * 100) : 0}%`} subtitle={`${disclosedDeals.length} with deal size`} />
+        <KpiCard size="xxs" title="Largest Deal" icon={Calendar} value={largestDeal > 0 ? `$${largestDeal}M` : 'N/A'} subtitle="Single transaction" />
       </div>
 
       {/* M&A Data Table */}
@@ -1139,7 +997,7 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedMaRows.slice(0, 50).map((row, rowIndex) => (
+                {sortedMaRows.map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -1203,15 +1061,23 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
   const leadTimeIdx = 8
   const countryIdx = 9
   
+  // Normalize quantity values to consistent buckets (1 vs 1000+)
+  const normalizeQty = (v: any) => {
+    const n = parseInt((v ?? '').toString().replace(/[^0-9]/g, ''))
+    if (!Number.isFinite(n) || n <= 0) return 0
+    return n >= 1000 ? 1000 : 1
+  }
+
   // Filter data
   const filteredRows = useMemo(() => {
     return rows.filter(row => {
       const matchesProcess = selectedProcess === 'all' || row[processIdx] === selectedProcess
       const matchesMaterial = selectedMaterial === 'all' || row[materialIdx] === selectedMaterial
       const matchesCountry = selectedCountry === 'all' || row[countryIdx] === selectedCountry
+      const q = normalizeQty(row[quantityIdx])
       const matchesQuantity = selectedQuantity === 'all' || 
-        (selectedQuantity === '1' && parseInt(row[quantityIdx]) === 1) ||
-        (selectedQuantity === '1000' && parseInt(row[quantityIdx]) >= 1000)
+        (selectedQuantity === '1' && q === 1) ||
+        (selectedQuantity === '1000' && q === 1000)
       const matchesSearch = searchTerm === '' || 
         row[companyIdx]?.toLowerCase().includes(searchTerm.toLowerCase())
       
@@ -1223,30 +1089,21 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
   const scatterData = filteredRows.map((row, index) => ({
     // Clamp to >= 0 to avoid negative values causing odd axis ranges
     x: Math.max(0, parseInt(row[leadTimeIdx]) || 0), // Lead time (days)
-    y: Math.max(0, parseFloat(row[costIdx]) || 0),   // Manufacturing cost ($USD)
+    // Use min of 1 so log scale works (no zero)
+    y: Math.max(1, parseFloat(row[costIdx]) || 0),   // Manufacturing cost ($USD)
     country: row[countryIdx] || 'Unknown',
     company: row[companyIdx] || 'Unknown',
     process: row[processIdx] || 'Unknown',
     material: row[materialIdx] || 'Unknown',
-    quantity: parseInt(row[quantityIdx]) || 0,
-    z: parseInt(row[quantityIdx]) || 1 // Size of dots
+    quantity: normalizeQty(row[quantityIdx]) || 0,
+    z: normalizeQty(row[quantityIdx]) || 1 // Size of dots
   }))
   
-  // Country colors
-  const countryColors = {
-    'U.S.': '#2563eb',      // Blue  
-    'China': '#dc2626',      // Red
-    'Germany': '#f59e0b',    // Orange/Yellow
-    'Japan': '#16a34a',      // Green
-    'UK': '#9333ea',         // Purple
-    'France': '#06b6d4',     // Cyan
-    'Italy': '#e11d48',      // Rose
-    'Canada': '#0891b2',     // Sky
-    'Netherlands': '#84cc16', // Lime
-    'Unknown': '#6b7280'     // Gray
+  // Quantity-based coloring: 1 vs 1000+ orders
+  const QTY_COLORS = {
+    one: '#2563eb',      // blue for quantity = 1
+    bulk: '#f59e0b',     // orange for quantity >= 1000
   }
-  
-  const getCountryColor = (country: string) => countryColors[country as keyof typeof countryColors] || '#6b7280'
   
   // Calculate averages for filtered data
   const avgLeadTime = filteredRows.length > 0 
@@ -1256,39 +1113,93 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
     ? Math.round(filteredRows.reduce((sum, row) => sum + (parseFloat(row[costIdx]) || 0), 0) / filteredRows.length)
     : 0
 
-  // Visibility controls for the scatter chart
-  const [focusCentral, setFocusCentral] = useState(true)
-  const [useLogScale, setUseLogScale] = useState(false)
+  // (Removed toggles) Always show full range on linear scale
 
   // Helpers
-  const quantile = (arr: number[], q: number) => {
-    if (arr.length === 0) return 0
-    const sorted = [...arr].sort((a, b) => a - b)
-    const pos = (sorted.length - 1) * q
-    const base = Math.floor(pos)
-    const rest = pos - base
-    return sorted[base + 1] !== undefined
-      ? sorted[base] + rest * (sorted[base + 1] - sorted[base])
-      : sorted[base]
-  }
   const formatUsdShort = (n: number) => {
     if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
     if (n >= 1_000) return `$${Math.round(n / 1_000)}k`
     return `$${Math.round(n)}`
   }
 
-  // Compute domains with optional outlier trimming to make the dense region visible
-  const { xDomain, yDomain } = useMemo(() => {
+  // Compute domains (full range, linear) and build a jittered dataset to reduce overlap
+  const { xDomain, yDomain, jittered } = useMemo(() => {
     const xs = scatterData.map(d => d.x).filter(v => Number.isFinite(v))
-    const ys = scatterData.map(d => d.y).filter(v => Number.isFinite(v) && v > 0)
-    if (xs.length === 0 || ys.length === 0) return { xDomain: ['auto', 'auto'] as any, yDomain: ['auto', 'auto'] as any }
-    if (!focusCentral) return { xDomain: ['auto', 'auto'] as any, yDomain: ['auto', 'auto'] as any }
-    const xMin = Math.max(0, Math.floor(quantile(xs, 0.01)))
-    const xMax = Math.ceil(quantile(xs, 0.99))
-    const yMin = Math.max(1, Math.floor(quantile(ys, 0.01)))
-    const yMax = Math.ceil(quantile(ys, 0.95))
-    return { xDomain: [xMin, xMax] as any, yDomain: [yMin, yMax] as any }
-  }, [scatterData, focusCentral])
+    const ys = scatterData.map(d => d.y).filter(v => Number.isFinite(v))
+    if (xs.length === 0 || ys.length === 0) {
+      return { xDomain: ['auto', 'auto'] as any, yDomain: ['auto', 'auto'] as any, jittered: scatterData }
+    }
+
+    const minX = Math.max(0, Math.min(...xs))
+    const maxX = Math.max(...xs)
+    const minY = Math.max(0, Math.min(...ys))
+    const maxY = Math.max(...ys)
+
+    const niceCeil = (n: number) => {
+      if (n <= 0) return 0
+      const pow = Math.pow(10, Math.floor(Math.log10(n)))
+      return Math.ceil(n / pow) * pow
+    }
+
+    const xDom: [number, number] = [0, Math.max(10, Math.ceil(maxX))]
+    // Ensure bottom of domain is 1 for log scaling
+    const yDom: [number, number] = [Math.max(1, Math.min(...ys)), niceCeil(maxY * 1.05)]
+
+    // Deterministic jitter to ease overplotting while keeping values recognizable
+    const jitterAmountX = Math.max(0.5, (xDom[1] - xDom[0]) * 0.01) // ~1% of range or 0.5 day
+    const jitterAmountY = Math.max(100, (yDom[1] - yDom[0]) * 0.01) // ~1% of range or $100
+
+    const hash = (s: string) => {
+      let h = 2166136261
+      for (let i = 0; i < s.length; i++) {
+        h ^= s.charCodeAt(i)
+        h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24)
+      }
+      return h >>> 0
+    }
+    const rand01 = (s: string) => (hash(s) % 10000) / 10000
+
+    const jitteredData = scatterData.map((d, i) => {
+      const seed = `${d.company}-${d.material}-${d.quantity}-${d.x}-${d.y}-${i}`
+      const r1 = rand01(seed)
+      const r2 = rand01(seed + 'y')
+      const jx = (r1 - 0.5) * 2 * jitterAmountX
+      const jy = (r2 - 0.5) * 2 * jitterAmountY
+      return {
+        ...d,
+        x: Math.max(0, d.x + jx),
+        y: Math.max(0, d.y + jy),
+      }
+    })
+
+    return { xDomain: xDom as any, yDomain: yDom as any, jittered: jitteredData }
+  }, [scatterData])
+
+  // Split by quantity buckets so we can color and control layer order
+  const qty1Data = useMemo(() => jittered.filter((d:any) => (d.quantity || 0) === 1), [jittered])
+  const qtyBulkData = useMemo(() => jittered.filter((d:any) => (d.quantity || 0) >= 1000), [jittered])
+
+  // No categorical series; render a single series. Keep tooltip to reveal country if needed.
+
+  // Ticks: fewer, readable labels on both axes
+  const xTicks = useMemo(() => {
+    const max = typeof (xDomain as any)[1] === 'number' ? (xDomain as any)[1] : 120
+    const step = max > 120 ? 30 : 15
+    const arr: number[] = []
+    for (let t = 0; t <= max; t += step) arr.push(t)
+    return arr
+  }, [xDomain])
+
+  const yTicks = useMemo(() => {
+    const max = typeof (yDomain as any)[1] === 'number' ? (yDomain as any)[1] : 1_000_000
+    const arr: number[] = []
+    let t = 1_000
+    while (t <= max) {
+      arr.push(t)
+      t *= 10
+    }
+    return arr.length ? arr : [1_000, 10_000, 100_000, 1_000_000]
+  }, [yDomain])
   
   // Sort filtered rows
   const sortedPricingRows = useMemo(() => {
@@ -1324,19 +1235,12 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Filters */}
-      <Card>
-        <CardHeader className="px-4 py-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="px-4 pt-0 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <FilterCard size="xxs">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Country" />
               </SelectTrigger>
               <SelectContent>
@@ -1353,7 +1257,7 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
             </Select>
             
             <Select value={selectedProcess} onValueChange={setSelectedProcess}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Process" />
               </SelectTrigger>
               <SelectContent>
@@ -1370,7 +1274,7 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
             </Select>
             
             <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Material" />
               </SelectTrigger>
               <SelectContent>
@@ -1385,27 +1289,17 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
                 ))}
               </SelectContent>
             </Select>
-            
-            <Select value={selectedQuantity} onValueChange={setSelectedQuantity}>
-              <SelectTrigger size="sm">
-                <SelectValue placeholder="Production Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Quantities</SelectItem>
-                <SelectItem value="1">1 Unit (Prototype)</SelectItem>
-                <SelectItem value="1000">1K+ Units (Production)</SelectItem>
-              </SelectContent>
-            </Select>
+            {/* Quantity filter hidden per request */}
             
             <Input 
-              className="h-8"
+              className="h-6"
               placeholder="Search companies..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             
             <Button 
-              className="h-8"
+              className="h-6"
               size="sm"
               onClick={() => {
                 setSelectedCountry('all')
@@ -1419,157 +1313,16 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+      </FilterCard>
 
-      {/* Pricing Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Quotes</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{filteredRows.length}</div>
-            <p className="text-xs text-muted-foreground">
-              {filteredRows.length !== rows.length ? `${rows.length} total, ${filteredRows.length} filtered` : 'Price quotes'}
-            </p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Cost</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">${avgCost.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">Manufacturing cost</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Lead Time</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{avgLeadTime}</div>
-            <p className="text-xs text-muted-foreground">Days</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Countries</CardTitle>
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {new Set(filteredRows.map(row => row[countryIdx] || '')).size}
-            </div>
-            <p className="text-xs text-muted-foreground">Active markets</p>
-          </CardContent>
-        </Card>
+      {/* Pricing Summary (compact) */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
+        <KpiCard size="xxs" title="Total Quotes" icon={DollarSign} value={filteredRows.length} subtitle={filteredRows.length !== rows.length ? `${rows.length} total, ${filteredRows.length} filtered` : 'Price quotes'} />
+        <KpiCard size="xxs" title="Avg Cost" icon={DollarSign} value={`$${avgCost.toLocaleString()}`} subtitle="Manufacturing cost" />
+        <KpiCard size="xxs" title="Avg Lead Time" icon={Calendar} value={avgLeadTime} subtitle="Days" />
+        <KpiCard size="xxs" title="Countries" icon={MapPin} value={new Set(filteredRows.map(row => row[countryIdx] || '')).size} subtitle="Active markets" />
       </div>
 
-      {/* Filters */}
-      <Card>
-        <CardHeader className="px-4 py-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="px-4 pt-0 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger size="sm">
-                <SelectValue placeholder="Country" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Countries</SelectItem>
-                {Array.from(new Set(
-                  rows
-                    .filter(row => row.length > countryIdx && row[countryIdx])
-                    .map(row => row[countryIdx])
-                    .filter(country => country && country.toString().trim())
-                )).sort((a, b) => a.toString().localeCompare(b.toString())).map(country => (
-                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Select value={selectedProcess} onValueChange={setSelectedProcess}>
-              <SelectTrigger size="sm">
-                <SelectValue placeholder="Process" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Processes</SelectItem>
-                {Array.from(new Set(
-                  rows
-                    .filter(row => row.length > processIdx && row[processIdx])
-                    .map(row => row[processIdx])
-                    .filter(process => process && process.toString().trim())
-                )).sort((a, b) => a.toString().localeCompare(b.toString())).map(process => (
-                  <SelectItem key={process} value={process.toString()}>{process}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
-              <SelectTrigger size="sm">
-                <SelectValue placeholder="Material" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Materials</SelectItem>
-                {Array.from(new Set(
-                  rows
-                    .filter(row => row.length > materialIdx && row[materialIdx])
-                    .map(row => row[materialIdx])
-                    .filter(material => material && material.toString().trim())
-                )).sort((a, b) => a.toString().localeCompare(b.toString())).map(material => (
-                  <SelectItem key={material} value={material.toString()}>{material}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Select value={selectedQuantity} onValueChange={setSelectedQuantity}>
-              <SelectTrigger size="sm">
-                <SelectValue placeholder="Production Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Quantities</SelectItem>
-                <SelectItem value="1">1 Unit (Prototype)</SelectItem>
-                <SelectItem value="1000">1K+ Units (Production)</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Input 
-              className="h-8"
-              placeholder="Search companies..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            
-            <Button 
-              className="h-8"
-              size="sm"
-              onClick={() => {
-                setSelectedCountry('all')
-                setSelectedProcess('all')
-                setSelectedMaterial('all') 
-                setSelectedQuantity('all')
-                setSearchTerm('')
-              }}
-              variant="outline"
-            >
-              Reset
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-      
       {/* Scatter Plot */}
       <Card>
         <CardHeader>
@@ -1580,84 +1333,111 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
                 Manufacturing Cost vs Lead Time
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                Scatter plot showing cost vs delivery time, colored by country. Larger dots indicate higher quantities.
+                Scatter plot showing cost vs delivery time, colored by quantity. Larger dots indicate higher quantities.
               </p>
             </div>
-            <div className="flex items-center gap-4 text-xs">
-              <div className="flex items-center gap-2">
-                <Switch id="focusCentral" checked={focusCentral} onCheckedChange={setFocusCentral} />
-                <Label htmlFor="focusCentral">Focus on central 95%</Label>
-              </div>
-              <div className="flex items-center gap-2">
-                <Switch id="logScale" checked={useLogScale} onCheckedChange={setUseLogScale} />
-                <Label htmlFor="logScale">Log Y scale</Label>
-              </div>
-            </div>
+            {/* Removed focus/log toggles for simplicity */}
           </div>
         </CardHeader>
         <CardContent>
+          {/* Quantity legend (color-coded) */}
+          <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2" aria-label="Quantity legend">
+            <span className="font-medium">Quantity</span>
+            <div className="flex items-end gap-4">
+              <div className="flex items-center gap-2">
+                <span className="inline-block rounded-full" style={{ width: 12, height: 12, background: QTY_COLORS.one, opacity: 0.9 }} />
+                <span>1 ({qty1Data.length})</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="inline-block rounded-full" style={{ width: 12, height: 12, background: QTY_COLORS.bulk, opacity: 0.9 }} />
+                <span>1k+ ({qtyBulkData.length})</span>
+              </div>
+            </div>
+          </div>
           <div className="h-96 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <ScatterChart margin={{ top: 24, right: 24, bottom: 64, left: 80 }}>
-                <CartesianGrid strokeDasharray="3 3" />
+              <ScatterChart margin={{ top: 24, right: 28, bottom: 76, left: 104 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis 
                   dataKey="x" 
                   type="number" 
                   name="Lead Time"
-                  unit=" days"
                   domain={xDomain as any}
+                  ticks={xTicks}
+                  allowDecimals={false}
                   tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
-                  label={{ value: 'Lead Time (days)', position: 'insideBottom', offset: 20 }}
+                  tickLine={false}
+                  axisLine={{ stroke: '#cbd5e1' }}
+                  tickMargin={10}
+                  minTickGap={10}
+                  interval="preserveStartEnd"
+                  padding={{ left: 10, right: 10 }}
+                  label={{ value: 'Lead Time (days)', position: 'bottom', offset: 30 }}
                 />
                 <YAxis 
                   dataKey="y" 
                   type="number" 
                   name="Cost"
-                  // Remove unit suffix from ticks to prevent clipping; show currency symbol only
-                  scale={useLogScale ? 'log' : 'linear'}
+                  // Log scale compresses outliers and reveals the main cluster
+                  scale={'log'}
                   domain={yDomain as any}
                   allowDataOverflow
+                  ticks={yTicks}
                   tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
-                  label={{ value: 'Manufacturing Cost (USD)', angle: -90, position: 'insideLeft', offset: 10 }}
+                  tickLine={false}
+                  axisLine={{ stroke: '#cbd5e1' }}
+                  tickMargin={8}
+                  label={{ value: 'Manufacturing Cost (USD)', angle: -90, position: 'left', offset: 22 }}
                   tickFormatter={(value) => formatUsdShort(Number(value))}
                 />
-                {/* Bubble size reflects quantity */}
-                <ZAxis dataKey="z" range={[20, 120]} />
+                {/* Bubble size still reflects quantity */}
+                <ZAxis dataKey="z" name="Quantity" range={[8, 28]} />
+                {/* Custom tooltip with quantity, process, material */}
                 <Tooltip 
-                  formatter={(value, name) => [
-                    name === 'Cost' ? formatUsdShort(Number(value)) : value,
-                    name === 'Cost' ? 'Manufacturing Cost' : 'Lead Time'
-                  ]}
-                  labelFormatter={(label, payload) => {
-                    if (payload && payload[0]) {
-                      const data = payload[0].payload
-                      return `${data.company} (${data.country})`
-                    }
-                    return label
-                  }}
-                  contentStyle={{ 
-                    backgroundColor: 'white', 
-                    border: '1px solid #ccc',
-                    borderRadius: '6px'
+                  content={({ active, payload }) => {
+                    if (!active || !payload || !payload.length) return null as any
+                    const d: any = payload[0].payload
+                    return (
+                      <div style={{ background: 'white', border: '1px solid #d1d5db', borderRadius: 6, padding: 8 }}>
+                        <div style={{ fontWeight: 600, marginBottom: 4 }}>{d.company} ({d.country})</div>
+                        <div>Cost: {formatUsdShort(Number(d.y))}</div>
+                        <div>Lead time: {Math.round(Number(d.x))} days</div>
+                        <div>Quantity: {Number(d.z || 0).toLocaleString()}</div>
+                        <div>Process: {d.process}</div>
+                        <div>Material: {d.material}</div>
+                      </div>
+                    )
                   }}
                 />
-                {/* Group data points by country for different colors */}
-                {Object.entries(
-                  scatterData.reduce((acc, point) => {
-                    if (!acc[point.country]) acc[point.country] = []
-                    acc[point.country].push(point)
-                    return acc
-                  }, {} as Record<string, typeof scatterData>)
-                ).map(([country, points]) => (
-                  <Scatter
-                    key={country}
-                    name={country}
-                    data={points}
-                    fill={getCountryColor(country)}
-                    fillOpacity={0.65}
-                  />
-                ))}
-                <Legend verticalAlign="top" align="left" wrapperStyle={{ paddingBottom: 8 }} />
+                {/* Target zone: fast + low cost */}
+                <ReferenceArea x1={0} x2={45} y1={1} y2={500000} fill="#10b981" fillOpacity={0.05} />
+                {/* Draw bulk first, then qty=1 on top for visibility */}
+                <Scatter
+                  name="Qty 1k+"
+                  data={qtyBulkData}
+                  fill={QTY_COLORS.bulk}
+                  fillOpacity={0.45}
+                  stroke={QTY_COLORS.bulk}
+                  strokeOpacity={0.6}
+                />
+                <Scatter
+                  name="Qty 1"
+                  data={qty1Data}
+                  fill={QTY_COLORS.one}
+                  fillOpacity={0.7}
+                  stroke={QTY_COLORS.one}
+                  strokeWidth={0.8}
+                />
+                {/* Overall trend line */}
+                <Scatter
+                  name="Trend"
+                  data={jittered}
+                  shape={() => null}
+                  line
+                  lineType="fitting"
+                  line={{ stroke: '#334155', strokeDasharray: '4 4', strokeWidth: 1.5 }}
+                  legendType="none"
+                />
                 <Brush dataKey="x" height={18} stroke="#cbd5e1" travellerWidth={8} />
               </ScatterChart>
             </ResponsiveContainer>
@@ -1690,13 +1470,15 @@ export function PricingAnalysisLayout({ data, dataset: _dataset }: MarketDataLay
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedPricingRows.slice(0, 50).map((row, rowIndex) => (
+                {sortedPricingRows.map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
-                        {cellIndex === 5 ? ( // Manufacturing cost
+                        {cellIndex === quantityIdx ? ( // Quantity bucket display (1 or 1k+)
+                          <Badge variant="outline">{normalizeQty(cell) === 1000 ? '1k+' : '1'}</Badge>
+                        ) : cellIndex === 5 ? ( // Manufacturing cost
                           <Badge variant="secondary">${cell}</Badge>
-                        ) : cellIndex === 9 ? ( // Lead time
+                        ) : cellIndex === 8 ? ( // Lead time
                           <Badge variant="outline">{cell} days</Badge>
                         ) : (
                           cell
@@ -1748,19 +1530,12 @@ export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLa
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Filters */}
-      <Card>
-        <CardHeader className="px-4 py-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="px-4 pt-0 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <FilterCard size="xxs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
             <Select>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Country" />
               </SelectTrigger>
               <SelectContent>
@@ -1777,7 +1552,7 @@ export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLa
             </Select>
             
             <Select>
-              <SelectTrigger size="sm">
+              <SelectTrigger size="sm" className="h-6">
                 <SelectValue placeholder="Company Type" />
               </SelectTrigger>
               <SelectContent>
@@ -1788,64 +1563,18 @@ export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLa
               </SelectContent>
             </Select>
             
-            <Button className="h-8" size="sm" variant="outline">
+            <Button className="h-6" size="sm" variant="outline">
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+      </FilterCard>
 
-      {/* Company Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Companies</CardTitle>
-            <Building2 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{rows.length}</div>
-            <p className="text-xs text-muted-foreground">Company records</p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Countries</CardTitle>
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {new Set(rows.map(row => row[2] || '')).size}
-            </div>
-            <p className="text-xs text-muted-foreground">Global presence</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">With Websites</CardTitle>
-            <Search className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {rows.filter(row => row[1] && row[1].includes('http')).length}
-            </div>
-            <p className="text-xs text-muted-foreground">Active websites</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Public Companies</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {rows.filter(row => row[4] && row[4].trim()).length}
-            </div>
-            <p className="text-xs text-muted-foreground">Publicly traded</p>
-          </CardContent>
-        </Card>
+      {/* Company Summary (compact) */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
+        <KpiCard size="xxs" title="Total Companies" icon={Building2} value={rows.length} subtitle="Company records" />
+        <KpiCard size="xxs" title="Countries" icon={MapPin} value={new Set(rows.map(row => row[2] || '')).size} subtitle="Global presence" />
+        <KpiCard size="xxs" title="With Websites" icon={Search} value={rows.filter(row => row[1] && row[1].includes('http')).length} subtitle="Active websites" />
+        <KpiCard size="xxs" title="Public Companies" icon={TrendingUp} value={rows.filter(row => row[4] && row[4].trim()).length} subtitle="Publicly traded" />
       </div>
 
 
@@ -1874,7 +1603,7 @@ export function CompanyDirectoryLayout({ data, dataset: _dataset }: MarketDataLa
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedDirRows.slice(0, 50).map((row, rowIndex) => (
+                {sortedDirRows.map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
@@ -2021,9 +1750,9 @@ export function GenericTableLayout({ data, dataset }: MarketDataLayoutProps) {
   return (
     <div className="space-y-4">
       <Card>
-        <CardHeader className="px-4 py-3">
+        <CardHeader className={compact.header}>
           <div className="flex items-center justify-between gap-2">
-            <CardTitle className="text-base capitalize">{dataset.replace(/-/g, ' ')}</CardTitle>
+            <CardTitle className="text-sm capitalize">{dataset.replace(/-/g, ' ')}</CardTitle>
             <div className="flex items-center gap-2">
               <Badge variant="secondary">{sortedRows.length} of {rows.length}</Badge>
               <Button size="sm" variant="outline" onClick={exportCsv}>
@@ -2033,8 +1762,8 @@ export function GenericTableLayout({ data, dataset }: MarketDataLayoutProps) {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="px-4 pt-0 pb-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+        <CardContent className={compact.content}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
             {map.nameIdx >= 0 && (
               <Select value={selectedName} onValueChange={setSelectedName}>
                 <SelectTrigger size="sm">
@@ -2096,7 +1825,7 @@ export function GenericTableLayout({ data, dataset }: MarketDataLayoutProps) {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedRows.slice(0, 100).map((row, rowIndex) => (
+                {sortedRows.map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                       <TableCell key={cellIndex}>
