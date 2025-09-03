@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { BarChart3, TrendingUp, MapPin, Building2, Calendar, DollarSign, Filter, Search, Download, PieChart, ArrowUpDown, ChevronUp, ChevronDown } from 'lucide-react'
 // import { Separator } from '@/components/ui/separator'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ZAxis, BarChart as ReBarChart, Bar, Brush, ReferenceArea } from 'recharts'
@@ -236,80 +237,87 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
     })
   }
   
-  // Show/hide global filters and KPI row depending on dataset
+  // Keep KPI row conditional, but show global filters for all datasets
   const isAMMarketRevenue = dataset === 'am-market-revenue-2024'
 
   return (
     <div className="space-y-3">
-      {/* Global filters: hidden for AM Market Revenue to avoid confusion with the top chart */}
-      {!isAMMarketRevenue && (
+      {/* Global filters */}
       <FilterCard size="xxs">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="h-6 order-1 md:order-1">
-                <SelectValue placeholder={dataset === 'revenue-by-industry-2024' ? 'Industry' : 'Country'} />
+        <div className="flex flex-wrap md:flex-nowrap items-center gap-2">
+          {/* Country/Industry (select) */}
+          <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+            <SelectTrigger className="h-7 w-[220px] order-1 md:order-1">
+              <SelectValue placeholder={dataset === 'revenue-by-industry-2024' ? 'Industry' : 'Country'} />
+            </SelectTrigger>
+            <SelectContent className="max-h-64">
+              <SelectItem value="all">{dataset === 'revenue-by-industry-2024' ? 'All Industries' : 'All Countries'}</SelectItem>
+              {uniqueCountries.filter(country => country && country.toString().trim()).map(country => (
+                <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Segment or Material (dropdowns for consistency) */}
+          {dataset !== 'revenue-by-industry-2024' ? (
+            <Select value={selectedSegment} onValueChange={setSelectedSegment}>
+              <SelectTrigger className="h-7 w-[220px] order-3 md:order-2">
+                <SelectValue placeholder="Segment" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{dataset === 'revenue-by-industry-2024' ? 'All Industries' : 'All Countries'}</SelectItem>
-                {uniqueCountries.filter(country => country && country.toString().trim()).map(country => (
-                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
-                ))}
+              <SelectContent className="max-h-64">
+                <SelectItem value="all">All Segments</SelectItem>
+                {uniqueSegments
+                  .filter(segment => segment && segment.toString().trim())
+                  .map(segment => (
+                    <SelectItem key={segment.toString()} value={segment.toString()}>
+                      {segment}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
-            
-            {dataset !== 'revenue-by-industry-2024' && (
-              <Select value={selectedSegment} onValueChange={setSelectedSegment}>
-                <SelectTrigger className="h-6 order-3 md:order-2">
-                  <SelectValue placeholder="Segment" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Segments</SelectItem>
-                  {uniqueSegments.filter(segment => segment && segment.toString().trim()).map(segment => (
-                    <SelectItem key={segment} value={segment.toString()}>{segment}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-
-            {dataset === 'revenue-by-industry-2024' && (
-              <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
-              <SelectTrigger className="h-6 order-3 md:order-2">
+          ) : (
+            <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
+              <SelectTrigger className="h-7 w-[220px] order-3 md:order-2">
                 <SelectValue placeholder="Material" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="max-h-64">
                 <SelectItem value="all">All Materials</SelectItem>
                 {uniqueMaterials.map((m) => (
-                  <SelectItem key={m} value={m.toString()}>
+                  <SelectItem key={m.toString()} value={m.toString()}>
                     {m}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           )}
-            
+
+          {/* Search */}
+          <div className="relative ml-auto w-[280px] order-4 md:order-3">
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             <Input 
-              placeholder="Search revenue data..." 
-              className="h-6 order-4 md:order-3"
+              placeholder="Search revenue data" 
+              className="h-7 pl-7"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            
-            <Button 
-              className="h-6 order-2 md:order-4" 
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                setSelectedSegment('all')
-                setSelectedCountry('all')
-                setSelectedMaterial('all')
-                setSearchTerm('')
-              }}
-            >
-              Reset
-            </Button>
           </div>
+
+          {/* Reset */}
+          <Button 
+            className="h-7 order-2 md:order-4 ml-1 shrink-0"
+            size="sm"
+            variant="ghost"
+            onClick={() => {
+              setSelectedSegment('all')
+              setSelectedCountry('all')
+              setSelectedMaterial('all')
+              setSearchTerm('')
+            }}
+          >
+            Reset
+          </Button>
+        </div>
       </FilterCard>
-      )}
 
       {/* Summary Cards (compact): remove for AM Market Revenue to free space */}
       {!isAMMarketRevenue && (
@@ -695,79 +703,85 @@ export function InvestmentAnalysisLayout({ data, dataset: _dataset }: MarketData
     <div className="space-y-3">
       {/* Filters */}
       <FilterCard size="xxs">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-            <Select value={yearFilter} onValueChange={setYearFilter}>
-              <SelectTrigger size="sm" className="h-6">
-                <SelectValue placeholder="Year" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Years</SelectItem>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Year */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">Year</span>
+            <Tabs value={yearFilter} onValueChange={setYearFilter}>
+              <TabsList className="h-7 p-0.5 border border-border bg-muted/60">
+                <TabsTrigger className="h-6 px-2 text-xs" value="all">All</TabsTrigger>
                 {Array.from(new Set(
                   rows
                     .filter(row => row.length > 0 && row[0])
-                    .map(row => row[0])
-                    .filter(year => year && year.toString().trim())
-                )).sort().map(year => (
-                  <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
+                    .map(row => row[0].toString())
+                )).sort().slice(-5).map(year => (
+                  <TabsTrigger key={year} className="h-6 px-2 text-xs" value={year}>{year}</TabsTrigger>
                 ))}
-              </SelectContent>
-            </Select>
-            
-            <Select value={countryFilter} onValueChange={setCountryFilter}>
-              <SelectTrigger size="sm" className="h-6">
-                <SelectValue placeholder="Country" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Countries</SelectItem>
-                {Array.from(new Set(
-                  rows
-                    .filter(row => row.length > 3 && row[3])
-                    .map(row => row[3])
-                    .filter(country => country && country.toString().trim())
-                )).sort().map(country => (
-                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger size="sm" className="h-6">
-                <SelectValue placeholder="Round Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Country (select – potentially long list) */}
+          <Select value={countryFilter} onValueChange={setCountryFilter}>
+            <SelectTrigger size="sm" className="h-7 min-w-[160px]">
+              <SelectValue placeholder="Country" />
+            </SelectTrigger>
+            <SelectContent className="max-h-64">
+              <SelectItem value="all">All Countries</SelectItem>
+              {Array.from(new Set(
+                rows
+                  .filter(row => row.length > 3 && row[3])
+                  .map(row => row[3])
+                  .filter(country => country && country.toString().trim())
+              )).sort().map(country => (
+                <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Round type */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">Type</span>
+            <Tabs value={typeFilter} onValueChange={setTypeFilter}>
+              <TabsList className="h-7 p-0.5 border border-border bg-muted/60">
+                <TabsTrigger className="h-6 px-2 text-xs" value="all">All</TabsTrigger>
                 {Array.from(new Set(
                   rows
                     .filter(row => row.length > 5 && row[5])
-                    .map(row => row[5])
-                    .filter(type => type && type.toString().trim())
-                )).sort().map(type => (
-                  <SelectItem key={type} value={type.toString()}>{type}</SelectItem>
+                    .map(row => row[5]!.toString())
+                )).sort().slice(0, 6).map(type => (
+                  <TabsTrigger key={type} className="h-6 px-2 text-xs" value={type}>{type}</TabsTrigger>
                 ))}
-              </SelectContent>
-            </Select>
-            
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Search */}
+          <div className="relative ml-auto min-w-[220px]">
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             <Input 
-              placeholder="Search companies..." 
-              className="h-6"
+              placeholder="Search companies" 
+              className="h-7 pl-7"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            
-            <Button 
-              className="h-6" 
-              size="sm" 
-              variant="outline"
-              onClick={() => {
-                setYearFilter('all')
-                setCountryFilter('all')
-                setTypeFilter('all')
-                setSearchTerm('')
-              }}
-            >
-              Reset
-            </Button>
           </div>
+
+          {/* Reset */}
+          <Button 
+            variant="ghost"
+            size="sm"
+            className="h-7 text-xs text-muted-foreground"
+            onClick={() => {
+              setYearFilter('all')
+              setCountryFilter('all')
+              setTypeFilter('all')
+              setSearchTerm('')
+            }}
+          >
+            Reset
+          </Button>
+        </div>
       </FilterCard>
 
       {/* Investment Summary (compact) */}
@@ -882,6 +896,25 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
       return matchesDate && matchesDealSize && matchesStatus && matchesSearch
     })
   }, [rows, dateFilter, dealSizeFilter, statusFilter, searchTerm])
+
+  // Build compact option sets for segmented controls
+  const uniqueYears = useMemo(() => {
+    const years = Array.from(new Set(
+      rows
+        .map((r) => (r?.[dateIdx] || '').toString().slice(0, 4))
+        .filter((y) => /\d{4}/.test(y))
+    ))
+    return years.sort((a, b) => parseInt(b) - parseInt(a)).slice(0, 5)
+  }, [rows])
+
+  const uniqueStatuses = useMemo(() => {
+    return Array.from(new Set(
+      rows
+        .map((r) => r?.[statusIdx])
+        .filter((s) => !!s && s.toString().trim().length > 0)
+        .map((s) => s!.toString())
+    ))
+  }, [rows])
   
   // Calculate metrics
   const totalDealValue = useMemo(() => {
@@ -948,70 +981,98 @@ export function MergerAcquisitionLayout({ data, dataset: _dataset }: MarketDataL
     <div className="space-y-3">
       {/* Filters */}
       <FilterCard size="xxs">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
-            <Select value={dateFilter} onValueChange={setDateFilter}>
-              <SelectTrigger size="sm" className="h-6">
-                <SelectValue placeholder="Year" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Years</SelectItem>
-                <SelectItem value="2024">2024</SelectItem>
-                <SelectItem value="2023">2023</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Select value={dealSizeFilter} onValueChange={setDealSizeFilter}>
-              <SelectTrigger size="sm" className="h-6">
-                <SelectValue placeholder="Deal Size" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Sizes</SelectItem>
-                <SelectItem value="disclosed">Disclosed Only</SelectItem>
-                <SelectItem value="undisclosed">Undisclosed</SelectItem>
-                <SelectItem value="large">Large ($50M+)</SelectItem>
-                <SelectItem value="medium">Medium ($10-50M)</SelectItem>
-                <SelectItem value="small">Small (&lt;$10M)</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger size="sm" className="h-6">
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                {Array.from(new Set(
-                  rows
-                    .filter(row => row.length > statusIdx && row[statusIdx])
-                    .map(row => row[statusIdx])
-                    .filter(status => status && status.toString().trim())
-                )).map(status => (
-                  <SelectItem key={status} value={status.toString()}>{status}</SelectItem>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Year segmented */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">Year</span>
+            <Tabs value={dateFilter} onValueChange={setDateFilter}>
+              <TabsList className="h-7 p-0.5 border border-border bg-muted/60">
+                <TabsTrigger className="h-6 px-2 text-xs" value="all">All</TabsTrigger>
+                {uniqueYears.map((y) => (
+                  <TabsTrigger key={y} className="h-6 px-2 text-xs" value={y}>{y}</TabsTrigger>
                 ))}
-              </SelectContent>
-            </Select>
-            
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Deal size segmented */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">Size</span>
+            <Tabs value={dealSizeFilter} onValueChange={setDealSizeFilter}>
+              <TabsList className="h-7 p-0.5 border border-border bg-muted/60">
+                <TabsTrigger className="h-6 px-2 text-xs" value="all">All</TabsTrigger>
+                <TabsTrigger className="h-6 px-2 text-xs" value="disclosed">Disclosed</TabsTrigger>
+                <TabsTrigger className="h-6 px-2 text-xs" value="undisclosed">Undisc.</TabsTrigger>
+                <TabsTrigger className="h-6 px-2 text-xs" value="small">Small</TabsTrigger>
+                <TabsTrigger className="h-6 px-2 text-xs" value="medium">Medium</TabsTrigger>
+                <TabsTrigger className="h-6 px-2 text-xs" value="large">Large</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Status segmented */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">Status</span>
+            <Tabs value={statusFilter} onValueChange={setStatusFilter}>
+              <TabsList className="h-7 p-0.5 border border-border bg-muted/60">
+                <TabsTrigger className="h-6 px-2 text-xs" value="all">All</TabsTrigger>
+                {uniqueStatuses.map((s) => (
+                  <TabsTrigger key={s} className="h-6 px-2 text-xs" value={s}>{s}</TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Search */}
+          <div className="relative ml-auto min-w-[220px]">
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             <Input 
-              placeholder="Search companies..." 
-              className="h-6"
+              placeholder="Search companies" 
+              className="h-7 pl-7"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            
-            <Button 
-              className="h-6" 
-              size="sm" 
-              variant="outline"
-              onClick={() => {
-                setDateFilter('all')
-                setDealSizeFilter('all')
-                setStatusFilter('all')
-                setSearchTerm('')
-              }}
-            >
-              Reset
-            </Button>
           </div>
+
+          {/* Reset link */}
+          <Button 
+            variant="ghost"
+            size="sm"
+            className="h-7 text-xs text-muted-foreground"
+            onClick={() => {
+              setDateFilter('all')
+              setDealSizeFilter('all')
+              setStatusFilter('all')
+              setSearchTerm('')
+            }}
+          >
+            Reset
+          </Button>
+
+          {/* Active filter chips */}
+          {(dateFilter !== 'all' || dealSizeFilter !== 'all' || statusFilter !== 'all') && (
+            <div className="flex items-center gap-1">
+              {dateFilter !== 'all' && (
+                <Badge variant="secondary" className="pl-2 pr-1 h-6 text-xs">
+                  {dateFilter}
+                  <Button variant="ghost" size="icon" className="h-5 w-5 ml-1" onClick={() => setDateFilter('all')}>×</Button>
+                </Badge>
+              )}
+              {dealSizeFilter !== 'all' && (
+                <Badge variant="secondary" className="pl-2 pr-1 h-6 text-xs">
+                  {dealSizeFilter}
+                  <Button variant="ghost" size="icon" className="h-5 w-5 ml-1" onClick={() => setDealSizeFilter('all')}>×</Button>
+                </Badge>
+              )}
+              {statusFilter !== 'all' && (
+                <Badge variant="secondary" className="pl-2 pr-1 h-6 text-xs">
+                  {statusFilter}
+                  <Button variant="ghost" size="icon" className="h-5 w-5 ml-1" onClick={() => setStatusFilter('all')}>×</Button>
+                </Badge>
+              )}
+            </div>
+          )}
+        </div>
       </FilterCard>
 
       {/* M&A Summary (compact) */}
