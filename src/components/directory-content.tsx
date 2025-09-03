@@ -180,6 +180,7 @@ export default function DirectoryContent() {
   // Reset filters
   const resetFilters = () => {
     setSearch("");
+    setSearchDraft("");
     setCategory("all");
     setCountry("all");
     setMinRevenue("0");
@@ -235,12 +236,16 @@ export default function DirectoryContent() {
               <Input
                 id="search"
                 placeholder="Search companies, locations, technologies..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                value={searchDraft}
+                onChange={(e) => setSearchDraft(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { setSearch(searchDraft); setPage(1) } }}
                 className="pl-8 h-9 text-sm"
               />
             </div>
             <div className="flex gap-2">
+              <Button variant="default" size="sm" className="h-8 text-xs" onClick={() => { setSearch(searchDraft); setPage(1) }}>
+                Search
+              </Button>
               <Button variant="ghost" size="sm" className="h-8 text-xs" onClick={resetFilters}>
                 <X className="h-3 w-3 mr-1" /> Clear
               </Button>

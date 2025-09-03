@@ -337,7 +337,8 @@ export default function PrintServicesGlobalContent() {
         else url.searchParams.set(key, v)
       }
     }
-    setOrDelete('company_name', filters.company_name)
+    // Use debounced value so the URL doesn't update per keystroke
+    setOrDelete('company_name', debouncedCompany)
     setOrDelete('segment', filters.segment)
     setOrDelete('country', filters.country)
     setOrDelete('technologies', filters.technologies)
@@ -353,9 +354,25 @@ export default function PrintServicesGlobalContent() {
     const next = `${pathname}?${url.searchParams.toString()}`
     if (lastQueryRef.current !== next) {
       lastQueryRef.current = next
-      router.replace(next)
+      // Update URL without triggering a Next.js navigation to avoid page refresh
+      window.history.replaceState(null, '', next)
     }
-  }, [filters, router, pathname])
+  }, [
+    debouncedCompany,
+    filters.segment,
+    filters.country,
+    filters.technologies,
+    filters.materials,
+    filters.services,
+    filters.printer_manufacturer,
+    filters.printer_model,
+    filters.process,
+    filters.material_type,
+    filters.count_type,
+    filters.min_printers,
+    filters.max_printers,
+    pathname,
+  ])
 
   // Apply filters
   useEffect(() => {
@@ -446,7 +463,22 @@ export default function PrintServicesGlobalContent() {
       return 0
     })
     setFilteredData(sorted)
-  }, [filters, data, sort, debouncedCompany])
+  }, [
+    debouncedCompany,
+    filters.country,
+    filters.printer_manufacturer,
+    filters.printer_model,
+    filters.process,
+    filters.material_type,
+    filters.count_type,
+    filters.min_printers,
+    filters.max_printers,
+    filters.technologies,
+    filters.materials,
+    filters.services,
+    data,
+    sort,
+  ])
 
   // Get unique values for filter dropdowns
   const uniq = (arr: (string | null | undefined)[]) =>
@@ -827,20 +859,20 @@ export default function PrintServicesGlobalContent() {
         <Table>
           <TableHeader className="sticky top-0 bg-background z-10">
             <TableRow>
-              <TableHead onClick={() => toggleSort('name')} className="cursor-pointer select-none">
-                <div className="inline-flex items-center">Company Name<SortIndicator column="name" /></div>
+              <TableHead onClick={() => toggleSort('name')} className="cursor-pointer select-none whitespace-nowrap">
+                <div className="inline-flex items-center whitespace-nowrap">Company Name<SortIndicator column="name" /></div>
               </TableHead>
-              <TableHead onClick={() => toggleSort('segment')} className="cursor-pointer select-none">
-                <div className="inline-flex items-center">Segment<SortIndicator column="segment" /></div>
+              <TableHead onClick={() => toggleSort('segment')} className="cursor-pointer select-none whitespace-nowrap">
+                <div className="inline-flex items-center whitespace-nowrap">Segment<SortIndicator column="segment" /></div>
               </TableHead>
-              <TableHead>Technologies</TableHead>
-              <TableHead>Services</TableHead>
-              <TableHead>Materials</TableHead>
-              <TableHead onClick={() => toggleSort('country')} className="cursor-pointer select-none">
-                <div className="inline-flex items-center">Country<SortIndicator column="country" /></div>
+              <TableHead className="whitespace-nowrap">Technologies</TableHead>
+              <TableHead className="whitespace-nowrap">Services</TableHead>
+              <TableHead className="whitespace-nowrap">Materials</TableHead>
+              <TableHead onClick={() => toggleSort('country')} className="cursor-pointer select-none whitespace-nowrap">
+                <div className="inline-flex items-center whitespace-nowrap">Country<SortIndicator column="country" /></div>
               </TableHead>
-              <TableHead onClick={() => toggleSort('founded_year')} className="cursor-pointer select-none text-center">
-                <div className="inline-flex items-center">Founded<SortIndicator column="founded_year" /></div>
+              <TableHead onClick={() => toggleSort('founded_year')} className="cursor-pointer select-none text-center whitespace-nowrap">
+                <div className="inline-flex items-center whitespace-nowrap">Founded<SortIndicator column="founded_year" /></div>
               </TableHead>
             </TableRow>
           </TableHeader>

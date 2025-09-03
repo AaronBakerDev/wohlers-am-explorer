@@ -15,8 +15,8 @@ type Props = {
   exportData: CompanyMarker[]
   exportColumns: ColumnDef<CompanyMarker>[]
   exportFilters: FilterState
-  isHeatmapMode: boolean
-  onToggleHeatmap: (v: boolean) => void
+  mapMode: 'pins' | 'heatmap'
+  onMapModeChange: (mode: 'pins' | 'heatmap') => void
 }
 
 /**
@@ -27,8 +27,8 @@ export default function TopToolbar({
   exportData,
   exportColumns,
   exportFilters,
-  isHeatmapMode,
-  onToggleHeatmap,
+  mapMode,
+  onMapModeChange,
 }: Props) {
   return (
     <div className='bg-card border-b border-border p-4 sticky top-0 z-10'>
@@ -40,26 +40,25 @@ export default function TopToolbar({
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-2'>
             <div className='flex items-center rounded-md border border-border overflow-hidden'>
-              <Button 
-                variant={isHeatmapMode ? 'ghost' : 'default'} 
+              <Button
+                variant={mapMode === 'pins' ? 'default' : 'ghost'}
                 size='sm'
                 className='h-8 rounded-none'
-                onClick={() => onToggleHeatmap(false)}
+                onClick={() => onMapModeChange('pins')}
                 title='Show pins'
               >
                 <MapPin className='h-4 w-4 mr-1' /> Pins
               </Button>
-              <Button 
-                variant={isHeatmapMode ? 'default' : 'ghost'} 
+              <Button
+                variant={mapMode === 'heatmap' ? 'default' : 'ghost'}
                 size='sm'
                 className='h-8 rounded-none'
-                onClick={() => onToggleHeatmap(true)}
+                onClick={() => onMapModeChange('heatmap')}
                 title='Show heatmap'
               >
                 <BarChart3 className='h-4 w-4 mr-1' /> Heatmap
               </Button>
             </div>
-            <Badge variant='outline' className='text-[10px]'>Global</Badge>
           </div>
           <ExportButton
             data={exportData}

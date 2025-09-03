@@ -14,9 +14,25 @@ function normalizeCountry(input?: string | null): string | null {
   // Check common aliases (case-insensitive)
   const lower = s.toLowerCase()
   if (["u.s.", "us", "usa", "united states of america", "united states"].includes(lower)) return "United States"
-  if (["u.k.", "uk", "united kingdom"].includes(lower)) return "United Kingdom"
+  if (["u.k.", "uk", "united kingdom", "united kingdom of great britain and northern ireland"].includes(lower)) return "United Kingdom"
+  if (["bahamas, the"].includes(lower)) return "Bahamas"
+  if (["gambia, the"].includes(lower)) return "Gambia"
   if (lower === "viet nam") return "Vietnam"
   if (lower === "czechia") return "Czech Republic"
+  if (lower === "the netherlands") return "Netherlands"
+  if (lower === "holland") return "Netherlands"
+  if (lower === "syrian arab republic") return "Syria"
+  if (lower === "iran, islamic republic of" || lower === "iran (islamic republic of)") return "Iran"
+  if (lower === "turkiye") return "Turkey"
+  if (lower === "democratic republic of the congo" || lower === "congo, democratic republic of the" || lower === "congo-kinshasa") return "Democratic Republic of the Congo"
+  if (lower === "republic of the congo" || lower === "congo, republic of the" || lower === "congo-brazzaville") return "Congo"
+  if (lower === "burma") return "Myanmar"
+  if (lower === "ivory coast" || lower === "cote d'ivoire" || lower === "côte d’ivoire") return "Côte d'Ivoire"
+  if (lower === "cape verde") return "Cabo Verde"
+  if (lower === "east timor") return "Timor-Leste"
+  if (lower === "micronesia, federated states of" || lower === "federated states of micronesia") return "Micronesia"
+  if (lower === "holy see (vatican city state)" || lower === "vatican city") return "Vatican"
+  if (lower === "swaziland") return "Eswatini"
   
   // Title case the rest for consistency
   return s
@@ -49,29 +65,30 @@ export async function GET(request: NextRequest) {
     const technologies = technologiesParam ? technologiesParam.split(',').map(s => s.trim()).filter(Boolean) : []
     const materials = materialsParam ? materialsParam.split(',').map(s => s.trim()).filter(Boolean) : []
 
-    // Pull minimal fields; aggregate server-side
-    let query = supabase
-      .from('company_summaries_unified')
-      .select('id, country, equipment_count')
-
-    if (type) query = query.eq('company_type', type)
-    if (role) query = query.eq('company_role', role)
-    if (segment) query = query.eq('segment', segment)
-
-    // Apply array filters (technology/materials)
-    if (technologies.length) {
-      query = query.overlaps('technologies', technologies)
-    }
-    if (materials.length) {
-      query = query.overlaps('materials', materials)
-    }
-    if (countries.length) {
-      query = query.in('country', countries)
+    // Pull minimal fields in pages to avoid implicit 1000-row limit
+    const buildQuery = () => {
+      let q = supabase
+        .from('company_summaries_unified')
+        .select('id, country, equipment_count')
+      if (type) q = q.eq('company_type', type)
+      if (role) q = q.eq('company_role', role)
+      if (segment) q = q.eq('segment', segment)
+      if (technologies.length) q = q.overlaps('technologies', technologies)
+      if (materials.length) q = q.overlaps('materials', materials)
+      if (countries.length) q = q.in('country', countries)
+      return q
     }
 
-    const { data, error } = await query
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+    const PAGE = 1000
+    let page = 0
+    let data: any[] = []
+    while (true) {
+      const { data: chunk, error } = await buildQuery().range(page * PAGE, page * PAGE + PAGE - 1)
+      if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+      const arr = chunk || []
+      data.push(...arr)
+      if (arr.length < PAGE) break
+      page += 1
     }
 
     // Aggregate by normalized country

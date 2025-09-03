@@ -1,6 +1,10 @@
 'use client'
 
+// NOTE: This table may only include the following columns:
+// Company name, Process, Material format, Material type, Country of the ui
+
 import { useState, useEffect } from 'react'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { createClient } from '@/lib/supabase/client'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -72,6 +76,9 @@ export default function AMSystemsManufacturersContent() {
     material_type: '',
     country: ''
   })
+
+  // Debounce search to avoid refreshing list per keystroke
+  const debouncedSearch = useDebouncedValue(filters.search, 350)
 
   type SortKey = 'company_name' | 'segment' | 'process' | 'material_format' | 'material_type' | 'country'
   type SortState = { key: SortKey, direction: 'asc' | 'desc' }
@@ -201,8 +208,8 @@ export default function AMSystemsManufacturersContent() {
     let filtered = data
 
     // Text search across multiple fields
-    if (filters.search) {
-      const searchLower = filters.search.toLowerCase()
+    if (debouncedSearch) {
+      const searchLower = debouncedSearch.toLowerCase()
       filtered = filtered.filter(item => 
         item.company_name.toLowerCase().includes(searchLower) ||
         item.country.toLowerCase().includes(searchLower) ||
@@ -235,7 +242,15 @@ export default function AMSystemsManufacturersContent() {
     })
 
     setFilteredData(sorted)
-  }, [filters, data, sort])
+  }, [
+    debouncedSearch,
+    filters.process,
+    filters.material_format,
+    filters.material_type,
+    filters.country,
+    data,
+    sort
+  ])
 
   // Get unique values for filter dropdowns
   const uniq = (arr: (string | null | undefined)[]) =>
@@ -388,7 +403,7 @@ export default function AMSystemsManufacturersContent() {
         <Table>
           <TableHeader className="sticky top-0 bg-background z-10">
             <TableRow>
-              <TableHead onClick={() => toggleSort('company_name')} className="cursor-pointer select-none">
+              <TableHead onClick={() => toggleSort('company_name')} className="cursor-pointer select-none w-0 whitespace-nowrap px-2">
                 <div className="inline-flex items-center">Company Name<SortIndicator column="company_name" /></div>
               </TableHead>
               <TableHead onClick={() => toggleSort('process')} className="cursor-pointer select-none">
@@ -397,7 +412,7 @@ export default function AMSystemsManufacturersContent() {
               <TableHead onClick={() => toggleSort('material_format')} className="cursor-pointer select-none">
                 <div className="inline-flex items-center">Material Format<SortIndicator column="material_format" /></div>
               </TableHead>
-              <TableHead onClick={() => toggleSort('material_type')} className="cursor-pointer select-none">
+              <TableHead onClick={() => toggleSort('material_type')} className="cursor-pointer select-none w-0 whitespace-nowrap px-2">
                 <div className="inline-flex items-center">Material Type<SortIndicator column="material_type" /></div>
               </TableHead>
               <TableHead onClick={() => toggleSort('country')} className="cursor-pointer select-none">
@@ -408,7 +423,7 @@ export default function AMSystemsManufacturersContent() {
           <TableBody>
             {filteredData.map((manufacturer) => (
               <TableRow key={manufacturer.id} className="hover:bg-muted/50">
-                <TableCell className="font-medium">
+                <TableCell className="font-medium w-0 whitespace-nowrap px-2">
                   <div className="flex items-center gap-2">
                     {manufacturer.website ? (
                       <a 
@@ -430,7 +445,7 @@ export default function AMSystemsManufacturersContent() {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-sm">{manufacturer.material_format}</TableCell>
-                <TableCell>
+                <TableCell className="w-0 whitespace-nowrap px-2">
                   <Badge 
                     variant={manufacturer.material_type === 'Metal' ? 'default' : 'secondary'}
                     className={manufacturer.material_type === 'Metal' ? 'bg-blue-100 text-blue-800' : ''}

@@ -236,13 +236,17 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
     })
   }
   
+  // Show/hide global filters and KPI row depending on dataset
+  const isAMMarketRevenue = dataset === 'am-market-revenue-2024'
+
   return (
     <div className="space-y-3">
-      {/* Filters (moved to top above all charts) */}
+      {/* Global filters: hidden for AM Market Revenue to avoid confusion with the top chart */}
+      {!isAMMarketRevenue && (
       <FilterCard size="xxs">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="h-6">
+              <SelectTrigger className="h-6 order-1 md:order-1">
                 <SelectValue placeholder={dataset === 'revenue-by-industry-2024' ? 'Industry' : 'Country'} />
               </SelectTrigger>
               <SelectContent>
@@ -255,7 +259,7 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
             
             {dataset !== 'revenue-by-industry-2024' && (
               <Select value={selectedSegment} onValueChange={setSelectedSegment}>
-                <SelectTrigger className="h-6">
+                <SelectTrigger className="h-6 order-3 md:order-2">
                   <SelectValue placeholder="Segment" />
                 </SelectTrigger>
                 <SelectContent>
@@ -269,7 +273,7 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
 
             {dataset === 'revenue-by-industry-2024' && (
               <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
-              <SelectTrigger className="h-6">
+              <SelectTrigger className="h-6 order-3 md:order-2">
                 <SelectValue placeholder="Material" />
               </SelectTrigger>
               <SelectContent>
@@ -285,13 +289,13 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
             
             <Input 
               placeholder="Search revenue data..." 
-              className="h-6"
+              className="h-6 order-4 md:order-3"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             
             <Button 
-              className="h-6" 
+              className="h-6 order-2 md:order-4" 
               size="sm"
               variant="outline"
               onClick={() => {
@@ -305,8 +309,10 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
             </Button>
           </div>
       </FilterCard>
+      )}
 
-      {/* Summary Cards (compact) */}
+      {/* Summary Cards (compact): remove for AM Market Revenue to free space */}
+      {!isAMMarketRevenue && (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
         <KpiCard size="xxs" title="Total Records" icon={BarChart3} value={rows.length} subtitle="Revenue data points" />
         <KpiCard size="xxs" title="Countries/Industries" icon={MapPin} value={new Set(rows.map(row => row[1] || '')).size} subtitle="Unique entries" />
@@ -321,11 +327,61 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
           return `$${(avgRevenue / 1000000).toFixed(1)}M`
         })()} subtitle="Per data point" />
       </div>
+      )}
 
       {/* Market Countries Chart (moved after filters and summary) */}
       {dataset === 'am-market-revenue-2024' ? (
         <MarketCountriesChart defaultYear={2024} />
       ) : null}
+
+      {/* For AM Market Revenue, place the dataset-level filters below the top chart so users don’t expect it to control the chart above */}
+      {isAMMarketRevenue && (
+        <FilterCard size="xxs">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <SelectTrigger className="h-6 order-1 md:order-1">
+                <SelectValue placeholder="Country" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Countries</SelectItem>
+                {uniqueCountries.filter(country => country && country.toString().trim()).map(country => (
+                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={selectedSegment} onValueChange={setSelectedSegment}>
+              <SelectTrigger className="h-6 order-3 md:order-2">
+                <SelectValue placeholder="Segment" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Segments</SelectItem>
+                {uniqueSegments.filter(segment => segment && segment.toString().trim()).map(segment => (
+                  <SelectItem key={segment} value={segment.toString()}>{segment}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Input 
+              placeholder="Search revenue data..." 
+              className="h-6 order-4 md:order-3"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button 
+              className="h-6 order-2 md:order-4" 
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                setSelectedSegment('all')
+                setSelectedCountry('all')
+                setSelectedMaterial('all')
+                setSearchTerm('')
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        </FilterCard>
+      )}
 
       {/* Industry Share Bar Chart (only for revenue-by-industry-2024) */}
       {dataset === 'revenue-by-industry-2024' ? (

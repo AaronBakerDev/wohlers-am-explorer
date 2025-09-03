@@ -1,8 +1,14 @@
 'use client'
 export const dynamic = 'force-dynamic'
 
+// ADMIN COMPANIES TABLE - Data Source Management
+// This table manages the primary data source for companies, combining elements from both
+// printing services and systems manufacturing tables. Admins can enter new rows and manage
+// the segment field which categorizes companies (e.g., "AM Systems Manufacturers", "Printing Services").
+// The segment field is critical for proper categorization across the application.
+
 import { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -10,8 +16,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Building2, Plus, Pencil, Trash2, ExternalLink, Search } from 'lucide-react'
+import { Plus, Pencil, Trash2, Search, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react'
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { ResponsiveAdminLayout } from '@/components/admin/responsive-admin-layout'
 import type { Database, Company, CompanyInsert, CompanyUpdate } from '@/lib/supabase/types'
 
@@ -25,7 +31,7 @@ type SupabaseError = {
 
 // Extended company type with equipment and material data
 type ExtendedCompany = Company & {
-  segment?: string | null
+  vendor_id?: string | null
   printer_manufacturer?: string | null
   printer_model?: string | null
   number_of_printers?: number | null
@@ -59,7 +65,16 @@ type _LegacyRow = {
   parent_company: string | null
 }
 
-const COMPANY_TYPES = ['equipment', 'service', 'material', 'software'] as const
+const SEGMENT_OPTIONS = [
+  'AM Systems Manufacturers',
+  'Printing Services',
+  'Material Suppliers',
+  'Software Providers',
+  'Research & Development',
+  'Other'
+] as const
+
+const COUNT_TYPES = ['Exact', 'Estimated', 'Range', 'Minimum'] as const
 
 export default function CompaniesAdminPage() {
   const [rows, setRows] = useState<Row[]>([])
@@ -69,73 +84,154 @@ export default function CompaniesAdminPage() {
   const [creating, setCreating] = useState(false)
   const [editing, setEditing] = useState<Row | null>(null)
   const [deleting, setDeleting] = useState<Row | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(50)
+
+  type ColumnKey =
+    | 'company_type' | 'website' | 'country' | 'state' | 'city'
+    | 'founded_year' | 'employee_count_range' | 'revenue_range' | 'is_public_company'
+    | 'stock_ticker' | 'public_stock_ticker' | 'parent_company' | 'description'
+    | 'subsidiary_info' | 'last_funding_date' | 'total_funding_usd' | 'latitude' | 'longitude'
+    | 'created_at' | 'updated_at'
+    | 'segment' | 'printer_manufacturer' | 'printer_model' | 'number_of_printers' | 'count_type' | 'process' | 'material_type' | 'material_format' | 'update_year'
+
+  // Columns menu limited to the requested fields
+  const companyColumnDefs: { key: ColumnKey; label: string }[] = [
+    { key: 'segment', label: 'Segment' },
+    { key: 'printer_manufacturer', label: 'Printer manufacturer' },
+    { key: 'printer_model', label: 'Printer model' },
+    { key: 'number_of_printers', label: 'Number of printers' },
+    { key: 'count_type', label: 'Count type' },
+    { key: 'process', label: 'Process' },
+    { key: 'material_type', label: 'Material type' },
+    { key: 'material_format', label: 'Material format' },
+    { key: 'country', label: 'Country' },
+    { key: 'update_year', label: 'Update year' },
+  ]
+  // We intentionally omit vendor merged columns from the menu: admin edits/view should
+  // focus on the canonical `companies` table.
+
+  const [visibleCols, setVisibleCols] = useState<Record<ColumnKey, boolean>>({
+    // Requested columns default to visible
+    segment: true,
+    printer_manufacturer: true,
+    printer_model: true,
+    number_of_printers: true,
+    count_type: true,
+    process: true,
+    material_type: true,
+    material_format: true,
+    country: true,
+    update_year: true,
+    // All other columns default hidden
+    company_type: false,
+    website: false,
+    state: false,
+    city: false,
+    founded_year: false,
+    employee_count_range: false,
+    revenue_range: false,
+    is_public_company: false,
+    stock_ticker: false,
+    public_stock_ticker: false,
+    parent_company: false,
+    description: false,
+    subsidiary_info: false,
+    last_funding_date: false,
+    total_funding_usd: false,
+    latitude: false,
+    longitude: false,
+    created_at: false,
+    updated_at: false,
+  })
 
   // Supabase-only mode: CSV demo removed
 
-  useEffect(() => {
-    ;(async () => {
-      try {
-        setLoading(true)
-        setError(null)
-        const { createClient } = await import('@/lib/supabase/client')
-        const supabase = createClient()
-        // Get all companies from the merged view (explicit high limit to override Supabase default)
-        const { data: mergedData, error: mergedError } = await supabase
-          .from('vendor_companies_merged')
-          .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year')
-          .order('company_name', { ascending: true })
-          .limit(10000)
-        
-        if (mergedError) throw mergedError
-        
-        // Also get main companies data for additional fields (explicit high limit to override Supabase default)
-        const { data: companiesData, error: companiesError } = await supabase
-          .from('companies')
-          .select('id, name, company_type, country, state, city, website, founded_year, employee_count_range, revenue_range, is_public_company, stock_ticker, parent_company')
-          .order('name', { ascending: true })
-          .limit(10000)
-        
-        if (companiesError) throw companiesError
-        
-        // Create a map for quick lookup of vendor data from merged view
-        const vendorMap = new Map<string, any>()
-        mergedData?.forEach(item => {
-          const key = item.company_name?.toLowerCase()
-          if (key && !vendorMap.has(key)) {
-            vendorMap.set(key, item)
-          }
-        })
-        
-        // Merge the data
-        const { data, error } = { 
-          data: companiesData?.map(company => {
-            const nameLower = company.name.toLowerCase()
-            const vendorInfo = vendorMap.get(nameLower)
-            
-            return {
-              ...company,
-              segment: vendorInfo?.segment || null,
-              printer_manufacturer: vendorInfo?.printer_manufacturer || null,
-              printer_model: vendorInfo?.printer_model || null,
-              number_of_printers: vendorInfo?.number_of_printers || null,
-              count_type: vendorInfo?.count_type || null,
-              process: vendorInfo?.process || null,
-              material_type: vendorInfo?.material_type || null,
-              material_format: vendorInfo?.material_format || null,
-              update_year: vendorInfo?.update_year || null
-            }
-          }),
-          error: null
+  const loadRows = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const { createClient } = await import('@/lib/supabase/client')
+      const supabase = createClient()
+      // Get all vendor data
+      const { data: mergedData, error: mergedError } = await supabase
+        .from('vendor_companies_merged')
+        .select('id, company_name, segment, printer_manufacturer, printer_model, number_of_printers, count_type, process, material_type, material_format, country, update_year')
+        .order('company_name', { ascending: true })
+        .limit(10000)
+      if (mergedError) throw mergedError
+
+      // Get companies
+      const { data: companiesData, error: companiesError } = await supabase
+        .from('companies')
+        .select(`
+          id,
+          name,
+          segment,
+          company_type,
+          country,
+          state,
+          city,
+          website,
+          founded_year,
+          employee_count_range,
+          revenue_range,
+          is_public_company,
+          stock_ticker,
+          public_stock_ticker,
+          parent_company,
+          description,
+          subsidiary_info,
+          last_funding_date,
+          total_funding_usd,
+          latitude,
+          longitude,
+          created_at,
+          updated_at
+        `)
+        .order('name', { ascending: true })
+        .limit(10000)
+      if (companiesError) throw companiesError
+
+      // Map vendor by name
+      const vendorMap = new Map<string, any>()
+      mergedData?.forEach(item => {
+        const key = item.company_name?.toLowerCase()
+        if (key && !vendorMap.has(key)) {
+          vendorMap.set(key, item)
         }
-        if (error) throw error
-        setRows(data as ExtendedCompany[] || [])
-      } catch (error) {
-        const err = error as SupabaseError
-        setError(err.message || 'Failed to load data')
-      } finally {
-        setLoading(false)
-      }
-    })()
+      })
+
+      // Merge
+      const mergedRows: ExtendedCompany[] = (companiesData ?? []).map(company => {
+        const nameLower = company.name.toLowerCase()
+        const vendorInfo = vendorMap.get(nameLower)
+        return {
+          ...company,
+          vendor_id: vendorInfo?.id || null,
+          segment: company.segment ?? vendorInfo?.segment ?? null,
+          printer_manufacturer: vendorInfo?.printer_manufacturer || null,
+          printer_model: vendorInfo?.printer_model || null,
+          number_of_printers: vendorInfo?.number_of_printers || null,
+          count_type: vendorInfo?.count_type || null,
+          process: vendorInfo?.process || null,
+          material_type: vendorInfo?.material_type || null,
+          material_format: vendorInfo?.material_format || null,
+          update_year: vendorInfo?.update_year || null,
+        }
+      })
+      setRows(mergedRows)
+    } catch (error) {
+      const err = error as SupabaseError
+      setError(err.message || 'Failed to load data')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    loadRows()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const filtered = useMemo(() => {
@@ -147,6 +243,11 @@ export default function CompaniesAdminPage() {
       (r.company_type || '').toLowerCase().includes(q)
     )
   }, [rows, search])
+
+  const totalPages = useMemo(() => Math.max(1, Math.ceil(filtered.length / pageSize)), [filtered.length, pageSize])
+  const startIndex = useMemo(() => (currentPage - 1) * pageSize, [currentPage, pageSize])
+  const endIndex = useMemo(() => Math.min(startIndex + pageSize, filtered.length), [startIndex, pageSize, filtered.length])
+  const pageRows = useMemo(() => filtered.slice(startIndex, endIndex), [filtered, startIndex, endIndex])
 
   const onCreate = async (payload: CompaniesInsert) => {
     const { createClient } = await import('@/lib/supabase/client')
@@ -190,13 +291,31 @@ export default function CompaniesAdminPage() {
 
   const headerActions = (
     <div className="flex items-center gap-2">
-      <Badge variant="secondary" className="hidden sm:inline-flex">{rows.length} records</Badge>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm">Columns</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-64">
+          <DropdownMenuLabel>Company Columns</DropdownMenuLabel>
+          {companyColumnDefs.map(col => (
+            <DropdownMenuCheckboxItem
+              key={col.key}
+              checked={visibleCols[col.key]}
+              onCheckedChange={(v) => setVisibleCols(prev => ({ ...prev, [col.key]: !!v }))}
+              className="capitalize"
+            >
+              {col.label}
+            </DropdownMenuCheckboxItem>
+          ))}
+          {/* No vendor columns shown here */}
+        </DropdownMenuContent>
+      </DropdownMenu>
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           placeholder="Search companies…"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => { setSearch(e.target.value); setCurrentPage(1) }}
           className="pl-9 w-44 md:w-56"
         />
       </div>
@@ -239,28 +358,29 @@ export default function CompaniesAdminPage() {
               </div>
             </div>
           ) : (
+            <>
             <div className="overflow-x-auto">
-              <Table>
+              <Table className="w-max min-w-[2000px]">
                 <TableHeader className="sticky top-0 bg-background z-10 border-b">
                   <TableRow>
-                    <TableHead className="min-w-[200px]">Company Name</TableHead>
-                    <TableHead className="hidden sm:table-cell">Segment</TableHead>
-                    <TableHead className="hidden md:table-cell">Printer Manufacturer</TableHead>
-                    <TableHead className="hidden lg:table-cell">Printer Model</TableHead>
-                    <TableHead className="hidden xl:table-cell">Number of Printers</TableHead>
-                    <TableHead className="hidden xl:table-cell">Count Type</TableHead>
-                    <TableHead className="hidden 2xl:table-cell">Process</TableHead>
-                    <TableHead className="hidden 2xl:table-cell">Material Type</TableHead>
-                    <TableHead className="hidden 2xl:table-cell">Material Format</TableHead>
-                    <TableHead className="hidden md:table-cell">Country</TableHead>
-                    <TableHead className="hidden xl:table-cell">Update Year</TableHead>
+                    <TableHead className="min-w-[240px] sticky left-0 z-20 bg-background">Company Name</TableHead>
+                    {visibleCols.segment && <TableHead className="min-w-[200px]">Segment</TableHead>}
+                    {visibleCols.printer_manufacturer && <TableHead className="min-w-[200px]">Printer manufacturer</TableHead>}
+                    {visibleCols.printer_model && <TableHead className="min-w-[200px]">Printer model</TableHead>}
+                    {visibleCols.number_of_printers && <TableHead className="min-w-[160px]">Number of printers</TableHead>}
+                    {visibleCols.count_type && <TableHead className="min-w-[140px]">Count type</TableHead>}
+                    {visibleCols.process && <TableHead className="min-w-[160px]">Process</TableHead>}
+                    {visibleCols.material_type && <TableHead className="min-w-[180px]">Material type</TableHead>}
+                    {visibleCols.material_format && <TableHead className="min-w-[180px]">Material format</TableHead>}
+                    {visibleCols.country && <TableHead className="min-w-[140px]">Country</TableHead>}
+                    {visibleCols.update_year && <TableHead className="min-w-[140px]">Update year</TableHead>}
                     <TableHead className="w-[1%] text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filtered.map((r) => (
+                  {pageRows.map((r) => (
                     <TableRow key={r.id} className="hover:bg-muted/50">
-                      <TableCell className="font-medium">
+                      <TableCell className="font-medium sticky left-0 bg-background z-10">
                         <div className="min-w-0">
                           <div className="truncate">{r.name}</div>
                           <div className="sm:hidden text-xs text-muted-foreground mt-1">
@@ -269,16 +389,22 @@ export default function CompaniesAdminPage() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="hidden sm:table-cell text-sm">{r.segment ?? '—'}</TableCell>
-                      <TableCell className="hidden md:table-cell text-sm">{r.printer_manufacturer ?? '—'}</TableCell>
-                      <TableCell className="hidden lg:table-cell text-sm">{r.printer_model ?? '—'}</TableCell>
-                      <TableCell className="hidden xl:table-cell text-sm">{r.number_of_printers ?? '—'}</TableCell>
-                      <TableCell className="hidden xl:table-cell text-sm">{r.count_type ?? '—'}</TableCell>
-                      <TableCell className="hidden 2xl:table-cell text-sm">{r.process ?? '—'}</TableCell>
-                      <TableCell className="hidden 2xl:table-cell text-sm">{r.material_type ?? '—'}</TableCell>
-                      <TableCell className="hidden 2xl:table-cell text-sm">{r.material_format ?? '—'}</TableCell>
-                      <TableCell className="hidden md:table-cell text-sm">{r.country ?? '—'}</TableCell>
-                      <TableCell className="hidden xl:table-cell text-sm text-muted-foreground">{r.update_year ?? '—'}</TableCell>
+                      {visibleCols.segment && <TableCell className="text-sm">
+                        {r.segment ? (
+                          <Badge variant="outline" className="font-normal">
+                            {r.segment}
+                          </Badge>
+                        ) : '—'}
+                      </TableCell>}
+                      {visibleCols.printer_manufacturer && <TableCell className="text-sm">{r.printer_manufacturer ?? '—'}</TableCell>}
+                      {visibleCols.printer_model && <TableCell className="text-sm">{r.printer_model ?? '—'}</TableCell>}
+                      {visibleCols.number_of_printers && <TableCell className="text-sm">{r.number_of_printers ?? '—'}</TableCell>}
+                      {visibleCols.count_type && <TableCell className="text-sm">{r.count_type ?? '—'}</TableCell>}
+                      {visibleCols.process && <TableCell className="text-sm">{r.process ?? '—'}</TableCell>}
+                      {visibleCols.material_type && <TableCell className="text-sm">{r.material_type ?? '—'}</TableCell>}
+                      {visibleCols.material_format && <TableCell className="text-sm">{r.material_format ?? '—'}</TableCell>}
+                      {visibleCols.country && <TableCell className="text-sm">{r.country ?? '—'}</TableCell>}
+                      {visibleCols.update_year && <TableCell className="text-sm">{r.update_year ?? '—'}</TableCell>}
                       <TableCell className="text-right">
                       <div className="flex items-center gap-1 justify-end">
                         <Button 
@@ -306,6 +432,71 @@ export default function CompaniesAdminPage() {
               </TableBody>
             </Table>
             </div>
+            
+            {/* Pagination controls */}
+            <div className="flex items-center justify-between px-2 py-3 border-t mt-2">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground">Rows per page:</span>
+                  <Select
+                    value={pageSize.toString()}
+                    onValueChange={(v) => { setPageSize(Number(v)); setCurrentPage(1) }}
+                  >
+                    <SelectTrigger className="w-20 h-8"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {[25, 50, 100, 200].map(n => (
+                        <SelectItem key={n} value={n.toString()}>{n}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <span className="text-sm text-muted-foreground">
+                  {filtered.length === 0 ? '0' : `${startIndex + 1}-${endIndex}`} of {filtered.length}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(1)}
+                  disabled={currentPage === 1}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronsLeft className="h-3 w-3" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronLeft className="h-3 w-3" />
+                </Button>
+                <span className="text-sm text-muted-foreground min-w-[100px] text-center">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronRight className="h-3 w-3" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(totalPages)}
+                  disabled={currentPage === totalPages}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronsRight className="h-3 w-3" />
+                </Button>
+              </div>
+            </div>
+            </>
           )}
         </div>
 
@@ -318,6 +509,7 @@ export default function CompaniesAdminPage() {
             await onCreate(values)
             setCreating(false)
           }}
+          onSaved={loadRows}
         />
 
         {/* Edit dialog */}
@@ -331,6 +523,7 @@ export default function CompaniesAdminPage() {
               await onUpdate(editing.id, values)
               setEditing(null)
             }}
+            onSaved={loadRows}
           />
         )}
 
@@ -369,54 +562,55 @@ function CompanyDialog({
   title,
   onSubmit,
   initialValues,
+  onSaved,
 }: {
   open: boolean
   onOpenChange: (v: boolean) => void
   title: string
   onSubmit: (values: CompaniesInsert) => Promise<void>
-  initialValues?: Partial<Company>
+  initialValues?: Partial<ExtendedCompany>
+  onSaved?: () => Promise<void> | void
 }) {
   const [name, setName] = useState(initialValues?.name ?? '')
-  const [company_type, setCompanyType] = useState<string | null>(initialValues?.company_type ?? null)
+  const [segment, setSegment] = useState<string | null>(initialValues?.segment ?? null)
   const [country, setCountry] = useState(initialValues?.country ?? '')
-  const [state, setStateVal] = useState(initialValues?.state ?? '')
-  const [city, setCity] = useState(initialValues?.city ?? '')
-  const [website, setWebsite] = useState(initialValues?.website ?? '')
-  const [founded_year, setFounded] = useState<number | undefined>(initialValues?.founded_year ?? undefined)
-  const [employee_count_range, setEmployees] = useState(initialValues?.employee_count_range ?? '')
-  const [revenue_range, setRevenue] = useState(initialValues?.revenue_range ?? '')
-  const [is_public_company, setIsPublic] = useState<boolean>(!!initialValues?.is_public_company)
-  const [stock_ticker, setTicker] = useState(initialValues?.stock_ticker ?? '')
-  const [parent_company, setParent] = useState(initialValues?.parent_company ?? '')
+  // Vendor/merged view fields (read-only in this dialog)
+  const [printer_manufacturer, setPrinterManufacturer] = useState(initialValues?.printer_manufacturer ?? '')
+  const [printer_model, setPrinterModel] = useState(initialValues?.printer_model ?? '')
+  const [number_of_printers, setNumberOfPrinters] = useState<number | ''>(initialValues?.number_of_printers ?? '')
+  const [count_type, setCountType] = useState<string>(initialValues?.count_type ?? '')
+  const [process, setProcess] = useState(initialValues?.process ?? '')
+  const [material_type, setMaterialType] = useState(initialValues?.material_type ?? '')
+  const [material_format, setMaterialFormat] = useState(initialValues?.material_format ?? '')
+  const [update_year, setUpdateYear] = useState<number | ''>(initialValues?.update_year ?? '')
+  const vendor_id = initialValues?.vendor_id ?? null
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     setName(initialValues?.name ?? '')
-    setCompanyType(initialValues?.company_type ?? null)
+    setSegment(initialValues?.segment ?? null)
     setCountry(initialValues?.country ?? '')
-    setStateVal(initialValues?.state ?? '')
-    setCity(initialValues?.city ?? '')
-    setWebsite(initialValues?.website ?? '')
-    setFounded(initialValues?.founded_year ?? undefined)
-    setEmployees(initialValues?.employee_count_range ?? '')
-    setRevenue(initialValues?.revenue_range ?? '')
-    setIsPublic(!!initialValues?.is_public_company)
-    setTicker(initialValues?.stock_ticker ?? '')
-    setParent(initialValues?.parent_company ?? '')
+    setPrinterManufacturer(initialValues?.printer_manufacturer ?? '')
+    setPrinterModel(initialValues?.printer_model ?? '')
+    setNumberOfPrinters(initialValues?.number_of_printers ?? '')
+    setCountType(initialValues?.count_type ?? '')
+    setProcess(initialValues?.process ?? '')
+    setMaterialType(initialValues?.material_type ?? '')
+    setMaterialFormat(initialValues?.material_format ?? '')
+    setUpdateYear(initialValues?.update_year ?? '')
   }, [
     initialValues?.id,
     initialValues?.name,
-    initialValues?.company_type,
+    initialValues?.segment,
     initialValues?.country,
-    initialValues?.state,
-    initialValues?.city,
-    initialValues?.website,
-    initialValues?.founded_year,
-    initialValues?.employee_count_range,
-    initialValues?.revenue_range,
-    initialValues?.is_public_company,
-    initialValues?.stock_ticker,
-    initialValues?.parent_company
+    initialValues?.printer_manufacturer,
+    initialValues?.printer_model,
+    initialValues?.number_of_printers,
+    initialValues?.count_type,
+    initialValues?.process,
+    initialValues?.material_type,
+    initialValues?.material_format,
+    initialValues?.update_year,
   ])
 
   const handleSubmit = async () => {
@@ -425,18 +619,64 @@ function CompanyDialog({
       if (!name) throw new Error('Company name is required')
       await onSubmit({
         name,
-        company_type: company_type ?? null,
+        segment: segment ?? null,
         country: country || null,
-        state: state || null,
-        city: city || null,
-        website: website || null,
-        founded_year: founded_year ?? null,
-        employee_count_range: employee_count_range || null,
-        revenue_range: revenue_range || null,
-        is_public_company: is_public_company || null,
-        stock_ticker: stock_ticker || null,
-        parent_company: parent_company || null,
       })
+      // Persist vendor-related fields
+      const { createClient } = await import('@/lib/supabase/client')
+      const supabase = createClient()
+
+      const vendorPayload: any = {
+        company_name: name,
+        // map to vendor segment only if obvious; otherwise leave as-is
+        segment: segment?.toLowerCase().includes('manufacturer') ? 'System manufacturer' : 'Printing services',
+        printer_manufacturer: printer_manufacturer || null,
+        printer_model: printer_model || null,
+        number_of_printers: number_of_printers === '' ? null : Number(number_of_printers),
+        count_type: count_type || null,
+        process: process || null,
+        material_type: material_type || null,
+        material_format: material_format || null,
+        country: country || null,
+        update_year: update_year === '' ? null : Number(update_year),
+      }
+      const hasVendorInput = (
+        (vendorPayload.printer_manufacturer && vendorPayload.printer_manufacturer !== '') ||
+        (vendorPayload.printer_model && vendorPayload.printer_model !== '') ||
+        vendorPayload.number_of_printers !== null ||
+        (vendorPayload.count_type && vendorPayload.count_type !== '') ||
+        (vendorPayload.process && vendorPayload.process !== '') ||
+        (vendorPayload.material_type && vendorPayload.material_type !== '') ||
+        (vendorPayload.material_format && vendorPayload.material_format !== '') ||
+        vendorPayload.update_year !== null
+      )
+
+      if (vendor_id || hasVendorInput) {
+        if (vendor_id) {
+          await supabase
+            .from('vendor_companies_merged')
+            .update(vendorPayload)
+            .eq('id', vendor_id)
+        } else {
+          const { data: existing } = await supabase
+            .from('vendor_companies_merged')
+            .select('id')
+            .eq('company_name', name)
+            .limit(1)
+          if (existing && existing.length > 0) {
+            await supabase
+              .from('vendor_companies_merged')
+              .update(vendorPayload)
+              .eq('id', existing[0].id)
+          } else {
+            await supabase
+              .from('vendor_companies_merged')
+              .insert(vendorPayload)
+          }
+        }
+      }
+      // trigger parent refresh
+      await onSaved?.()
       onOpenChange(false)
     } catch (e) {
       console.error(e)
@@ -448,85 +688,97 @@ function CompanyDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl">
-        <DialogHeader>
+      <DialogContent className="w-[95vw] sm:w-auto max-w-3xl sm:max-w-4xl max-h-[85vh] p-0 flex flex-col gap-0 overflow-hidden">
+        <DialogHeader className="px-6 pt-6">
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2 md:col-span-2">
             <label className="text-xs text-muted-foreground">Company Name</label>
             <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., EOS GmbH" />
           </div>
 
           <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">Company Type</label>
-            <Select value={company_type ?? ''} onValueChange={(v) => setCompanyType(v)}>
+            <label className="text-xs text-muted-foreground">Segment</label>
+            <Select value={segment ?? ''} onValueChange={(v) => setSegment(v === '__clear__' ? null : v)}>
               <SelectTrigger>
-                <SelectValue placeholder="Select type…" />
+                <SelectValue placeholder="Select segment…" />
               </SelectTrigger>
               <SelectContent>
-                {COMPANY_TYPES.map(ct => (
+                <SelectItem value="__clear__">None</SelectItem>
+                {SEGMENT_OPTIONS.map(seg => (
+                  <SelectItem key={seg} value={seg}>{seg}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs text-muted-foreground">Printer manufacturer</label>
+            <Input value={printer_manufacturer ?? ''} onChange={(e) => setPrinterManufacturer(e.target.value)} placeholder="e.g., EOS" />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs text-muted-foreground">Printer model</label>
+            <Input value={printer_model ?? ''} onChange={(e) => setPrinterModel(e.target.value)} placeholder="e.g., M400" />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs text-muted-foreground">Number of printers</label>
+            <Input type="number" min={0} value={number_of_printers === '' ? '' : String(number_of_printers)} onChange={(e) => setNumberOfPrinters(e.target.value === '' ? '' : Number(e.target.value))} />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs text-muted-foreground">Count type</label>
+            <Select value={count_type} onValueChange={(v) => setCountType(v)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select…" />
+              </SelectTrigger>
+              <SelectContent>
+                {COUNT_TYPES.map(ct => (
                   <SelectItem key={ct} value={ct}>{ct}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
+
+          <div className="space-y-2">
+            <label className="text-xs text-muted-foreground">Process</label>
+            <Input value={process ?? ''} onChange={(e) => setProcess(e.target.value)} placeholder="e.g., SLS" />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs text-muted-foreground">Material type</label>
+            <Input value={material_type ?? ''} onChange={(e) => setMaterialType(e.target.value)} placeholder="e.g., Metal" />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs text-muted-foreground">Material format</label>
+            <Input value={material_format ?? ''} onChange={(e) => setMaterialFormat(e.target.value)} placeholder="e.g., Powder" />
+          </div>
+
           <div className="space-y-2">
             <label className="text-xs text-muted-foreground">Country</label>
             <Input value={country ?? ''} onChange={(e) => setCountry(e.target.value)} placeholder="e.g., Germany" />
           </div>
 
           <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">State/Province</label>
-            <Input value={state ?? ''} onChange={(e) => setStateVal(e.target.value)} placeholder="e.g., Bavaria" />
+            <label className="text-xs text-muted-foreground">Update year</label>
+            <Input type="number" value={update_year === '' ? '' : String(update_year)} onChange={(e) => setUpdateYear(e.target.value === '' ? '' : Number(e.target.value))} />
           </div>
-          <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">City</label>
-            <Input value={city ?? ''} onChange={(e) => setCity(e.target.value)} placeholder="e.g., Krailling" />
+          
           </div>
-
-          <div className="space-y-2 md:col-span-2">
-            <label className="text-xs text-muted-foreground">Website</label>
-            <Input value={website ?? ''} onChange={(e) => setWebsite(e.target.value)} placeholder="https://…" />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">Founded Year</label>
-            <Input type="number" value={founded_year ?? ''} onChange={(e) => setFounded(e.target.value ? Number(e.target.value) : undefined)} />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">Employee Count Range</label>
-            <Input value={employee_count_range ?? ''} onChange={(e) => setEmployees(e.target.value)} placeholder="e.g., 201-500" />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">Revenue Range</label>
-            <Input value={revenue_range ?? ''} onChange={(e) => setRevenue(e.target.value)} placeholder="e.g., $10M-$50M" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">Public Company</label>
-            <div className="flex items-center gap-2 py-2">
-              <Checkbox id="is_public_company" checked={!!is_public_company} onCheckedChange={(v) => setIsPublic(!!v)} />
-              <label htmlFor="is_public_company" className="text-sm">Is public</label>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">Stock Ticker</label>
-            <Input value={stock_ticker ?? ''} onChange={(e) => setTicker(e.target.value)} placeholder="e.g., EOS.DE" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs text-muted-foreground">Parent Company</label>
-            <Input value={parent_company ?? ''} onChange={(e) => setParent(e.target.value)} placeholder="e.g., XYZ Group" />
-          </div>
+          
         </div>
 
-        <Separator className="my-2" />
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={handleSubmit} disabled={submitting}>{submitting ? 'Saving…' : 'Save'}</Button>
-        </DialogFooter>
+        <div className="px-6 pb-6">
+          <Separator className="my-2" />
+          <DialogFooter>
+            <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+            <Button onClick={handleSubmit} disabled={submitting}>{submitting ? 'Saving…' : 'Save'}</Button>
+          </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   )

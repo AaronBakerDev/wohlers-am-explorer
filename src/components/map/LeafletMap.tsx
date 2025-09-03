@@ -218,18 +218,32 @@ function normalizeCountryName(input: unknown): string {
     'united states of america': 'United States',
     'united states': 'United States',
     'usa': 'United States',
+    'bahamas, the': 'Bahamas',
+    'gambia, the': 'Gambia',
     'russian federation': 'Russia',
     'republic of korea': 'South Korea',
     'korea, republic of': 'South Korea',
+    "democratic people's republic of korea": 'North Korea',
     "korea, dem. people's rep.": 'North Korea',
     'democratic republic of the congo': 'Democratic Republic of the Congo',
     'congo, democratic republic of the': 'Democratic Republic of the Congo',
+    'republic of the congo': 'Congo',
+    'congo, republic of the': 'Congo',
+    'congo-brazzaville': 'Congo',
+    'congo-kinshasa': 'Democratic Republic of the Congo',
     'congo': 'Congo',
     'iran, islamic republic of': 'Iran',
+    'iran (islamic republic of)': 'Iran',
     'viet nam': 'Vietnam',
     'czechia': 'Czech Republic',
+    'united kingdom of great britain and northern ireland': 'United Kingdom',
+    'u.k.': 'United Kingdom',
+    'uk': 'United Kingdom',
+    'the netherlands': 'Netherlands',
+    'holland': 'Netherlands',
     'syrian arab republic': 'Syria',
     'taiwan, province of china': 'Taiwan',
+    'turkiye': 'Turkey',
     'tanzania, united republic of': 'Tanzania',
     'moldova, republic of': 'Moldova',
     'bolivia (plurinational state of)': 'Bolivia',
@@ -238,7 +252,17 @@ function normalizeCountryName(input: unknown): string {
     'palestine, state of': 'Palestine',
     'macedonia, the former yugoslav republic of': 'North Macedonia',
     'myanmar': 'Myanmar',
+    'burma': 'Myanmar',
     "cote d'ivoire": "Côte d'Ivoire",
+    "côte d’ivoire": "Côte d'Ivoire",
+    'ivory coast': "Côte d'Ivoire",
+    'cape verde': 'Cabo Verde',
+    'east timor': 'Timor-Leste',
+    'micronesia, federated states of': 'Micronesia',
+    'federated states of micronesia': 'Micronesia',
+    'vatican city': 'Vatican',
+    'holy see (vatican city state)': 'Vatican',
+    'swaziland': 'Eswatini',
   };
   if (map[lower]) return map[lower];
   // Title case fallback - ensure consistent casing
@@ -324,12 +348,12 @@ export default function LeafletMap({
     }
   }, []);
 
-  // Load GeoJSON data for world countries (country-level choropleth)
+  // Load GeoJSON data for world countries (heatmap)
   useEffect(() => {
     const loadGeoJsonData = async () => {
-      // Skip choropleth load for vendor (country-level-only) datasets
-      if (isCountryLevelOnly) { setIsLoadingGeoData(false); return; }
-      
+      // Only load when heatmap is active
+      if (!isHeatmapMode) { setIsLoadingGeoData(false); return; }
+
       if (geoJsonData) return; // Already loaded
 
       setIsLoadingGeoData(true);
@@ -368,7 +392,7 @@ export default function LeafletMap({
     };
 
     loadGeoJsonData();
-  }, [geoJsonData, isCountryLevelOnly]);
+  }, [geoJsonData, isCountryLevelOnly, isHeatmapMode]);
 
   // Keep latest viewport callback in a ref to avoid tearing down the map
   useEffect(() => {
@@ -555,7 +579,7 @@ export default function LeafletMap({
     }
 
     if (isHeatmapMode) {
-      // Choropleth mode - world countries
+      // Country-level heatmap choropleth
       const intensities = memoizedStateData
         .map((s) => (s.total_machines && s.total_machines > 0 ? s.total_machines : s.company_count || 0))
         .filter((v) => v > 0)
@@ -638,16 +662,6 @@ export default function LeafletMap({
               ? Number(countryInfo.total_machines)
               : Number(countryInfo.company_count || 0))
           : 0;
-        
-        // Debug first few countries
-        if (Math.random() < 0.01) {
-          console.log('Country match:', {
-            geoJsonName: feature.properties.countryName,
-            normalized: countryName,
-            found: !!countryInfo,
-            intensity
-          });
-        }
 
         return {
           fillColor: getColor(intensity),
@@ -678,19 +692,11 @@ export default function LeafletMap({
 
       // Click handler
       const zoomToFeature = (e: any) => {
-        if (isCountryLevelOnly) {
-          // For country-level data, don't zoom but trigger country filter
-          if (onCountryClick) {
-            // Extract country from the feature properties if available
-            const country = normalizeCountryName(e.target.feature?.properties?.countryName || '');
-            if (country) onCountryClick(country);
-          }
-        } else {
-          // For country-level data, zoom to the feature and emit country filter if available
-          const name = normalizeCountryName(e.target.feature?.properties?.countryName || '');
-          if (onCountryClickRef.current && name) {
-            onCountryClickRef.current(name);
-          }
+        const name = normalizeCountryName(e.target.feature?.properties?.countryName || '');
+        if (onCountryClickRef.current && name) {
+          onCountryClickRef.current(name);
+        }
+        if (!isCountryLevelOnly) {
           mapRef.current?.fitBounds(e.target.getBounds());
         }
       };
@@ -792,9 +798,7 @@ export default function LeafletMap({
           onCompanySelectRef.current(company),
         );
 
-        if (clusterGroup) {
-          clusterGroup.addLayer(marker);
-        } else {
+        if (!clusterGroup) {
           marker.addTo(mapRef.current!);
         }
 
@@ -877,6 +881,10 @@ export default function LeafletMap({
         markers.push(marker);
       });
 
+      // If clustering, add markers in a single batch for performance
+      if (clusterGroup && markers.length) {
+        clusterGroup.addLayers(markers);
+      }
       markersRef.current = markers;
 
       // Fit bounds to show all markers (suppress viewport emit to avoid loops)

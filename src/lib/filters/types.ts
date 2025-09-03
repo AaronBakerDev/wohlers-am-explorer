@@ -5,6 +5,11 @@ export type FilterState = {
   sizeRanges: string[]
   countries: string[]
   states: string[]
+  // Vendor dataset specific filters
+  vendorMaterialTypes?: string[]
+  vendorMaterialFormats?: string[]
+  vendorPrinterManufacturers?: string[]
+  vendorPrinterModels?: string[]
 }
 
 export const emptyFilters: FilterState = {
@@ -14,5 +19,8 @@ export const emptyFilters: FilterState = {
   sizeRanges: [],
   countries: [],
   states: [],
+  vendorMaterialTypes: [],
+  vendorMaterialFormats: [],
+  vendorPrinterManufacturers: [],
+  vendorPrinterModels: [],
 }
-

@@ -37,11 +37,21 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
   const [processCategories, setProcessCategories] = useState<string[]>([])
   const [sizeRanges, setSizeRanges] = useState<string[]>([])
   const [countries, setCountries] = useState<string[]>([])
+  const [vendorMaterialTypes, setVendorMaterialTypes] = useState<string[]>([])
+  const [vendorMaterialFormats, setVendorMaterialFormats] = useState<string[]>([])
+  const [vendorManufacturers, setVendorManufacturers] = useState<string[]>([])
+  const [vendorModels, setVendorModels] = useState<string[]>([])
   
   // Check if we're on a vendor dataset page
-  const isVendorDataset = typeof window !== 'undefined' && 
-    (window.location.pathname.includes('am-systems-manufacturers') || 
-     window.location.pathname.includes('print-services-global'))
+  const isVendorDataset = typeof window !== 'undefined' && (() => {
+    try {
+      const url = new URL(window.location.href)
+      const ds = (url.searchParams.get('dataset') || '').toLowerCase()
+      return ds === 'am-systems-manufacturers' || ds === 'print-services-global'
+    } catch {
+      return false
+    }
+  })()
 
   // Load filter option lists
   useEffect(() => {
@@ -52,15 +62,15 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
         
         // For vendor datasets, fetch processes from the unified API
         if (isVendorDataset) {
-          const segment = window.location.pathname.includes('am-systems-manufacturers') 
-            ? 'System manufacturer' 
-            : 'Printing services'
-          
+          const url = new URL(window.location.href)
+          const ds = (url.searchParams.get('dataset') || '').toLowerCase()
+          const segment = ds === 'am-systems-manufacturers' ? 'System manufacturer' : 'Printing services'
+
           const [techs, mats, cntrs, vendorDataRes] = await Promise.all([
             getTechnologies(),
             getMaterials(),
             getCountries(),
-            fetch(`/api/datasets/unified-segment?segment=${encodeURIComponent(segment)}&limit=1`)
+            fetch(`/api/vendor/companies?segment=${encodeURIComponent(segment)}&limit=1`)
           ])
           
           if (!active) return
@@ -68,18 +78,20 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
           // Get processes from vendor data aggregations
           let processes: string[] = []
           let vendorCountries: string[] = []
+          let vMatTypes: string[] = []
+          let vMatFormats: string[] = []
+          let vManufacturers: string[] = []
+          let vModels: string[] = []
           if (vendorDataRes.ok) {
             const vendorData = await vendorDataRes.json()
-            if (vendorData.aggregations?.byProcess) {
-              processes = Object.keys(vendorData.aggregations.byProcess)
-                .filter(p => p && p.trim() !== '')
-                .sort()
-            }
-            if (vendorData.aggregations?.byCountry) {
-              vendorCountries = Object.keys(vendorData.aggregations.byCountry)
-                .filter(c => c && c.trim() !== '')
-                .sort()
-            }
+            const available = vendorData?.filters?.available || {}
+            const availableTechs = available.technologies || []
+            processes = Array.isArray(availableTechs) ? availableTechs.map((t: any) => t.name).filter(Boolean).sort() : []
+            vendorCountries = Array.isArray(available.countries) ? available.countries : []
+            vMatTypes = Array.isArray(available.materials) ? available.materials.map((m: any) => m.name).filter(Boolean).sort() : []
+            vMatFormats = Array.isArray(available.materialFormats) ? available.materialFormats : []
+            vManufacturers = Array.isArray(available.printerManufacturers) ? available.printerManufacturers : []
+            vModels = Array.isArray(available.printerModels) ? available.printerModels : []
           }
           
           setTechOptions(techs.map(t => ({ id: t.id, name: t.name })))
@@ -88,6 +100,10 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
           setSizeRanges([]) // No size ranges for vendor data
           // Prefer countries from vendor dataset aggregations to ensure normalized labels
           setCountries(vendorCountries.length ? vendorCountries : cntrs)
+          setVendorMaterialTypes(vMatTypes)
+          setVendorMaterialFormats(vMatFormats)
+          setVendorManufacturers(vManufacturers)
+          setVendorModels(vModels)
         } else {
           // Regular data loading for non-vendor pages
           const [techs, mats, categories, sizes, cntrs] = await Promise.all([
@@ -112,12 +128,14 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
   }, [isVendorDataset])
 
   const activeCount = useMemo(() => {
+    const vendorCounts = (value.vendorMaterialTypes?.length || 0) + (value.vendorMaterialFormats?.length || 0) + (value.vendorPrinterManufacturers?.length || 0) + (value.vendorPrinterModels?.length || 0)
     return (
       value.technologyIds.length +
       value.materialIds.length +
       value.processCategories.length +
       value.sizeRanges.length +
-      value.countries.length
+      value.countries.length +
+      vendorCounts
     )
   }, [value])
 
@@ -252,6 +270,250 @@ export default function FilterBar({ value, onChange, orientation = "horizontal",
           )}
         </DropdownMenuContent>
       </DropdownMenu>
+
+      {/* Vendor: Material Type */}
+      {isVendorDataset && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant={(value.vendorMaterialTypes?.length || 0) > 0 ? "default" : "outline"} 
+              size="sm" 
+              className="h-8 text-xs" 
+              data-testid="filter-vendor-material-type"
+            >
+              <FilterIcon className="h-3 w-3 mr-1" />
+              Material Type
+              {value.vendorMaterialTypes && value.vendorMaterialTypes.length > 0 && (
+                <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
+                  {value.vendorMaterialTypes.length}
+                </Badge>
+              )}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
+            <DropdownMenuLabel>Filter by Material Type</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {loading ? (
+              <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
+                Loading...
+              </div>
+            ) : (
+              <>
+                {(value.vendorMaterialTypes?.length || 0) > 0 && (
+                  <>
+                    <DropdownMenuCheckboxItem
+                      onClick={() => onChange({ ...value, vendorMaterialTypes: [] })}
+                      className="font-medium"
+                    >
+                      Clear All
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
+                {vendorMaterialTypes.map((t) => (
+                  <DropdownMenuCheckboxItem
+                    key={t}
+                    checked={value.vendorMaterialTypes?.includes(t) || false}
+                    onCheckedChange={(checked) => {
+                      const current = value.vendorMaterialTypes || []
+                      const next = checked
+                        ? [...current, t]
+                        : current.filter(v => v !== t)
+                      onChange({ ...value, vendorMaterialTypes: next })
+                    }}
+                  >
+                    {t}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+
+      {/* Vendor: Material Format */}
+      {isVendorDataset && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant={(value.vendorMaterialFormats?.length || 0) > 0 ? "default" : "outline"} 
+              size="sm" 
+              className="h-8 text-xs" 
+              data-testid="filter-vendor-material-format"
+            >
+              <FilterIcon className="h-3 w-3 mr-1" />
+              Material Format
+              {value.vendorMaterialFormats && value.vendorMaterialFormats.length > 0 && (
+                <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
+                  {value.vendorMaterialFormats.length}
+                </Badge>
+              )}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
+            <DropdownMenuLabel>Filter by Material Format</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {loading ? (
+              <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
+                Loading...
+              </div>
+            ) : (
+              <>
+                {(value.vendorMaterialFormats?.length || 0) > 0 && (
+                  <>
+                    <DropdownMenuCheckboxItem
+                      onClick={() => onChange({ ...value, vendorMaterialFormats: [] })}
+                      className="font-medium"
+                    >
+                      Clear All
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
+                {vendorMaterialFormats.map((fmt) => (
+                  <DropdownMenuCheckboxItem
+                    key={fmt}
+                    checked={value.vendorMaterialFormats?.includes(fmt) || false}
+                    onCheckedChange={(checked) => {
+                      const current = value.vendorMaterialFormats || []
+                      const next = checked
+                        ? [...current, fmt]
+                        : current.filter(v => v !== fmt)
+                      onChange({ ...value, vendorMaterialFormats: next })
+                    }}
+                  >
+                    {fmt}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+
+      {/* Vendor: Printer Manufacturer */}
+      {isVendorDataset && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant={(value.vendorPrinterManufacturers?.length || 0) > 0 ? "default" : "outline"} 
+              size="sm" 
+              className="h-8 text-xs" 
+              data-testid="filter-vendor-printer-manufacturer"
+            >
+              <FilterIcon className="h-3 w-3 mr-1" />
+              Manufacturer
+              {value.vendorPrinterManufacturers && value.vendorPrinterManufacturers.length > 0 && (
+                <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
+                  {value.vendorPrinterManufacturers.length}
+                </Badge>
+              )}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
+            <DropdownMenuLabel>Filter by Manufacturer</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {loading ? (
+              <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
+                Loading...
+              </div>
+            ) : (
+              <>
+                {(value.vendorPrinterManufacturers?.length || 0) > 0 && (
+                  <>
+                    <DropdownMenuCheckboxItem
+                      onClick={() => onChange({ ...value, vendorPrinterManufacturers: [] })}
+                      className="font-medium"
+                    >
+                      Clear All
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
+                {vendorManufacturers.map((mfr) => (
+                  <DropdownMenuCheckboxItem
+                    key={mfr}
+                    checked={value.vendorPrinterManufacturers?.includes(mfr) || false}
+                    onCheckedChange={(checked) => {
+                      const current = value.vendorPrinterManufacturers || []
+                      const next = checked
+                        ? [...current, mfr]
+                        : current.filter(v => v !== mfr)
+                      onChange({ ...value, vendorPrinterManufacturers: next })
+                    }}
+                  >
+                    {mfr}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+
+      {/* Vendor: Printer Model */}
+      {isVendorDataset && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant={(value.vendorPrinterModels?.length || 0) > 0 ? "default" : "outline"} 
+              size="sm" 
+              className="h-8 text-xs" 
+              data-testid="filter-vendor-printer-model"
+            >
+              <FilterIcon className="h-3 w-3 mr-1" />
+              Model
+              {value.vendorPrinterModels && value.vendorPrinterModels.length > 0 && (
+                <Badge variant="secondary" className="ml-1.5 text-[10px] h-4 px-1 bg-background/20">
+                  {value.vendorPrinterModels.length}
+                </Badge>
+              )}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-64 max-h-64 overflow-y-auto">
+            <DropdownMenuLabel>Filter by Model</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {loading ? (
+              <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
+                Loading...
+              </div>
+            ) : (
+              <>
+                {(value.vendorPrinterModels?.length || 0) > 0 && (
+                  <>
+                    <DropdownMenuCheckboxItem
+                      onClick={() => onChange({ ...value, vendorPrinterModels: [] })}
+                      className="font-medium"
+                    >
+                      Clear All
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
+                {vendorModels.map((mdl) => (
+                  <DropdownMenuCheckboxItem
+                    key={mdl}
+                    checked={value.vendorPrinterModels?.includes(mdl) || false}
+                    onCheckedChange={(checked) => {
+                      const current = value.vendorPrinterModels || []
+                      const next = checked
+                        ? [...current, mdl]
+                        : current.filter(v => v !== mdl)
+                      onChange({ ...value, vendorPrinterModels: next })
+                    }}
+                  >
+                    {mdl}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
 
       {/* Process Types */}
       <DropdownMenu>

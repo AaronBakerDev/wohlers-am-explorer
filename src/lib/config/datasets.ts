@@ -64,13 +64,13 @@ export const UNIFIED_DATASET_CONFIGS: Record<string, DatasetConfig> = {
     filters: FILTER_PRESETS.AM_SYSTEMS_MANUFACTURERS,
     
     // Display configuration
+    // Columns limited to: Company Name, Process, Material Format, Material Type, Country
     displayColumns: [
       'name',
-      'country', 
-      'segment',
-      'technologies',
-      'materials',
-      'website'
+      'process',
+      'materialFormat',
+      'materialType',
+      'country'
     ],
     mapType: 'equipment',
     
@@ -97,18 +97,25 @@ export const UNIFIED_DATASET_CONFIGS: Record<string, DatasetConfig> = {
   // Service Providers Dataset  
   'print-services-global': {
     id: 'print-services-global',
-    name: 'Global Printing Services',
-    description: 'Global directory of additive manufacturing print service providers and bureaus. This comprehensive database covers service capabilities, materials offered, geographic reach, and pricing models across the worldwide AM services market.',
+    name: 'Printing Services',
+    description: 'Directory of additive manufacturing print service providers and bureaus. This comprehensive database covers service capabilities, materials offered, geographic reach, and pricing models across the worldwide AM services market.',
     
     filters: FILTER_PRESETS.PRINT_SERVICES_GLOBAL,
     
+    // Allowed columns for this dataset (do not add others):
+    // Company name, Segment, Printer manufacturer, Printer model, Number of printers,
+    // Count type, Process, Material type, Material format, Country, Update year (not including segment)
     displayColumns: [
       'name',
       'country',
-      'segment', 
+      'process',
       'serviceTypes',
-      'materials',
-      'website'
+      'materialType',
+      'materialFormat',
+      'printerManufacturer',
+      'printerModel',
+      'numberOfPrinters',
+      'countType'
     ],
     mapType: 'service',
     
@@ -141,8 +148,7 @@ export const UNIFIED_DATASET_CONFIGS: Record<string, DatasetConfig> = {
       'name',
       'country',
       'materials',
-      'segment',
-      'website'
+      'segment'
     ],
     mapType: 'material',
     
@@ -175,8 +181,7 @@ export const UNIFIED_DATASET_CONFIGS: Record<string, DatasetConfig> = {
       'name',
       'country',
       'segment',
-      'technologies',
-      'website'
+      'technologies'
     ],
     mapType: 'software',
     
@@ -377,8 +382,8 @@ export const LEGACY_DATASET_CONFIGS: Record<LegacyDatasetKey, LegacyDatasetConfi
   },
   'print-services-global': {
     table: 'vendor_print_services_global',
-    name: 'Global Printing Services',
-    description: 'Global print service providers',
+    name: 'Printing Services',
+    description: 'Print service providers',
     columns: ['company_name', 'segment', 'material_type', 'material_format', 'country', 'printer_manufacturer', 'printer_model', 'number_of_printers', 'count_type', 'process', 'update_year', 'additional_info'],
     displayColumns: ['Company Name', 'Segment', 'Material Type', 'Material Format', 'Country', 'Printer Manufacturer', 'Printer Model', 'Number of Printers', 'Count Type', 'Process', 'Update Year', 'Additional Info'],
   },

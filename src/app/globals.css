@@ -258,6 +258,13 @@
   z-index: 9999 !important;
 }
 
+/* Ensure dialogs never exceed viewport and clip overflow
+   The dialog body should provide the scroll area. */
+[role="dialog"] {
+  max-height: 90svh;
+  overflow: hidden;
+}
+
 /* Tooltip and popover content */
 [data-radix-tooltip-content],
 [data-radix-popover-content] {

@@ -123,6 +123,8 @@ export async function GET(request: NextRequest) {
     // Set defaults
     const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10))
     const limit = Math.min(1000, Math.max(1, parseInt(searchParams.get('limit') || '100', 10)))
+    const includeFilters = (searchParams.get('includeFilters') ?? 'true') !== 'false'
+    const includeCount = (searchParams.get('includeCount') ?? 'true') !== 'false'
     const sortBy = searchParams.get('sortBy') || 'name'
     const sortOrder = (searchParams.get('sortOrder') || 'asc') as 'asc' | 'desc'
     
@@ -171,7 +173,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Execute query
-    const result = await getFilteredCompanies(filterRequest)
+    const result = await getFilteredCompanies(filterRequest, { includeFilters, includeCount })
     
     // Cache successful results
     if (result.data.length > 0) {
@@ -217,7 +219,7 @@ export async function GET(request: NextRequest) {
 /**
  * Core function to filter companies based on CompanyFilterRequest
  */
-async function getFilteredCompanies(filterRequest: CompanyFilterRequest): Promise<CompanyFilterResponse> {
+async function getFilteredCompanies(filterRequest: CompanyFilterRequest, opts: { includeFilters?: boolean, includeCount?: boolean } = {}): Promise<CompanyFilterResponse> {
   const startTime = Date.now()
   const supabase = await createClient()
   
@@ -245,7 +247,7 @@ async function getFilteredCompanies(filterRequest: CompanyFilterRequest): Promis
       technologies,
       materials,
       service_types
-    `, { count: 'exact' })
+    `, { count: (opts.includeCount ?? true) ? 'exact' : undefined })
   
   // Apply filters dynamically
   query = applyCompanyFilters(query, filterRequest)
@@ -267,7 +269,9 @@ async function getFilteredCompanies(filterRequest: CompanyFilterRequest): Promis
   }
   
   // Get available filter options for UI building
-  const filterOptions = await getAvailableFilterOptions(supabase)
+  const filterOptions = (opts.includeFilters ?? true) ? await getAvailableFilterOptions(supabase) : {
+    countries: [], states: [], companyTypes: [], companyRoles: [], segments: [], technologies: [], materials: [], primaryMarkets: [], employeeCountRanges: [], revenueRanges: [], serviceTypes: [], systemTypes: []
+  }
   
   // Transform data to expected format
   const transformedData = (data || []).map(row => ({
@@ -305,8 +309,9 @@ async function getFilteredCompanies(filterRequest: CompanyFilterRequest): Promis
   }))
   
   // Calculate pagination info
-  const total = count || 0
-  const pages = Math.ceil(total / (filterRequest.limit || 100))
+  const includeCount = opts.includeCount ?? true
+  const total = includeCount ? (count || 0) : 0
+  const pages = includeCount ? Math.ceil(total / (filterRequest.limit || 100)) : 0
   const currentPage = filterRequest.page || 1
   
   // Build response
@@ -317,7 +322,7 @@ async function getFilteredCompanies(filterRequest: CompanyFilterRequest): Promis
       limit: filterRequest.limit || 100,
       total,
       pages,
-      hasNext: currentPage < pages,
+      hasNext: includeCount ? (currentPage < pages) : ((transformedData.length || 0) === (filterRequest.limit || 100)),
       hasPrev: currentPage > 1
     },
     filters: {

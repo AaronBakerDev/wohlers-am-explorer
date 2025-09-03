@@ -2,10 +2,16 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  // AUTH DISABLED - Simply pass through all requests
-  return NextResponse.next({
-    request,
-  })
+  // Route cleanups / redirects
+  const pathname = request.nextUrl.pathname
+  if (pathname.startsWith('/admin/print-services') || pathname.startsWith('/admin/am-systems')) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin/company-data'
+    return NextResponse.redirect(url)
+  }
+
+  // AUTH DISABLED - Simply pass through all other requests
+  return NextResponse.next({ request })
   
   /* ORIGINAL AUTH CODE - COMMENTED OUT
   let supabaseResponse = NextResponse.next({

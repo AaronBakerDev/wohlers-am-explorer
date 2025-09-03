@@ -9,7 +9,6 @@ import { SubscriptionModal } from '@/components/subscription-modal'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { 
-  ChevronLeft,
   ChevronRight,
   FileText,
   Building2,
@@ -22,7 +21,6 @@ import {
   X,
   ChevronDown,
   ChevronUp,
-  BarChart3,
   Crown
 } from "lucide-react"
 import Link from "next/link"
@@ -103,7 +101,7 @@ const focusReports = [
   },
   {
     id: 'print-services-global',
-    name: 'Global Printing Services',
+    name: 'Printing Services',
     description: '',
     status: 'active',
     dataPoints: '',
@@ -174,10 +172,8 @@ export default function DashboardLayout({
 }) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [comingSoonExpanded, setComingSoonExpanded] = useState(false)
-  const [generalReportsExpanded, setGeneralReportsExpanded] = useState(false)
   const [subscriptionModalOpen, setSubscriptionModalOpen] = useState(false)
   
   // Get current active tab/dataset
@@ -275,35 +271,23 @@ export default function DashboardLayout({
                         </div>
                       ))}
                       
-                      {/* Upcoming Reports */}
-                      <div>
-                        <button
-                          onClick={() => setGeneralReportsExpanded(!generalReportsExpanded)}
-                          className="w-full flex items-center justify-between p-2 text-xs text-muted-foreground hover:text-foreground transition-colors rounded border border-border/50"
-                        >
-                          <span>Upcoming ({generalReports.filter(r => r.status === 'upcoming').length})</span>
-                          {generalReportsExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-                        </button>
-                        
-                        {generalReportsExpanded && (
-                          <div className="mt-2 space-y-2">
-                            {generalReports.filter(report => report.status === 'upcoming').map((report) => (
-                              <div
-                                key={report.id}
-                                className="p-3 rounded-lg border border-border/50 opacity-50"
-                              >
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-sm font-medium">{report.name}</span>
-                                  <Badge variant="outline" className="text-xs">
-                                    <Calendar className="h-3 w-3 mr-1" />
-                                    Soon
-                                  </Badge>
-                                </div>
-                                <p className="text-xs text-muted-foreground">Annual industry analysis</p>
-                              </div>
-                            ))}
+                      {/* Upcoming Reports (always visible) */}
+                      <div className="mt-2 space-y-2">
+                        {generalReports.filter(report => report.status === 'upcoming').map((report) => (
+                          <div
+                            key={report.id}
+                            className="p-3 rounded-lg border border-border/50 opacity-50"
+                          >
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-sm font-medium">{report.name}</span>
+                              <Badge variant="outline" className="text-xs">
+                                <Calendar className="h-3 w-3 mr-1" />
+                                Soon
+                              </Badge>
+                            </div>
+                            <p className="text-xs text-muted-foreground">Annual industry analysis</p>
                           </div>
-                        )}
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -348,26 +332,7 @@ export default function DashboardLayout({
                         )
                       })}
                       
-                      {/* Premium Data Card */}
-                      <div
-                        onClick={() => {
-                          setSubscriptionModalOpen(true)
-                          setMobileMenuOpen(false)
-                        }}
-                        className="p-3 rounded-lg border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10 hover:from-primary/10 hover:to-primary/15 cursor-pointer transition-all"
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">Premium Industry Data</span>
-                          <Crown className="h-4 w-4 text-primary" />
-                        </div>
-                        <p className="text-xs text-muted-foreground mb-2">
-                          Access exclusive datasets and advanced analytics
-                        </p>
-                        <Badge variant="default" className="text-xs">
-                          <Lock className="h-3 w-3 mr-1" />
-                          Subscribe for Access
-                        </Badge>
-                      </div>
+                      {/* Premium Data Card moved to footer for persistent visibility */}
                       
                       {/* Coming Soon Reports */}
                       <div>
@@ -472,6 +437,26 @@ export default function DashboardLayout({
               {/* Mobile Sidebar Footer */}
               <div className="p-4 border-t border-border">
                 <div className="space-y-2">
+                  {/* Premium Data Card (always visible in footer) */}
+                  <div
+                    onClick={() => {
+                      setSubscriptionModalOpen(true)
+                      setMobileMenuOpen(false)
+                    }}
+                    className="p-3 rounded-lg border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10 hover:from-primary/10 hover:to-primary/15 cursor-pointer transition-all"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-medium">Premium Industry Data</span>
+                      <Crown className="h-4 w-4 text-primary" />
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Access exclusive datasets and advanced analytics
+                    </p>
+                    <Badge variant="default" className="text-xs">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Subscribe for Access
+                    </Badge>
+                  </div>
                   <ThemeSwitcher />
                   <Link href="/admin" className="inline-flex w-full">
                     <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
@@ -504,40 +489,25 @@ export default function DashboardLayout({
       {/* Desktop Layout (md and above) */}
       <div className="hidden md:flex h-full">
         {/* Desktop Sidebar */}
-        <div className={`bg-card border-r border-border transition-all duration-300 ${
-          sidebarCollapsed ? 'w-16' : 'w-80'
-        } flex flex-col h-full`}>
+        <div className="bg-card border-r border-border transition-all duration-300 w-80 flex flex-col h-full">
         {/* Sidebar Header */}
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between">
-            {!sidebarCollapsed && (
-              <div className="flex items-center gap-3">
-                <Image 
-                  src="/wohlers-astm-logo.png" 
-                  alt="Wohlers ASTM Logo" 
-                  width={2250}
-                  height={851}
-                  className="h-12 w-auto"
-                />
-              </div>
-            )}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="h-8 w-8 p-0"
-            >
-              {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-            </Button>
+            <div className="flex items-center gap-3">
+              <Image 
+                src="/wohlers-astm-logo.png" 
+                alt="Wohlers ASTM Logo" 
+                width={2250}
+                height={851}
+                className="h-12 w-auto"
+              />
+            </div>
           </div>
-          {!sidebarCollapsed && (
-            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">Your Gateway to the AM Industry&apos;s Most Trusted Market Intelligence</p>
-          )}
+          <p className="text-xs text-muted-foreground mt-2 leading-relaxed">Your Gateway to the AM Industry&apos;s Most Trusted Market Intelligence</p>
         </div>
 
         {/* Reports Navigation */}
         <div className="flex-1 overflow-y-auto min-h-0 sidebar-scrollbar">
-          {!sidebarCollapsed ? (
             <div className="p-4 space-y-6">
               {/* General Reports */}
               <div>
@@ -563,35 +533,23 @@ export default function DashboardLayout({
                     </div>
                   ))}
                   
-                  {/* Upcoming Reports */}
-                  <div>
-                    <button
-                      onClick={() => setGeneralReportsExpanded(!generalReportsExpanded)}
-                      className="w-full flex items-center justify-between p-2 text-xs text-muted-foreground hover:text-foreground transition-colors rounded border border-border/50"
-                    >
-                      <span>Upcoming ({generalReports.filter(r => r.status === 'upcoming').length})</span>
-                      {generalReportsExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-                    </button>
-                    
-                    {generalReportsExpanded && (
-                      <div className="mt-2 space-y-2">
-                        {generalReports.filter(report => report.status === 'upcoming').map((report) => (
-                          <div
-                            key={report.id}
-                            className="p-3 rounded-lg border border-border/50 opacity-50"
-                          >
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-sm font-medium">{report.name}</span>
-                              <Badge variant="outline" className="text-xs">
-                                <Calendar className="h-3 w-3 mr-1" />
-                                Soon
-                              </Badge>
-                            </div>
-                            <p className="text-xs text-muted-foreground">Annual industry analysis</p>
-                          </div>
-                        ))}
+                  {/* Upcoming Reports (always visible) */}
+                  <div className="mt-2 space-y-2">
+                    {generalReports.filter(report => report.status === 'upcoming').map((report) => (
+                      <div
+                        key={report.id}
+                        className="p-3 rounded-lg border border-border/50 opacity-50"
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">{report.name}</span>
+                          <Badge variant="outline" className="text-xs">
+                            <Calendar className="h-3 w-3 mr-1" />
+                            Soon
+                          </Badge>
+                        </div>
+                        <p className="text-xs text-muted-foreground">Annual industry analysis</p>
                       </div>
-                    )}
+                    ))}
                   </div>
                 </div>
               </div>
@@ -640,23 +598,7 @@ export default function DashboardLayout({
                     )
                   })}
                   
-                  {/* Premium Data Card */}
-                  <div
-                    onClick={() => setSubscriptionModalOpen(true)}
-                    className="p-3 rounded-lg border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10 hover:from-primary/10 hover:to-primary/15 cursor-pointer transition-all"
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-medium">Premium Industry Data</span>
-                      <Crown className="h-4 w-4 text-primary" />
-                    </div>
-                    <p className="text-xs text-muted-foreground mb-2">
-                      Access exclusive datasets and advanced analytics
-                    </p>
-                    <Badge variant="default" className="text-xs">
-                      <Lock className="h-3 w-3 mr-1" />
-                      Subscribe for Access
-                    </Badge>
-                  </div>
+                  {/* Premium Data Card moved to footer for persistent visibility */}
                   
                   {/* Coming Soon Reports */}
                   <div>
@@ -760,57 +702,46 @@ export default function DashboardLayout({
                 </div>
               </div>
             </div>
-          ) : (
-            // Collapsed sidebar - just icons
-            <div className="p-2 space-y-4">
-              <div className="flex flex-col items-center gap-2">
-                <FileText className="h-5 w-5 text-muted-foreground" />
-                <div className="w-8 h-px bg-border" />
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Building2 className="h-5 w-5 text-primary" />
-                <div className="w-2 h-2 bg-primary rounded-full" />
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-muted-foreground" />
-                <div className="w-8 h-px bg-border" />
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Sidebar Footer */}
         <div className="p-4 border-t border-border">
-          {!sidebarCollapsed ? (
-            <div className="space-y-2">
-              <ThemeSwitcher />
-              <Link href="/admin" className="inline-flex w-full">
-                <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
-                  <Shield className="h-3 w-3 mr-2" />
-                  Admin
-                </Button>
-              </Link>
+          <div className="space-y-2">
+            {/* Premium Data Card (always visible in footer) */}
+            <div
+              onClick={() => setSubscriptionModalOpen(true)}
+              className="p-3 rounded-lg border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10 hover:from-primary/10 hover:to-primary/15 cursor-pointer transition-all"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium">Premium Industry Data</span>
+                <Crown className="h-4 w-4 text-primary" />
+              </div>
+              <p className="text-xs text-muted-foreground mb-2">
+                Access exclusive datasets and advanced analytics
+              </p>
+              <Badge variant="default" className="text-xs">
+                <Lock className="h-3 w-3 mr-1" />
+                Subscribe for Access
+              </Badge>
+            </div>
+            <ThemeSwitcher />
+            <Link href="/admin" className="inline-flex w-full">
               <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
-                <Settings className="h-3 w-3 mr-2" />
-                Settings
+                <Shield className="h-3 w-3 mr-2" />
+                Admin
               </Button>
-              <Link href="/account/profile" className="inline-flex w-full">
-                <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
-                  <User className="h-3 w-3 mr-2" />
-                  Profile
-                </Button>
-              </Link>
-            </div>
-          ) : (
-            <div className="flex flex-col items-center gap-2">
-              <ThemeSwitcher compact />
-              <Link href="/admin" className="inline-flex">
-                <Shield className="h-4 w-4 text-muted-foreground" />
-              </Link>
-              <Settings className="h-4 w-4 text-muted-foreground" />
-              <User className="h-4 w-4 text-muted-foreground" />
-            </div>
-          )}
+            </Link>
+            <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
+              <Settings className="h-3 w-3 mr-2" />
+              Settings
+            </Button>
+            <Link href="/account/profile" className="inline-flex w-full">
+              <Button variant="ghost" size="sm" className="w-full justify-start h-8 text-xs">
+                <User className="h-3 w-3 mr-2" />
+                Profile
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 

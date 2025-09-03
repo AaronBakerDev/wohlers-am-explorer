@@ -254,7 +254,7 @@ function DashboardContent() {
                 <div className="p-4 border-b border-border bg-card" data-testid="psg-analytics-header">
                   <div className="flex items-center gap-2">
                     <Globe className="h-4 w-4 text-primary" />
-                    <h2 className="text-lg font-medium">Global Printing Services Analytics</h2>
+                    <h2 className="text-lg font-medium">Printing Services Analytics</h2>
                   </div>
                 </div>
               </div>

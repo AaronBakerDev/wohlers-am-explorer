@@ -66,7 +66,9 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // Disable heatmap mode for global data (equipment, service, or global AM companies)
-  const [isHeatmapMode, setIsHeatmapMode] = useState(false);
+  const [mapMode, setMapMode] = useState<'pins' | 'heatmap'>(
+    'heatmap'
+  );
   const [viewportBbox, setViewportBbox] = useState<
     [number, number, number, number] | null
   >(null);
@@ -81,6 +83,8 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
       filters.processCategories.join(','),
       filters.sizeRanges.join(','),
       filters.countries.join(','),
+      (filters.vendorMaterialTypes || []).join(','),
+      (filters.vendorMaterialFormats || []).join(','),
     ]
   );
 
@@ -119,23 +123,53 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
     loadData();
   }, []);
 
-  // Load heatmap data
+  // Load heatmap/country aggregation data when needed
   useEffect(() => {
     async function loadHeatmap() {
       try {
-        // Always use country-level aggregation (choropleth by country)
+        // Build filters
         const params = new URLSearchParams()
-        if (companyType) params.set('type', companyType)
-        // Honor technology/material filters (translate IDs to names)
         const selectedTechnologyNames = technologies
           .filter(t => memoizedFilters.technologyIds.includes(t.id))
           .map(t => t.name)
         const selectedMaterialNames = materials
           .filter(m => memoizedFilters.materialIds.includes(m.id))
           .map(m => m.name)
-        if (selectedTechnologyNames.length) params.set('technologies', selectedTechnologyNames.join(','))
-        if (selectedMaterialNames.length) params.set('materials', selectedMaterialNames.join(','))
+        // Also translate selected process categories into technology names
+        const processTechNames = technologies
+          .filter(t => memoizedFilters.processCategories.includes((t as any).category || ''))
+          .map(t => t.name)
+        const techUnion = Array.from(new Set([...selectedTechnologyNames, ...processTechNames]))
+        
         if (memoizedFilters.countries.length) params.set('country', memoizedFilters.countries.join(','))
+
+        if (isVendorDataset && vendorSegment) {
+          // Vendor heatmap honors vendor filters
+          params.set('segment', vendorSegment)
+          const processList = memoizedFilters.processCategories.length
+            ? memoizedFilters.processCategories
+            : techUnion
+          if (processList.length) params.set('process', processList.join(','))
+          if ((memoizedFilters.vendorMaterialTypes || []).length)
+            params.set('material_type', (memoizedFilters.vendorMaterialTypes || []).join(','))
+          if ((memoizedFilters.vendorMaterialFormats || []).length)
+            params.set('material_format', (memoizedFilters.vendorMaterialFormats || []).join(','))
+          if ((memoizedFilters.vendorPrinterManufacturers || []).length)
+            params.set('printer_manufacturer', (memoizedFilters.vendorPrinterManufacturers || []).join(','))
+          if ((memoizedFilters.vendorPrinterModels || []).length)
+            params.set('printer_model', (memoizedFilters.vendorPrinterModels || []).join(','))
+
+          const res = await fetch(`/api/vendor/country-heatmap?${params.toString()}`)
+          if (!res.ok) throw new Error(`Failed to fetch vendor country heatmap (${res.status})`)
+          const json = await res.json()
+          setStateData(json.data || [])
+          return
+        }
+
+        // Unified heatmap honors technologies/materials and process categories (via tech names)
+        if (companyType) params.set('type', companyType)
+        if (techUnion.length) params.set('technologies', techUnion.join(','))
+        if (selectedMaterialNames.length) params.set('materials', selectedMaterialNames.join(','))
 
         const res = await fetch(`/api/companies/country-heatmap?${params.toString()}`)
         if (!res.ok) throw new Error(`Failed to fetch country heatmap (${res.status})`)
@@ -146,8 +180,10 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
         setError(`Failed to load heatmap data: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     }
-    loadHeatmap();
-  }, [memoizedFilters, isCSVMode, companyType, technologies, materials]);
+    if (mapMode !== 'heatmap') return
+    const t = setTimeout(() => { loadHeatmap() }, 200)
+    return () => clearTimeout(t)
+  }, [memoizedFilters, isCSVMode, companyType, technologies, materials, mapMode]);
 
   // Compute heatmap legend buckets (quantiles) from current stateData
   useEffect(() => {
@@ -218,90 +254,143 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
           .map(m => m.name)
 
         if (isVendorDataset && vendorSegment) {
-          // Use unified segment API for vendor datasets
-          const params = new URLSearchParams()
-          params.set('segment', vendorSegment)
-          // Fetch all records - Printing services has ~2400 records
-          params.set('limit', '5000')
-          if (searchQuery) params.set('search', searchQuery)
-          if (memoizedFilters.countries.length) {
-            params.set('country', normCountry(memoizedFilters.countries[0]))
+          // Page through vendor companies to fetch all rows
+          const buildParams = () => {
+            const params = new URLSearchParams()
+            params.set('segment', vendorSegment)
+            params.set('limit', '2000') // server max per page; loop to get all
+            params.set('includeFilters', 'false')
+            params.set('includeCount', 'false')
+            params.set('fields', 'map')
+            if (memoizedFilters.countries.length) {
+              params.set('country', memoizedFilters.countries.map(c => normCountry(c)).join(','))
+            }
+            if (memoizedFilters.processCategories.length) {
+              params.set('process', memoizedFilters.processCategories.join(','))
+            } else if (selectedTechnologyNames.length) {
+              params.set('process', selectedTechnologyNames.join(','))
+            }
+            if ((memoizedFilters.vendorMaterialTypes || []).length) {
+              params.set('material_type', (memoizedFilters.vendorMaterialTypes || []).join(','))
+            }
+            if ((memoizedFilters.vendorMaterialFormats || []).length) {
+              params.set('material_format', (memoizedFilters.vendorMaterialFormats || []).join(','))
+            }
+            if ((memoizedFilters.vendorPrinterManufacturers || []).length) {
+              params.set('printer_manufacturer', (memoizedFilters.vendorPrinterManufacturers || []).join(','))
+            }
+            if ((memoizedFilters.vendorPrinterModels || []).length) {
+              params.set('printer_model', (memoizedFilters.vendorPrinterModels || []).join(','))
+            }
+            return params
           }
-          // For vendor datasets, use process categories directly if available
-          if (memoizedFilters.processCategories.length) {
-            params.set('process', memoizedFilters.processCategories[0])
-          } else if (selectedTechnologyNames.length) {
-            params.set('process', selectedTechnologyNames[0])
-          }
-          if (selectedMaterialNames.length) params.set('materialType', selectedMaterialNames[0])
 
-          const res = await fetch(`/api/datasets/unified-segment?${params.toString()}`, { signal: controller.signal })
-          if (!res.ok) throw new Error(`Failed to fetch vendor map companies (${res.status})`)
-          const json = await res.json()
-          const items = json?.data || []
-          const transformed: CompanyMarker[] = items.map((c: any) => ({
-            id: c.id,
-            name: c.company_name,
-            city: c.headquarters_city || null,
-            state: null,
-            country: c.country || null,
-            lat: c.lat || null,
-            lng: c.lng || null,
-            technologies: c.process ? [c.process] : [],
-            materials: c.material_type ? [c.material_type] : [],
-            website: c.website || null,
-            type: vendorSegment === 'System manufacturer' ? 'equipment' : 'service',
-            totalMachines: c.number_of_printers || 0,
-            uniqueProcesses: c.process ? 1 : 0,
-            uniqueMaterials: c.material_type ? 1 : 0,
-            uniqueManufacturers: c.printer_manufacturer ? 1 : 0,
-          }))
-          setMapCompanies(transformed)
+          let page = 1
+          const all: CompanyMarker[] = []
+          while (true) {
+            if (controller.signal.aborted) return
+            const params = buildParams()
+            params.set('page', String(page))
+            const res = await fetch(`/api/vendor/companies?${params.toString()}`, { signal: controller.signal })
+            if (!res.ok) throw new Error(`Failed to fetch vendor map companies (${res.status})`)
+            const json: CompanyFilterResponse = await res.json()
+            const items = json?.data || []
+            const transformed: CompanyMarker[] = items.map((c) => ({
+              id: c.id,
+              name: c.name,
+              city: c.city,
+              state: c.state,
+              country: c.country || null,
+              lat: c.lat || null,
+              lng: c.lng || null,
+              technologies: c.technologies || [],
+              materials: c.materials || [],
+              website: c.website || null,
+              type: c.companyType || (vendorSegment === 'System manufacturer' ? 'equipment' : 'service'),
+              totalMachines: c.equipmentCount || 0,
+              uniqueProcesses: Array.isArray(c.technologies) ? c.technologies.length : 0,
+              uniqueMaterials: Array.isArray(c.materials) ? c.materials.length : 0,
+              uniqueManufacturers: 0,
+              companyData: {
+                id: c.id,
+                company_name: c.name,
+                segment: vendorSegment || '',
+                printer_manufacturer: (c as any).printerManufacturer || null,
+                printer_model: (c as any).printerModel || null,
+                number_of_printers: (c as any).numberOfPrinters ?? 0,
+                count_type: (c as any).countType || '',
+                process: (c as any).process || '',
+                material_type: (c as any).materialType || '',
+                material_format: (c as any).materialFormat || '',
+                country: c.country || '',
+                update_year: (c as any).updateYear || new Date().getFullYear(),
+                additional_info: '',
+              }
+            }))
+            all.push(...transformed)
+            setMapCompanies([...all])
+            const hasNext = (items.length || 0) === 2000 || Boolean((json as any)?.pagination?.hasNext)
+            if (!hasNext) break
+            page += 1
+          }
+          setMapCompanies(all)
         } else {
           // Build unified filter request against /api/companies so the map reflects the same filters
           const baseFilters: CompanyFilters = {
             companyType: companyType ? [companyType] as CompanyFilters['companyType'] : undefined,
-            search: searchQuery || undefined,
+            // Exclude free-text search from server request; filter locally
             country: memoizedFilters.countries.length ? memoizedFilters.countries : undefined,
             technologies: selectedTechnologyNames.length ? selectedTechnologyNames : undefined,
             materials: selectedMaterialNames.length ? selectedMaterialNames : undefined,
           }
 
-          const params = filtersToSearchParams(baseFilters)
-          params.set('limit', '2000')
-          const res = await fetch(`/api/companies?${params.toString()}`, { signal: controller.signal })
-          if (!res.ok) throw new Error(`Failed to fetch map companies (${res.status})`)
-          const json: CompanyFilterResponse = await res.json()
-          const items = json?.data || []
-          const transformed: CompanyMarker[] = items.map((c) => ({
-            id: c.id,
-            name: c.name,
-            city: c.city,
-            state: c.state,
-            lat: c.lat,
-            lng: c.lng,
-            technologies: c.technologies || [],
-            materials: c.materials || [],
-            website: c.website || null,
-            type: c.companyType || null,
-            totalMachines: c.equipmentCount || 0,
-            uniqueProcesses: Array.isArray(c.technologies) ? c.technologies.length : 0,
-            uniqueMaterials: Array.isArray(c.materials) ? c.materials.length : 0,
-            uniqueManufacturers: 0,
-          }))
-          setMapCompanies(transformed)
+          const all: CompanyMarker[] = []
+          let page = 1
+          while (true) {
+            if (controller.signal.aborted) return
+            const params = filtersToSearchParams(baseFilters)
+            params.set('limit', '1000') // server max per page
+            params.set('includeFilters', 'false')
+            params.set('includeCount', 'false')
+            params.set('page', String(page))
+            const res = await fetch(`/api/companies?${params.toString()}`, { signal: controller.signal })
+            if (!res.ok) throw new Error(`Failed to fetch map companies (${res.status})`)
+            const json: CompanyFilterResponse = await res.json()
+            const items = json?.data || []
+            const transformed: CompanyMarker[] = items.map((c) => ({
+              id: c.id,
+              name: c.name,
+              city: c.city,
+              state: c.state,
+              lat: c.lat,
+              lng: c.lng,
+              technologies: c.technologies || [],
+              materials: c.materials || [],
+              website: c.website || null,
+              type: c.companyType || null,
+              totalMachines: c.equipmentCount || 0,
+              uniqueProcesses: Array.isArray(c.technologies) ? c.technologies.length : 0,
+              uniqueMaterials: Array.isArray(c.materials) ? c.materials.length : 0,
+              uniqueManufacturers: 0,
+            }))
+            all.push(...transformed)
+            setMapCompanies([...all])
+            const hasNext = (items.length || 0) === 1000 || Boolean((json as any)?.pagination?.hasNext)
+            if (!hasNext) break
+            page += 1
+          }
+          setMapCompanies(all)
         }
       } catch (err) {
         if ((err as any)?.name === 'AbortError') return;
         console.error('Error fetching map companies:', err);
       }
     }
-    fetchMapCompanies();
-    return () => controller.abort();
+    const t = setTimeout(() => { fetchMapCompanies() }, 200)
+    return () => { clearTimeout(t); controller.abort() };
   }, [
     memoizedFilters,
-    searchQuery,
-    isHeatmapMode,
+    mapMode,
     isCSVMode,
     companyType,
     datasetId,
@@ -417,8 +506,8 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
         exportData={searchFilteredCompanies}
         exportColumns={exportColumns}
         exportFilters={memoizedFilters}
-        isHeatmapMode={isHeatmapMode}
-        onToggleHeatmap={setIsHeatmapMode}
+        mapMode={mapMode}
+        onMapModeChange={setMapMode}
       />
       <ControlsTabs
         searchQuery={searchQuery}
@@ -446,7 +535,7 @@ export default function MapExplorerContent({ companyType, datasetId }: { company
               }
             }}
             getMarkerColor={getMarkerColor}
-            isHeatmapMode={isHeatmapMode}
+            isHeatmapMode={mapMode === 'heatmap'}
             stateData={stateData}
             onViewportChange={setViewportBbox}
             isCountryLevelOnly={isVendorDataset}

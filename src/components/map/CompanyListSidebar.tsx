@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import type { CompanyMarker } from './types'
 
 type Props = {
@@ -48,19 +49,154 @@ export default function CompanyListSidebar({
                   </div>
                 </div>
                 <div className="mt-2 grid grid-cols-3 gap-2 text-center">
-                  <div className="bg-background rounded p-2">
-                    <div className="text-sm font-semibold">{c.totalMachines}</div>
-                    <div className="text-[10px] text-muted-foreground">Machines</div>
-                  </div>
-                  <div className="bg-background rounded p-2">
-                    <div className="text-sm font-semibold">{c.uniqueProcesses}</div>
-                    <div className="text-[10px] text-muted-foreground">Processes</div>
-                  </div>
-                  <div className="bg-background rounded p-2">
-                    <div className="text-sm font-semibold">{c.uniqueMaterials}</div>
-                    <div className="text-[10px] text-muted-foreground">Materials</div>
-                  </div>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="bg-background rounded p-2 cursor-help">
+                        <div className="text-sm font-semibold">{c.totalMachines}</div>
+                        <div className="text-[10px] text-muted-foreground">Machines</div>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">Total machines or printers reported</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="bg-background rounded p-2 cursor-help">
+                        <div className="text-sm font-semibold">{c.uniqueProcesses}</div>
+                        <div className="text-[10px] text-muted-foreground">Processes</div>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">Unique AM processes associated</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="bg-background rounded p-2 cursor-help">
+                        <div className="text-sm font-semibold">{c.uniqueMaterials}</div>
+                        <div className="text-[10px] text-muted-foreground">Materials</div>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">Unique material types associated</TooltipContent>
+                  </Tooltip>
                 </div>
+                {/* Vendor/system details inline for clarity */}
+                {c.companyData && (
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] text-foreground">
+                    {c.type === 'service' ? (
+                      <>
+                        {c.companyData.printer_manufacturer || c.companyData.printer_model ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Printer</div>
+                                <div className="font-medium truncate">
+                                  {[c.companyData.printer_manufacturer, c.companyData.printer_model]
+                                    .filter(Boolean)
+                                    .join(' ')}
+                                </div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Printer manufacturer and model</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                        {typeof c.companyData.number_of_printers === 'number' ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Printers</div>
+                                <div className="font-medium">
+                                  {c.companyData.number_of_printers}
+                                  {c.companyData.count_type ? (
+                                    <span className="text-[10px] text-muted-foreground"> ({c.companyData.count_type})</span>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Number of printers; count type clarifies estimate</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                        {c.companyData.process ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Process</div>
+                                <div className="font-medium truncate">{c.companyData.process}</div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Primary AM process</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                        {c.companyData.material_type ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Material Type</div>
+                                <div className="font-medium truncate">{c.companyData.material_type}</div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Material category</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                        {c.companyData.material_format ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Material Format</div>
+                                <div className="font-medium truncate">{c.companyData.material_format}</div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Material feedstock form</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                        {c.companyData.update_year ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Updated</div>
+                                <div className="font-medium truncate">{c.companyData.update_year}</div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Last reported update year</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                      </>
+                    ) : (
+                      <>
+                        {c.companyData.process ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Process</div>
+                                <div className="font-medium truncate">{c.companyData.process}</div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Primary AM process</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                        {c.companyData.material_format ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Material Format</div>
+                                <div className="font-medium truncate">{c.companyData.material_format}</div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Material feedstock form</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                        {c.companyData.material_type ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="bg-background rounded p-2 cursor-help">
+                                <div className="text-[10px] text-muted-foreground">Material Type</div>
+                                <div className="font-medium truncate">{c.companyData.material_type}</div>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">Material category</TooltipContent>
+                          </Tooltip>
+                        ) : null}
+                      </>
+                    )}
+                  </div>
+                )}
                 {(c.technologies?.length || 0) > 0 && (
                   <div className="mt-2 flex flex-wrap gap-1">
                     {c.technologies.slice(0, 3).map((t, i) => (

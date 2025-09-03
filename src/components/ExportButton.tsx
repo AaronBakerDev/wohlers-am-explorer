@@ -9,7 +9,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
 import { Download, FileText, FileSpreadsheet, Loader2, Check } from "lucide-react";
 import type { ColumnDef, ExportFormat } from "@/lib/export";
 import { toCSV, toXLSXBlob, downloadBlob, buildFilename } from "@/lib/export";
@@ -94,9 +93,6 @@ export default function ExportButton<T extends Record<string, unknown>>({
             <Download className="h-3 w-3 mr-2" />
           )}
           Export
-          <Badge variant="secondary" className="ml-2 text-[10px] h-4 px-1">
-            {count}
-          </Badge>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align={align}>

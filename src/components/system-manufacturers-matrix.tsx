@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -41,6 +42,7 @@ export default function SystemManufacturersMatrix() {
   const [error, setError] = useState<string | null>(null)
 
   const [q, setQ] = useState('')
+  const dq = useDebouncedValue(q, 350)
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [selectedProcesses, setSelectedProcesses] = useState<string[]>([])
   const [selectedMaterials, setSelectedMaterials] = useState<string[]>([])
@@ -91,8 +93,8 @@ export default function SystemManufacturersMatrix() {
 
   const filtered = useMemo(() => {
     let list = rows
-    if (q) {
-      const qq = q.toLowerCase()
+    if (dq) {
+      const qq = dq.toLowerCase()
       list = list.filter((r) => `${r.company} ${r.country}`.toLowerCase().includes(qq))
     }
     if (selectedCountries.length > 0) {
@@ -108,7 +110,7 @@ export default function SystemManufacturersMatrix() {
       list = list.filter((r) => r.materials?.some((m) => set.has(m)))
     }
     return [...list]
-  }, [rows, q, selectedCountries, selectedProcesses, selectedMaterials])
+  }, [rows, dq, selectedCountries, selectedProcesses, selectedMaterials])
 
   const sorted = useMemo(() => {
     const list = [...filtered]

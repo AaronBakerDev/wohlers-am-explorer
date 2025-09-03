@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,6 +20,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { 
   Search,
   Building2,
@@ -85,15 +94,37 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
   
   // Filter state - start with dataset's base filters
   const [searchQuery, setSearchQuery] = useState('')
+  const [searchDraft, setSearchDraft] = useState('')
   const [countryFilter, setCountryFilter] = useState('')
   const [segmentFilter, setSegmentFilter] = useState('')
   const [technologyFilter, setTechnologyFilter] = useState('')
+  const [materialTypeFilter, setMaterialTypeFilter] = useState('')
+  const [materialFormatFilter, setMaterialFormatFilter] = useState('')
+  const [manufacturerFilter, setManufacturerFilter] = useState('')
+  const [modelFilter, setModelFilter] = useState('')
+  const [countTypeFilter, setCountTypeFilter] = useState('')
+  const [printersMin, setPrintersMin] = useState<string>('')
+  const [printersMax, setPrintersMax] = useState<string>('')
+
+  // Debounced inputs to avoid refetching per keystroke
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, 450)
+  const debouncedPrintersMin = useDebouncedValue(printersMin, 350)
+  const debouncedPrintersMax = useDebouncedValue(printersMax, 350)
+  // Multi-select variants for vendor datasets
+  const [processesSelected, setProcessesSelected] = useState<string[]>([])
+  const [materialTypesSelected, setMaterialTypesSelected] = useState<string[]>([])
+  const [materialFormatsSelected, setMaterialFormatsSelected] = useState<string[]>([])
+  const [manufacturersSelected, setManufacturersSelected] = useState<string[]>([])
+  const [modelsSelected, setModelsSelected] = useState<string[]>([])
+  const [countTypesSelected, setCountTypesSelected] = useState<string[]>([])
   
   // Sorting state
   const [sort, setSort] = useState<SortState>({ 
     key: (dataset?.defaultSort?.field as SortKey) || 'name', 
     direction: (dataset?.defaultSort?.order as 'asc' | 'desc') || 'asc' 
   })
+  // Column layout preferences
+  const [columnLayout, setColumnLayout] = useState<'fit' | 'even'>('fit')
   
   // Available filter options (populated from API response)
   const [filterOptions, setFilterOptions] = useState<{
@@ -101,11 +132,19 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
     segments: string[]
     technologies: Array<{ id: string; name: string; category: string }>
     materials: Array<{ id: string; name: string; materialType: string; materialFormat: string }>
+    materialFormats: string[]
+    printerManufacturers: string[]
+    printerModels: string[]
+    countTypes: string[]
   }>({
     countries: [],
     segments: [],
     technologies: [],
-    materials: []
+    materials: [],
+    materialFormats: [],
+    printerManufacturers: [],
+    printerModels: [],
+    countTypes: []
   })
 
   const datasetMissing = !dataset
@@ -127,7 +166,16 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
       setError('Dataset not found')
       setLoading(false)
       setData([])
-      setFilterOptions({ countries: [], segments: [], technologies: [], materials: [] })
+      setFilterOptions({ 
+        countries: [], 
+        segments: [], 
+        technologies: [], 
+        materials: [], 
+        materialFormats: [],
+        printerManufacturers: [],
+        printerModels: [],
+        countTypes: []
+      })
       return
     }
     async function loadData() {
@@ -140,12 +188,24 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           const params = new URLSearchParams()
           params.set('segment', vendorSegment)
           params.set('limit', '1000')
-          params.set('sortBy', sort.key)
-          params.set('sortOrder', sort.direction)
-          if (searchQuery) params.set('search', searchQuery)
+          // Sorting and search are applied client-side to avoid flicker
+          // Do NOT send search in the request to prevent refetch while typing
           if (countryFilter) params.set('country', countryFilter)
           if (segmentFilter) params.set('segment', segmentFilter)
-          if (technologyFilter) params.set('process', technologyFilter)
+          if (processesSelected.length) params.set('process', processesSelected.join(','))
+          else if (technologyFilter) params.set('process', technologyFilter)
+          if (materialTypesSelected.length) params.set('material_type', materialTypesSelected.join(','))
+          else if (materialTypeFilter) params.set('material_type', materialTypeFilter)
+          if (materialFormatsSelected.length) params.set('material_format', materialFormatsSelected.join(','))
+          else if (materialFormatFilter) params.set('material_format', materialFormatFilter)
+          if (manufacturersSelected.length) params.set('printer_manufacturer', manufacturersSelected.join(','))
+          else if (manufacturerFilter) params.set('printer_manufacturer', manufacturerFilter)
+          if (modelsSelected.length) params.set('printer_model', modelsSelected.join(','))
+          else if (modelFilter) params.set('printer_model', modelFilter)
+          if (countTypesSelected.length) params.set('count_type', countTypesSelected.join(','))
+          else if (countTypeFilter) params.set('count_type', countTypeFilter)
+          if (debouncedPrintersMin) params.set('min_printers', String(debouncedPrintersMin))
+          if (debouncedPrintersMax) params.set('max_printers', String(debouncedPrintersMax))
 
           const response = await fetch(`/api/vendor/companies?${params.toString()}`)
           if (!response.ok) {
@@ -153,17 +213,25 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           }
           const result: CompanyFilterResponse = await response.json()
           setData(result.data)
-          setFilterOptions(result.filters.available)
+          // Normalize available filters, supporting vendor-specific fields
+          setFilterOptions({
+            countries: result.filters.available.countries || [],
+            segments: result.filters.available.segments || [],
+            technologies: result.filters.available.technologies || [],
+            materials: result.filters.available.materials || [],
+            materialFormats: (result.filters.available as any).materialFormats || [],
+            printerManufacturers: (result.filters.available as any).printerManufacturers || [],
+            printerModels: (result.filters.available as any).printerModels || [],
+            countTypes: (result.filters.available as any).countTypes || [],
+          })
         } else {
           // Build filter request combining dataset base filters with user selections
           const filterRequest: CompanyFilterRequest = {
             ...dataset.filters, // Base filters from dataset config
             page: 1,
             limit: 1000, // Load all for client-side filtering
-            sortBy: sort.key,
-            sortOrder: sort.direction,
-            // Override with user filters
-            search: searchQuery || undefined,
+            // Sorting and search are applied client-side to avoid refetch flicker
+            // Do not include 'search' so queries don't rerun while typing
             country: countryFilter ? [countryFilter] : dataset.filters.country,
             segment: segmentFilter ? [segmentFilter] : dataset.filters.segment,
             technologies: technologyFilter ? [technologyFilter] : dataset.filters.technologies,
@@ -181,7 +249,16 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
           
           // Update state
           setData(result.data)
-          setFilterOptions(result.filters.available)
+          setFilterOptions({
+            countries: result.filters.available.countries || [],
+            segments: result.filters.available.segments || [],
+            technologies: result.filters.available.technologies || [],
+            materials: result.filters.available.materials || [],
+            materialFormats: [],
+            printerManufacturers: [],
+            printerModels: [],
+            countTypes: []
+          })
         }
         
       } catch (err) {
@@ -193,15 +270,37 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
     }
 
     loadData()
-  }, [dataset, datasetId, isVendorDataset, vendorSegment, searchQuery, countryFilter, segmentFilter, technologyFilter, sort])
+  }, [
+    dataset,
+    datasetId,
+    isVendorDataset,
+    vendorSegment,
+    countryFilter,
+    segmentFilter,
+    technologyFilter,
+    materialTypeFilter,
+    materialFormatFilter,
+    manufacturerFilter,
+    modelFilter,
+    countTypeFilter,
+    processesSelected,
+    materialTypesSelected,
+    materialFormatsSelected,
+    manufacturersSelected,
+    modelsSelected,
+    countTypesSelected,
+    debouncedPrintersMin,
+    debouncedPrintersMax,
+    // Do not refetch on sort change; sort is client-side
+  ])
 
   // Client-side filtering for immediate feedback
   const filteredData = useMemo(() => {
     let filtered = [...data]
 
     // Apply client-side search filter for immediate feedback
-    if (searchQuery) {
-      const searchLower = searchQuery.toLowerCase()
+    if (debouncedSearchQuery) {
+      const searchLower = debouncedSearchQuery.toLowerCase()
       filtered = filtered.filter(item => 
         item.name?.toLowerCase().includes(searchLower) ||
         item.country?.toLowerCase().includes(searchLower) ||
@@ -211,8 +310,25 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
       )
     }
 
-    return filtered
-  }, [data, searchQuery])
+    // Apply client-side sorting
+    const asc = sort.direction === 'asc'
+    const key = sort.key
+    const sorted = filtered.sort((a: any, b: any) => {
+      const av = (a?.[key] ?? '')
+      const bv = (b?.[key] ?? '')
+      // Numeric compare when both are numbers
+      if (typeof av === 'number' && typeof bv === 'number') {
+        return asc ? av - bv : bv - av
+      }
+      const as = String(av).toLowerCase()
+      const bs = String(bv).toLowerCase()
+      if (as < bs) return asc ? -1 : 1
+      if (as > bs) return asc ? 1 : -1
+      return 0
+    })
+
+    return sorted
+  }, [data, debouncedSearchQuery, sort])
 
   // Sorting functions
   const toggleSort = (key: SortKey) => {
@@ -234,9 +350,23 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
   // Clear all filters
   const clearFilters = () => {
     setSearchQuery('')
+    setSearchDraft('')
     setCountryFilter('')
     setSegmentFilter('')
     setTechnologyFilter('')
+    setMaterialTypeFilter('')
+    setMaterialFormatFilter('')
+    setManufacturerFilter('')
+    setModelFilter('')
+    setCountTypeFilter('')
+    setPrintersMin('')
+    setPrintersMax('')
+    setProcessesSelected([])
+    setMaterialTypesSelected([])
+    setMaterialFormatsSelected([])
+    setManufacturersSelected([])
+    setModelsSelected([])
+    setCountTypesSelected([])
   }
 
   // Build export column definitions based on dataset display columns
@@ -256,6 +386,20 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
         return { key: 'serviceTypes', header: 'Service Types', map: (r) => (r.serviceTypes || []).join('; ') }
       case 'website':
         return { key: 'website', header: 'Website' }
+      case 'process':
+        return { key: 'process', header: 'Process' }
+      case 'materialType':
+        return { key: 'materialType', header: 'Material Type' }
+      case 'materialFormat':
+        return { key: 'materialFormat', header: 'Material Format' }
+      case 'printerManufacturer':
+        return { key: 'printerManufacturer', header: 'Printer Manufacturer' }
+      case 'printerModel':
+        return { key: 'printerModel', header: 'Printer Model' }
+      case 'numberOfPrinters':
+        return { key: 'numberOfPrinters', header: 'Number of Printers' }
+      case 'countType':
+        return { key: 'countType', header: 'Count Type' }
       default:
         return { key: col, header: col.charAt(0).toUpperCase() + col.slice(1) }
     }
@@ -316,6 +460,14 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
                 align="end"
               />
             )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setColumnLayout(prev => prev === 'fit' ? 'even' : 'fit')}
+              title={columnLayout === 'fit' ? 'Switch to even column widths' : 'Switch to fit-to-content widths'}
+            >
+              {columnLayout === 'fit' ? 'Layout: Fit' : 'Layout: Even'}
+            </Button>
           </div>
         </div>
 
@@ -333,8 +485,14 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search companies..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchDraft}
+              onChange={(e) => {
+                const v = e.target.value
+                setSearchDraft(v)
+                // Keep API requests and filtering debounced via debouncedSearchQuery
+                setSearchQuery(v)
+              }}
+              // Enter is no longer required; search applies after debounce
               className="pl-10"
             />
           </div>
@@ -369,19 +527,217 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
             </Select>
           )}
 
-          {/* Technology filter */}
-          {dataset?.displayColumns.includes('technologies') && filterOptions.technologies.length > 0 && (
-            <Select value={technologyFilter} onValueChange={(v) => setTechnologyFilter(v === '__all__' ? '' : v)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Technology" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="__all__">All Technologies</SelectItem>
-                {filterOptions.technologies.map(tech => (
-                  <SelectItem key={tech.id} value={tech.name}>{tech.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          {/* Process filter (multi for vendor) or Technology for others */}
+          {isVendorDataset ? (
+            filterOptions.technologies.length > 0 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="justify-between">
+                    {processesSelected.length > 0 ? `${processesSelected.length} Processes` : 'Process'}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="max-h-80 overflow-auto">
+                  <DropdownMenuLabel>Select Processes</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {filterOptions.technologies.map(tech => {
+                    const name = tech.name
+                    const checked = processesSelected.includes(name)
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={name}
+                        checked={checked}
+                        onCheckedChange={(on) => {
+                          setProcessesSelected(prev => on ? [...prev, name] : prev.filter(v => v !== name))
+                        }}
+                      >
+                        {name}
+                      </DropdownMenuCheckboxItem>
+                    )
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )
+          ) : (
+            dataset?.displayColumns.includes('technologies') && filterOptions.technologies.length > 0 && (
+              <Select value={technologyFilter} onValueChange={(v) => setTechnologyFilter(v === '__all__' ? '' : v)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Technology" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="__all__">All Technologies</SelectItem>
+                  {filterOptions.technologies.map(tech => (
+                    <SelectItem key={tech.id} value={tech.name}>{tech.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )
+          )}
+
+          {/* Material Type filter (vendor datasets) - multi */}
+          {isVendorDataset && filterOptions.materials.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="justify-between">
+                  {materialTypesSelected.length > 0 ? `${materialTypesSelected.length} Material Types` : 'Material Type'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-h-80 overflow-auto">
+                <DropdownMenuLabel>Select Material Types</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {filterOptions.materials.map(mat => {
+                  const name = mat.name
+                  const checked = materialTypesSelected.includes(name)
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={mat.id}
+                      checked={checked}
+                      onCheckedChange={(on) => {
+                        setMaterialTypesSelected(prev => on ? [...prev, name] : prev.filter(v => v !== name))
+                      }}
+                    >
+                      {name}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
+          {/* Material Format filter (vendor datasets) - multi */}
+          {isVendorDataset && filterOptions.materialFormats.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="justify-between">
+                  {materialFormatsSelected.length > 0 ? `${materialFormatsSelected.length} Formats` : 'Material Format'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-h-80 overflow-auto">
+                <DropdownMenuLabel>Select Material Formats</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {filterOptions.materialFormats.map(fmt => {
+                  const checked = materialFormatsSelected.includes(fmt)
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={fmt}
+                      checked={checked}
+                      onCheckedChange={(on) => {
+                        setMaterialFormatsSelected(prev => on ? [...prev, fmt] : prev.filter(v => v !== fmt))
+                      }}
+                    >
+                      {fmt}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
+          {/* Printer Manufacturer (vendor) - multi */}
+          {datasetId === 'print-services-global' && filterOptions.printerManufacturers.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="justify-between">
+                  {manufacturersSelected.length > 0 ? `${manufacturersSelected.length} Manufacturers` : 'Printer Manufacturer'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-h-80 overflow-auto">
+                <DropdownMenuLabel>Select Manufacturers</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {filterOptions.printerManufacturers.map(m => {
+                  const checked = manufacturersSelected.includes(m)
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={m}
+                      checked={checked}
+                      onCheckedChange={(on) => {
+                        setManufacturersSelected(prev => on ? [...prev, m] : prev.filter(v => v !== m))
+                      }}
+                    >
+                      {m}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
+          {/* Printer Model (vendor) - multi */}
+          {datasetId === 'print-services-global' && filterOptions.printerModels.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="justify-between">
+                  {modelsSelected.length > 0 ? `${modelsSelected.length} Models` : 'Printer Model'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-h-80 overflow-auto">
+                <DropdownMenuLabel>Select Models</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {filterOptions.printerModels.map(m => {
+                  const checked = modelsSelected.includes(m)
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={m}
+                      checked={checked}
+                      onCheckedChange={(on) => {
+                        setModelsSelected(prev => on ? [...prev, m] : prev.filter(v => v !== m))
+                      }}
+                    >
+                      {m}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
+          {/* Count Type (vendor) - multi */}
+          {datasetId === 'print-services-global' && filterOptions.countTypes.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="justify-between">
+                  {countTypesSelected.length > 0 ? `${countTypesSelected.length} Count Types` : 'Count Type'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-h-80 overflow-auto">
+                <DropdownMenuLabel>Select Count Types</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {filterOptions.countTypes.map(ct => {
+                  const checked = countTypesSelected.includes(ct)
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={ct}
+                      checked={checked}
+                      onCheckedChange={(on) => {
+                        setCountTypesSelected(prev => on ? [...prev, ct] : prev.filter(v => v !== ct))
+                      }}
+                    >
+                      {ct}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
+          {/* Number of Printers range (vendor) */}
+          {datasetId === 'print-services-global' && (
+            <div className="flex items-center gap-2">
+              <Input
+                type="number"
+                inputMode="numeric"
+                placeholder="Min Printers"
+                value={printersMin}
+                onChange={(e) => setPrintersMin(e.target.value)}
+              />
+              <span className="text-muted-foreground text-xs">to</span>
+              <Input
+                type="number"
+                inputMode="numeric"
+                placeholder="Max Printers"
+                value={printersMax}
+                onChange={(e) => setPrintersMax(e.target.value)}
+              />
+            </div>
           )}
 
           {/* Clear filters */}
@@ -397,11 +753,31 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
 
       {/* Table */}
       <div className="flex-1 overflow-auto">
-        <Table>
+        <Table className={columnLayout === 'even' ? 'table-fixed' : 'table-auto'}>
+          {Array.isArray(dataset?.displayColumns) && dataset.displayColumns.length > 0 && (
+            <colgroup>
+              {dataset.displayColumns.map((col) => {
+                const widthClass = columnLayout === 'even' ? 'w-auto' : (
+                  col === 'name' ? 'w-[200px]' :
+                  col === 'country' ? 'w-[140px]' :
+                  col === 'segment' ? 'w-[140px]' :
+                  (col === 'technologies' || col === 'materials') ? 'w-[220px]' :
+                  col === 'serviceTypes' ? 'w-[200px]' :
+                  col === 'process' ? 'w-[180px]' :
+                  col === 'materialType' ? 'w-[180px]' :
+                  col === 'materialFormat' ? 'w-[160px]' :
+                  (col === 'printerManufacturer' || col === 'printerModel') ? 'w-[220px]' :
+                  (col === 'numberOfPrinters' || col === 'countType') ? 'w-[140px]' :
+                  col === 'website' ? 'w-[80px]' : 'w-auto'
+                )
+                return <col key={col} className={widthClass} />
+              })}
+            </colgroup>
+          )}
           <TableHeader className="sticky top-0 bg-background z-10">
             <TableRow>
               {(dataset?.displayColumns ?? []).map((column) => {
-                const _isSortable = ['name', 'country', 'segment'].includes(column)
+                const _isSortable = ['name', 'country', 'segment', 'process', 'materialType', 'materialFormat', 'printerManufacturer', 'printerModel', 'numberOfPrinters', 'countType'].includes(column)
                 const headerText = {
                   name: 'Company Name',
                   country: 'Country',
@@ -409,16 +785,24 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
                   technologies: 'Technologies',
                   materials: 'Materials',
                   serviceTypes: 'Service Types',
-                  website: 'Website'
+                  website: 'Website',
+                  process: 'Process',
+                  materialType: 'Material Type',
+                  materialFormat: 'Material Format',
+                  printerManufacturer: 'Printer Manufacturer',
+                  printerModel: 'Printer Model',
+                  numberOfPrinters: 'Number of Printers',
+                  countType: 'Count Type'
                 }[column] || column.charAt(0).toUpperCase() + column.slice(1)
 
+                const numeric = column === 'numberOfPrinters'
                 return (
                   <TableHead 
                     key={column}
                     onClick={_isSortable ? () => toggleSort(column as SortKey) : undefined}
-                    className={_isSortable ? "cursor-pointer select-none" : ""}
+                    className={`${_isSortable ? 'cursor-pointer select-none' : ''} whitespace-nowrap ${numeric ? 'text-right' : ''}`}
                   >
-                    <div className="inline-flex items-center">
+                    <div className="inline-flex items-center whitespace-nowrap">
                       {headerText}
                       {_isSortable && <SortIndicator column={column as SortKey} />}
                     </div>
@@ -431,20 +815,21 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
             {filteredData.map((company) => (
               <TableRow key={company.id} className="hover:bg-muted/50">
                 {(dataset?.displayColumns ?? []).map((column) => (
-                  <TableCell key={column}>
+                  <TableCell key={column} className={`whitespace-nowrap ${column === 'numberOfPrinters' ? 'text-right' : ''}`}>
                     {column === 'name' && (
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
                         {company.website ? (
                           <a 
                             href={company.website} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-primary hover:underline font-medium"
+                            className="text-primary hover:underline font-medium truncate inline-block max-w-[200px]"
+                            title={company.name || ''}
                           >
                             {company.name}
                           </a>
                         ) : (
-                          <span className="font-medium">{company.name}</span>
+                          <span className="font-medium truncate inline-block max-w-[200px]" title={company.name || ''}>{company.name}</span>
                         )}
                       </div>
                     )}
@@ -466,7 +851,7 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
                     )}
                     
                     {column === 'technologies' && (
-                      <div className="flex flex-wrap gap-1">
+                      <div className="flex gap-1 items-center overflow-hidden">
                         {company.technologies?.slice(0, 3).map((tech, idx) => (
                           <Badge key={idx} variant="outline" className="text-xs">
                             {tech}
@@ -479,9 +864,13 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
                         )}
                       </div>
                     )}
-                    
+
+                    {column === 'process' && (
+                      <span className="text-sm truncate inline-block max-w-[180px]" title={company.process || ''}>{company.process || ''}</span>
+                    )}
+
                     {column === 'materials' && (
-                      <div className="flex flex-wrap gap-1">
+                      <div className="flex gap-1 items-center overflow-hidden">
                         {company.materials?.slice(0, 2).map((material, idx) => (
                           <Badge key={idx} variant="secondary" className="text-xs">
                             {material}
@@ -493,6 +882,30 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
                           </span>
                         )}
                       </div>
+                    )}
+
+                    {column === 'materialType' && (
+                      <span className="text-sm truncate inline-block max-w-[180px]" title={company.materialType || ''}>{company.materialType || ''}</span>
+                    )}
+
+                    {column === 'materialFormat' && (
+                      <span className="text-sm truncate inline-block max-w-[160px]" title={company.materialFormat || ''}>{company.materialFormat || ''}</span>
+                    )}
+
+                    {column === 'printerManufacturer' && (
+                      <span className="text-sm truncate inline-block max-w-[220px]" title={company.printerManufacturer || ''}>{company.printerManufacturer || ''}</span>
+                    )}
+
+                    {column === 'printerModel' && (
+                      <span className="text-sm truncate inline-block max-w-[220px]" title={company.printerModel || ''}>{company.printerModel || ''}</span>
+                    )}
+
+                    {column === 'numberOfPrinters' && (
+                      <span className="text-sm tabular-nums">{company.numberOfPrinters != null ? company.numberOfPrinters.toLocaleString() : ''}</span>
+                    )}
+
+                    {column === 'countType' && (
+                      <span className="text-sm truncate inline-block max-w-[140px]" title={company.countType || ''}>{company.countType || ''}</span>
                     )}
                     
                     {column === 'serviceTypes' && (
@@ -511,19 +924,22 @@ export default function UnifiedDatasetView({ datasetId, className }: UnifiedData
                     )}
                     
                     {column === 'website' && company.website && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => window.open(company.website!, '_blank')}
-                        className="h-6 w-6 p-0"
-                      >
-                        <ExternalLink className="h-3 w-3" />
-                      </Button>
+                      <div className="flex items-center justify-center">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => window.open(company.website!, '_blank')}
+                          className="h-6 w-6 p-0"
+                          title={company.website || ''}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      </div>
                     )}
                     
                     {/* Fallback for other columns */}
-                    {!['name', 'country', 'segment', 'technologies', 'materials', 'serviceTypes', 'website'].includes(column) && (
-                      <span className="text-sm">
+                    {!['name', 'country', 'segment', 'technologies', 'materials', 'serviceTypes', 'website', 'process', 'materialType', 'materialFormat', 'printerManufacturer', 'printerModel', 'numberOfPrinters', 'countType'].includes(column) && (
+                      <span className="text-sm truncate inline-block max-w-[220px]" title={String(company[column as keyof CompanyFilterResult] || '')}>
                         {String(company[column as keyof CompanyFilterResult] || '')}
                       </span>
                     )}

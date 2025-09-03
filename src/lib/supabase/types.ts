@@ -27,6 +27,7 @@ export type Database = {
           parent_company: string | null;
           public_stock_ticker: string | null;
           revenue_range: string | null;
+          segment: string | null;
           state: string | null;
           stock_ticker: string | null;
           subsidiary_info: string | null;
@@ -51,6 +52,7 @@ export type Database = {
           parent_company?: string | null;
           public_stock_ticker?: string | null;
           revenue_range?: string | null;
+          segment?: string | null;
           state?: string | null;
           stock_ticker?: string | null;
           subsidiary_info?: string | null;
@@ -75,6 +77,7 @@ export type Database = {
           parent_company?: string | null;
           public_stock_ticker?: string | null;
           revenue_range?: string | null;
+          segment?: string | null;
           state?: string | null;
           stock_ticker?: string | null;
           subsidiary_info?: string | null;

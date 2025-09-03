@@ -167,6 +167,15 @@ export interface CompanyFilterResult {
   technologies: string[] | null
   materials: string[] | null
   serviceTypes: string[] | null
+
+  // Vendor-specific fields (optional)
+  process?: string | null
+  materialType?: string | null
+  materialFormat?: string | null
+  printerManufacturer?: string | null
+  printerModel?: string | null
+  numberOfPrinters?: number | null
+  countType?: string | null
   
   // Metadata
   isActive: boolean
@@ -254,6 +263,11 @@ export interface FilterOptions {
   segments: string[]
   technologies: { id: string; name: string; category: string }[]
   materials: { id: string; name: string; materialType: string; materialFormat: string }[]
+  // Vendor-specific optional filters
+  materialFormats?: string[]
+  printerManufacturers?: string[]
+  printerModels?: string[]
+  countTypes?: string[]
   primaryMarkets: string[]
   employeeCountRanges: string[]
   revenueRanges: string[]
