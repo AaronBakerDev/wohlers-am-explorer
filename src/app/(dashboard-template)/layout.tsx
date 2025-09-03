@@ -173,8 +173,11 @@ export default function DashboardLayout({
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [comingSoonExpanded, setComingSoonExpanded] = useState(false)
   const [subscriptionModalOpen, setSubscriptionModalOpen] = useState(false)
+  // Accordion states (collapsed by default)
+  const [wohlersOpen, setWohlersOpen] = useState(false)
+  const [companyOpen, setCompanyOpen] = useState(false)
+  const [marketOpen, setMarketOpen] = useState(false)
   
   // Get current active tab/dataset
   const currentTab = searchParams.get('tab')
@@ -247,12 +250,23 @@ export default function DashboardLayout({
               {/* Mobile Reports Navigation */}
               <div className="flex-1 overflow-y-auto min-h-0 sidebar-scrollbar">
                 <div className="p-4 space-y-6">
-                  {/* General Reports */}
+                  {/* Wohlers Report (Accordion) */}
                   <div>
-                  <div className="flex items-center gap-2 mb-3">
-                      <FileText className="h-4 w-4 text-muted-foreground" />
-                      <h3 className="text-sm font-medium text-foreground">Wohlers Report</h3>
-                    </div>
+                    <button
+                      onClick={() => setWohlersOpen(v => !v)}
+                      className="w-full flex items-center justify-between mb-3 p-2 rounded hover:bg-accent/50"
+                    >
+                      <span className="flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-muted-foreground" />
+                        <h3 className="text-sm font-medium text-foreground">Wohlers Report</h3>
+                      </span>
+                      {wohlersOpen ? (
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      ) : (
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      )}
+                    </button>
+                    {wohlersOpen && (
                     <div className="space-y-2">
                       {/* Available Reports */}
                       {generalReports.filter(report => report.status === 'available').map((report) => (
@@ -290,14 +304,26 @@ export default function DashboardLayout({
                         ))}
                       </div>
                     </div>
+                    )}
                   </div>
 
-                  {/* Focus Reports */}
+                  {/* Company Data (Accordion) */}
                   <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Building2 className="h-4 w-4 text-muted-foreground" />
-                      <h3 className="text-sm font-medium text-foreground">Company Data</h3>
-                    </div>
+                    <button
+                      onClick={() => setCompanyOpen(v => !v)}
+                      className="w-full flex items-center justify-between mb-3 p-2 rounded hover:bg-accent/50"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Building2 className="h-4 w-4 text-muted-foreground" />
+                        <h3 className="text-sm font-medium text-foreground">Company Data</h3>
+                      </span>
+                      {companyOpen ? (
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      ) : (
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      )}
+                    </button>
+                    {companyOpen && (
                     <div className="space-y-2">
                       {/* Active Reports */}
                       {focusReports.filter(report => report.status === 'active').map((report) => {
@@ -334,47 +360,28 @@ export default function DashboardLayout({
                       
                       {/* Premium Data Card moved to footer for persistent visibility */}
                       
-                      {/* Coming Soon Reports */}
-                      <div>
-                        <button
-                          onClick={() => setComingSoonExpanded(!comingSoonExpanded)}
-                          className="w-full flex items-center justify-between p-2 text-xs text-muted-foreground hover:text-foreground transition-colors rounded border border-border/50"
-                        >
-                          <span>Coming Soon ({focusReports.filter(r => r.status === 'coming-soon').length})</span>
-                          {comingSoonExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-                        </button>
-                        
-                        {comingSoonExpanded && (
-                          <div className="mt-2 space-y-2">
-                            {focusReports.filter(report => report.status === 'coming-soon').map((report) => (
-                              <div
-                                key={report.id}
-                                className="p-3 rounded-lg border border-border/50 opacity-50"
-                              >
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-sm font-medium">{report.name}</span>
-                                  <Badge variant="outline" className="text-xs">
-                                    <Lock className="h-3 w-3 mr-1" />
-                                    Soon
-                                  </Badge>
-                                </div>
-                                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                                  <span>{report.dataPoints}</span>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                      {/* Coming Soon Reports removed */}
                     </div>
+                    )}
                   </div>
 
-                  {/* Market Data */}
+                  {/* Market Data (Accordion) */}
                   <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                      <h3 className="text-sm font-medium text-foreground">Market Data</h3>
-                    </div>
+                    <button
+                      onClick={() => setMarketOpen(v => !v)}
+                      className="w-full flex items-center justify-between mb-3 p-2 rounded hover:bg-accent/50"
+                    >
+                      <span className="flex items-center gap-2">
+                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                        <h3 className="text-sm font-medium text-foreground">Market Data</h3>
+                      </span>
+                      {marketOpen ? (
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      ) : (
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      )}
+                    </button>
+                    {marketOpen && (
                     <div className="space-y-2">
 
                       {/* Active Market Data */}
@@ -430,6 +437,7 @@ export default function DashboardLayout({
                         </div>
                       )}
                     </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -509,12 +517,23 @@ export default function DashboardLayout({
         {/* Reports Navigation */}
         <div className="flex-1 overflow-y-auto min-h-0 sidebar-scrollbar">
             <div className="p-4 space-y-6">
-              {/* General Reports */}
+              {/* Wohlers Report (Accordion) */}
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                  <h3 className="text-sm font-medium text-foreground">Wohlers Report</h3>
-                </div>
+                <button
+                  onClick={() => setWohlersOpen(v => !v)}
+                  className="w-full flex items-center justify-between mb-3 p-2 rounded hover:bg-accent/50"
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-muted-foreground" />
+                    <h3 className="text-sm font-medium text-foreground">Wohlers Report</h3>
+                  </span>
+                  {wohlersOpen ? (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {wohlersOpen && (
                 <div className="space-y-2">
                   {/* Available Reports */}
                   {generalReports.filter(report => report.status === 'available').map((report) => (
@@ -552,14 +571,26 @@ export default function DashboardLayout({
                     ))}
                   </div>
                 </div>
+                )}
               </div>
 
-              {/* Focus Reports */}
+              {/* Company Data (Accordion) */}
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <Building2 className="h-4 w-4 text-muted-foreground" />
-                  <h3 className="text-sm font-medium text-foreground">Company Data</h3>
-                </div>
+                <button
+                  onClick={() => setCompanyOpen(v => !v)}
+                  className="w-full flex items-center justify-between mb-3 p-2 rounded hover:bg-accent/50"
+                >
+                  <span className="flex items-center gap-2">
+                    <Building2 className="h-4 w-4 text-muted-foreground" />
+                    <h3 className="text-sm font-medium text-foreground">Company Data</h3>
+                  </span>
+                  {companyOpen ? (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {companyOpen && (
                 <div className="space-y-2">
                   {/* Active Reports */}
                   {focusReports.filter(report => report.status === 'active').map((report) => {
@@ -600,47 +631,28 @@ export default function DashboardLayout({
                   
                   {/* Premium Data Card moved to footer for persistent visibility */}
                   
-                  {/* Coming Soon Reports */}
-                  <div>
-                    <button
-                      onClick={() => setComingSoonExpanded(!comingSoonExpanded)}
-                      className="w-full flex items-center justify-between p-2 text-xs text-muted-foreground hover:text-foreground transition-colors rounded border border-border/50"
-                    >
-                      <span>Coming Soon ({focusReports.filter(r => r.status === 'coming-soon').length})</span>
-                      {comingSoonExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-                    </button>
-                    
-                    {comingSoonExpanded && (
-                      <div className="mt-2 space-y-2">
-                        {focusReports.filter(report => report.status === 'coming-soon').map((report) => (
-                          <div
-                            key={report.id}
-                            className="p-3 rounded-lg border border-border/50 opacity-50"
-                          >
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-sm font-medium">{report.name}</span>
-                              <Badge variant="outline" className="text-xs">
-                                <Lock className="h-3 w-3 mr-1" />
-                                Soon
-                              </Badge>
-                            </div>
-                            <div className="flex items-center justify-between text-xs text-muted-foreground">
-                              <span>{report.dataPoints}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  {/* Coming Soon Reports removed */}
                 </div>
+                )}
               </div>
 
-              {/* Market Data */}
+              {/* Market Data (Accordion) */}
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                  <h3 className="text-sm font-medium text-foreground">Market Data</h3>
-                </div>
+                <button
+                  onClick={() => setMarketOpen(v => !v)}
+                  className="w-full flex items-center justify-between mb-3 p-2 rounded hover:bg-accent/50"
+                >
+                  <span className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                    <h3 className="text-sm font-medium text-foreground">Market Data</h3>
+                  </span>
+                  {marketOpen ? (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {marketOpen && (
                 <div className="space-y-2">
 
                   {/* Active Market Data */}
@@ -700,6 +712,7 @@ export default function DashboardLayout({
                     </div>
                   )}
                 </div>
+                )}
               </div>
             </div>
         </div>

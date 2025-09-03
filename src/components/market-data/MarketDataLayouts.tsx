@@ -334,54 +334,7 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
         <MarketCountriesChart defaultYear={2024} />
       ) : null}
 
-      {/* For AM Market Revenue, place the dataset-level filters below the top chart so users don’t expect it to control the chart above */}
-      {isAMMarketRevenue && (
-        <FilterCard size="xxs">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="h-6 order-1 md:order-1">
-                <SelectValue placeholder="Country" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Countries</SelectItem>
-                {uniqueCountries.filter(country => country && country.toString().trim()).map(country => (
-                  <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select value={selectedSegment} onValueChange={setSelectedSegment}>
-              <SelectTrigger className="h-6 order-3 md:order-2">
-                <SelectValue placeholder="Segment" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Segments</SelectItem>
-                {uniqueSegments.filter(segment => segment && segment.toString().trim()).map(segment => (
-                  <SelectItem key={segment} value={segment.toString()}>{segment}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Input 
-              placeholder="Search revenue data..." 
-              className="h-6 order-4 md:order-3"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Button 
-              className="h-6 order-2 md:order-4" 
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                setSelectedSegment('all')
-                setSelectedCountry('all')
-                setSelectedMaterial('all')
-                setSearchTerm('')
-              }}
-            >
-              Reset
-            </Button>
-          </div>
-        </FilterCard>
-      )}
+      {/* For AM Market Revenue, filters will be rendered above the table rows instead of here */}
 
       {/* Industry Share Bar Chart (only for revenue-by-industry-2024) */}
       {dataset === 'revenue-by-industry-2024' ? (
@@ -529,6 +482,56 @@ export function RevenueAnalysisLayout({ data, dataset }: MarketDataLayoutProps) 
           </div>
         </CardHeader>
         <CardContent>
+          {/* AM Market Revenue: move filters to the top of the table rows */}
+          {isAMMarketRevenue && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-1 mb-2">
+              <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                <SelectTrigger className="h-6 order-1 md:order-1">
+                  <SelectValue placeholder="Country" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Countries</SelectItem>
+                  {uniqueCountries
+                    .filter(country => country && country.toString().trim())
+                    .map(country => (
+                      <SelectItem key={country} value={country.toString()}>{country}</SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+              <Select value={selectedSegment} onValueChange={setSelectedSegment}>
+                <SelectTrigger className="h-6 order-3 md:order-2">
+                  <SelectValue placeholder="Segment" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Segments</SelectItem>
+                  {uniqueSegments
+                    .filter(segment => segment && segment.toString().trim())
+                    .map(segment => (
+                      <SelectItem key={segment} value={segment.toString()}>{segment}</SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+              <Input
+                placeholder="Search revenue data..."
+                className="h-6 order-4 md:order-3"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Button
+                className="h-6 order-2 md:order-4"
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  setSelectedSegment('all')
+                  setSelectedCountry('all')
+                  setSelectedMaterial('all')
+                  setSearchTerm('')
+                }}
+              >
+                Reset
+              </Button>
+            </div>
+          )}
           <div className="rounded-md border overflow-auto max-h-96">
             <Table>
               <TableHeader>
