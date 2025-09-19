@@ -2,11 +2,17 @@
   "name": "wohlers-am-explorer",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/prebuild-check.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --max-warnings=0",
+    "lint:check": "next lint",
+    "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "data:extract": "node scripts/extract-excel-sheets.js",
     "data:import": "node scripts/import-csv-data.js",
