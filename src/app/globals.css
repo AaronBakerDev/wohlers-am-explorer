@@ -58,130 +58,110 @@
   --radius: 0.5rem;
 }
 
-/* Light Theme (Default) */
+/* ASTM Light Theme */
 :root {
-  /* FlowTask Light Theme - Based on styleguide specifications */
-  --background: #fafafa;      /* zinc-50 - light background */
-  --foreground: #171717;      /* zinc-900 - dark text */
-  --card: #ffffff;            /* white cards */
-  --card-foreground: #171717;
+  --background: #e9edf9;          /* ASTM blue tint */
+  --foreground: #021740;          /* Deep navy text */
+  --card: #ffffff;
+  --card-foreground: #021740;
   --popover: #ffffff;
-  --popover-foreground: #171717;
+  --popover-foreground: #021740;
 
-  /* Primary Brand - Indigo for actions */
-  --primary: #6366f1;         /* Indigo 500 */
+  --primary: #0f35b8;             /* ASTM Blue */
   --primary-foreground: #ffffff;
 
-  /* Secondary & Muted - Light theme equivalents */
-  --secondary: #f4f4f5;       /* zinc-100 */
-  --secondary-foreground: #171717;
-  --muted: #f4f4f5;           /* zinc-100 */
-  --muted-foreground: #737373; /* zinc-500 */
-  
-  /* Subtle - Very low contrast text for light theme */
-  --subtle: #525252;          /* zinc-600 - for timestamps, metadata in light theme */
+  --secondary: #c3cded;           /* Blue mid tint */
+  --secondary-foreground: #021740;
+  --muted: #c3cded;
+  --muted-foreground: #0f3572;
 
-  /* Accent - zinc-100 for hover states in light */
-  --accent: #f4f4f5;          /* zinc-100 */
-  --accent-foreground: #171717;
+  --subtle: #135659;              /* Teal accent for metadata */
 
-  /* Status Colors */
-  --destructive: #ef4444;     /* Red 500 */
+  --accent: #daf9e5;              /* Secondary Group 1 tint */
+  --accent-foreground: #021740;
+
+  --destructive: #b92d19;         /* Secondary Group 4 accent */
   --destructive-foreground: #ffffff;
 
-  /* Borders & Inputs - light theme */
-  --border: #e4e4e7;          /* zinc-200 */
-  --input: #e4e4e7;           /* zinc-200 */
-  --ring: #6366f1;            /* Primary indigo for focus rings */
+  --border: #d9d9d9;
+  --input: #d9d9d9;
+  --ring: #0f35b8;
 
-  /* Chart Colors - Same across themes */
-  --chart-1: #6366f1;         /* Indigo 500 */
-  --chart-2: #22c55e;         /* Emerald 500 */
-  --chart-3: #f59e0b;         /* Amber 500 */
-  --chart-4: #3b82f6;         /* Blue 500 */
-  --chart-5: #a855f7;         /* Purple 500 */
+  --chart-1: #0f35b8;             /* ASTM Blue */
+  --chart-2: #135659;             /* Group 1 accent */
+  --chart-3: #0091af;             /* Group 2 accent */
+  --chart-4: #951962;             /* Group 3 accent */
+  --chart-5: #b92d19;             /* Group 4 accent */
 
-  /* Sidebar - Light theme */
-  --sidebar: #ffffff;         /* white sidebar */
-  --sidebar-foreground: #171717;
-  --sidebar-primary: #6366f1;  /* indigo-500 */
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f4f4f5;   /* zinc-100 */
-  --sidebar-accent-foreground: #171717;
-  --sidebar-border: #e4e4e7;   /* zinc-200 */
-  --sidebar-ring: #6366f1;     /* indigo-500 */
+  --sidebar: #0f35b8;             /* Primary blue navigation */
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #021740;
+  --sidebar-primary-foreground: #e9edf9;
+  --sidebar-accent: #daf9e5;
+  --sidebar-accent-foreground: #021740;
+  --sidebar-border: #0f3572;
+  --sidebar-ring: #daf9e5;
 
-  /* FlowTask Extended Colors - Light theme */
-  --app-background: #fafafa;    /* zinc-50 (main background) */
-  --app-surface: #ffffff;       /* white (card surface) */
-  --app-surface-overlay: rgba(255, 255, 255, 0.9);  /* white/90 (overlay cards) */
-  --app-border: #e4e4e7;        /* zinc-200 (borders) */
-  --app-text-primary: #171717;  /* zinc-900 (primary text) */
-  --app-text-secondary: #737373; /* zinc-500 (secondary text) */
-  --app-text-muted: #525252;    /* zinc-600 (muted text) */
+  --app-background: #e9edf9;
+  --app-surface: #ffffff;
+  --app-surface-overlay: rgba(255, 255, 255, 0.92);
+  --app-border: #d9d9d9;
+  --app-text-primary: #021740;
+  --app-text-secondary: #0f3572;
+  --app-text-muted: #135659;
 }
 
-/* Dark Theme */
+/* ASTM Dark Theme */
 .dark {
-  /* FlowTask Dark Theme - Based on current design */
-  --background: #09090b;      /* zinc-950 */
-  --foreground: #fafafa;      /* zinc-50 */
-  --card: #18181b;            /* zinc-900 */
-  --card-foreground: #fafafa;
-  --popover: #18181b;
-  --popover-foreground: #fafafa;
+  --background: #021740;
+  --foreground: #e9edf9;
+  --card: #0f3572;
+  --card-foreground: #e9edf9;
+  --popover: #0f3572;
+  --popover-foreground: #e9edf9;
 
-  /* Primary Brand - Same across themes */
-  --primary: #6366f1;         /* Indigo 500 */
+  --primary: #0f35b8;
   --primary-foreground: #ffffff;
 
-  /* Secondary & Muted - Dark theme */
-  --secondary: #27272a;       /* zinc-800 */
-  --secondary-foreground: #fafafa;
-  --muted: #27272a;           /* zinc-800 */
-  --muted-foreground: #a1a1aa; /* zinc-400 */
-  
-  /* Subtle - Very low contrast text (zinc-500) */
-  --subtle: #71717a;          /* zinc-500 - for timestamps, metadata, very secondary text */
+  --secondary: #135659;
+  --secondary-foreground: #e9edf9;
+  --muted: #0f3572;
+  --muted-foreground: #bff7fb;
 
-  /* Accent - zinc-800 for hover states */
-  --accent: #27272a;          /* zinc-800 */
-  --accent-foreground: #fafafa;
+  --subtle: #c3cded;
 
-  /* Status Colors - Same across themes */
-  --destructive: #ef4444;     /* Red 500 */
+  --accent: #0091af;
+  --accent-foreground: #e9edf9;
+
+  --destructive: #b92d19;
   --destructive-foreground: #ffffff;
 
-  /* Borders & Inputs - zinc-800 for consistency */
-  --border: #27272a;          /* zinc-800 */
-  --input: #27272a;           /* zinc-800 */
-  --ring: #6366f1;            /* Primary indigo for focus rings */
+  --border: #0f3572;
+  --input: #0f3572;
+  --ring: #daf9e5;
 
-  /* Chart Colors - Same across themes */
-  --chart-1: #6366f1;         /* Indigo 500 */
-  --chart-2: #22c55e;         /* Emerald 500 */
-  --chart-3: #f59e0b;         /* Amber 500 */
-  --chart-4: #3b82f6;         /* Blue 500 */
-  --chart-5: #a855f7;         /* Purple 500 */
+  --chart-1: #0f35b8;
+  --chart-2: #daf9e5;
+  --chart-3: #bff7fb;
+  --chart-4: #f8d5eb;
+  --chart-5: #fee9e0;
 
-  /* Sidebar - Dark theme */
-  --sidebar: #18181b;         /* zinc-900 */
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #6366f1;  /* indigo-500 */
+  --sidebar: #0f3572;
+  --sidebar-foreground: #e9edf9;
+  --sidebar-primary: #0f35b8;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #27272a;   /* zinc-800 */
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: #27272a;   /* zinc-800 */
-  --sidebar-ring: #6366f1;     /* indigo-500 */
+  --sidebar-accent: #135659;
+  --sidebar-accent-foreground: #e9edf9;
+  --sidebar-border: #135659;
+  --sidebar-ring: #0091af;
 
-  /* FlowTask Extended Colors - Dark theme */
-  --app-background: #09090b;    /* zinc-950 (main background) */
-  --app-surface: #18181b;       /* zinc-900 (card surface) */
-  --app-surface-overlay: rgba(24, 24, 27, 0.3);  /* zinc-900/30 (overlay cards) */
-  --app-border: #27272a;        /* zinc-800 (borders) */
-  --app-text-primary: #fafafa;  /* zinc-50 (primary text) */
-  --app-text-secondary: #a1a1aa; /* zinc-400 (secondary text) */
-  --app-text-muted: #71717a;    /* zinc-500 (muted text) */
+  --app-background: #021740;
+  --app-surface: #0f3572;
+  --app-surface-overlay: rgba(15, 53, 114, 0.85);
+  --app-border: #135659;
+  --app-text-primary: #e9edf9;
+  --app-text-secondary: #c3cded;
+  --app-text-muted: #daf9e5;
 }
 
 @layer base {

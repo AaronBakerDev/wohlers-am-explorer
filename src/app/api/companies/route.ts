@@ -225,7 +225,7 @@ async function getFilteredCompanies(filterRequest: CompanyFilterRequest, opts: {
   
   // Build the base query from company_summaries_unified view
   let query = supabase
-    .from('company_summaries_unified')
+    .from('company_summaries')
     .select(`
       id,
       name,

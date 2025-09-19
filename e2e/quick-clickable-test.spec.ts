@@ -89,8 +89,9 @@ test.describe('Quick Clickable Elements Test', () => {
                   
                   // Wait briefly after click
                   await page.waitForTimeout(1000);
-                } catch (clickError) {
-                  console.log(`    ⚠ Click failed: ${clickError.message}`);
+                } catch (clickError: unknown) {
+                  const message = clickError instanceof Error ? clickError.message : 'Unknown click error';
+                  console.log(`    ⚠ Click failed: ${message}`);
                   // Try hover as fallback
                   try {
                     await element.hover();
@@ -104,8 +105,9 @@ test.describe('Quick Clickable Elements Test', () => {
             } else {
               console.log(`  Element ${i}: Not visible (${isVisible}) or not enabled (${isEnabled})`);
             }
-          } catch (error) {
-            console.log(`  Element ${i}: Error testing - ${error.message}`);
+          } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : 'Unknown error';
+            console.log(`  Element ${i}: Error testing - ${message}`);
           }
         }
         
@@ -167,8 +169,9 @@ test.describe('Quick Clickable Elements Test', () => {
         
         console.log(`  ✓ ${pageInfo.name} page loaded successfully`);
         
-      } catch (error) {
-        console.log(`  ✗ Failed to test ${pageInfo.name} page: ${error.message}`);
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        console.log(`  ✗ Failed to test ${pageInfo.name} page: ${message}`);
       }
       
       await page.waitForTimeout(1000);

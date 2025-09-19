@@ -32,11 +32,8 @@ interface CompanyProfilePageProps {
 }
 
 export default async function CompanyProfilePage(props: CompanyProfilePageProps) {
-  const p =
-    props?.params && typeof (props.params as any)?.then === "function"
-      ? await (props.params as Promise<{ id: string }>)
-      : props?.params;
-  const id = p?.id as string;
+  const p = await props.params;
+  const id = p.id;
   const company = await getCompany(id);
 
   if (!company) {
@@ -67,11 +64,12 @@ export default async function CompanyProfilePage(props: CompanyProfilePageProps)
   const uniqueMaterials = new Set<string>();
   const uniqueManufacturers = new Set<string>();
   for (const e of company.equipment || []) {
-    const proc = (e as any)?.process as string | undefined
-    const mat = (e as any)?.material as string | undefined
+    const proc = (e as Record<string, unknown>)?.process as string | undefined
+    const mat = (e as Record<string, unknown>)?.material as string | undefined
     if (proc) uniqueProcesses.add(proc)
     if (mat) uniqueMaterials.add(mat)
-    if ((e as any).manufacturer) uniqueManufacturers.add((e as any).manufacturer as string)
+    const manufacturer = (e as Record<string, unknown>).manufacturer
+    if (typeof manufacturer === 'string') uniqueManufacturers.add(manufacturer)
   }
 
   // Funding aggregates

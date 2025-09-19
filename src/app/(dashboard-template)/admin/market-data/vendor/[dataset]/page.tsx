@@ -9,12 +9,11 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
-import { Card, CardContent } from '@/components/ui/card'
 import { BarChart3, Database, Pencil, Plus, Trash2, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { LEGACY_DATASET_CONFIGS } from '@/lib/config/datasets'
 
-type Row = Record<string, any> & { id?: string }
+type Row = Record<string, unknown> & { id?: string }
 
 type ColumnDef = {
   key: string
@@ -80,13 +79,14 @@ export default function VendorDatasetAdminPage() {
         setError(null)
         const { createClient } = await import('@/lib/supabase/client')
         const supabase = createClient()
-        let q = supabase.from(config.table as any).select('*')
+        if (!config) throw new Error('Configuration not found')
+        let q = supabase.from(config.table as never).select('*')
         q = q.order(defaultSort.key, { ascending: defaultSort.asc })
         const { data, error } = await q.limit(10000)
         if (error) throw error
         setRows(data as Row[])
-      } catch (e: any) {
-        setError(e?.message || 'Failed to load data')
+      } catch (e: unknown) {
+        setError(e instanceof Error ? e.message : 'Failed to load data')
       } finally {
         setLoading(false)
       }
@@ -101,8 +101,8 @@ export default function VendorDatasetAdminPage() {
     return rows.filter((r) => Object.values(r).some((v) => String(v ?? '').toLowerCase().includes(q)))
   }, [rows, search])
 
-  function coerce(values: Record<string, any>) {
-    const coerced: Record<string, any> = {}
+  function coerce(values: Record<string, unknown>) {
+    const coerced: Record<string, unknown> = {}
     for (const col of visibleColumns) {
       const raw = values[col.key]
       if (raw === undefined || raw === '') { coerced[col.key] = null; continue }
@@ -116,22 +116,23 @@ export default function VendorDatasetAdminPage() {
     return coerced
   }
 
-  const onCreate = async (payload: Record<string, any>) => {
+  const onCreate = async (payload: Record<string, unknown>) => {
     const values = coerce(payload)
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
-    const { data, error } = await supabase.from(config.table as any).insert(values as any).select('*').single()
+    if (!config) throw new Error('Configuration not found')
+    const { data, error } = await supabase.from(config.table as never).insert(values as never).select('*').single()
     if (error) throw error
     setRows((prev) => [data as Row, ...prev])
   }
 
-  const onUpdate = async (id: string, patch: Record<string, any>) => {
+  const onUpdate = async (id: string, patch: Record<string, unknown>) => {
     const values = coerce(patch)
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
     const { data, error } = await supabase
-      .from(config.table as any)
-      .update(values as any)
+      .from(config.table as never)
+      .update(values as never)
       .eq('id', id)
       .select('*')
       .single()
@@ -142,7 +143,8 @@ export default function VendorDatasetAdminPage() {
   const onDelete = async (id: string) => {
     const { createClient } = await import('@/lib/supabase/client')
     const supabase = createClient()
-    const { error } = await supabase.from(config.table as any).delete().eq('id', id)
+    if (!config) throw new Error('Configuration not found')
+    const { error } = await supabase.from(config.table as never).delete().eq('id', id)
     if (error) throw error
     setRows((prev) => prev.filter((r) => r.id !== id))
   }
@@ -300,17 +302,17 @@ function RowDialog({
   onOpenChange: (v: boolean) => void
   title: string
   columns: ColumnDef[]
-  onSubmit: (values: Record<string, any>) => Promise<void>
+  onSubmit: (values: Record<string, unknown>) => Promise<void>
   initialValues?: Row
 }) {
-  const [values, setValues] = useState<Record<string, any>>({})
+  const [values, setValues] = useState<Record<string, unknown>>({})
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    const v: Record<string, any> = {}
+    const v: Record<string, unknown> = {}
     for (const c of columns) v[c.key] = initialValues?.[c.key] ?? ''
     setValues(v)
-  }, [initialValues?.id, columns.map(c => c.key).join('|')])
+  }, [initialValues?.id, columns])
 
   const handleChange = (key: string, next: string) => {
     setValues((prev) => ({ ...prev, [key]: next }))

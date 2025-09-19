@@ -17,9 +17,9 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Plus, Pencil, Trash2, Search, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react'
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { ResponsiveAdminLayout } from '@/components/admin/responsive-admin-layout'
-import type { Database, Company, CompanyInsert, CompanyUpdate } from '@/lib/supabase/types'
+import type { Company, CompanyInsert, CompanyUpdate } from '@/lib/supabase/types'
 
 // Supabase error type
 type SupabaseError = {
@@ -44,7 +44,6 @@ type ExtendedCompany = Company & {
 
 // Use the proper Company type but maintain Row compatibility
 type Row = ExtendedCompany
-type CompaniesRow = Company
 type CompaniesInsert = CompanyInsert
 type CompaniesUpdate = CompanyUpdate
 
@@ -194,7 +193,7 @@ export default function CompaniesAdminPage() {
       if (companiesError) throw companiesError
 
       // Map vendor by name
-      const vendorMap = new Map<string, any>()
+      const vendorMap = new Map<string, ExtendedCompany>()
       mergedData?.forEach(item => {
         const key = item.company_name?.toLowerCase()
         if (key && !vendorMap.has(key)) {
@@ -231,7 +230,6 @@ export default function CompaniesAdminPage() {
 
   useEffect(() => {
     loadRows()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const filtered = useMemo(() => {
@@ -626,7 +624,7 @@ function CompanyDialog({
       const { createClient } = await import('@/lib/supabase/client')
       const supabase = createClient()
 
-      const vendorPayload: any = {
+      const vendorPayload: Record<string, unknown> = {
         company_name: name,
         // map to vendor segment only if obvious; otherwise leave as-is
         segment: segment?.toLowerCase().includes('manufacturer') ? 'System manufacturer' : 'Printing services',

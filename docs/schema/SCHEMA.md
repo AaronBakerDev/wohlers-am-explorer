@@ -131,11 +131,21 @@
   - `vendor_company_roles` — company_name, category.
   - `vendor_print_services_global` — company_name, segment, material_type/format, country, printer_manufacturer/model, number_of_printers, count_type, process, update_year, additional_info.
   - `vendor_print_service_pricing` — material/process pricing and lead times.
+  - `vendor_material_pricing` — 2,652 material price points (Mar 2023–Sep 2025); maps `CompanyID` + material/form to `materials` + `companies` for rate benchmarking.
   - `vendor_fundings_investments` — year/month, company_name, amount, round, lead_investor, notes.
   - `vendor_mergers_acquisitions` — deal_date, acquired/acquiring_company, deal_size, country.
   - `vendor_am_market_revenue_2024` — revenue_usd by country/segment.
   - `vendor_revenue_by_industry_2024` — industry share_of_revenue_percent, revenue_usd, region/material.
   - `vendor_total_am_market_size` — year, forecast_type, segment, revenue_usd.
+  - `vendor_company_locations` — 7,853 HQ/branch aliases with `AlternateID`, `LocationType`, address metadata for company dedupe.
+  - `vendor_employee_counts` — 1,984 headcount rows (updated through 1 Sep 2025) with `CountType`, snapshot date, and source.
+  - `vendor_system_material_details` — 870 process/material format combinations per company (sheet `SM Details`).
+  - `vendor_print_services_eu` — 2,459 machine inventory rows with manufacturer/model, process, material_type, count_type, update_year (sheet `SP - EU details`).
+  - `vendor_company_contact_info` — 1,178 outreach interactions with contacts, channel, and last-interaction year.
+  - `vendor_currency_conversion_rates` — 60 yearly FX rates (AUD, CNY, EUR, GBP, HKD, ILS, KRW, NOK, SEK, USD) spanning 2020–2025 for revenue normalization.
+  - `vendor_system_sales` — 2,148 system shipment records with `PeriodCumulative`, `Units`, and `Measure` flags.
+  - `vendor_company_revenue` — 1,173 financial metrics (FY 2019–FY 2025) per company with native currency, USD conversion, and estimate flags.
+  - `vendor_trade_data` — 69,771 customs trade flows (HS codes 848520/848580, years 2022–2025) with reporter/partner country, value, and unit.
   - `DEP_companies_unified` — legacy/unified interim table (readable publicly).
 
 ---
@@ -177,6 +187,16 @@
 - `mergers_acquisitions.acquired_company_id`/`acquiring_company_id` → `companies.id`
 - `service_pricing.company_id` → `companies.id`
 - `profiles.user_id`/`user_preferences.user_id`/`saved_searches.user_id` → `auth.users.id`
+
+---
+
+**Rate & Financial Data Integration — September 2025**
+- `vendor_print_service_pricing` (4,396 July–Sep 2025 orders) normalizes to `service_pricing` via `CompanyID` → `companies.id`; `Process` aligns with `technologies.name`, `Material_type` feeds `materials.category`, and `Lead time` populates `service_pricing.lead_time_days`/`pricing_benchmarks` (note: outliers include negative and 600+ day lead times to clean).
+- `vendor_material_pricing` (2,652 price points, 31 Mar 2023–15 Sep 2025) joins on `Material`/`Form` → `materials` and `CompanyID` → `companies` to extend pricing benchmarks beyond service quotes.
+- `vendor_currency_conversion_rates` (annual FX 2020–2025) standardizes `vendor_company_revenue.RevenueNativeCurrency` and `vendor_trade_data.Value`; join on `NativeCurrency = XtoUSD` before loading `RevenueUSD`/`Value` fields.
+- `vendor_company_revenue` (FY 2019–FY 2025) supplies company-level ARR/total revenue; `CompanyID` ties back to `companies` and `FinancialMetric` should align with analytics fact tables (e.g., `market_data`).
+- `vendor_trade_data` (69,771 customs records, 2022–2025) rolls into trade rate insights; `ReporterName`/`PartnerName` map to country dimension tables, `TradeFlowType` drives import/export rate comparisons, and FX conversion relies on the currency table above.
+- `vendor_system_sales` (2,148 unit shipments) complements rate analysis by anchoring pricing to actual volume sold per company/year/system type.
 
 ---
 
@@ -435,4 +455,3 @@ from saved_searches
 where user_id = auth.uid()
 order by created_at desc;
 ```
-

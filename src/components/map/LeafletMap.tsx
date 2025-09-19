@@ -104,6 +104,16 @@ if (typeof window !== "undefined") {
 
 // Types imported from the map types module
 
+type LeafletContainerElement = HTMLElement & { _leaflet_id?: string | number };
+
+function resetLeafletContainer(container: HTMLElement | null | undefined) {
+  if (!container) return;
+  const target = container as LeafletContainerElement;
+  if (target._leaflet_id !== undefined) {
+    delete target._leaflet_id;
+  }
+}
+
 interface LeafletMapProps {
   companies: CompanyMarker[];
   selectedCompany: CompanyMarker | null;
@@ -417,18 +427,24 @@ export default function LeafletMap({
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
+    const container = mapContainerRef.current;
+
     // Remove existing map if it exists
     if (mapRef.current) {
+      const existingContainer = mapRef.current.getContainer?.();
       try {
         mapRef.current.stop?.();
         mapRef.current.off();
         mapRef.current.remove();
       } catch (_) {}
+      resetLeafletContainer(existingContainer ?? undefined);
       mapRef.current = null;
     }
 
+    resetLeafletContainer(container);
+
     // Create new map with animations disabled to avoid transition-end races
-    const map = L.map(mapContainerRef.current, {
+    const map = L.map(container, {
       zoomAnimation: true,
       fadeAnimation: true,
       markerZoomAnimation: true,
@@ -464,12 +480,16 @@ export default function LeafletMap({
 
     return () => {
       if (mapRef.current) {
+        const currentContainer = mapRef.current.getContainer?.();
         try {
           mapRef.current.stop?.();
           mapRef.current.off();
           mapRef.current.remove();
         } catch (_) {}
+        resetLeafletContainer(currentContainer ?? undefined);
         mapRef.current = null;
+      } else {
+        resetLeafletContainer(mapContainerRef.current);
       }
     };
   }, []);

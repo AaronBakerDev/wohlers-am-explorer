@@ -3,10 +3,10 @@ import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
-  variable: '--font-inter',
+  variable: '--font-inter'
 })
 
 export const metadata: Metadata = {

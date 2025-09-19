@@ -900,13 +900,13 @@ async function getFilterOptions(supabase: SupabaseClient<Database>) {
       technologiesResult,
       materialsResult
     ] = await Promise.all([
-      supabase.from('company_summaries_unified').select('country').not('country', 'is', null),
-      supabase.from('company_summaries_unified').select('state').not('state', 'is', null),
-      supabase.from('company_summaries_unified').select('company_type').not('company_type', 'is', null),
-      supabase.from('company_summaries_unified').select('segment').not('segment', 'is', null),
-      supabase.from('company_summaries_unified').select('primary_market').not('primary_market', 'is', null),
-      supabase.from('technologies_unified').select('id, name, category'),
-      supabase.from('materials_unified').select('id, name, material_type, material_format')
+      supabase.from('company_summaries').select('country').not('country', 'is', null),
+      supabase.from('company_summaries').select('state').not('state', 'is', null),
+      supabase.from('company_summaries').select('company_type').not('company_type', 'is', null),
+      supabase.from('company_summaries').select('segment').not('segment', 'is', null),
+      supabase.from('company_summaries').select('primary_market').not('primary_market', 'is', null),
+      supabase.from('technologies').select('id, name, category'),
+      supabase.from('materials').select('id, name, material_type, material_format')
     ])
     
     return {
@@ -947,7 +947,7 @@ async function getFilterOptions(supabase: SupabaseClient<Database>) {
  */
 export async function getCompaniesByDataset(
   datasetId: string, 
-  additionalFilters: Partial<CompanyFilters> = {}
+  additionalFilters: Partial<CompanyFilterRequest> = {}
 ): Promise<CompanyFilterResult[]> {
   // Import dataset filters
   const { DATASET_FILTERS } = await import('@/lib/filters/company-filters')

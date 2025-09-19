@@ -17,8 +17,8 @@ export async function GET() {
       .not('country', 'is', null)
       .limit(10000)
     const uniq = <T,>(arr: T[]) => Array.from(new Set(arr))
-    const types = uniq((typesRows || []).map((r: { company_type: string }) => r.company_type).filter(Boolean)).sort()
-    const countries = uniq((countryRows || []).map((r: { country: string }) => r.country).filter(Boolean)).sort()
+    const types = uniq((typesRows || []).map((r: { company_type: string | null }) => r.company_type).filter(Boolean)).sort()
+    const countries = uniq((countryRows || []).map((r: { country: string | null }) => r.country).filter(Boolean)).sort()
     return NextResponse.json({ types, countries })
   } catch (e: unknown) {
     return NextResponse.json({ error: e instanceof Error ? e.message : 'Unexpected error' }, { status: 500 })

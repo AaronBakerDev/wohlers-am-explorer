@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator'
 import { Plus, Pencil, Trash2, Search, Filter } from 'lucide-react'
 import { ResponsiveAdminLayout } from '@/components/admin/responsive-admin-layout'
-import type { Database, MarketData, TablesInsert, TablesUpdate } from '@/lib/supabase/types'
+import type { MarketData, TablesInsert, TablesUpdate } from '@/lib/supabase/types'
 
 // Supabase error type
 type SupabaseError = {
@@ -23,7 +23,6 @@ type SupabaseError = {
 
 // Use the proper MarketData type but maintain Row compatibility
 type Row = MarketData
-type MarketDataRow = MarketData
 type MarketDataInsert = TablesInsert<'market_data'>
 type MarketDataUpdate = TablesUpdate<'market_data'>
 

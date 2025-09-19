@@ -207,12 +207,12 @@ export async function GET() {
     };
 
     // assign to cache
-    cache = { data: payload, ts: Date.now() };
+    cache = { data: payload.data, ts: Date.now() };
 
     return NextResponse.json(payload);
   } catch (e: unknown) {
     return NextResponse.json(
-      { error: e?.message || "Unexpected analytics error" },
+      { error: e instanceof Error ? e.message : "Unexpected analytics error" },
       { status: 500 },
     );
   }

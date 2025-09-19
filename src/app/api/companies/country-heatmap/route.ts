@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
     // Pull minimal fields in pages to avoid implicit 1000-row limit
     const buildQuery = () => {
       let q = supabase
-        .from('company_summaries_unified')
+        .from('company_summaries')
         .select('id, country, equipment_count')
       if (type) q = q.eq('company_type', type)
       if (role) q = q.eq('company_role', role)
@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
 
     const PAGE = 1000
     let page = 0
-    let data: any[] = []
+    const data: Record<string, unknown>[] = []
     while (true) {
       const { data: chunk, error } = await buildQuery().range(page * PAGE, page * PAGE + PAGE - 1)
       if (error) return NextResponse.json({ error: error.message }, { status: 500 })

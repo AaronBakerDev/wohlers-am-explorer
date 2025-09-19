@@ -13,6 +13,7 @@
     "data:import-vendor": "node scripts/import-vendor-csv-data.js",
     "data:migrate-vendor": "node scripts/run-vendor-migration.js",
     "data:system-matrix": "node scripts/normalize-system-mfrs.js",
+    "data:load-beta": "node scripts/load-beta-stage.js",
     "migrate:unified": "node scripts/complete-unified-migration.js",
     "import:companies": "node scripts/import-companies-unified.js",
     "setup:unified": "node scripts/setup-unified-schema.js", 

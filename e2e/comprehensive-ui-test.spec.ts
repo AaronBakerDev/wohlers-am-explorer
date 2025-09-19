@@ -10,7 +10,7 @@ test.describe('Comprehensive UI Elements Test', () => {
       pagesVisited: 0,
       totalElements: 0,
       successfulClicks: 0,
-      failures: []
+      failures: [] as string[]
     };
 
     const pages = [
@@ -97,7 +97,7 @@ test.describe('Comprehensive UI Elements Test', () => {
                       if (tagName.toLowerCase() === 'button' || 
                           tagName.toLowerCase() === 'a' ||
                           className.includes('button') ||
-                          element.locator('button').count() > 0) {
+                          (await element.locator('button').count()) > 0) {
                         
                         await element.click({ timeout: 3000 });
                         console.log(`    ✓ Click successful`);
@@ -118,46 +118,56 @@ test.describe('Comprehensive UI Elements Test', () => {
                         console.log(`    ↳ Hover only (element type: ${tagName})`);
                       }
                       
-                    } catch (interactionError) {
-                      console.log(`    ⚠ Interaction failed: ${interactionError.message}`);
+                    } catch (interactionError: unknown) {
+                      const message = interactionError instanceof Error ? interactionError.message : 'Unknown interaction error';
+                      console.log(`    ⚠ Interaction failed: ${message}`);
                     }
                   } else {
                     console.log(`    ↳ Element not interactive (visible: ${isVisible}, enabled: ${isEnabled})`);
                   }
                   
-                } catch (elementError) {
-                  console.log(`  Element ${i + 1}: Error - ${elementError.message}`);
-                  testResults.failures.push(`${pageInfo.name} - ${strategy.name} - Element ${i + 1}: ${elementError.message}`);
+                } catch (elementError: unknown) {
+                  const message = elementError instanceof Error ? elementError.message : 'Unknown element error';
+                  console.log(`  Element ${i + 1}: Error - ${message}`);
+                  testResults.failures.push(`${pageInfo.name} - ${strategy.name} - Element ${i + 1}: ${message}`);
                 }
               }
             } else {
               console.log(`${strategy.name}: No elements found`);
             }
-          } catch (strategyError) {
-            console.log(`${strategy.name}: Strategy failed - ${strategyError.message}`);
+          } catch (strategyError: unknown) {
+            const message = strategyError instanceof Error ? strategyError.message : 'Unknown strategy error';
+            console.log(`${strategy.name}: Strategy failed - ${message}`);
           }
         }
         
         // Additional test: Look for any elements with event listeners
         const interactiveElements = await page.evaluate(() => {
           const elements = Array.from(document.querySelectorAll('*'));
-          const interactive = [];
+          const interactive: Array<{
+            tagName: string;
+            className: string;
+            text: string;
+            hasOnClick: boolean;
+            role: string | null;
+            tabIndex: string | null;
+          }> = [];
           
           elements.forEach((el, index) => {
             if (index > 1000) return; // Limit to prevent timeout
             
             const style = window.getComputedStyle(el);
-            const hasClickable = style.cursor === 'pointer' || 
-                               el.onclick !== null || 
+            const hasClickable = style.cursor === 'pointer' ||
+                               (el as HTMLElement).onclick !== null ||
                                el.getAttribute('role') === 'button' ||
                                el.getAttribute('tabindex') !== null;
-                               
-            if (hasClickable && el.offsetWidth > 0 && el.offsetHeight > 0) {
+
+            if (hasClickable && (el as HTMLElement).offsetWidth > 0 && (el as HTMLElement).offsetHeight > 0) {
               interactive.push({
                 tagName: el.tagName,
                 className: el.className,
                 text: el.textContent?.trim().substring(0, 30) || '',
-                hasOnClick: el.onclick !== null,
+                hasOnClick: (el as HTMLElement).onclick !== null,
                 role: el.getAttribute('role'),
                 tabIndex: el.getAttribute('tabindex')
               });
@@ -174,9 +184,10 @@ test.describe('Comprehensive UI Elements Test', () => {
           });
         }
         
-      } catch (pageError) {
-        console.log(`✗ Failed to test ${pageInfo.name}: ${pageError.message}`);
-        testResults.failures.push(`${pageInfo.name}: ${pageError.message}`);
+      } catch (pageError: unknown) {
+        const message = pageError instanceof Error ? pageError.message : 'Unknown page error';
+        console.log(`✗ Failed to test ${pageInfo.name}: ${message}`);
+        testResults.failures.push(`${pageInfo.name}: ${message}`);
       }
     }
     
